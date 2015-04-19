@@ -1,0 +1,13 @@
+*******************************************
+下面的Windows下编译环境配置方法
+
+1、解压opengl.tar.bz2
+
+2、将lib文件粘贴到Visual Studio的VC\lib文件夹下。例如：
+   C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\lib
+
+3、将dll文件粘贴到C:\Windows\System32目录下。
+   64位系统请拷贝到C:\Windows\SysWOW64目录下。
+
+4、启动工程即可。
+*******************************************
