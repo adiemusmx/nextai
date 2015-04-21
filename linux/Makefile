@@ -4,13 +4,14 @@ TARGET = snake
 # Compile Tool
 CXX = g++
 
+# Objects Files
+OBJECTS = main.o
+
 # CLAGS
 CFLAGS := -Wall
 CFLAGS += -O
 CFLAGS += -g
 CFLAGS += -MM
-
-OBJECTS = main.o
 
 # Libraries
 LIBS  = -lglut
