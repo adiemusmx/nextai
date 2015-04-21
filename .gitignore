@@ -23,9 +23,18 @@
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 
 # Backup files
 *~
+
+# Project files
+*.sdf
+*.opensdf
+*.pdb
+*.suo
+*.user
+Debug/
+Release/
+ipch/
