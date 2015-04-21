@@ -141,7 +141,6 @@ void displaySnake(void)
 	}
 }
 
-// 主表示函数
 void displayFunc(void)
 {
     glClear(GL_COLOR_BUFFER_BIT);
