@@ -1,3 +1,4 @@
+#include <windows.h>
 #include <GL/glut.h>
 
 // 位置的结构体
