@@ -1,4 +1,6 @@
+#ifndef _LINUX
 #include <windows.h>
+#endif
 #include <GL/glut.h>
 
 // 位置的结构体
