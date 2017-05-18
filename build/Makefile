@@ -57,7 +57,7 @@ endef
 %.d: %.c
 	$(DEP_BUILD)
 
-include $(DEPS)
+-include $(DEPS)
 .PHONY : clean
 clean :
 	rm -rf $(TARGET) $(OBJECTS) $(DEPS)
