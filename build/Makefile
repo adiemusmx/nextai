@@ -16,8 +16,19 @@ CFLAGS += -O
 CFLAGS += -g
 CFLAGS += -DGLUT_DISABLE_ATEXIT_HACK
 CFLAGS += -DGLUT_NO_WARNING_DISABLE
-ifeq ($(shell uname), Linux) 
-CFLAGS += -D_LINUX
+
+CFLAGS += -DBUILD_DEBUG
+
+ifeq ($(shell uname), Linux)
+CFLAGS += -DSYSTEM_LINUX
+else
+CFLAGS += -DSYSTEM_WINDOWS
+endif
+
+ifeq ($(shell getconf LONG_BIT), 32)
+CFLAGS += -DARCH_X86
+else
+CFLAGS += -DARCH_X64
 endif
 
 # Libraries dir

@@ -2,7 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-// ³õÊ¼»¯OPENGL½çÃæ
+// åˆå§‹åŒ–OPENGLç•Œé¢
 void initWindows(void)
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
@@ -11,13 +11,13 @@ void initWindows(void)
     glMatrixMode(GL_MODELVIEW);
     gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
 
-	// ³õÊ¼»¯Ğ¡ÉßµÄÊı¾İ
+	// åˆå§‹åŒ–å°è›‡çš„æ•°æ®
 	initSnake();
 
     return;
 }
 
-// »­Õı·½ĞÎ£¬ÓÃÓÚÏÔÊ¾·½¿é¡£Ö¸¶¨·½¿é×óÉÏ½ÇµÄ×ø±êºÍÑÕÉ«
+// ç”»æ­£æ–¹å½¢ï¼Œç”¨äºæ˜¾ç¤ºæ–¹å—ã€‚æŒ‡å®šæ–¹å—å·¦ä¸Šè§’çš„åæ ‡å’Œé¢œè‰²
 void displaySquare(GLint x, GLint y, GLint red, GLint green, GLint blue)
 {
 	glBegin(GL_QUADS);
@@ -31,40 +31,40 @@ void displaySquare(GLint x, GLint y, GLint red, GLint green, GLint blue)
 	glEnd();
 }
 
-// ±íÊ¾±ß¿òµÄº¯Êı
+// è¡¨ç¤ºè¾¹æ¡†çš„å‡½æ•°
 void displayBorder(void)
 {
-	// Ä¬ÈÏÊÇºìÉ«µÄ¿é
+	// é»˜è®¤æ˜¯çº¢è‰²çš„å—
 	GLint red = 1;
 	GLint green = 0;
 	GLint blue = 0;
 
-	// ÉÏ
+	// ä¸Š
 	for (GLint x = BORDER_LEFT; x <= BORDER_RIGHT; x = x + SQUARE_LENGTH)
 	{
 		displaySquare(x, BORDER_UP, red, green, blue);
 	}
 
-	// ÏÂ
+	// ä¸‹
 	for (GLint x = BORDER_LEFT; x <= BORDER_RIGHT; x = x + SQUARE_LENGTH)
 	{
 		displaySquare(x, BORDER_DOWN, red, green, blue);
 	}
 
-	// ×ó
+	// å·¦
 	for (GLint y = BORDER_DOWN; y <= BORDER_UP; y = y + SQUARE_LENGTH)
 	{
 		displaySquare(BORDER_LEFT, y, red, green, blue);
 	}
 
-	// ÓÒ
+	// å³
 	for (GLint y = BORDER_DOWN; y <= BORDER_UP; y = y + SQUARE_LENGTH)
 	{
 		displaySquare(BORDER_RIGHT, y, red, green, blue);
 	}
 }
 
-// ÅĞ¶ÏÊÇ·ñÊÇ±ß½ç
+// åˆ¤æ–­æ˜¯å¦æ˜¯è¾¹ç•Œ
 bool isBorder(GLint x, GLint y)
 {
 	if (x <= BORDER_LEFT || x >= BORDER_RIGHT || y <= BORDER_DOWN || y >= BORDER_UP)
@@ -77,7 +77,7 @@ bool isBorder(GLint x, GLint y)
 	}
 }
 
-// ³õÊ¼»¯Ğ¡Éß
+// åˆå§‹åŒ–å°è›‡
 void initSnake(void)
 {
 	isRunning = true;
@@ -92,7 +92,7 @@ void initSnake(void)
 	snakeBody[2].y = -2 * SQUARE_LENGTH;
 }
 
-// ÊÇ·ñÊÇĞ¡ÉßµÄ·¶Î§
+// æ˜¯å¦æ˜¯å°è›‡çš„èŒƒå›´
 bool isSnake(GLint x, GLint y)
 {
 	for (int i = 0; i < snakeLen; ++i)
@@ -105,7 +105,7 @@ bool isSnake(GLint x, GLint y)
 	return false;
 }
 
-// ÏÔÊ¾Ò»ÌõĞ¡Éß¡£Ö¸¶¨Ğ¡ÉßµÄÏÂÒ»¸öÎ»ÖÃ
+// æ˜¾ç¤ºä¸€æ¡å°è›‡ã€‚æŒ‡å®šå°è›‡çš„ä¸‹ä¸€ä¸ªä½ç½®
 void moveSnake(eDirection dir)
 {
 	GLint nextPositionX = snakeBody[0].x;
@@ -113,7 +113,7 @@ void moveSnake(eDirection dir)
 
 	isValidSetDirection = true;
 
-	// ÅĞ¶Ïµ±Ç°µÄ·½Ïò
+	// åˆ¤æ–­å½“å‰çš„æ–¹å‘
 	switch (dir)
 	{
 	case eDirectionUp:
@@ -130,12 +130,12 @@ void moveSnake(eDirection dir)
 		break;
 	}
 
-	// Èç¹ûÊÇÊ³Îï£¬Ôò³Ôµô
+	// å¦‚æœæ˜¯é£Ÿç‰©ï¼Œåˆ™åƒæ‰
 	if (isFood(nextPositionX, nextPositionY))
 	{
 		eatFood(nextPositionX, nextPositionY);
 	}
-	// Èç¹ûÊÇÇ½±Ú»òÕßÉß±¾Ìå£¬ÔòÍÆ³ö
+	// å¦‚æœæ˜¯å¢™å£æˆ–è€…è›‡æœ¬ä½“ï¼Œåˆ™æ¨å‡º
 	else if (isBorder(nextPositionX, nextPositionY) ||
 		isSnake(nextPositionX, nextPositionY))
 	{
@@ -143,22 +143,22 @@ void moveSnake(eDirection dir)
 		return;
 	}
 
-	// ÒÆ¶¯µ±Ç°µÄÊı¾İ
+	// ç§»åŠ¨å½“å‰çš„æ•°æ®
 	for (int i = snakeLen - 1; i > 0; --i)
 	{
 		snakeBody[i].x = snakeBody[i - 1].x;
 		snakeBody[i].y = snakeBody[i - 1].y;
 	}
 
-	// ÉèÖÃÍ·²¿µÄÎ»ÖÃ
+	// è®¾ç½®å¤´éƒ¨çš„ä½ç½®
 	snakeBody[0].x = nextPositionX;
 	snakeBody[0].y = nextPositionY;
 }
 
-// ±íÊ¾Ğ¡ÉßµÄÉíÌå
+// è¡¨ç¤ºå°è›‡çš„èº«ä½“
 void displaySnake(void)
 {
-	// Ä¬ÈÏÊÇÂÌÉ«µÄ¿é
+	// é»˜è®¤æ˜¯ç»¿è‰²çš„å—
 	GLint red = 0;
 	GLint green = 1;
 	GLint blue = 0;
@@ -170,29 +170,29 @@ void displaySnake(void)
 
 void displayFood(void)
 {
-	// Ä¬ÈÏÊÇÂÌÉ«µÄ¿é
+	// é»˜è®¤æ˜¯ç»¿è‰²çš„å—
 	GLint red = 0;
 	GLint green = 1;
 	GLint blue = 0;
 	displaySquare(foodPosition.x, foodPosition.y, red, green, blue);
 }
 
-// ÏÔÊ¾Ö÷º¯Êı
+// æ˜¾ç¤ºä¸»å‡½æ•°
 void displayFunc(void)
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glColor3f(1.0, 0, 0);
     
-	// Õ¹Ê¾ÓÎÏ·µÄ±ß¿ò
+	// å±•ç¤ºæ¸¸æˆçš„è¾¹æ¡†
 	displayBorder();
 
-	// ÏÔÊ¾Ò»ÌõĞ¡Éß
+	// æ˜¾ç¤ºä¸€æ¡å°è›‡
 	displaySnake();
 	
-	// ÏÔÊ¾Ê³Îï
+	// æ˜¾ç¤ºé£Ÿç‰©
 	displayFood();
 
-	// ½»»»Á½¸ö»º´æ
+	// äº¤æ¢ä¸¤ä¸ªç¼“å­˜
 	glutSwapBuffers();
 
     glFlush();
@@ -200,7 +200,7 @@ void displayFunc(void)
     return;
 }
 
-// ¿ÕÏĞ¿ØÖÆº¯Êı
+// ç©ºé—²æ§åˆ¶å‡½æ•°
 void idleFunc(void)
 {
 	static int count = 0;
@@ -208,7 +208,7 @@ void idleFunc(void)
 
 	if (count > 5)
 	{
-		// ÒÆ¶¯Ğ¡Éß
+		// ç§»åŠ¨å°è›‡
 		moveSnake(nextDirection);
 		count = 0;
 	}
@@ -216,16 +216,16 @@ void idleFunc(void)
 	displayFunc();
 }
 
-// Í¨¹ı¼üÅÌÉè¶¨·½Ïò
+// é€šè¿‡é”®ç›˜è®¾å®šæ–¹å‘
 void keySetNextPosition(eDirection dir)
 {
-	// Èç¹ûÖ®Ç°Éè¶¨µÄ·½ÏòÃ»ÓĞ±»Ãè»­£¬Ôò²»ÄÜ¸ü»»·½Ïò
+	// å¦‚æœä¹‹å‰è®¾å®šçš„æ–¹å‘æ²¡æœ‰è¢«æç”»ï¼Œåˆ™ä¸èƒ½æ›´æ¢æ–¹å‘
 	if (!isValidSetDirection)
 	{
 		return;
 	}
 
-	// Ğ¡Éß²»ÄÜÒòÎª¼üÅÌ¶ø·´ÏòÔË¶¯£¨ÓĞ¿ÉÄÜÖ®ºó´æÔÚ·´ÏòµÀ¾ß£©
+	// å°è›‡ä¸èƒ½å› ä¸ºé”®ç›˜è€Œåå‘è¿åŠ¨ï¼ˆæœ‰å¯èƒ½ä¹‹åå­˜åœ¨åå‘é“å…·ï¼‰
 	if ((dir == eDirectionUp && nextDirection == eDirectionDown) ||
 		(dir == eDirectionDown && nextDirection == eDirectionUp) ||
 		(dir == eDirectionLeft && nextDirection == eDirectionRight) ||
@@ -237,7 +237,7 @@ void keySetNextPosition(eDirection dir)
 	isValidSetDirection = false;
 }
 
-// ¼üÅÌ´¦Àíº¯Êı
+// é”®ç›˜å¤„ç†å‡½æ•°
 void keyBoardFunc(int key, int x, int y)
 {
 	switch (key)
@@ -257,7 +257,7 @@ void keyBoardFunc(int key, int x, int y)
 	}
 }
 
-// ÅĞ¶Ïµ±Ç°Î»ÖÃÊÇ²»ÊÇÊ³Îï
+// åˆ¤æ–­å½“å‰ä½ç½®æ˜¯ä¸æ˜¯é£Ÿç‰©
 bool isFood(GLint x, GLint y)
 {
 	if (x == foodPosition.x && y == foodPosition.y)
@@ -270,17 +270,17 @@ bool isFood(GLint x, GLint y)
 	}
 }
 
-// Ëæ»úÒ»¸öÊ³ÎïµÄÎ»ÖÃ
+// éšæœºä¸€ä¸ªé£Ÿç‰©çš„ä½ç½®
 stPosition randomFood(void)
 {
 	stPosition randomPos;
 	while (true)
 	{
-		// Ëæ»úÊı£¬´Ó±ß½çµ½±ß½ç
+		// éšæœºæ•°ï¼Œä»è¾¹ç•Œåˆ°è¾¹ç•Œ
 		randomPos.x = ((rand() % ((BORDER_RIGHT - BORDER_LEFT - 1) * 10) + 1) / 10.0f) + BORDER_LEFT;
 		randomPos.y = ((rand() % ((BORDER_UP - BORDER_DOWN - 1) * 10) + 1) / 10.0f) + BORDER_DOWN;
 
-		// ÅĞ¶Ïµ±Ç°µÄÎ»ÖÃÊÇ·ñ´æÔÚÊ³Îï£¬»òÕßÊÇ·ñÊÇÉßµÄÉíÌå
+		// åˆ¤æ–­å½“å‰çš„ä½ç½®æ˜¯å¦å­˜åœ¨é£Ÿç‰©ï¼Œæˆ–è€…æ˜¯å¦æ˜¯è›‡çš„èº«ä½“
 		if (isFood(randomPos.x, randomPos.y) || isSnake(randomPos.x, randomPos.y))
 		{
 			continue;
@@ -293,10 +293,10 @@ stPosition randomFood(void)
 	return randomPos;
 }
 
-// ³ÔµôÒ»¸öÊ³Îï
+// åƒæ‰ä¸€ä¸ªé£Ÿç‰©
 void eatFood(GLint x, GLint y)
 {
-	// ÅĞ¶Ïµ±Ç°µÄĞ¡ÉßÊÇ·ñÒÑ¾­³¬¹ıÁË×î´óµÄ³¤¶È
+	// åˆ¤æ–­å½“å‰çš„å°è›‡æ˜¯å¦å·²ç»è¶…è¿‡äº†æœ€å¤§çš„é•¿åº¦
 	if (snakeLen == SNAKE_MAX_LEN)
 	{
 		isRunning = false;
@@ -304,39 +304,39 @@ void eatFood(GLint x, GLint y)
 	
 	++snakeLen;
 
-	// ÒÆ¶¯µ±Ç°µÄÊı¾İ
+	// ç§»åŠ¨å½“å‰çš„æ•°æ®
 	for (int i = snakeLen - 1; i > 0; --i)
 	{
 		snakeBody[i].x = snakeBody[i - 1].x;
 		snakeBody[i].y = snakeBody[i - 1].y;
 	}
 
-	// ÉèÖÃÍ·²¿µÄÎ»ÖÃ
+	// è®¾ç½®å¤´éƒ¨çš„ä½ç½®
 	snakeBody[0].x = x;
 	snakeBody[0].y = y;
 
 	foodPosition = randomFood();
 }
 
-// Èë³¡º¯Êı
+// å…¥åœºå‡½æ•°
 int main(int argc, char *argv[])
 {
-	// ³õÊ¼»¯glut
+	// åˆå§‹åŒ–glut
     glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(480, 480);
     glutCreateWindow("OpenGL Game - Snake");
     
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	initWindows();
 
-	// Ãè»­
+	// æç”»
     glutDisplayFunc(displayFunc);
 	glutIdleFunc(idleFunc);
 	glutSpecialFunc(keyBoardFunc);
 
-	// Ö÷Ñ­»·
+	// ä¸»å¾ªç¯
     glutMainLoop();
 
     return 0;

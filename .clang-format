@@ -1,0 +1,16 @@
+BasedOnStyle: LLVM
+IndentWidth: 4
+MaxEmptyLinesToKeep: 4
+BreakBeforeBraces: Attach
+AllowShortIfStatementsOnASingleLine: true
+AllowShortCaseLabelsOnASingleLine: true
+IndentCaseLabels: true
+ObjCBlockIndentWidth: 4
+ObjCSpaceAfterProperty: true
+ColumnLimit: 80
+AlignTrailingComments: true
+SpaceAfterCStyleCast: true
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+AlwaysBreakTemplateDeclarations: true
+BinPackArguments: false
