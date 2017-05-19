@@ -98,7 +98,7 @@ void TObject::drawImpl()
 	return;
 }
 
-bool TObject::hit(const Point point, const E_HIT_TYPE hitType)
+bool TObject::hit(const IntPointDataModel point, const E_HIT_TYPE hitType)
 {
 	// 当前部品不显示，或者不可被点击
 	if (!m_enable || !m_isHitEnable) return false;
@@ -124,7 +124,7 @@ bool TObject::hit(const Point point, const E_HIT_TYPE hitType)
 		return false;
 }
 
-bool TObject::hitImpl(const Point point, const E_HIT_TYPE hitType)
+bool TObject::hitImpl(const IntPointDataModel point, const E_HIT_TYPE hitType)
 {
 	// 默认函数，无操作
 	return false;

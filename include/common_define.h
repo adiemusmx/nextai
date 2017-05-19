@@ -7,6 +7,6 @@
 #define D_TEXT_MAX_LENGTH 512
 
 // 拷贝构造函数
-#define D_DISABLE_COPY(typeName)                                               \
-    typeName &typeName(const typeName &);                                      \
+#define D_DISABLE_COPY(typeName)           \
+    typeName &typeName(const typeName &);  \
     typeName &operator=(const typeName &);

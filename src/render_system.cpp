@@ -1,5 +1,5 @@
 #include "GlutRender.h"
-#include <windows.h>
+
 #include "glut.h"
 #include "MessageCenter.h"
 

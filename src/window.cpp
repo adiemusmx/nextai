@@ -166,7 +166,7 @@ bool GLWindow::Create(const WCHAR * window_title,const WCHAR * class_name, HINST
 	DWORD windowExtendedStyle = WS_EX_APPWINDOW;						
 
 	/// 调整我们窗口的大小，使其客户区的大小为我们设置的大小
-	RECT windowRect = {GetPosX(), GetPosY(), GetPosX() + GetWidth(), GetPosY() + GetHeight()};
+	RectDataModel windowRect = {GetPosX(), GetPosY(), GetPosX() + GetWidth(), GetPosY() + GetHeight()};
 
 	windowExtendedStyle = WS_EX_APPWINDOW | WS_EX_WINDOWEDGE;	/**< 使窗口具有3D外观 */
 	int wid = GetSystemMetrics(SM_CXSCREEN);		/**< 获取当前屏幕宽 */

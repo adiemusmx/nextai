@@ -22,8 +22,8 @@ class TObject {
     virtual void drawImpl();
 
     // 点击函数，返回值用于判断是否需要其他部品继续处理该压下
-    virtual bool hit(const Point point, const E_HIT_TYPE hitType);
-    virtual bool hitImpl(const Point point, const E_HIT_TYPE hitType);
+    virtual bool hit(const IntPointDataModel point, const E_HIT_TYPE hitType);
+    virtual bool hitImpl(const IntPointDataModel point, const E_HIT_TYPE hitType);
 
     // 控件位置
     virtual void setArea(const Rect area);

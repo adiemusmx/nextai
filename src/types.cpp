@@ -1,6 +1,6 @@
 #include "ComType.h"
 
-bool Point::operator==(const Point& point)
+bool IntPointDataModel::operator==(const Point& point)
 {
 	if (m_x == point.m_x && m_y == point.m_y)
 		return true;
@@ -8,20 +8,20 @@ bool Point::operator==(const Point& point)
 		return false;
 }
 
-Point& Point::operator=(const Point& point)
+IntPointDataModel& IntPointDataModel::operator=(const Point& point)
 {
 	m_x = point.m_x;
 	m_y = point.m_y;
 	return *this;
 }
 
-Point::Point(INT32 x, INT32 y)
+IntPointDataModel::IntPointDataModel(INT32 x, INT32 y)
 {
 	m_x = x;
 	m_y = y;
 }
 
-Point::Point(const Point& rect)
+IntPointDataModel::IntPointDataModel(const Point& rect)
 {
 	m_x = rect.m_x;
 	m_y = rect.m_y;
@@ -42,7 +42,7 @@ Rect& Rect::operator=(const Rect& point)
 	return *this;
 }
 
-bool Rect::isInArea(const Point point)
+bool Rect::isInArea(const IntPointDataModel point)
 {
 	if (m_leftTop.m_x <= point.m_x && m_rightBottom.m_x >= point.m_x &&
 		m_leftTop.m_y <= point.m_y && m_rightBottom.m_y >= point.m_y)
@@ -51,7 +51,7 @@ bool Rect::isInArea(const Point point)
 		return false;
 }
 
-Rect::Rect(Point leftTop, Point rightBottom)
+Rect::Rect(IntPointDataModel leftTop, IntPointDataModel rightBottom)
 {
 	m_leftTop = leftTop;
 	m_rightBottom = rightBottom;

@@ -1,49 +1,51 @@
 #pragma once
 
-#include "common/define.h"
-#include "common/types.h"
+#include "common_define.h"
+#include "common_types.h"
 
 namespace Trinity {
 
-// LOG输出的位置
-enum E_LOG_OUTPUT {
-    E_LOG_OUTPUT_FILE,    // 输出到文件
-    E_LOG_OUTPUT_CONSOLE, // 输出到控制台
-}
+	// LOG输出的位置
+	enum E_LOG_OUTPUT {
+		E_LOG_OUTPUT_FILE,    // 输出到文件
+		E_LOG_OUTPUT_CONSOLE, // 输出到控制台
+		E_LOG_OUTPUT_MAX
+	}
 
-// LOG输出的级别
-enum E_LOG_LEVEL {
-    E_LOG_LEVEL_OFF,     // 关闭
-    E_LOG_LEVEL_VERBOSE, // 最详细
-    E_LOG_LEVEL_TRACE,   // 跟踪函数调用
-    E_LOG_LEVEL_INFO,    // 输出信息
-    E_LOG_LEVEL_WARNING, // 发生警告，可能不会影响功能
-    E_LOG_LEVEL_ERROR,   // 发生错误，会影响功能
-};
+	// LOG输出的级别
+	enum E_LOG_LEVEL {
+		E_LOG_LEVEL_OFF,     // 关闭
+		E_LOG_LEVEL_VERBOSE, // 最详细
+		E_LOG_LEVEL_TRACE,   // 跟踪函数调用
+		E_LOG_LEVEL_INFO,    // 输出信息
+		E_LOG_LEVEL_WARNING, // 发生警告，可能不会影响功能
+		E_LOG_LEVEL_ERROR,   // 发生错误，会影响功能
+		E_LOG_LEVEL_MAX
+	};
 
-// 输出log的对象
-class Logger {
-  public:
-    // 初始化LogManager
-    static Logger *getInstance();
+	// 输出log的对象
+	class Logger {
+	public:
+		// 初始化LogManager
+		static Logger *getInstance() {
+			static Logger instance;
+			return &intance;
+		}
 
-    // 输出LOG
-    void print(const CHAR *funcName, INT32 lineNum, E_LOG_LEVEL level,
-               const WCHAR *format, ...);
+		// 输出LOG
+		void print(const CHAR *funcName, INT32 lineNum, E_LOG_LEVEL level, const CHAR *format, ...);
 
-    // 设定Level是否可以输出LOG
-    void setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level);
+		// #未实现# 设定文件输出路径，最大D_TEXT_MAX_LENGTH
+		void openFile(WCHAR *filePath);
+		void closeFile();
 
-    // 设定文件输出路径（最大D_TEXT_MAX_LENGTH）
-    void setFilePath(WCHAR *filePath);
+		// #未实现# 设定Level是否可以输出LOG
+		void setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level);
 
-  private:
-    // 保存Level的许可
-    BOOL m_logLevel[E_LOG_OUTPUT][E_LOG_LEVEL_MAX];
-
-    // log文件保存路径
-    WCHAR m_logFilePath[D_TEXT_MAX_LENGTH];
-};
+	private:
+		// 保存Level的许可
+		BOOL m_logLevel[E_LOG_OUTPUT_MAX];
+	};
 }
 
 // 用于详细输出信息
