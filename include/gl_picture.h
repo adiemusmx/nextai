@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gl_object.h"
+#include "gl_bitmap.h"
 
 namespace Trinity {
 class GL_Picture : public GL_Object {
@@ -18,6 +19,6 @@ class GL_Picture : public GL_Object {
     // 禁止拷贝
     CLASS_disableCopy(GL_Picture);
 
-    char m_picturePath[D_FILE_PATH_MAX_LENGTH];
+	GL_Bitmap* m_bmp;
 };
 }

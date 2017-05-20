@@ -1,5 +1,7 @@
 #pragma once
 
+#include "common_types.h"
+
 #include <cstdlib>
 #include <stdio.h>
 
@@ -11,10 +13,11 @@ namespace Trinity {
 	class GL_Bitmap
 	{
 	public:
-		GL_Bitmap(const char *FileName);
+		GL_Bitmap(const char *fileName);
+		virtual ~GL_Bitmap();
 
 		// 设定纹理资源路径
-		bool setPicture(const char *filename);
+		BOOL setPicturePath(const char* fileName);
 		
 		// 取得纹理
 		GLuint getTexture();
@@ -23,10 +26,10 @@ namespace Trinity {
 		// 生成纹理
 		void generateTexture();
 
-		unsigned long sizeX;
-		unsigned long sizeY;
-		char *Data;
-		GLuint texture;
+		unsigned long m_width;
+		unsigned long m_height;
+		char *m_data;
+		GLuint m_texture;
 	};
 
 }

@@ -10,20 +10,24 @@
 
 namespace Trinity {
 
-	GL_Bitmap* bmp;
 	GL_Picture::GL_Picture(GL_Object *parent) :GL_Object(parent)
 	{
-		memset(m_picturePath, 0x00, sizeof(m_picturePath));
+		m_bmp = NULL;
 	}
 
 	GL_Picture::~GL_Picture()
 	{
+		if (m_bmp)
+			delete(m_bmp);
 	}
 
 	void GL_Picture::Draw()
 	{
+		if (!m_bmp)
+			return;
+
 		glEnable(GL_TEXTURE_2D);//图像有效化
-		glBindTexture(GL_TEXTURE_2D, bmp->getTexture());
+		glBindTexture(GL_TEXTURE_2D, m_bmp->getTexture());
 		glEnable(GL_ALPHA_TEST);//试描画开始
 		glBegin(GL_POLYGON);
 		glTexCoord2f(0.0f, 0.0f); glVertex2d(10, 230);//左下
@@ -39,8 +43,10 @@ namespace Trinity {
 	{
 		if (NULL != path)
 		{
-			strcpy_s(m_picturePath, ARRAY_LENGTH(m_picturePath), path);
-			bmp = new GL_Bitmap(path);
+			if (m_bmp)
+				m_bmp->setPicturePath(path);
+			else
+				m_bmp = new GL_Bitmap(path);
 		}
 	}
 }

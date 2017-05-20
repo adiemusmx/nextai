@@ -79,14 +79,6 @@ namespace Trinity {
 
 	void RenderSystem::draw()
 	{
-		// 用户自定义的绘制过程
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glLoadIdentity();
-
-		// Dummy
 		pic->Draw();
-
-		// 强制执行所有的OpenGL命令
-		//glFlush();
 	}
 }
