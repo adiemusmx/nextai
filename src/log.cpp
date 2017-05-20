@@ -1,38 +1,48 @@
-#include "Log.h"
-#include <stdarg.h>
-#include <stdio.h>
+#include "log.h"
+#include <cstdio>
+#include "util.h"
 
-bool Logger::m_LogLevelPermission[E_LOG_OUTPUT_MAX] = {
-	E_LOG_LEVEL_TRACE , E_LOG_LEVEL_WARNING
-};
+namespace Trinity {
 
-void Logger::print(const CHAR *funcName, INT32 lineNum, E_LOG_LEVEL level, const CHAR *format, ...) {
+	Logger::Logger() {
+		m_logLevel[E_LOG_OUTPUT_FILE] = E_LOG_LEVEL_TRACE;
+		m_logLevel[E_LOG_OUTPUT_CONSOLE] = E_LOG_LEVEL_WARNING;
+	}
 
-	if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
-		return;
+	Logger* Logger::getInstance() {
+		static Logger instance;
+		return &instance;
+	}
 
-	time_t nowTime;
-	time(&nowTime);
+	void Logger::print(const char *funcName, int32 lineNum, E_LOG_LEVEL level, const char *format, ...) {
 
-	CHAR message[D_TEXT_MAX_LENGTH + 20] = { 0 };
+		if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
+			return;
 
-	va_list pArgList;
-	va_start(pArgList, format);
-	vsnprintf(message, D_TEXT_MAX_LENGTH + 20, format, pArgList);
-	va_end(pArgList);
+		Time currentTime;
+		Util_getCurrentSystemTime(currentTime);
 
-	if (m_LogLevelPermission[E_LOG_OUTPUT_CONSOLE] <= level)
-		printf("[%02d:%02d:%03d][%s:%d]%s\n", (nowTime / 1000 / 60), ((nowTime / 1000) % 60), (nowTime % 1000), funcName, lineNum, message);
+		char message[D_TEXT_MAX_LENGTH + 50] = { 0 };
 
-	// 文件log未实现
-}
+		va_list pArgList;
+		va_start(pArgList, format);
+		vsnprintf(message, D_TEXT_MAX_LENGTH + 50, format, pArgList);
+		va_end(pArgList);
 
-void Logger::setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level) {
-	if (output < E_LOG_OUTPUT_FILE || output >= E_LOG_OUTPUT_MAX)
-		return;
+		if (m_logLevel[E_LOG_OUTPUT_CONSOLE] <= level)
+			printf("[%02d:%02d:%02d.%03d][%s:%d]%s\n", currentTime.hour, currentTime.minute, currentTime.second, currentTime.millisecond, funcName, lineNum, message);
 
-	if (level < E_LOG_LEVEL_OFF && level >= E_LOG_LEVEL_MAX)
-		return;
+		// 文件log未实现
+	}
 
-	m_LogLevelPermission[level] = permission;
+	void Logger::setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level) {
+		if (output < E_LOG_OUTPUT_FILE || output >= E_LOG_OUTPUT_MAX)
+			return;
+
+		if (level < E_LOG_LEVEL_OFF && level >= E_LOG_LEVEL_MAX)
+			return;
+
+		m_logLevel[output] = level;
+	}
+
 }

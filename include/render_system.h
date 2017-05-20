@@ -1,47 +1,37 @@
-#pragma once
+﻿#pragma once
 
-#include "render_system/t_picture.h"
-#include "render_system/t_window.h"
+#include "gl_picture.h"
+#include "gl_window.h"
 
 namespace Trinity {
 
-class RenderSystem {
+	class RenderSystem {
 
-  public:
-    /* 获得Render的实例 */
-    static RenderSystem *getInstance();
+	public:
+		/* 获得Render的实例 */
+		static RenderSystem *getInstance();
 
-    void Init(HINSTANCE hInstance);
-    static LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam,
-                                       LPARAM lParam);
+		void init(int* argc, char *argv[]);
 
-  private:
-    // 构造函数
-    RenderSystem();
+		void mainLoop();
 
-    // 禁止拷贝构造
-    D_DISABLE_COPY(RenderSystem);
+		// 显示主函数
+		static void displayFunc(void);
 
-    // 终止程序
-    void TerminateApplication();
+		// 空闲控制函数
+		static void idleFunc(void);
 
-    // 描画函数
-    void Draw();
+		// 键盘处理函数
+		static void keyBoardFunc(int key, int x, int y);
 
-    // 初始化OpenGL
-    bool InitOpenGL();
+	private:
+		// 构造函数
+		RenderSystem();
 
-  private:
-    // 环境句柄
-    HINSTANCE m_hInstance;
+		// 禁止拷贝构造
+		CLASS_disableCopy(RenderSystem);
 
-    // 类名
-    WCHAR m_className[10];
-
-    // 当前是否处理消息
-    BOOL m_enableMessageLoop;
-
-    // Window类
-    TWindow m_window;
-};
+		// 描画函数
+		void draw();
+	};
 }

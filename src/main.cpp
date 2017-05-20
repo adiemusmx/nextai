@@ -1,343 +1,149 @@
-#include "define.h"
-#include <time.h>
-#include <stdlib.h>
+﻿#if 1
+#include "render_system.h"
 
-// 初始化OPENGL界面
-void initWindows(void)
+void main(int argc, char *argv[])
 {
-    glClearColor(0.0, 0.0, 0.0, 0.0);
-    glMatrixMode(GL_PROJECTION);
-    glOrtho(-52, 53, -53, 52, 5, 15);
-    glMatrixMode(GL_MODELVIEW);
-    gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+	Trinity::RenderSystem* rs = Trinity::RenderSystem::getInstance();
 
-	// 初始化小蛇的数据
-	initSnake();
-
-    return;
-}
-
-// 画正方形，用于显示方块。指定方块左上角的坐标和颜色
-void displaySquare(GLint x, GLint y, GLint red, GLint green, GLint blue)
-{
-	glBegin(GL_QUADS);
-
-	glColor3f(red, green, blue);
-	glVertex2f(x,y);
-	glVertex2f(x + SQUARE_LENGTH, y);
-	glVertex2f(x + SQUARE_LENGTH, y - SQUARE_LENGTH);
-	glVertex2f(x, y - SQUARE_LENGTH);
-
-	glEnd();
-}
-
-// 表示边框的函数
-void displayBorder(void)
-{
-	// 默认是红色的块
-	GLint red = 1;
-	GLint green = 0;
-	GLint blue = 0;
-
-	// 上
-	for (GLint x = BORDER_LEFT; x <= BORDER_RIGHT; x = x + SQUARE_LENGTH)
-	{
-		displaySquare(x, BORDER_UP, red, green, blue);
-	}
-
-	// 下
-	for (GLint x = BORDER_LEFT; x <= BORDER_RIGHT; x = x + SQUARE_LENGTH)
-	{
-		displaySquare(x, BORDER_DOWN, red, green, blue);
-	}
-
-	// 左
-	for (GLint y = BORDER_DOWN; y <= BORDER_UP; y = y + SQUARE_LENGTH)
-	{
-		displaySquare(BORDER_LEFT, y, red, green, blue);
-	}
-
-	// 右
-	for (GLint y = BORDER_DOWN; y <= BORDER_UP; y = y + SQUARE_LENGTH)
-	{
-		displaySquare(BORDER_RIGHT, y, red, green, blue);
-	}
-}
-
-// 判断是否是边界
-bool isBorder(GLint x, GLint y)
-{
-	if (x <= BORDER_LEFT || x >= BORDER_RIGHT || y <= BORDER_DOWN || y >= BORDER_UP)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-// 初始化小蛇
-void initSnake(void)
-{
-	isRunning = true;
-	foodPosition = randomFood();
-
-	snakeLen = SNAKE_INIT_LEN;
-	snakeBody[0].x = 0;
-	snakeBody[0].y = 0;
-	snakeBody[1].x = 0;
-	snakeBody[1].y = -1 * SQUARE_LENGTH;
-	snakeBody[2].x = 0;
-	snakeBody[2].y = -2 * SQUARE_LENGTH;
-}
-
-// 是否是小蛇的范围
-bool isSnake(GLint x, GLint y)
-{
-	for (int i = 0; i < snakeLen; ++i)
-	{
-		if (snakeBody[i].x == x && snakeBody[i].y == y)
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-// 显示一条小蛇。指定小蛇的下一个位置
-void moveSnake(eDirection dir)
-{
-	GLint nextPositionX = snakeBody[0].x;
-	GLint nextPositionY = snakeBody[0].y;
-
-	isValidSetDirection = true;
-
-	// 判断当前的方向
-	switch (dir)
-	{
-	case eDirectionUp:
-		nextPositionY += SQUARE_LENGTH;
-		break;
-	case eDirectionDown:
-		nextPositionY += -SQUARE_LENGTH;
-		break;
-	case eDirectionLeft:
-		nextPositionX += -SQUARE_LENGTH;
-		break;
-	case eDirectionRight:
-		nextPositionX += SQUARE_LENGTH;
-		break;
-	}
-
-	// 如果是食物，则吃掉
-	if (isFood(nextPositionX, nextPositionY))
-	{
-		eatFood(nextPositionX, nextPositionY);
-	}
-	// 如果是墙壁或者蛇本体，则推出
-	else if (isBorder(nextPositionX, nextPositionY) ||
-		isSnake(nextPositionX, nextPositionY))
-	{
-		isRunning = false;
-		return;
-	}
-
-	// 移动当前的数据
-	for (int i = snakeLen - 1; i > 0; --i)
-	{
-		snakeBody[i].x = snakeBody[i - 1].x;
-		snakeBody[i].y = snakeBody[i - 1].y;
-	}
-
-	// 设置头部的位置
-	snakeBody[0].x = nextPositionX;
-	snakeBody[0].y = nextPositionY;
-}
-
-// 表示小蛇的身体
-void displaySnake(void)
-{
-	// 默认是绿色的块
-	GLint red = 0;
-	GLint green = 1;
-	GLint blue = 0;
-	for (int i = 0; i < snakeLen; ++i)
-	{
-		displaySquare(snakeBody[i].x, snakeBody[i].y, red, green, blue);
-	}
-}
-
-void displayFood(void)
-{
-	// 默认是绿色的块
-	GLint red = 0;
-	GLint green = 1;
-	GLint blue = 0;
-	displaySquare(foodPosition.x, foodPosition.y, red, green, blue);
-}
-
-// 显示主函数
-void displayFunc(void)
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0, 0, 0);
-    
-	// 展示游戏的边框
-	displayBorder();
-
-	// 显示一条小蛇
-	displaySnake();
-	
-	// 显示食物
-	displayFood();
-
-	// 交换两个缓存
-	glutSwapBuffers();
-
-    glFlush();
-
-    return;
-}
-
-// 空闲控制函数
-void idleFunc(void)
-{
-	static int count = 0;
-	count++;
-
-	if (count > 5)
-	{
-		// 移动小蛇
-		moveSnake(nextDirection);
-		count = 0;
-	}
-	
-	displayFunc();
-}
-
-// 通过键盘设定方向
-void keySetNextPosition(eDirection dir)
-{
-	// 如果之前设定的方向没有被描画，则不能更换方向
-	if (!isValidSetDirection)
-	{
-		return;
-	}
-
-	// 小蛇不能因为键盘而反向运动（有可能之后存在反向道具）
-	if ((dir == eDirectionUp && nextDirection == eDirectionDown) ||
-		(dir == eDirectionDown && nextDirection == eDirectionUp) ||
-		(dir == eDirectionLeft && nextDirection == eDirectionRight) ||
-		(dir == eDirectionRight && nextDirection == eDirectionLeft))
-	{
-		return;
-	}
-	nextDirection = dir;
-	isValidSetDirection = false;
-}
-
-// 键盘处理函数
-void keyBoardFunc(int key, int x, int y)
-{
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		keySetNextPosition(eDirectionUp);
-		break;
-	case GLUT_KEY_DOWN:
-		keySetNextPosition(eDirectionDown);
-		break;
-	case GLUT_KEY_LEFT:
-		keySetNextPosition(eDirectionLeft);
-		break;
-	case GLUT_KEY_RIGHT:
-		keySetNextPosition(eDirectionRight);
-		break;
-	}
-}
-
-// 判断当前位置是不是食物
-bool isFood(GLint x, GLint y)
-{
-	if (x == foodPosition.x && y == foodPosition.y)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-// 随机一个食物的位置
-stPosition randomFood(void)
-{
-	stPosition randomPos;
-	while (true)
-	{
-		// 随机数，从边界到边界
-		randomPos.x = ((rand() % ((BORDER_RIGHT - BORDER_LEFT - 1) * 10) + 1) / 10.0f) + BORDER_LEFT;
-		randomPos.y = ((rand() % ((BORDER_UP - BORDER_DOWN - 1) * 10) + 1) / 10.0f) + BORDER_DOWN;
-
-		// 判断当前的位置是否存在食物，或者是否是蛇的身体
-		if (isFood(randomPos.x, randomPos.y) || isSnake(randomPos.x, randomPos.y))
-		{
-			continue;
-		}
-		else
-		{
-			break;
-		}
-	}
-	return randomPos;
-}
-
-// 吃掉一个食物
-void eatFood(GLint x, GLint y)
-{
-	// 判断当前的小蛇是否已经超过了最大的长度
-	if (snakeLen == SNAKE_MAX_LEN)
-	{
-		isRunning = false;
-	}
-	
-	++snakeLen;
-
-	// 移动当前的数据
-	for (int i = snakeLen - 1; i > 0; --i)
-	{
-		snakeBody[i].x = snakeBody[i - 1].x;
-		snakeBody[i].y = snakeBody[i - 1].y;
-	}
-
-	// 设置头部的位置
-	snakeBody[0].x = x;
-	snakeBody[0].y = y;
-
-	foodPosition = randomFood();
-}
-
-// 入场函数
-int main(int argc, char *argv[])
-{
-	// 初始化glut
-    glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
-    glutInitWindowPosition(100, 100);
-    glutInitWindowSize(480, 480);
-    glutCreateWindow("OpenGL Game - Snake");
-    
-	// 初始化
-	initWindows();
-
-	// 描画
-    glutDisplayFunc(displayFunc);
-	glutIdleFunc(idleFunc);
-	glutSpecialFunc(keyBoardFunc);
+	rs->init(&argc, argv);
 
 	// 主循环
-    glutMainLoop();
-
-    return 0;
+	rs->mainLoop();
 }
+
+#else
+#include <stdlib.h>
+#include <GL/glut.h>
+#include <stdio.h>
+#define WIDTH 320
+#define HEIGHT 240
+class BMP
+{
+public:
+	unsigned long sizeX;  //横
+	unsigned long sizeY; //竖
+	char *Data;  //放置图像数据
+	bool Load(char *filename);
+	GLuint texture;
+	void TexSet();
+	BMP(char *FileName);
+};
+BMP::BMP(char *FileName) {
+	Load(FileName);
+	TexSet();
+}
+bool BMP::Load(char *FileName) {
+	FILE *File;
+	unsigned long size;// 主要大小
+	unsigned long i;// 计数
+	unsigned short int planes;        //面数
+	unsigned short int bpp;            // 像素数
+	char temp;                         // 颜色相关
+									   //打开图片
+	fopen_s(&File, FileName, "rb");
+	if (File == NULL) {
+		printf("图片不存在");
+		return false;
+	}
+	//移动至图像的横向
+	fseek(File, 18, SEEK_CUR);
+	//读取横向
+	if ((i = fread(&sizeX, 4, 1, File)) != 1) {
+		printf("读取失败");
+		return false;
+	}
+	//读取纵向
+	if ((i = fread(&sizeY, 4, 1, File)) != 1) {
+		printf("读取失败");
+		return false;
+	}
+	//计算图像的尺寸
+	size = sizeX * sizeY * 3;
+	if ((fread(&planes, 2, 1, File)) != 1) {   //bmp填1
+		printf("读取失败");
+		return false;
+	}
+	if (planes != 1) {
+		printf("不是bmp图像");
+		return false;
+	}
+	//读取像素值
+	if ((i = fread(&bpp, 2, 1, File)) != 1) {
+		printf("读取像素值失败");
+		return false;
+	}
+	if (bpp != 24) {//如果不是24bpp的话失败
+		printf("不是24bit图像");
+		return false;
+	}
+	//跳过24bit，监测RGB数据
+	fseek(File, 24, SEEK_CUR);    //读取数据
+	Data = (char *)malloc(size);
+	if (Data == NULL) {
+		printf("内存量不能锁定");
+		return false;
+	}
+	if ((i = fread(Data, size, 1, File)) != 1) {
+		printf("不能读取数据");
+		return false;
+	}
+	for (i = 0; i < size; i += 3) { //bgr -> rgb
+		temp = Data[i];
+		Data[i] = Data[i + 2];
+		Data[i + 2] = temp;
+	}
+	return true;
+}
+void BMP::TexSet()
+{
+	glEnable(GL_TEXTURE_2D);
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, sizeX, sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, Data);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+BMP *bmp;
+void display(void)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glOrtho(0.0, WIDTH, HEIGHT, 0.0, -1.0, 1.0);
+	glEnable(GL_TEXTURE_2D);//图像有效化
+	glBindTexture(GL_TEXTURE_2D, bmp->texture);
+	glEnable(GL_ALPHA_TEST);//试描画开始
+	glBegin(GL_POLYGON);
+	glTexCoord2f(0.0f, 0.0f); glVertex2d(10, 230);//左下
+	glTexCoord2f(0.0f, 1.0f); glVertex2d(10, 10);//左上
+	glTexCoord2f(1.0f, 1.0f); glVertex2d(310, 10);//右上
+	glTexCoord2f(1.0f, 0.0f); glVertex2d(310, 230);//右下
+	glEnd();
+	glDisable(GL_ALPHA_TEST);//试描画结束
+	glDisable(GL_TEXTURE_2D);//图像无效
+	glutSwapBuffers();
+}
+void idle(void)
+{
+	glutPostRedisplay();
+}
+void Init() {
+	glClearColor(0.0, 0.0, 0.0, 1.0);
+	glOrtho(0, WIDTH, HEIGHT, 0, -1, 1);
+	bmp = new BMP("res/background.bmp");
+}
+int main(int argc, char *argv[])
+{
+	glutInitWindowPosition(100, 100);
+	glutInitWindowSize(WIDTH, HEIGHT);
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+	glutCreateWindow("读取BMP图像并显示");
+	glutDisplayFunc(display);
+	glutIdleFunc(idle);
+	Init();
+	glutMainLoop();
+	return 0;
+}
+#endif
