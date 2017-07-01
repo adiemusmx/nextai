@@ -2,7 +2,7 @@
 
 #include "GL/glut.h"
 #include "message_center.h"
-#include "GL_Picture.h"
+#include "gl_picture.h"
 
 namespace Trinity {
 

@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 #include <GL/glut.h>
-#include <GL/GLU.h>
+#include <GL/glu.h>
 
 namespace Trinity {
 
