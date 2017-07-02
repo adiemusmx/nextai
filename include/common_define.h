@@ -7,7 +7,7 @@
 #define D_TEXT_MAX_LENGTH 512
 
 // Disable class' copy constructor.
-#define CLASS_disableCopy(typeName)	\
+#define D_CLASS_DISABLE_COPY(typeName)	\
     typeName(const typeName &);		\
     typeName &operator=(const typeName &);
 

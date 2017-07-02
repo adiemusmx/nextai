@@ -28,7 +28,7 @@ namespace Trinity {
 		GLRenderer();
 
 		// 禁止拷贝构造
-		CLASS_disableCopy(GLRenderer);
+		D_CLASS_DISABLE_COPY(GLRenderer);
 
 		// 描画函数
 		void draw();
