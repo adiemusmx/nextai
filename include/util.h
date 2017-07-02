@@ -5,7 +5,7 @@ namespace Trinity {
 
 	// Get the current system time.
 	// # TODO # Now only works on Windows.
-	struct Time {
+	struct DateTime {
 		int32 year;
 		int32 month;
 		int32 day;
@@ -15,6 +15,6 @@ namespace Trinity {
 		int32 millisecond;
 	};
 
-	void Util_getCurrentSystemTime(Time& time);
+	void Util_getCurrentSystemTime(DateTime& dateTime);
 
 }

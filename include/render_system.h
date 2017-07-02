@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "gl_picture.h"
-#include "gl_window.h"
 
 namespace Trinity {
 

@@ -5,6 +5,9 @@ namespace Trinity {
 
 	GL_Bitmap::GL_Bitmap(const char* fileName) {
 		m_texture = 0;
+		m_width = 0;
+		m_height = 0;
+		m_data = NULL;
 		setPicturePath(fileName);
 	}
 
@@ -18,33 +21,33 @@ namespace Trinity {
 	BOOL GL_Bitmap::setPicturePath(const char* fileName) 
 	{
 		FILE *fp;
-		unsigned long size;					// 主要大小
-		unsigned long i;					// 计数
-		unsigned short int planes;			//面数
-		unsigned short int bpp;				// 像素数
-		char temp;							// 颜色相关
+		unsigned long size;
+		unsigned long i;
+		unsigned short int planes;
+		unsigned short int bpp;
+		char temp;
 
-		fopen_s(&fp, fileName, "rb");
+		fp = fopen(fileName, "rb");
+
 		if (fp == NULL) {
 			TRI_ERROR_LOG("Image[%s] do NOT exist.", fileName);
 			return FALSE;
 		}
-		//移动至图像的横向
 		fseek(fp, 18, SEEK_CUR);
 
-		//读取横向
 		if ((i = fread(&m_width, 4, 1, fp)) != 1) {
 			TRI_ERROR_LOG("Image[%s] read width failed.", fileName);
 			return FALSE;
 		}
-		//读取纵向
+
 		if ((i = fread(&m_height, 4, 1, fp)) != 1) {
 			TRI_ERROR_LOG("Image[%s] read height failed.", fileName);
 			return FALSE;
 		}
-		//计算图像的尺寸
+
+		TRI_INFO_LOG("m_width[%lu] m_height[%lu]", m_width, m_height)
 		size = m_width * m_height * 3;
-		if ((fread(&planes, 2, 1, fp)) != 1) {   //bmp填1
+		if ((fread(&planes, 2, 1, fp)) != 1) {
 			TRI_ERROR_LOG("Image[%s] read planes' flag failed.", fileName);
 			return FALSE;
 		}
@@ -52,27 +55,27 @@ namespace Trinity {
 			TRI_ERROR_LOG("Image[%s] is not bmp file.", fileName);
 			return FALSE;
 		}
-		//读取像素值
+
 		if ((i = fread(&bpp, 2, 1, fp)) != 1) {
 			TRI_ERROR_LOG("Can NOT read Image[%s] bpp.", fileName);
 			return FALSE;
 		}
-		if (bpp != 24) {//如果不是24bpp的话失败
+		if (bpp != 24) {
 			TRI_ERROR_LOG("Image[%s] is not 24bpp.", fileName);
 			return FALSE;
 		}
-		//跳过24bit，监测RGB数据
-		fseek(fp, 24, SEEK_CUR);    //读取数据
+
+		fseek(fp, 24, SEEK_CUR);
 		m_data = (char *)malloc(size);
 		if (m_data == NULL) {
-			TRI_ERROR_LOG("Image[%s]'s malloc failed.", fileName);
+			TRI_ERROR_LOG("Image[%s]'s malloc failed. size[%lu]", fileName, size);
 			return FALSE;
 		}
 		if ((i = fread(m_data, size, 1, fp)) != 1) {
 			TRI_ERROR_LOG("Can NOT read image[%s] data.", fileName);
 			return FALSE;
 		}
-		for (i = 0; i < size; i += 3) { //bgr -> rgb
+		for (i = 0; i < size; i += 3) {
 			temp = m_data[i];
 			m_data[i] = m_data[i + 2];
 			m_data[i + 2] = temp;

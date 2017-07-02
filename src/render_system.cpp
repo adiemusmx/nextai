@@ -25,10 +25,8 @@ namespace Trinity {
 		glutIdleFunc(idleFunc);
 		glutSpecialFunc(keyBoardFunc);
 
-//		glClearColor(0.0, 0.0, 0.0, 1.0);
-//		glOrtho(0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -1, 1);
 		pic = new GL_Picture(NULL);
-		pic->setPicturePath("res/background.bmp");
+		pic->setPicturePath("../res/background.bmp");
 	}
 
 	void RenderSystem::mainLoop()

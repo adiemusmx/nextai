@@ -16,14 +16,14 @@ namespace Trinity {
 		GL_Bitmap(const char *fileName);
 		virtual ~GL_Bitmap();
 
-		// 设定纹理资源路径
+		// Set the picture's path.
 		BOOL setPicturePath(const char* fileName);
 		
-		// 取得纹理
+		// Get texture of bitmap.
 		GLuint getTexture();
 
 	private:
-		// 生成纹理
+		// Generate texture
 		void generateTexture();
 
 		unsigned long m_width;

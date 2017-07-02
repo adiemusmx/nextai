@@ -30,71 +30,72 @@ namespace Trinity {
 		static Logger *getInstance();
 
 		// 输出LOG
-		void print(const char *funcName, int32 lineNum, E_LOG_LEVEL level, const char *format, ...);
+		void print(const char *funcName, int32 lineNum, E_LOG_LEVEL level, const char* content);
 
 		// #未实现# 设定文件输出路径，最大D_TEXT_MAX_LENGTH
 		void openFile(char *filePath);
 		void closeFile();
 
-		// #未实现# 设定Level是否可以输出LOG
 		void setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level);
 
 	private:
 		Logger();
 		CLASS_disableCopy(Logger);
 
-		// 保存Level的许可
 		BOOL m_logLevel[E_LOG_OUTPUT_MAX];
 	};
 }
 
-// 用于详细输出信息
-#define TRI_VERBOSE_LOG(format, ...)                                                      \
-    {                                                                                     \
-        WCHAR __log[D_TEXT_MAX_LENGTH];                                                   \
-        sprintf_s(__log, D_TEXT_MAX_LENGTH, format, ##__VA_ARGS__);                       \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_VERBOSE, __log); \
-    }
+#define TRI_VERBOSE_LOG(format,...) { \
+	cqCHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_VERBOSE, _temp_log_buffer); }
 
-// 用于函数开始
-#define TRI_TRACE_LOG_START()                                                               \
-    {                                                                                       \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[START]"); \
-    }
+#define TRI_TRACE_LOG_START() { \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[START]");}
 
-// 用于函数结尾
-#define TRI_TRACE_LOG_END()                                                               \
-    {                                                                                     \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[END]"); \
-    }
+#define TRI_TRACE_LOG_END() { \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[END]"); }
 
-// 用于函数中间，需要提供一个char*类型的flag值用于区分
-#define TRI_TRACE_LOG(format, ...)                                                      \
-    {                                                                                   \
-        char __log[D_TEXT_MAX_LENGTH];                                                 \
-        sprintf_s(__log, D_TEXT_MAX_LENGTH, format, ##__VA_ARGS__);                     \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, __log); \
-    }
+#define TRI_TRACE_LOG() {	\
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, ""); }
 
-#define TRI_INFO_LOG(format, ...)                                                      \
-    {                                                                                  \
-        char __log[D_TEXT_MAX_LENGTH];                                                \
-        sprintf_s(__log, D_TEXT_MAX_LENGTH, format, ##__VA_ARGS__);                    \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, __log); \
-    }
+#define TRI_TRACE_LOG_FLAG(flag) { \
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, "%s", flag); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
 
-// 用于输出警告，请尽量使用自然语言，即使没有源码的人，也能了解警告的内容或者可能造成的后果
-#define TRI_WARNING_LOG(format, ...)                                                      \
-    {                                                                                     \
-        char __log[D_TEXT_MAX_LENGTH];                                                   \
-        sprintf_s(__log, D_TEXT_MAX_LENGTH, format, ##__VA_ARGS__);                       \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, __log); \
-    }
+#define TRI_TRACE_LOG_FLAG_END(flag) { \
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, "[END] %s", flag); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
 
-// 用于输出错误，请尽量使用自然语言，即使没有源码的人，也能了解错误的内容或者可能造成的后果
-#define TRI_ERROR_LOG(format, ...)                                                      \
-    {                                                                                   \
-        char __log[D_TEXT_MAX_LENGTH];                                                 \
-        sprintf_s(__log, D_TEXT_MAX_LENGTH, format, ##__VA_ARGS__);                     \
-        Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, __log); \
-    }
+#define TRI_INFO_LOG(format,...) { \
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
+
+#define TRI_INFO_W_LOG(format,...) { \
+	WCHAR _temp_log_buffer[512]; \
+	swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
+
+#define TRI_WARNING_LOG(format,...) { \
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
+
+#define TRI_WARNING_W_LOG(format,...) { \
+	WCHAR _temp_log_buffer[512]; \
+	swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
+
+#define TRI_ERROR_LOG(format,...) { \
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
+
+#define TRI_ERROR_W_LOG(format,...) { \
+	WCHAR _temp_log_buffer[512]; \
+	swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }

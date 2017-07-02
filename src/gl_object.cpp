@@ -12,7 +12,7 @@ namespace Trinity {
 			parent->addChild(this);
 		m_parent = parent;
 
-		STRUCT_invalid(&m_area);
+		memset(&m_area, 0x00, sizeof(m_area));
 		m_isHitEnable = false;
 		m_enable = true;
 		m_isHitTrans = false;
