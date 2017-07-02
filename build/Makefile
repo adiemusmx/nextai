@@ -1,5 +1,5 @@
 # The Target File Name
-TARGET = app.exe
+TARGET = app
 
 # Compile Tool
 CXX = g++
