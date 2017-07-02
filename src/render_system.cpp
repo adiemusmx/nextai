@@ -6,13 +6,13 @@
 
 namespace Trinity {
 
-	RenderSystem* RenderSystem::getInstance()
+	GLRenderer* GLRenderer::getInstance()
 	{
-		static RenderSystem render;
+		static GLRenderer render;
 		return &render;
 	}
 	GL_Picture* pic;
-	void RenderSystem::init(int* argc, char *argv[])
+	void GLRenderer::init(int* argc, char *argv[])
 	{
 		glutInitWindowPosition(SCREEN_AREA_LEFT, SCREEN_AREA_TOP);
 		glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -29,38 +29,38 @@ namespace Trinity {
 		pic->setPicturePath("../res/background.bmp");
 	}
 
-	void RenderSystem::mainLoop()
+	void GLRenderer::mainLoop()
 	{
 		glutMainLoop();
 	}
 
-	RenderSystem::RenderSystem()
+	GLRenderer::GLRenderer()
 	{
 	}
 
 	
 	// 显示主函数
-	void RenderSystem::displayFunc(void)
+	void GLRenderer::displayFunc(void)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glOrtho(0.0, 480, 480, 0.0, -1.0, 1.0);
 
-		RenderSystem::getInstance()->draw();
+		GLRenderer::getInstance()->draw();
 
 		// 交换两个缓存
 		glutSwapBuffers();
 	}
 
 	// 空闲控制函数
-	void RenderSystem::idleFunc(void)
+	void GLRenderer::idleFunc(void)
 	{
 		glutPostRedisplay();
 	}
 
 	// 键盘处理函数
-	void RenderSystem::keyBoardFunc(int key, int x, int y)
+	void GLRenderer::keyBoardFunc(int key, int x, int y)
 	{
 		switch (key)
 		{
@@ -75,7 +75,7 @@ namespace Trinity {
 		}
 	}
 
-	void RenderSystem::draw()
+	void GLRenderer::draw()
 	{
 		pic->Draw();
 	}

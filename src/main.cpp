@@ -2,7 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-	Trinity::RenderSystem* rs = Trinity::RenderSystem::getInstance();
+	Trinity::GLRenderer* rs = Trinity::GLRenderer::getInstance();
 
 	rs->init(&argc, argv);
 

@@ -4,11 +4,11 @@
 
 namespace Trinity {
 
-	class RenderSystem {
+	class GLRenderer {
 
 	public:
 		/* 获得Render的实例 */
-		static RenderSystem *getInstance();
+		static GLRenderer *getInstance();
 
 		void init(int* argc, char *argv[]);
 
@@ -25,10 +25,10 @@ namespace Trinity {
 
 	private:
 		// 构造函数
-		RenderSystem();
+		GLRenderer();
 
 		// 禁止拷贝构造
-		CLASS_disableCopy(RenderSystem);
+		CLASS_disableCopy(GLRenderer);
 
 		// 描画函数
 		void draw();
