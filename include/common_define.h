@@ -8,8 +8,8 @@
 
 // Disable class' copy constructor.
 #define D_CLASS_DISABLE_COPY(typeName)	\
-    typeName(const typeName &);		\
-    typeName &operator=(const typeName &);
+	typeName(const typeName&);		\
+	typeName& operator=(const typeName&)
 
 // Compare point.
 #define POINT_equals(p,q)			\
@@ -18,7 +18,7 @@
 // Return whether the point p is in rect r
 #define RECT_testPOINT(r, p)		\
 	(r.left <= p.x && r.right >= p.x	\
-	&& r.top <= p.y && r.bottom >= p.y)
+	 && r.top <= p.y && r.bottom >= p.y)
 
 #define element_of(x)				\
 	(sizeof(x) / sizeof(x[0]))

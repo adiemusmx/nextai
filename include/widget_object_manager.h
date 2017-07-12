@@ -1,18 +1,18 @@
 #pragma once
 
-namespace Trinity
-{
+namespace Trinity {
 class ObjectManager
 {
 public:
 	static ObjectManager* getInstance();
 
-
-
 private:
 	ObjectManager();
-	~ObjectManager();
+	virtual ~ObjectManager();
 
-	D_CLASS_DISABLE_COPY(ObjectManager);
-}
+	ObjectManager(const ObjectManager&);
+	ObjectManager& operator=(const ObjectManager&);
+
+
+};
 }
