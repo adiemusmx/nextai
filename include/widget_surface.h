@@ -2,5 +2,9 @@
 
 class WidgetSurface
 {
+public:
+	WidgetSurface();
+	~WidgetSurface();
+
 
 }
