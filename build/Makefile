@@ -71,4 +71,4 @@ endef
 -include $(DEPS)
 .PHONY : clean
 clean :
-	rm -rf $(TARGET) $(OBJECTS) $(DEPS)
+	rm -rf $(TARGET) $(OBJECTS) $(DEPS) ../src/*.d.* ../src/*.d
