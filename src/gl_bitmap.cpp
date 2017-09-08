@@ -1,7 +1,8 @@
 #include "gl_bitmap.h"
-#include "log.h"
+#include "util_log.h"
 
-namespace Trinity {
+namespace Trinity
+{
 
 GL_Bitmap::GL_Bitmap(const char* fileName)
 {
@@ -22,7 +23,7 @@ GL_Bitmap::~GL_Bitmap()
 
 BOOL GL_Bitmap::setPath(const char* fileName)
 {
-	FILE *fp;
+	FILE* fp;
 	unsigned long size;
 	unsigned long i;
 	unsigned short int planes;
@@ -75,7 +76,7 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 	}
 
 	fseek(fp, 24, SEEK_CUR);
-	m_data = (char *)malloc(size);
+	m_data = (char*)malloc(size);
 	if (m_data == NULL)
 	{
 		TRI_ERROR_LOG("Image[%s]'s malloc failed. size[%lu]", fileName, size);
@@ -124,22 +125,26 @@ void GL_Bitmap::setArea(const RECT& area)
 
 const RECT& GL_Bitmap::getArea()
 {
-	return m_drawArea;
+	return m_area;
 }
 
 void GL_Bitmap::draw()
 {
-	glEnable(GL_TEXTURE_2D);//Í¼ÏñÓÐÐ§»¯
+	glEnable(GL_TEXTURE_2D);//Í¼ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 	glBindTexture(GL_TEXTURE_2D, getTexture());
-	glEnable(GL_ALPHA_TEST);//ÊÔÃè»­¿ªÊ¼
+	glEnable(GL_ALPHA_TEST);//ï¿½ï¿½ï¿½è»­ï¿½ï¿½Ê¼
 	glBegin(GL_POLYGON);
-	glTexCoord2f(0.0f, 0.0f); glVertex2d(m_area.left, m_area.bottom);//×óÏÂ
-	glTexCoord2f(0.0f, 1.0f); glVertex2d(m_area.left, m_area.top);//×óÉÏ
-	glTexCoord2f(1.0f, 1.0f); glVertex2d(m_area.right, m_area.top);//ÓÒÉÏ
-	glTexCoord2f(1.0f, 0.0f); glVertex2d(m_area.right, m_area.bottom);//ÓÒÏÂ
+	glTexCoord2f(0.0f, 0.0f);
+	glVertex2d(m_area.left, m_area.bottom);//ï¿½ï¿½ï¿½ï¿½
+	glTexCoord2f(0.0f, 1.0f);
+	glVertex2d(m_area.left, m_area.top);//ï¿½ï¿½ï¿½ï¿½
+	glTexCoord2f(1.0f, 1.0f);
+	glVertex2d(m_area.right, m_area.top);//ï¿½ï¿½ï¿½ï¿½
+	glTexCoord2f(1.0f, 0.0f);
+	glVertex2d(m_area.right, m_area.bottom);//ï¿½ï¿½ï¿½ï¿½
 	glEnd();
-	glDisable(GL_ALPHA_TEST);//ÊÔÃè»­½áÊø
-	glDisable(GL_TEXTURE_2D);//Í¼ÏñÎÞÐ§
+	glDisable(GL_ALPHA_TEST);//ï¿½ï¿½ï¿½è»­ï¿½ï¿½ï¿½ï¿½
+	glDisable(GL_TEXTURE_2D);//Í¼ï¿½ï¿½ï¿½ï¿½Ð§
 }
 
 }

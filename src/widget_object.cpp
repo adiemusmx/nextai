@@ -1,7 +1,8 @@
 #include "widget_object.h"
-#include "log.h"
+#include "util_log.h"
 
-namespace Trinity {
+namespace Trinity
+{
 
 WidgetObject::WidgetObject(ObjectId id)
 {
@@ -121,20 +122,20 @@ BOOL WidgetObject::hit()
 	}
 	return hitImpl();
 
-	// µ±Ç°²¿Æ·²»ÏÔÊ¾£¬»òÕß²»¿É±»µã»÷
+	// ï¿½ï¿½Ç°ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½
 	if (!m_visible || !m_isHitEnable) return false;
 
-	// Èç¹ûµã»÷²»ÔÚ·¶Î§ÄÚ£¬Ôò²»ÐèÒª½øÐÐ´¦Àí
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½Î§ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½
 	if (!RECT_testPOINT(m_area, point)) return false;
 
-	// ×Ó²¿Æ·µÄHit´¦Àí
-	for (std::vector<GL_Object *>::iterator i = m_children.begin(); i != m_children.end(); ++i)
+	// ï¿½Ó²ï¿½Æ·ï¿½ï¿½Hitï¿½ï¿½ï¿½ï¿½
+	for (std::vector<GL_Object*>::iterator i = m_children.begin(); i != m_children.end(); ++i)
 	{
 		if (((GL_Object*)*i)->hit(point, hitType))
 			return true;
 	}
 
-	// µ±Ç°²¿Æ·µÄhit´¦Àí
+	// ï¿½ï¿½Ç°ï¿½ï¿½Æ·ï¿½ï¿½hitï¿½ï¿½ï¿½ï¿½
 	if (hitImpl(point, hitType) || !m_isHitTrans)
 		return true;
 	else

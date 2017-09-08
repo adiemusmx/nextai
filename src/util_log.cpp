@@ -1,6 +1,6 @@
 #include "util_log.h"
 #include <cstdio>
-#include "util.h"
+#include "util_time.h"
 
 namespace Trinity
 {

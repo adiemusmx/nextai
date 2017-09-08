@@ -8,43 +8,44 @@
 #include <GL/glut.h>
 #include <GL/glu.h>
 
-namespace Trinity {
+namespace Trinity
+{
 
 class GL_Bitmap
 {
 public:
-	GL_Bitmap(const char *fileName);
+	GL_Bitmap(const char* fileName);
 	virtual ~GL_Bitmap();
 
-	// Éè¶¨ÎÄ¼þÂ·¾¶
+	// Set the path of the bitmap file.
 	BOOL setPath(const char* fileName);
 
-	// Éè¶¨Ãè»­ÇøÓò
+	// Set control's area
 	virtual void setArea(const RECT& area);
 	virtual const RECT& getArea();
 
-	// Ãè»­º¯Êý
+	// Draw function
 	void draw();
 
 private:
-	// È¡µÃÒÑ¾­¼ÓÔØµÄÍ¼Æ¬ÎÆÀí
+	// È¡ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½Øµï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 	GLuint getTexture();
 
 private:
-	// Éú³ÉÍ¼Æ¬ÎÆÀí
+	// ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
 	void generateTexture();
 
-	// Í¼Æ¬¿í¶ÈºÍ¸ß¶È
+	// Í¼Æ¬ï¿½ï¿½ÈºÍ¸ß¶ï¿½
 	unsigned long m_width;
 	unsigned long m_height;
 
-	// Í¼Æ¬Êý¾Ý
-	char *m_data;
+	// Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
+	char* m_data;
 
-	// Ãè»­Î»ÖÃ
+	// ï¿½è»­Î»ï¿½ï¿½
 	RECT m_area;
 
-	// ÎÆÀíID
+	// ï¿½ï¿½ï¿½ï¿½ID
 	GLuint m_texture;
 };
 

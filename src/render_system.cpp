@@ -1,7 +1,7 @@
 ﻿#include "render_system.h"
 #include "GL/glut.h"
 #include "message_center.h"
-#include "gl_picture.h"
+#include "widget_picture.h"
 
 namespace Trinity
 {
