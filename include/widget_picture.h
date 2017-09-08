@@ -1,6 +1,8 @@
 #pragma once
 
+#include "common_define.h"
 #include "gl_bitmap.h"
+#include "widget_object.h"
 
 namespace Trinity {
 
@@ -17,7 +19,7 @@ public:
 	virtual void drawImpl();
 
 private:
-	D_CLASS_DISABLE_COPY(WidgetPicture);
+	DISABLE_CLASS_COPY(WidgetPicture);
 
 private:
 	GL_Bitmap* m_bmp;

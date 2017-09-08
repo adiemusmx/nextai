@@ -1,11 +1,11 @@
 #pragma once
 
-typedef int int32;
-typedef int32 BOOL;
-
 #ifdef SYSTEM_WINDOWS
 
 #include <windows.h>
+
+typedef int int32;
+typedef int32 BOOL;
 
 #else
 
@@ -13,6 +13,10 @@ typedef int32 BOOL;
 #include <stdlib.h>
 #define TRUE 1
 #define FALSE 0
+
+typedef int int32;
+typedef int32 BOOL;
+
 struct POINT
 {
 	int32 x;
@@ -33,12 +37,4 @@ typedef long LONG;
 
 #endif // SYSTEM_WINDOWS
 
-// Hit event type
-enum E_HIT_TYPE {
-	E_HIT_TYPE_DONW,
-	E_HIT_TYPE_UP,
-	E_HIT_TYPE_SHORT,
-	E_HIT_TYPE_LONG,
-	E_HIT_TYPE_LONG_UP,
-	E_HIT_TYPE_REPEAT
-};
+#include <vector>

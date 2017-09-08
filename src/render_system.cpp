@@ -3,8 +3,7 @@
 #include "message_center.h"
 #include "widget_picture.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 GLRenderer* GLRenderer::getInstance()
 {
@@ -14,8 +13,8 @@ GLRenderer* GLRenderer::getInstance()
 GL_Picture* pic;
 void GLRenderer::init(int* argc, char* argv[])
 {
-	glutInitWindowPosition(SCREEN_AREA_LEFT, SCREEN_AREA_TOP);
-	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	glutInitWindowPosition(WINDOWS_POSITION_LEFT, WINDOWS_POSITION_TOP);
+	glutInitWindowSize(WINDOWS_WIDTH, WINDOWS_HEIGHT);
 	glutInit(argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutCreateWindow("Trinity - sample");

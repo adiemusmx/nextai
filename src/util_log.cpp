@@ -2,8 +2,7 @@
 #include <cstdio>
 #include "util_time.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 Logger::Logger()
 {
@@ -19,7 +18,6 @@ Logger* Logger::getInstance()
 
 void Logger::print(const char* funcName, int32 lineNum, E_LOG_LEVEL level, const char* content)
 {
-
 	if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
 		return;
 

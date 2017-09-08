@@ -2,8 +2,7 @@
 
 #include "widget_picture.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 class GLRenderer
 {
@@ -30,7 +29,7 @@ private:
 	GLRenderer();
 
 	// 禁止拷贝构造
-	D_CLASS_DISABLE_COPY(GLRenderer);
+	DISABLE_CLASS_COPY(GLRenderer);
 
 	// 描画函数
 	void draw();

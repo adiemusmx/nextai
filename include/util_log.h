@@ -3,8 +3,7 @@
 #include "common_define.h"
 #include "common_types.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 // LOG输出的位置
 enum E_LOG_OUTPUT
@@ -36,7 +35,7 @@ public:
 	// 输出LOG
 	void print(const char* funcName, int32 lineNum, E_LOG_LEVEL level, const char* content);
 
-	// #未实现# 设定文件输出路径，最大D_TEXT_MAX_LENGTH
+	// #未实现# 设定文件输出路径，最大TEXT_MAX_LENGTH
 	void openFile(char* filePath);
 	void closeFile();
 
@@ -45,7 +44,7 @@ public:
 private:
 	Logger();
 
-	D_CLASS_DISABLE_COPY(Logger);
+	DISABLE_CLASS_COPY(Logger);
 
 	BOOL m_logLevel[E_LOG_OUTPUT_MAX];
 };
