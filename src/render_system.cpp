@@ -2,6 +2,7 @@
 #include "GL/glut.h"
 #include "message_center.h"
 #include "widget_picture.h"
+#include "object_manager.h"
 
 namespace Trinity {
 
@@ -10,7 +11,7 @@ GLRenderer* GLRenderer::getInstance()
 	static GLRenderer render;
 	return &render;
 }
-GL_Picture* pic;
+//GL_Picture* pic;
 void GLRenderer::init(int* argc, char* argv[])
 {
 	glutInitWindowPosition(WINDOWS_POSITION_LEFT, WINDOWS_POSITION_TOP);
@@ -24,8 +25,8 @@ void GLRenderer::init(int* argc, char* argv[])
 	glutIdleFunc(idleFunc);
 	glutSpecialFunc(keyBoardFunc);
 
-	pic = new GL_Picture(NULL);
-	pic->setPicturePath("../res/background.bmp");
+	//pic = new GL_Picture(NULL);
+	//pic->setPicturePath("../res/background.bmp");
 }
 
 void GLRenderer::mainLoop()
@@ -46,7 +47,8 @@ void GLRenderer::displayFunc(void)
 	glLoadIdentity();
 	glOrtho(0.0, 480, 480, 0.0, -1.0, 1.0);
 
-	GLRenderer::getInstance()->draw();
+	// Draw
+	ObjectManager::getInstance()->draw();
 
 	// 交换两个缓存
 	glutSwapBuffers();
@@ -72,10 +74,5 @@ void GLRenderer::keyBoardFunc(int key, int x, int y)
 	case GLUT_KEY_RIGHT:
 		break;
 	}
-}
-
-void GLRenderer::draw()
-{
-	pic->Draw();
 }
 }

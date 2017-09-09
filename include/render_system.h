@@ -30,8 +30,5 @@ private:
 
 	// 禁止拷贝构造
 	DISABLE_CLASS_COPY(GLRenderer);
-
-	// 描画函数
-	void draw();
 };
 }

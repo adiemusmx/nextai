@@ -33,7 +33,7 @@
     <ClInclude Include="..\include\widget_label.h" />
     <ClInclude Include="..\include\widget_list.h" />
     <ClInclude Include="..\include\widget_object.h" />
-    <ClInclude Include="..\include\widget_object_manager.h" />
+    <ClInclude Include="..\include\object_manager.h" />
     <ClInclude Include="..\include\widget_overlay.h" />
     <ClInclude Include="..\include\widget_picture.h" />
     <ClInclude Include="..\include\widget_surface.h" />
@@ -51,7 +51,7 @@
     <ClCompile Include="..\src\widget_label.cpp" />
     <ClCompile Include="..\src\widget_list.cpp" />
     <ClCompile Include="..\src\widget_object.cpp" />
-    <ClCompile Include="..\src\widget_object_manager.cpp" />
+    <ClCompile Include="..\src\object_manager.cpp" />
     <ClCompile Include="..\src\widget_overlay.cpp" />
     <ClCompile Include="..\src\widget_picture.cpp" />
     <ClCompile Include="..\src\widget_surface.cpp" />

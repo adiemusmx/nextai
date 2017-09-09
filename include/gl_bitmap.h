@@ -36,6 +36,7 @@ private:
 	unsigned long m_height;
 
 	char* m_data;
+	RECT m_area;
 
 	GLuint m_texture;
 };

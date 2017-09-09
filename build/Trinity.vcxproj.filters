@@ -37,9 +37,6 @@
     <ClInclude Include="..\include\widget_object.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\widget_object_manager.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\widget_overlay.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -56,6 +53,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="..\include\util_time.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\object_manager.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
@@ -85,9 +85,6 @@
     <ClCompile Include="..\src\widget_object.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\widget_object_manager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\widget_overlay.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -104,6 +101,9 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\util_time.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\object_manager.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,9 +1,7 @@
 #include "gl_bitmap.h"
 #include "util_log.h"
 
-namespace Trinity
-{
-
+namespace Trinity {
 GL_Bitmap::GL_Bitmap(const char* fileName)
 {
 	m_texture = 0;

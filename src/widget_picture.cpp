@@ -1,4 +1,5 @@
 #include "widget_picture.h"
+#include "util_log.h"
 
 namespace Trinity {
 
@@ -25,9 +26,9 @@ void WidgetPicture::drawImpl()
 }
 
 // 设定/取得区域
-void WidgetPicture::setArea(const RECT& area)
+void WidgetPicture::setDrawableArea(const RECT& area)
 {
-	WidgetObject::setArea(area);
+	WidgetObject::setDrawableArea(area);
 	if (m_bmp != NULL)
 		m_bmp->setArea(area);
 }

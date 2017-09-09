@@ -12,11 +12,14 @@ public:
 	WidgetPicture(ObjectId id);
 	virtual ~WidgetPicture();
 
-	// 设定/取得区域
-	virtual void setArea(const RECT& area);
-
-	// 重载描画函数
+	// Draw function
 	virtual void drawImpl();
+
+	// Set/get drawable area.
+	virtual void setDrawableArea(const RECT& area);
+
+	// Set path of the bmp file.
+	virtual void WidgetPicture::setPath(const CHAR* path);
 
 private:
 	DISABLE_CLASS_COPY(WidgetPicture);
