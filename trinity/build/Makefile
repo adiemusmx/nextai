@@ -1,8 +1,9 @@
 # The Target File Name
-TARGET = app
+TARGET = trinity.lib
 
 # Compile Tool
 CXX = g++
+AR = ar
 
 # Objects Files
 INCLUDES = $(wildcard ../include/*.h)
@@ -12,6 +13,7 @@ DEPS = $(OBJECTS:%.o=%.d)
 
 # CLAGS
 CFLAGS = -Wall
+CFLAGS += -std=c++11
 CFLAGS += -O
 CFLAGS += -g
 CFLAGS += -DGLUT_DISABLE_ATEXIT_HACK
@@ -50,7 +52,11 @@ endif
 INCLUDE_DIRS = -I../include/
 
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS_DIRS) $(LDFLAGS)
+	$(AR) cq $(TARGET) $(OBJECTS)
+	rm -rf ../lib
+	mkdir ../lib
+	mv $(TARGET) ../lib/$(TARGET)
+#	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS_DIRS) $(LDFLAGS)
 %.o : %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
 %.o : %.c

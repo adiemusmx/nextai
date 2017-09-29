@@ -1,7 +1,9 @@
 #include "widget_object.h"
 #include "util_log.h"
+#include <algorithm>
 
-namespace Trinity {
+namespace Trinity
+{
 
 WidgetObject::WidgetObject(ObjectId id)
 {
@@ -36,7 +38,7 @@ void WidgetObject::addChild(WidgetObject* child)
 	}
 	else
 	{
-		TRI_WARNING_LOG("Add same object[%d], it's weird.", child->m_id);
+		TRI_WARNING_LOG("Add same object[%lu], it's weird.", child->m_id);
 	}
 }
 
@@ -54,7 +56,7 @@ void WidgetObject::removeChild(WidgetObject* child)
 	}
 	else
 	{
-		TRI_WARNING_LOG("Can't find object[%d], it's weird.", child->m_id);
+		TRI_WARNING_LOG("Can't find object[%lu], it's weird.", child->m_id);
 	}
 }
 

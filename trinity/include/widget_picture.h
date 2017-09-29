@@ -4,7 +4,8 @@
 #include "gl_bitmap.h"
 #include "widget_object.h"
 
-namespace Trinity {
+namespace Trinity
+{
 
 class WidgetPicture : public WidgetObject
 {
@@ -19,7 +20,7 @@ public:
 	virtual void setDrawableArea(const RECT& area);
 
 	// Set path of the bmp file.
-	virtual void WidgetPicture::setPath(const CHAR* path);
+	virtual void setPath(const CHAR* path);
 
 private:
 	DISABLE_CLASS_COPY(WidgetPicture);

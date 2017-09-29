@@ -4,7 +4,8 @@
 
 typedef unsigned long ObjectId;
 
-namespace Trinity {
+namespace Trinity
+{
 
 // Gesture type
 // 1. Single Down -> Single Up / Single Cancel
@@ -77,7 +78,7 @@ private:
 
 	// Copy construct & operator = are disabled.
 	WidgetObject(const WidgetObject& obj) {}
-	WidgetObject& operator=(const WidgetObject& obj) {}
+	WidgetObject& operator=(const WidgetObject& obj);
 
 	// Object's id.
 	ObjectId m_id;
