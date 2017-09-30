@@ -1,21 +1,13 @@
 # The Target File Name
-TARGET = libtrinity.a
+TARGET = app.exe
 
 # Compile Tool
 CXX = g++
-AR = ar
-
-OBJECTS_DIR = ../obj
-SOURCES_DIR = ../src/
-
-VPATH += $(OBJECTS_DIR)
-VPATH += $(SOURCES_DIR)
 
 # Objects Files
-#INCLUDES = $(wildcard ../include/*.h)
 SOURCES = $(wildcard ../src/*.cpp) $(wildcard ../src/*.c)
 OBJECTS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
-DEPS = $(OBJECTS:%.o=%.d)
+DEPS = $(OBJECTS:%.o=%.d) 
 
 # CLAGS
 CFLAGS = -Wall
@@ -40,10 +32,11 @@ CFLAGS += -DARCH_X64
 endif
 
 # Libraries dir
-LIBS_DIRS = -L../lib/
+LIBS_DIRS = -L../../trinity/lib/
 
 # Libraries
 LDFLAGS =
+LDFLAGS += -ltrinity
 ifeq ($(shell uname), Linux)
 LDFLAGS += -lGL
 LDFLAGS += -lGLU
@@ -54,14 +47,14 @@ LDFLAGS += -lglu32
 LDFLAGS += -lglut32
 endif
 
+
 # Include dir
 INCLUDE_DIRS = -I../include/
+INCLUDE_DIRS += -I../../trinity/include/
 
 $(TARGET) : $(OBJECTS)
-	$(AR) cq $(TARGET) $(OBJECTS)
-	rm -rf ../lib
-	mkdir ../lib
-	mv $(TARGET) ../lib/$(TARGET)
+	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS_DIRS) $(LDFLAGS)
+	mv app.exe ../../app.exe
 %.o : %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
 %.o : %.c

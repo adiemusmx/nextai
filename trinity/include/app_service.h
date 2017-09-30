@@ -3,7 +3,8 @@
 #include "common_define.h"
 #include "common_types.h"
 
-namespace Trinity {
+namespace Trinity
+{
 
 class AppServiceParam
 {
@@ -16,7 +17,7 @@ public:
 	RECT windowsArea;
 
 	// Windows title
-	char* windowsTitle;
+	const char* windowsTitle;
 };
 
 class AppService

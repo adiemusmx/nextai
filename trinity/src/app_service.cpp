@@ -4,7 +4,8 @@
 #include "widget_picture.h"
 #include "object_manager.h"
 
-namespace Trinity {
+namespace Trinity
+{
 
 AppService* AppService::getInstance()
 {
@@ -24,9 +25,6 @@ void AppService::init(AppServiceParam& param)
 	glutDisplayFunc(displayFunc);
 	glutIdleFunc(idleFunc);
 	glutSpecialFunc(keyBoardFunc);
-
-	//pic = new GL_Picture(NULL);
-	//pic->setPicturePath("../res/background.bmp");
 }
 
 void AppService::mainLoop()
