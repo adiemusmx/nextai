@@ -28,6 +28,8 @@ void AppService::init(AppServiceParam& param)
 	glutIdleFunc(idleFunc);
 	glutSpecialFunc(keyBoardFunc);
 	glutMouseFunc(mouseFunc);
+	glutMotionFunc(motionFunc);
+	glutPassiveMotionFunc(passiveMotionFunc);
 }
 
 void AppService::addEventListener(AppEventListener* listener)
@@ -125,6 +127,16 @@ void AppService::keyBoardFunc(int key, int x, int y)
 void AppService::mouseFunc(int button, int state, int x, int y)
 {
 	TRI_INFO_LOG("[ORIGIN] button[%d] state[%d] x[%d] y[%d]", button, state, x, y);
+}
+
+void AppService::motionFunc(int x, int y)
+{
+	TRI_INFO_LOG("[ORIGIN] x[%d] y[%d]", x, y);
+}
+
+void AppService::passiveMotionFunc(int x, int y)
+{
+	TRI_INFO_LOG("[ORIGIN] x[%d] y[%d]", x, y);
 }
 
 }

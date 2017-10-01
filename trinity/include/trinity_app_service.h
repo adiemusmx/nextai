@@ -117,6 +117,10 @@ private:
 	// Function of mouse
 	static void mouseFunc(int button, int state, int x, int y);
 
+	// Motion of mouse
+	static void motionFunc(int x, int y);
+	static void passiveMotionFunc(int x, int y);
+
 private:
 	// Constructor
 	AppService();

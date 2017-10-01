@@ -77,4 +77,4 @@ rm -f $@.$$$$
 .PHONY : clean
 clean :
 #	rm -rf $(TARGET) $(OBJECTS) $(DEPS) ../src/*.d.* ../src/*.d
-	rm -rf $(TARGET) $(OBJECTS)
+	rm -rf $(TARGET) ./src/*.o
