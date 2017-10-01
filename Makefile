@@ -1,4 +1,4 @@
-all : clean
+all:
 	$(MAKE) -C ./trinity
 	$(MAKE) -C ./app
 	cp ./app/app.exe ./app.exe -f

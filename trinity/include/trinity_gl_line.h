@@ -17,7 +17,7 @@ public:
 	virtual ~GL_Line();
 
 	// Draw
-	virtual void drawImpl();
+	virtual void draw();
 
 	// Points
 	virtual void setPoints(const Point* points, size_t count);

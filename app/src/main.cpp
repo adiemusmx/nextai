@@ -1,4 +1,5 @@
 ﻿#include "trinity_app_service.h"
+#include "app_event_handler.h"
 
 int main(int argc, char* argv[])
 {
@@ -11,6 +12,8 @@ int main(int argc, char* argv[])
 	param.windowsArea = {100, 100, 800, 480};
 	param.windowsTitle = "Trinity sample app";
 	rs->init(param);
+
+	rs->addEventListener(AppEventHandler::getInstance());
 
 	// main loop
 	rs->run();

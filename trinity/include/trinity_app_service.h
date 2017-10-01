@@ -82,8 +82,8 @@ public:
 	virtual BOOL hardkey(HardkeyID key);
 
 	// touchCount indicates valid data count of touch.
-	// touchId and touchPos has 10 elements.
-	virtual BOOL touch(TouchType touch, int32 touchCount, int32 touchId[], Point touchPos[]);
+	// touchId and touchPos has TOUCH_POINT_MAX_COUNT elements.
+	virtual BOOL touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 };
 
 // App core service

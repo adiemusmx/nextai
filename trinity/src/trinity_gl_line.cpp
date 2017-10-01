@@ -16,7 +16,7 @@ GL_Line::~GL_Line()
 	m_points.clear();
 }
 
-void GL_Line::drawImpl()
+void GL_Line::draw()
 {
 	size_t loopIdx;
 	glEnable(GL_LINE_STIPPLE);
