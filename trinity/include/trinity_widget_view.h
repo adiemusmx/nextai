@@ -5,6 +5,7 @@
 
 namespace Trinity
 {
+
 class WidgetView : public WidgetObject
 {
 public:
@@ -14,7 +15,8 @@ public:
 private:
 	// Disable copy constructor
 	DISABLE_CLASS_COPY(WidgetView);
-}
+};
+
 }
 
 #endif // !_TRINITY_WIDGET_VIEW_H_

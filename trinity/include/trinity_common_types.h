@@ -12,6 +12,7 @@ typedef int32 BOOL;
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #define TRUE 1
 #define FALSE 0
 

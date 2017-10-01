@@ -2,26 +2,29 @@
 #define _TRINITY_OBJECT_MANAGER_H_
 
 #include "trinity_widget_object.h"
-
-#define WIDGET_ROOT_ID 1
+#include "trinity_widget_surface.h"
+#include "trinity_widget_view.h"
+#include "trinity_app_service.h"
 
 namespace Trinity
 {
 
-class ObjectManager
+class ObjectManager : AppEventListener
 {
 public:
+	// Single instance
 	static ObjectManager* getInstance();
 
-	// Add and remove child
-	void addChild(WidgetObject* object);
-	void removeChild(WidgetObject* object);
+	// Init/cleanup
+	void init();
+	void cleanup();
+
+	// Add and remove view
+	void addView(SurfaceID surface, WidgetView* view);
+	void removeView(SurfaceID surface, WidgetView* view);
 
 	// Draw function
 	void draw();
-
-	// Hit function
-	BOOL hit(HIT_EVENT_TYPE hitEventType, POINT finger1, POINT finger2 = { 0, 0 });
 
 private:
 	ObjectManager();
@@ -30,9 +33,15 @@ private:
 	// Disable copy constructor
 	DISABLE_CLASS_COPY(ObjectManager);
 
-private:
+	// Hardkey
+	virtual void hardkey(HardkeyID key);
+
+	// touchCount indicates valid data count of touch.
+	// touchId and touchPos has 10 elements.
+	virtual void touch(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[]);
+
 	// Root of the object's tree.
-	WidgetObject* m_root;
+	WidgetSurface* m_surfaces[SurfaceID_MAX];
 };
 }
 

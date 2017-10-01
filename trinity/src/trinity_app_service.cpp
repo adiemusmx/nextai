@@ -9,6 +9,22 @@
 namespace Trinity
 {
 
+void AppEventListener::initStarted() {}
+
+void AppEventListener::initCompleted() {}
+
+void AppEventListener::cleanupStarted() {}
+
+void AppEventListener::cleanupCompleted() {}
+
+void AppEventListener::renderStarted() {}
+
+void AppEventListener::renderCompleted() {}
+
+void AppEventListener::hardkey(HardkeyID key) {}
+
+void AppEventListener::touch(TouchType touch, int32 touchCount, int32 touchId[], POINT touchPos[]) {}
+
 AppService* AppService::getInstance()
 {
 	static AppService service;
@@ -91,13 +107,28 @@ AppService::~AppService()
 
 void AppService::displayFunc()
 {
+	// Gl environment
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glOrtho(0.0, 480, 480, 0.0, -1.0, 1.0);
 
-	// Draw
+	// Render
+	std::vector<AppEventListener*> startTmp = getInstance()->m_listeners;
+	std::for_each(startTmp.begin(), startTmp.end(), [&](auto p)
+	{
+		p->renderStarted();
+	});
+
+	// Object manager draw
 	ObjectManager::getInstance()->draw();
+
+	// Render
+	std::vector<AppEventListener*> completeTmp = getInstance()->m_listeners;
+	std::for_each(completeTmp.begin(), completeTmp.end(), [&](auto p)
+	{
+		p->renderCompleted();
+	});
 
 	// Swap buffers
 	glutSwapBuffers();
@@ -110,7 +141,7 @@ void AppService::idleFunc()
 
 void AppService::keyBoardFunc(int key, int x, int y)
 {
-	TRI_INFO_LOG("[ORIGIN] key[%d] x[%d] y[%d]", key, x, y);
+	TRI_INFO_LOG("[GLUT] key[%d] x[%d] y[%d]", key, x, y);
 	switch (key)
 	{
 	case GLUT_KEY_UP:
@@ -126,17 +157,17 @@ void AppService::keyBoardFunc(int key, int x, int y)
 
 void AppService::mouseFunc(int button, int state, int x, int y)
 {
-	TRI_INFO_LOG("[ORIGIN] button[%d] state[%d] x[%d] y[%d]", button, state, x, y);
+	TRI_INFO_LOG("[GLUT] button[%d] state[%d] x[%d] y[%d]", button, state, x, y);
 }
 
 void AppService::motionFunc(int x, int y)
 {
-	TRI_INFO_LOG("[ORIGIN] x[%d] y[%d]", x, y);
+	TRI_INFO_LOG("[GLUT] x[%d] y[%d]", x, y);
 }
 
 void AppService::passiveMotionFunc(int x, int y)
 {
-	TRI_INFO_LOG("[ORIGIN] x[%d] y[%d]", x, y);
+	TRI_INFO_LOG("[GLUT] x[%d] y[%d]", x, y);
 }
 
 }

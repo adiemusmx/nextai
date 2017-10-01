@@ -3,34 +3,13 @@
 
 #include "trinity_common_types.h"
 #include "trinity_common_define.h"
+#include "trinity_object_id.h"
+#include "trinity_app_service.h"
 
 typedef unsigned long ObjectId;
 
 namespace Trinity
 {
-
-// Gesture type
-// 1. Single Down -> Single Up / Single Cancel
-// 2. Single Down -> Single Long -> Single Long Up / Single Cancel
-// 3. Single Down -> Single Long -> Single Repeat -> ... -> Single Repeat -> Single Long Up / Single Cancel
-// 4. Single Down -> Double Begin -> Double End / Double Cancel
-// 5. Single Down -> Double Begin -> Double Move -> ... -> Double Move -> Double End / Double Cancel
-enum HIT_EVENT_TYPE
-{
-	HIT_EVENT_TYPE_SINGLE_DOWN,		// Down event
-	HIT_EVENT_TYPE_SINGLE_UP,		// Up event
-	HIT_EVENT_TYPE_SINGLE_LONG,		// Long event
-	HIT_EVENT_TYPE_SINGLE_LONG_UP,	// Long up event
-	HIT_EVENT_TYPE_SINGLE_REPEAT,	// Repeat event
-	HIT_EVENT_TYPE_SINGLE_CANCEL,	// Cancel event
-
-	HIT_EVENT_TYPE_DOUBLE_BEGIN,	// Double fingers begin event
-	HIT_EVENT_TYPE_DOUBLE_MOVE,		// Double fingers move event
-	HIT_EVENT_TYPE_DOUBLE_END,		// Double fingers end event
-	HIT_EVENT_TYPE_DOUBLE_CANCEL,	// Double fingers cancel event
-
-	HIT_EVENT_TYPE_MAX
-};
 
 // Widget
 class WidgetObject
@@ -55,8 +34,8 @@ public:
 	const RECT& getDrawableArea();
 
 	// Hitable
-	BOOL hit(HIT_EVENT_TYPE hitEventType, POINT finger1, POINT finger2 = { 0, 0 });
-	BOOL hitImpl(HIT_EVENT_TYPE hitEventType, POINT finger1, POINT finger2);
+	BOOL hit(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[]);
+	BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[]);
 	void setHitableArea(const RECT& area);
 	const RECT& getHitableArea();
 

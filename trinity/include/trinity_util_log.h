@@ -10,20 +10,20 @@ namespace Trinity
 // LOG output dest
 enum E_LOG_OUTPUT
 {
-	E_LOG_OUTPUT_FILE,			// 输出到文件
-	E_LOG_OUTPUT_CONSOLE,		// 输出到控制台
+	E_LOG_OUTPUT_FILE,			// File
+	E_LOG_OUTPUT_CONSOLE,		// Console
 	E_LOG_OUTPUT_MAX
 };
 
 // LOG output level
 enum E_LOG_LEVEL
 {
-	E_LOG_LEVEL_OFF,			// 关闭
-	E_LOG_LEVEL_VERBOSE,		// 最详细
-	E_LOG_LEVEL_TRACE,			// 跟踪函数调用
-	E_LOG_LEVEL_INFO,			// 输出信息
-	E_LOG_LEVEL_WARNING,		// 发生警告，可能不会影响功能
-	E_LOG_LEVEL_ERROR,			// 发生错误，会影响功能
+	E_LOG_LEVEL_OFF,			// Off
+	E_LOG_LEVEL_VERBOSE,		// detail
+	E_LOG_LEVEL_TRACE,			// trace
+	E_LOG_LEVEL_INFO,			// infomation
+	E_LOG_LEVEL_WARNING,		// warning
+	E_LOG_LEVEL_ERROR,			// error
 	E_LOG_LEVEL_MAX
 };
 

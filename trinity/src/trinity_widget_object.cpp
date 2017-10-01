@@ -119,27 +119,27 @@ const RECT& WidgetObject::getDrawableArea()
 	return m_drawableArea;
 }
 
-BOOL WidgetObject::hit(HIT_EVENT_TYPE hitEventType, POINT finger1, POINT finger2)
+BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[])
 {
 	if (!m_visible || !m_hitEnable)
 		return false;
 
-	if (!RECT_testPOINT(m_hitableArea, finger1))
+	if (!RECT_testPOINT(m_hitableArea, touchPos[0]))
 		return false;
 
 	for (auto pObj : m_children)
 	{
-		if (pObj->hit(hitEventType, finger1, finger2) == TRUE)
+		if (pObj->hit(touch, touchCount, touchId, touchPos) == TRUE)
 			return TRUE;
 	}
 
-	if (hitImpl(hitEventType, finger1, finger2) || !m_hitTransEnable)
+	if (hitImpl(touch, touchCount, touchId, touchPos) || !m_hitTransEnable)
 		return TRUE;
 	else
 		return FALSE;
 }
 
-BOOL WidgetObject::hitImpl(HIT_EVENT_TYPE hitEventType, POINT finger1, POINT finger2)
+BOOL WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[])
 {
 	// TODO
 	return FALSE;

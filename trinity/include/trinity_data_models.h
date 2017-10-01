@@ -9,7 +9,7 @@ namespace Trinity
 {
 class DataModel;
 
-// 监听者
+// Listener
 class DataModelListener
 {
 public:
@@ -32,50 +32,50 @@ template <class T>
 class PointDataModel : public DataModel
 {
 public:
-	// 构造函数
+	// Constructor
 	PointDataModel();
 	PointDataModel(const T& x, const T& y);
 	PointDataModel(const PointDataModel& point);
 	~PointDataModel();
 
-	// 重载操作符
+	// operator
 	BOOL operator==(const PointDataModel& point);
 	const PointDataModel& operator=(const PointDataModel& point);
 
-	// 设定/取得
+	// setter/getter
 	void setValue(const T& x, const T& y);	// 触发onChanged消息
 	const PointDataModel& getValue();
 
 private:
-	// 基本数据
+	// basic data
 	T m_x;
 	T m_y;
 };
 
-// 矩形
+// Rect
 class RectDataModel : public DataModel
 {
 public:
-	// 构造函数
+	// construtor
 	RectDataModel();
 	RectDataModel(POINT leftTop, POINT rightBottom);
 	RectDataModel(LONG left, LONG top, LONG width, LONG height);
 	RectDataModel(const RectDataModel& rect);
 
-	// 重载操作符
+	// operator
 	BOOL operator==(const RectDataModel& rect);
 	RectDataModel& operator=(const RectDataModel& rect);
 
-	// POINT是否在RECT里面
+	// test point
 	BOOL testPoint(const POINT& point);
 
-	// 设定/取得
+	// setter/getter
 	void setValue(POINT leftTop, POINT rightBottom);
 	void setValue(LONG left, LONG top, LONG width, LONG height);
 	const RectDataModel& getValue();
 
 private:
-	// 基本数据
+	// basic data
 	POINT m_leftTop;
 	POINT m_rightBottom;
 };
