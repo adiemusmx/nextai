@@ -7,7 +7,7 @@
 namespace Trinity
 {
 
-// LOG输出的位置
+// LOG output dest
 enum E_LOG_OUTPUT
 {
 	E_LOG_OUTPUT_FILE,			// 输出到文件
@@ -15,7 +15,7 @@ enum E_LOG_OUTPUT
 	E_LOG_OUTPUT_MAX
 };
 
-// LOG输出的级别
+// LOG output level
 enum E_LOG_LEVEL
 {
 	E_LOG_LEVEL_OFF,			// 关闭
@@ -27,17 +27,17 @@ enum E_LOG_LEVEL
 	E_LOG_LEVEL_MAX
 };
 
-// 输出log的对象
+// Log object
 class Logger
 {
 public:
-	// 初始化LogManager
+	// Single instance
 	static Logger* getInstance();
 
-	// 输出LOG
-	void print(const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content);
+	// Output log text
+	void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content);
 
-	// #未实现# 设定文件输出路径，最大TEXT_MAX_LENGTH
+	// TODO
 	void openFile(CHAR* filePath);
 	void closeFile();
 
@@ -46,7 +46,10 @@ public:
 private:
 	Logger();
 
+	// Disable copy constructor
 	DISABLE_CLASS_COPY(Logger);
+
+	const CHAR* trimFileName(const CHAR* fileName);
 
 	BOOL m_logLevel[E_LOG_OUTPUT_MAX];
 };
@@ -55,55 +58,55 @@ private:
 #define TRI_VERBOSE_LOG(format,...) { \
 		CHAR _temp_log_buffer[512]; \
 		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_VERBOSE, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_VERBOSE, _temp_log_buffer); }
 
 #define TRI_TRACE_LOG_START() { \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[START]");}
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[START]");}
 
 #define TRI_TRACE_LOG_END() { \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[END]"); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[END]"); }
 
 #define TRI_TRACE_LOG() {	\
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, ""); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, ""); }
 
 #define TRI_TRACE_LOG_FLAG(flag) { \
 		CHAR _temp_log_buffer[512]; \
 		sprintf(_temp_log_buffer, "%s", flag); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
 
 #define TRI_TRACE_LOG_FLAG_END(flag) { \
 		CHAR _temp_log_buffer[512]; \
 		sprintf(_temp_log_buffer, "[END] %s", flag); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
 
 #define TRI_INFO_LOG(format,...) { \
 		CHAR _temp_log_buffer[512]; \
 		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
 
 #define TRI_INFO_W_LOG(format,...) { \
 		WCHAR _temp_log_buffer[512]; \
 		swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
 
 #define TRI_WARNING_LOG(format,...) { \
 		CHAR _temp_log_buffer[512]; \
 		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
 
 #define TRI_WARNING_W_LOG(format,...) { \
 		WCHAR _temp_log_buffer[512]; \
 		swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
 
 #define TRI_ERROR_LOG(format,...) { \
 		CHAR _temp_log_buffer[512]; \
 		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
 
 #define TRI_ERROR_W_LOG(format,...) { \
 		WCHAR _temp_log_buffer[512]; \
 		swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		Logger::getInstance()->print(__FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
+		Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
 
 #endif // !_TRINITY_UTIL_LOG_H_

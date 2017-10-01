@@ -1,5 +1,6 @@
 #include "trinity_util_log.h"
 #include <cstdio>
+#include <cstring>
 #include "trinity_util_time.h"
 
 namespace Trinity
@@ -17,7 +18,20 @@ Logger* Logger::getInstance()
 	return &instance;
 }
 
-void Logger::print(const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content)
+const CHAR* Logger::trimFileName(const CHAR* fileName)
+{
+	int32 loopIdx;
+	for (loopIdx = strlen(fileName) - 2; loopIdx >= 0; --loopIdx)
+	{
+		if (fileName[loopIdx] == '/' || fileName[loopIdx] == '\\')
+		{
+			break;
+		}
+	}
+	return fileName + loopIdx + 1;
+}
+
+void Logger::print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content)
 {
 	if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
 		return;
@@ -26,7 +40,7 @@ void Logger::print(const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const
 	Util_getCurrentSystemTime(currentTime);
 
 	if (m_logLevel[E_LOG_OUTPUT_CONSOLE] <= level)
-		printf("[%02d:%02d:%02d.%03d][%s:%d]%s\n", currentTime.hour, currentTime.minute, currentTime.second, currentTime.millisecond, funcName, lineNum, content);
+		printf("[%02d:%02d:%02d.%03d][%s:%d|%s]%s\n", currentTime.hour, currentTime.minute, currentTime.second, currentTime.millisecond, trimFileName(fileName), lineNum, funcName, content);
 }
 
 void Logger::setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level)
