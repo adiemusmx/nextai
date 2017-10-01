@@ -1,10 +1,11 @@
-all :
-	$(MAKE) -C ./trinity/build
-	$(MAKE) -C ./app/build
+all : clean
+	$(MAKE) -C ./trinity
+	$(MAKE) -C ./app
+	cp ./app/app.exe ./app.exe -f
 
 clean:
-	$(MAKE) clean -C ./trinity/build
-	$(MAKE) clean -C ./app/build
+	$(MAKE) clean -C ./trinity
+	$(MAKE) clean -C ./app
 	rm -f ./app.exe
 
 install : all

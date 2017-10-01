@@ -1,6 +1,6 @@
-﻿#include "app_service.h"
+﻿#include "trinity_app_service.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	Trinity::AppService* rs = Trinity::AppService::getInstance();
 
@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	rs->init(param);
 
 	// main loop
-	rs->mainLoop();
+	rs->run();
 
 	return 0;
 }
