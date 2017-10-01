@@ -25,12 +25,11 @@ void GL_Line::draw()
 
 	glBegin(GL_LINE_STRIP);
 	glColor3f(1.0, 0.0, 0.0);
-	for (loopIdx = 0; loopIdx < m_points.size(); ++loopIdx)
-	{
-		glVertex3f(m_points[loopIdx].x, m_points[loopIdx].y, 0);
-	}
-	glEnd();
 
+	for (loopIdx = 0; loopIdx < m_points.size(); ++loopIdx)
+		glVertex3f(m_points[loopIdx].x, m_points[loopIdx].y, 0);
+
+	glEnd();
 	glDisable(GL_LINE_STIPPLE);
 }
 
@@ -48,6 +47,7 @@ void GL_Line::setPoints(const Point* points, size_t count)
 
 void GL_Line::appendPoint(const Point& point)
 {
+	TRI_INFO_LOG("point[%d,%d]", point.x, point.y);
 	m_points.push_back(point);
 }
 

@@ -11,10 +11,11 @@ AppEventHandler* AppEventHandler::getInstance()
 BOOL AppEventHandler::initCompleted()
 {
 	Trinity::ObjectManager::getInstance()->addView(Trinity::SurfaceID_VIEW, new ViewMousePaint());
+
 	return FALSE;
 }
 
-BOOL AppEventHandler::touch(Trinity::TouchType touch, int32 touchCount, int32 touchId[], Trinity::Point touchPos[])
+BOOL AppEventHandler::touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[])
 {
 	return FALSE;
 }

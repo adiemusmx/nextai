@@ -10,7 +10,7 @@ public:
 
 	virtual BOOL initCompleted();
 
-	virtual BOOL touch(Trinity::TouchType touch, int32 touchCount, int32 touchId[], Trinity::Point touchPos[]);
+	virtual BOOL touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[]);
 
 private:
 	AppEventHandler() {}

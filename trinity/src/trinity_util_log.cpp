@@ -33,6 +33,8 @@ const CHAR* Logger::trimFileName(const CHAR* fileName)
 
 void Logger::print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content)
 {
+	const CHAR* LogLevelTable[] = {"OFF", "VERBOSE", "TRACE", "INFO", "WARN", "ERROR", "MAX"};
+
 	if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
 		return;
 
@@ -40,7 +42,9 @@ void Logger::print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_
 	Util_getCurrentSystemTime(currentTime);
 
 	if (m_logLevel[E_LOG_OUTPUT_CONSOLE] <= level)
-		printf("[%02d:%02d:%02d.%03d][%s:%d|%s]%s\n", currentTime.hour, currentTime.minute, currentTime.second, currentTime.millisecond, trimFileName(fileName), lineNum, funcName, content);
+	{
+		printf("[%02d:%02d:%02d.%03d][%s][%s:%d|%s]%s\n", currentTime.hour, currentTime.minute, currentTime.second, currentTime.millisecond, LogLevelTable[level], trimFileName(fileName), lineNum, funcName, content);
+	}
 }
 
 void Logger::setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level)

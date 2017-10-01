@@ -6,21 +6,19 @@ using namespace Trinity;
 
 ViewMousePaint::ViewMousePaint() : Trinity::WidgetView(OBJECT_ID_SCREEN_MOUSE_PAINT)
 {
-	printf("################\n");
 	m_glLine = new Trinity::GL_Line();
+	Trinity::AppService::getInstance()->addEventListener(this);
 }
 
 ViewMousePaint::~ViewMousePaint()
 {
-	printf("################\n");
+	Trinity::AppService::getInstance()->removeEventListener(this);
 	if (m_glLine != NULL)
 		delete(m_glLine);
 }
 
 void ViewMousePaint::drawImpl()
 {
-	printf("################\n");
-
 	// Parent's draw fucntion
 	Trinity::WidgetView::drawImpl();
 
@@ -28,9 +26,8 @@ void ViewMousePaint::drawImpl()
 	m_glLine->draw();
 }
 
-BOOL ViewMousePaint::touch(Trinity::TouchType touch, int32 touchCount, int32 touchId[], Trinity::Point touchPos[])
+BOOL ViewMousePaint::touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[])
 {
-	TRI_INFO_LOG("ViewMousePaint touch");
 	m_glLine->appendPoint(touchPos[0]);
 	return FALSE;
 }

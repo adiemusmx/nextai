@@ -31,7 +31,7 @@ void Util_getCurrentSystemTime(DateTime& dateTime)
 	dateTime.day = t->tm_mday;
 	dateTime.hour = t->tm_hour;
 	dateTime.minute = t->tm_min;
-	dateTime.minute = t->tm_sec;
+	dateTime.second = t->tm_sec;
 
 	timeval tv;
 	gettimeofday(&tv, NULL);

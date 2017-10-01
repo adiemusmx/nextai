@@ -8,5 +8,5 @@ clean:
 	$(MAKE) clean -C ./app
 	rm -f ./app.exe
 
-install : all
+install : clean all
 	./app.exe

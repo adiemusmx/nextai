@@ -12,7 +12,7 @@ public:
 
 	virtual void drawImpl();
 
-	virtual BOOL touch(Trinity::TouchType touch, int32 touchCount, int32 touchId[], Trinity::Point touchPos[]);
+	virtual BOOL touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[]);
 
 private:
 	Trinity::GL_Line* m_glLine;

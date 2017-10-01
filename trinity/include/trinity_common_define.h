@@ -35,11 +35,11 @@
 #define element_of(x) \
 	(sizeof(x) / sizeof(x[0]))
 
-#define WINDOWS_POSITION_LEFT 100
-#define WINDOWS_POSITION_TOP 100
+//#define WINDOWS_POSITION_LEFT 100
+//#define WINDOWS_POSITION_TOP 100
 
-#define WINDOWS_WIDTH 1024
-#define WINDOWS_HEIGHT 768
+//#define WINDOWS_WIDTH 1024
+//#define WINDOWS_HEIGHT 768
 
 #define TOUCH_POINT_MAX_COUNT 10
 

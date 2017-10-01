@@ -8,9 +8,7 @@
 
 #define VECTOR_NOTIFY(listeners, func,...)	\
 	for (size_t loopIdx = 0; loopIdx < listeners.size(); ++loopIdx) \
-	{\
-		if (listeners[loopIdx]->func(__VA_ARGS__))break;\
-	}\
+		if (listeners[loopIdx]->func(__VA_ARGS__)) break;\
 
 	namespace Trinity
 	{
@@ -63,10 +61,13 @@
 
 	void AppService::init(AppServiceParam& param)
 	{
-		glutInitWindowPosition(param.windowsArea.left, param.windowsArea.top);
-		glutInitWindowSize(RECT_getWidth(param.windowsArea), RECT_getHeight(param.windowsArea));
+		// Glut init
 		glutInit(&param.argc, param.argv);
 		glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
+
+		glutInitWindowPosition(param.windowsArea.left, param.windowsArea.top);
+		glutInitWindowSize(RECT_getWidth(param.windowsArea), RECT_getHeight(param.windowsArea));
+
 		glutCreateWindow(param.windowsTitle);
 
 		// Render
@@ -80,6 +81,7 @@
 
 	void AppService::addEventListener(AppEventListener* listener)
 	{
+		TRI_INFO_LOG("listener[%p]", listener);
 		std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if (iter == m_listeners.end())
 		{
@@ -93,6 +95,7 @@
 
 	void AppService::removeEventListener(AppEventListener* listener)
 	{
+		TRI_INFO_LOG("listener[%p]", listener);
 		std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if (iter != m_listeners.end())
 		{
@@ -108,10 +111,19 @@
 	{
 		// Init started
 		VECTOR_NOTIFY(m_listeners, initStarted);
+
+		ObjectManager::getInstance()->init();
+
 		VECTOR_NOTIFY(m_listeners, initCompleted);
 
 		// main loop
 		glutMainLoop();
+
+		VECTOR_NOTIFY(m_listeners, cleanupStarted);
+
+		ObjectManager::getInstance()->cleanup();
+
+		VECTOR_NOTIFY(m_listeners, cleanupCompleted);
 	}
 
 	AppService::AppService()
@@ -172,14 +184,16 @@
 		int32 touchId[TOUCH_POINT_MAX_COUNT] = {0};
 		Point touchPos[TOUCH_POINT_MAX_COUNT] = {0};
 
+		touchPos[0].x = x;
+		touchPos[0].y = y;
 		if (state == GLUT_DOWN)
 		{
-			TRI_INFO_LOG("[Gesture] [TouchType_BEGAN] pos[%d,%d]", x, y);
+			TRI_INFO_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
 			VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_BEGAN, 1, touchId, touchPos);
 		}
 		else if (state == GLUT_UP)
 		{
-			TRI_INFO_LOG("[Gesture] [TouchType_ENDED] pos[%d,%d]", x, y);
+			TRI_INFO_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
 			VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_ENDED, 1, touchId, touchPos);
 		}
 	}
@@ -189,7 +203,9 @@
 		int32 touchId[TOUCH_POINT_MAX_COUNT] = {0};
 		Point touchPos[TOUCH_POINT_MAX_COUNT] = {0};
 
-		TRI_INFO_LOG("[Gesture] [TouchType_MOVED] pos[%d,%d]", x, y);
+		touchPos[0].x = x;
+		touchPos[0].y = y;
+		TRI_INFO_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
 		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_MOVED, 1, touchId, touchPos);
 	}
 
