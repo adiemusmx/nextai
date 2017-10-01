@@ -9,21 +9,45 @@
 namespace Trinity
 {
 
-void AppEventListener::initStarted() {}
+BOOL AppEventListener::initStarted()
+{
+	return FALSE;
+}
 
-void AppEventListener::initCompleted() {}
+BOOL AppEventListener::initCompleted()
+{
+	return FALSE;
+}
 
-void AppEventListener::cleanupStarted() {}
+BOOL AppEventListener::cleanupStarted()
+{
+	return FALSE;
+}
 
-void AppEventListener::cleanupCompleted() {}
+BOOL AppEventListener::cleanupCompleted()
+{
+	return FALSE;
+}
 
-void AppEventListener::renderStarted() {}
+BOOL AppEventListener::renderStarted()
+{
+	return FALSE;
+}
 
-void AppEventListener::renderCompleted() {}
+BOOL AppEventListener::renderCompleted()
+{
+	return FALSE;
+}
 
-void AppEventListener::hardkey(HardkeyID key) {}
+BOOL AppEventListener::hardkey(HardkeyID key)
+{
+	return FALSE;
+}
 
-void AppEventListener::touch(TouchType touch, int32 touchCount, int32 touchId[], POINT touchPos[]) {}
+BOOL AppEventListener::touch(TouchType touch, int32 touchCount, int32 touchId[], Point touchPos[])
+{
+	return FALSE;
+}
 
 AppService* AppService::getInstance()
 {

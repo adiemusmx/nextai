@@ -26,8 +26,7 @@ void WidgetPicture::drawImpl()
 	m_bmp->draw();
 }
 
-// �趨/ȡ������
-void WidgetPicture::setDrawableArea(const RECT& area)
+void WidgetPicture::setDrawableArea(const Rect& area)
 {
 	WidgetObject::setDrawableArea(area);
 	if (m_bmp != NULL)

@@ -10,7 +10,7 @@ class WidgetView : public WidgetObject
 {
 public:
 	WidgetView(ObjectId id);
-	~WidgetView();
+	virtual ~WidgetView();
 
 private:
 	// Disable copy constructor

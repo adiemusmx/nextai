@@ -19,7 +19,7 @@ class WidgetSurface : public WidgetObject
 {
 public:
 	WidgetSurface(ObjectId id);
-	~WidgetSurface();
+	virtual ~WidgetSurface();
 
 private:
 	// Disable copy constructor

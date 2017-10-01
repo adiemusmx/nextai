@@ -8,7 +8,7 @@ class WidgetButton : public WidgetObject
 {
 public:
 	WidgetButton();
-	~WidgetButton();
+	virtual ~WidgetButton();
 
 private:
 	// Disable copy constructor

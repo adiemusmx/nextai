@@ -34,11 +34,11 @@ private:
 	DISABLE_CLASS_COPY(ObjectManager);
 
 	// Hardkey
-	virtual void hardkey(HardkeyID key);
+	virtual BOOL hardkey(HardkeyID key);
 
 	// touchCount indicates valid data count of touch.
 	// touchId and touchPos has 10 elements.
-	virtual void touch(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[]);
+	virtual BOOL touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 	// Root of the object's tree.
 	WidgetSurface* m_surfaces[SurfaceID_MAX];

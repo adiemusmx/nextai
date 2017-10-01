@@ -117,12 +117,12 @@ GLuint GL_Bitmap::getTexture()
 	return m_texture;
 }
 
-void GL_Bitmap::setArea(const RECT& area)
+void GL_Bitmap::setArea(const Rect& area)
 {
 	m_area = area;
 }
 
-const RECT& GL_Bitmap::getArea()
+const Rect& GL_Bitmap::getArea()
 {
 	return m_area;
 }

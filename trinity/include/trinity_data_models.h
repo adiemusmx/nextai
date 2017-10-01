@@ -36,7 +36,7 @@ public:
 	PointDataModel();
 	PointDataModel(const T& x, const T& y);
 	PointDataModel(const PointDataModel& point);
-	~PointDataModel();
+	virtual ~PointDataModel();
 
 	// operator
 	BOOL operator==(const PointDataModel& point);
@@ -58,7 +58,7 @@ class RectDataModel : public DataModel
 public:
 	// construtor
 	RectDataModel();
-	RectDataModel(POINT leftTop, POINT rightBottom);
+	RectDataModel(const Point& leftTop, const Point& rightBottom);
 	RectDataModel(LONG left, LONG top, LONG width, LONG height);
 	RectDataModel(const RectDataModel& rect);
 
@@ -67,17 +67,17 @@ public:
 	RectDataModel& operator=(const RectDataModel& rect);
 
 	// test point
-	BOOL testPoint(const POINT& point);
+	BOOL testPoint(const Point& point);
 
 	// setter/getter
-	void setValue(POINT leftTop, POINT rightBottom);
+	void setValue(const Point& leftTop, const Point& rightBottom);
 	void setValue(LONG left, LONG top, LONG width, LONG height);
 	const RectDataModel& getValue();
 
 private:
 	// basic data
-	POINT m_leftTop;
-	POINT m_rightBottom;
+	Point m_leftTop;
+	Point m_rightBottom;
 };
 }
 

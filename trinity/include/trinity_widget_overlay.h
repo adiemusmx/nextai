@@ -8,7 +8,7 @@ class WidgetOverlay : public WidgetObject
 {
 public:
 	WidgetOverlay();
-	~WidgetOverlay();
+	virtual ~WidgetOverlay();
 
 private:
 	// Disable copy constructor

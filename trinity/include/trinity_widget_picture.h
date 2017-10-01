@@ -18,7 +18,7 @@ public:
 	virtual void drawImpl();
 
 	// Set/get drawable area.
-	virtual void setDrawableArea(const RECT& area);
+	virtual void setDrawableArea(const Rect& area);
 
 	// Set path of the bmp file.
 	virtual void setPath(const CHAR* path);

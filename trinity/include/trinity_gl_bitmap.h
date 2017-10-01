@@ -22,8 +22,8 @@ public:
 	BOOL setPath(const char* fileName);
 
 	// Set control's area
-	virtual void setArea(const RECT& area);
-	virtual const RECT& getArea();
+	virtual void setArea(const Rect& area);
+	virtual const Rect& getArea();
 
 	// Draw function
 	void draw();
@@ -38,7 +38,7 @@ private:
 	unsigned long m_height;
 
 	char* m_data;
-	RECT m_area;
+	Rect m_area;
 
 	GLuint m_texture;
 };

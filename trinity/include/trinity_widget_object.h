@@ -17,43 +17,43 @@ class WidgetObject
 public:
 	// Constructor and destructor
 	WidgetObject(ObjectId id);
-	~WidgetObject();
+	virtual ~WidgetObject();
 
 	// Add and remove child widget.
-	void addChild(WidgetObject* child);
-	void removeChild(WidgetObject* child);
-	BOOL isChild(WidgetObject* child);
+	virtual void addChild(WidgetObject* child);
+	virtual void removeChild(WidgetObject* child);
+	virtual BOOL isChild(WidgetObject* child);
 
 	// Get object id.
-	WidgetObject* getObjectById(ObjectId id);
+	virtual WidgetObject* getObjectById(ObjectId id);
 
 	// Drawable
-	void draw();
-	void drawImpl();
-	void setDrawableArea(const RECT& area);
-	const RECT& getDrawableArea();
+	virtual void draw();
+	virtual void drawImpl();
+	virtual void setDrawableArea(const Rect& area);
+	virtual const Rect& getDrawableArea();
 
 	// Hitable
-	BOOL hit(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[]);
-	BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[]);
-	void setHitableArea(const RECT& area);
-	const RECT& getHitableArea();
+	virtual BOOL hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+	virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+	virtual void setHitableArea(const Rect& area);
+	virtual const Rect& getHitableArea();
 
 	// Visible
-	void setVisible(BOOL visible);
-	BOOL getVisible();
+	virtual void setVisible(BOOL visible);
+	virtual BOOL getVisible();
 
 	// Hit enable
-	void setHitEnable(BOOL hitEnable);
-	BOOL getHitEnable();
+	virtual void setHitEnable(BOOL hitEnable);
+	virtual BOOL getHitEnable();
 
 	// Hit trans enable
-	void setHitTransEnable(BOOL hitTransEnable);
-	BOOL getHitTransEnable();
+	virtual void setHitTransEnable(BOOL hitTransEnable);
+	virtual BOOL getHitTransEnable();
 
 	// Need refresh
-	void invalidate();
-	BOOL isNeedsRefresh();
+	virtual void invalidate();
+	virtual BOOL isNeedsRefresh();
 
 private:
 	// Disable copy constructor
@@ -63,10 +63,10 @@ private:
 	ObjectId m_id;
 
 	// Drawable area
-	RECT m_drawableArea;
+	Rect m_drawableArea;
 
 	// Hitable area
-	RECT m_hitableArea;
+	Rect m_hitableArea;
 
 	// Hitable properties
 	BOOL m_hitEnable;		// Default[FALSE]: Call hitImpl function.

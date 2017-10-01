@@ -1,31 +1,60 @@
 #ifndef _TRINITY_COMMON_TYPES_H_
 #define _TRINITY_COMMON_TYPES_H_
 
-#ifdef SYSTEM_WINDOWS
-
-#include <windows.h>
-
 typedef int int32;
 typedef int32 BOOL;
 
+#ifdef SYSTEM_WINDOWS
+#include <windows.h>
 #else
-
 #include <stdio.h>
 #include <stdlib.h>
-
-#define TRUE 1
-#define FALSE 0
+#endif
 
 typedef int int32;
 typedef int32 BOOL;
 
-struct POINT
+#ifndef TRUE
+#define TRUE 1
+#endif
+
+#ifndef FALSE
+#define FALSE 0
+#endif
+
+#ifndef WCHAR
+#define WCHAR wchar_t
+#endif
+
+#ifndef CHAR
+#define CHAR char
+#endif
+
+#ifndef LONG
+#define LONG long
+#endif
+
+#include <vector>
+
+namespace Trinity
+{
+
+// Int Point
+struct Point
 {
 	int32 x;
 	int32 y;
 };
 
-struct RECT
+// Double Point
+struct DoublePoint
+{
+	double x;
+	double y;
+};
+
+// Rect
+struct Rect
 {
 	int32 left;
 	int32 top;
@@ -33,12 +62,15 @@ struct RECT
 	int32 bottom;
 };
 
-typedef wchar_t WCHAR;
-typedef char CHAR;
-typedef long LONG;
+// Double Rect
+struct DoubleRect
+{
+	double left;
+	double top;
+	double right;
+	double bottom;
+};
 
-#endif // SYSTEM_WINDOWS
-
-#include <vector>
+}
 
 #endif // !_TRINITY_COMMON_TYPES_H_

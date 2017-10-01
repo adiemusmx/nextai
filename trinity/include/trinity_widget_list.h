@@ -8,7 +8,7 @@ class WidgetList : public WidgetObject
 {
 public:
 	WidgetList();
-	~WidgetList();
+	virtual ~WidgetList();
 
 private:
 	// Disable copy constructor

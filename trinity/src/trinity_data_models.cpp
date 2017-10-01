@@ -84,7 +84,7 @@ RectDataModel::RectDataModel()
 {
 }
 
-RectDataModel::RectDataModel(POINT leftTop, POINT rightBottom)
+RectDataModel::RectDataModel(const Point& leftTop, const Point& rightBottom)
 {
 	m_leftTop = leftTop;
 	m_rightBottom = rightBottom;
@@ -116,12 +116,12 @@ RectDataModel& RectDataModel::operator=(const RectDataModel& rect)
 	return *this;
 }
 
-BOOL RectDataModel::testPoint(const POINT& point)
+BOOL RectDataModel::testPoint(const Point& point)
 {
 	return (m_leftTop.x < point.x && m_rightBottom.x > point.x && m_leftTop.y < point.y && m_rightBottom.y > point.y);
 }
 
-void RectDataModel::setValue(POINT leftTop, POINT rightBottom)
+void RectDataModel::setValue(const Point& leftTop, const Point& rightBottom)
 {
 	m_leftTop = leftTop;
 	m_rightBottom = rightBottom;

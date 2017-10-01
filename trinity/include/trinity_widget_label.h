@@ -8,7 +8,7 @@ class WidgetLabel : public WidgetObject
 {
 public:
 	WidgetLabel();
-	~WidgetLabel();
+	virtual ~WidgetLabel();
 
 private:
 	// Disable copy constructor

@@ -15,7 +15,7 @@ public:
 	char** argv;
 
 	// Windows start position, width and height.
-	RECT windowsArea;
+	Rect windowsArea;
 
 	// Windows title
 	const char* windowsTitle;
@@ -61,29 +61,29 @@ class AppEventListener
 {
 public:
 	// Before App Service init.
-	virtual void initStarted();
+	virtual BOOL initStarted();
 
 	// After App Service init.
-	virtual void initCompleted();
+	virtual BOOL initCompleted();
 
 	// Before App Service cleanup.
-	virtual void cleanupStarted();
+	virtual BOOL cleanupStarted();
 
 	// After App Service cleanup.
-	virtual void cleanupCompleted();
+	virtual BOOL cleanupCompleted();
 
 	// Before Render.
-	virtual void renderStarted();
+	virtual BOOL renderStarted();
 
 	// After Render.
-	virtual void renderCompleted();
+	virtual BOOL renderCompleted();
 
 	// Hardkey
-	virtual void hardkey(HardkeyID key);
+	virtual BOOL hardkey(HardkeyID key);
 
 	// touchCount indicates valid data count of touch.
 	// touchId and touchPos has 10 elements.
-	virtual void touch(TouchType touch, int32 touchCount, int32 touchId[], POINT touchPos[]);
+	virtual BOOL touch(TouchType touch, int32 touchCount, int32 touchId[], Point touchPos[]);
 };
 
 // App core service
@@ -124,7 +124,7 @@ private:
 private:
 	// Constructor
 	AppService();
-	~AppService();
+	virtual ~AppService();
 
 	// Disable copy constructor
 	DISABLE_CLASS_COPY(AppService);

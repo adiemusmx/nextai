@@ -109,17 +109,17 @@ void WidgetObject::drawImpl()
 	// TODO
 }
 
-void WidgetObject::setDrawableArea(const RECT& area)
+void WidgetObject::setDrawableArea(const Rect& area)
 {
 	m_drawableArea = area;
 }
 
-const RECT& WidgetObject::getDrawableArea()
+const Rect& WidgetObject::getDrawableArea()
 {
 	return m_drawableArea;
 }
 
-BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[])
+BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 {
 	if (!m_visible || !m_hitEnable)
 		return false;
@@ -139,18 +139,18 @@ BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[],
 		return FALSE;
 }
 
-BOOL WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const POINT touchPos[])
+BOOL WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 {
 	// TODO
 	return FALSE;
 }
 
-void WidgetObject::setHitableArea(const RECT& area)
+void WidgetObject::setHitableArea(const Rect& area)
 {
 	m_hitableArea = area;
 }
 
-const RECT& WidgetObject::getHitableArea()
+const Rect& WidgetObject::getHitableArea()
 {
 	return m_hitableArea;
 }
