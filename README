@@ -1,10 +1,12 @@
 *******************************************
-下面的程序是配置opengl的配置所需软件。
-可能不是所有的程序都被用到。
-但是安装全部程序之后，可以正常运行。
-暂且就全放进来好了。
+# Depends
 sudo apt-get install git
 sudo apt-get install build-essential
 sudo apt-get install mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev
 sudo apt-get install freeglut3-dev
 *******************************************
+# Wanted Features
+1.显示图片
+2.读取json文件显示画面
+3.多线程
+4.Timer机制

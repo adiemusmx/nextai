@@ -3,6 +3,8 @@
 
 typedef int int32;
 typedef int32 BOOL;
+typedef unsigned int uint32;
+typedef unsigned long uint64;
 
 #ifdef SYSTEM_WINDOWS
 #include <windows.h>
@@ -10,9 +12,6 @@ typedef int32 BOOL;
 #include <stdio.h>
 #include <stdlib.h>
 #endif
-
-typedef int int32;
-typedef int32 BOOL;
 
 #ifndef TRUE
 #define TRUE 1
@@ -36,8 +35,7 @@ typedef int32 BOOL;
 
 #include <vector>
 
-namespace Trinity
-{
+namespace Trinity {
 
 // Int Point
 struct Point
@@ -70,6 +68,10 @@ struct DoubleRect
 	double right;
 	double bottom;
 };
+
+// Color
+typedef uint64 ColorCode;
+
 
 }
 

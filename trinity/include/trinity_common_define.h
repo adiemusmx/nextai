@@ -31,16 +31,18 @@
 #define RECT_invalidate(r) \
 	r.left = r.top = r.right = r.bottom = 0
 
-
+// ############ ARRAY ############
 #define element_of(x) \
 	(sizeof(x) / sizeof(x[0]))
 
-//#define WINDOWS_POSITION_LEFT 100
-//#define WINDOWS_POSITION_TOP 100
-
-//#define WINDOWS_WIDTH 1024
-//#define WINDOWS_HEIGHT 768
-
+// ############ TOUCH ############
 #define TOUCH_POINT_MAX_COUNT 10
+
+// ############ COLOR ############
+#define COLOR_GET_RED(color)	(((color >> 24) & 0x000000FF) / 256.0f)
+#define COLOR_GET_GREEN(color)	(((color >> 16) & 0x000000FF) / 256.0f)
+#define COLOR_GET_BLUE(color)	(((color >> 8) & 0x000000FF) / 256.0f)
+#define COLOR_GET_ALPHA(color)	((color & 0x000000FF) / 256.0f)
+
 
 #endif // !_TRINITY_COMMON_DEFINE_H_
