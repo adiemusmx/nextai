@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\app_event_handler.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\view_mouse_paint.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\app_event_handler.h" />
+    <ClInclude Include="include\app_object_id.h" />
+    <ClInclude Include="include\view_mouse_paint.h" />
+  </ItemGroup>
+</Project>

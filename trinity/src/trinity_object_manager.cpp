@@ -1,8 +1,7 @@
 #include "trinity_object_manager.h"
 #include "trinity_util_log.h"
 
-namespace Trinity
-{
+namespace Trinity {
 ObjectManager* ObjectManager::getInstance()
 {
 	static ObjectManager obj;
@@ -91,7 +90,7 @@ BOOL ObjectManager::touch(TouchType touch, int32 touchCount, const int32 touchId
 	{
 		if (m_surfaces[loopIdx] != NULL)
 			ret = m_surfaces[loopIdx]->hit(touch, touchCount, touchId, touchPos);
-		TRI_INFO_LOG("touch surface[%lu,%p] ret[%d]", loopIdx, m_surfaces[loopIdx], ret);
+		TRI_INFO_LOG("touch surface[%zu,%p] ret[%d]", loopIdx, m_surfaces[loopIdx], ret);
 	}
 	return ret;
 }

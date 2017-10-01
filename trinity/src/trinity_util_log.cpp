@@ -3,8 +3,7 @@
 #include <cstring>
 #include "trinity_util_time.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 Logger::Logger()
 {
@@ -21,7 +20,7 @@ Logger* Logger::getInstance()
 const CHAR* Logger::trimFileName(const CHAR* fileName)
 {
 	int32 loopIdx;
-	for (loopIdx = strlen(fileName) - 2; loopIdx >= 0; --loopIdx)
+	for (loopIdx = (int32)strlen(fileName) - 2; loopIdx >= 0; --loopIdx)
 	{
 		if (fileName[loopIdx] == '/' || fileName[loopIdx] == '\\')
 		{

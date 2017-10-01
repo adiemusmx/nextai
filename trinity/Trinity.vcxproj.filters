@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\trinity_app_service.cpp" />
+    <ClCompile Include="src\trinity_data_models.cpp" />
+    <ClCompile Include="src\trinity_gl_bitmap.cpp" />
+    <ClCompile Include="src\trinity_gl_line.cpp" />
+    <ClCompile Include="src\trinity_message_center.cpp" />
+    <ClCompile Include="src\trinity_object_manager.cpp" />
+    <ClCompile Include="src\trinity_util_log.cpp" />
+    <ClCompile Include="src\trinity_util_time.cpp" />
+    <ClCompile Include="src\trinity_widget_button.cpp" />
+    <ClCompile Include="src\trinity_widget_label.cpp" />
+    <ClCompile Include="src\trinity_widget_list.cpp" />
+    <ClCompile Include="src\trinity_widget_object.cpp" />
+    <ClCompile Include="src\trinity_widget_overlay.cpp" />
+    <ClCompile Include="src\trinity_widget_picture.cpp" />
+    <ClCompile Include="src\trinity_widget_surface.cpp" />
+    <ClCompile Include="src\trinity_widget_view.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\trinity_app_service.h" />
+    <ClInclude Include="include\trinity_common_define.h" />
+    <ClInclude Include="include\trinity_common_types.h" />
+    <ClInclude Include="include\trinity_data_models.h" />
+    <ClInclude Include="include\trinity_gl_bitmap.h" />
+    <ClInclude Include="include\trinity_gl_line.h" />
+    <ClInclude Include="include\trinity_message_center.h" />
+    <ClInclude Include="include\trinity_message_id.h" />
+    <ClInclude Include="include\trinity_object_id.h" />
+    <ClInclude Include="include\trinity_object_manager.h" />
+    <ClInclude Include="include\trinity_util_log.h" />
+    <ClInclude Include="include\trinity_util_time.h" />
+    <ClInclude Include="include\trinity_widget_button.h" />
+    <ClInclude Include="include\trinity_widget_label.h" />
+    <ClInclude Include="include\trinity_widget_list.h" />
+    <ClInclude Include="include\trinity_widget_object.h" />
+    <ClInclude Include="include\trinity_widget_overlay.h" />
+    <ClInclude Include="include\trinity_widget_picture.h" />
+    <ClInclude Include="include\trinity_widget_surface.h" />
+    <ClInclude Include="include\trinity_widget_view.h" />
+  </ItemGroup>
+</Project>

@@ -1,8 +1,7 @@
 #include "trinity_gl_bitmap.h"
 #include "trinity_util_log.h"
 
-namespace Trinity
-{
+namespace Trinity {
 GL_Bitmap::GL_Bitmap(const char* fileName)
 {
 	m_texture = 0;
@@ -23,8 +22,8 @@ GL_Bitmap::~GL_Bitmap()
 BOOL GL_Bitmap::setPath(const char* fileName)
 {
 	FILE* fp;
-	unsigned long size;
-	unsigned long i;
+	size_t size;
+	size_t i;
 	unsigned short int planes;
 	unsigned short int bpp;
 	char temp;
@@ -50,7 +49,7 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 		return FALSE;
 	}
 
-	TRI_INFO_LOG("m_width[%lu] m_height[%lu]", m_width, m_height)
+	TRI_INFO_LOG("m_width[%zu] m_height[%zu]", m_width, m_height)
 	size = m_width * m_height * 3;
 	if ((fread(&planes, 2, 1, fp)) != 1)
 	{
@@ -78,7 +77,7 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 	m_data = (char*)malloc(size);
 	if (m_data == NULL)
 	{
-		TRI_ERROR_LOG("Image[%s]'s malloc failed. size[%lu]", fileName, size);
+		TRI_ERROR_LOG("Image[%s]'s malloc failed. size[%zu]", fileName, size);
 		return FALSE;
 	}
 	if ((i = fread(m_data, size, 1, fp)) != 1)
@@ -108,7 +107,7 @@ void GL_Bitmap::generateTexture()
 	glBindTexture(GL_TEXTURE_2D, m_texture);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, m_width, m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, m_data);
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, (GLsizei)m_width, (GLsizei)m_height, 0, GL_RGB, GL_UNSIGNED_BYTE, m_data);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -129,21 +128,21 @@ const Rect& GL_Bitmap::getArea()
 
 void GL_Bitmap::draw()
 {
-	glEnable(GL_TEXTURE_2D);//ͼ����Ч��
+	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, getTexture());
-	glEnable(GL_ALPHA_TEST);//���軭��ʼ
+	glEnable(GL_ALPHA_TEST);
 	glBegin(GL_POLYGON);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex2d(m_area.left, m_area.bottom);//����
+	glVertex2d(m_area.left, m_area.bottom);
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex2d(m_area.left, m_area.top);//����
+	glVertex2d(m_area.left, m_area.top);
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex2d(m_area.right, m_area.top);//����
+	glVertex2d(m_area.right, m_area.top);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex2d(m_area.right, m_area.bottom);//����
+	glVertex2d(m_area.right, m_area.bottom);
 	glEnd();
-	glDisable(GL_ALPHA_TEST);//���軭����
-	glDisable(GL_TEXTURE_2D);//ͼ����Ч
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_TEXTURE_2D);
 }
 
 }

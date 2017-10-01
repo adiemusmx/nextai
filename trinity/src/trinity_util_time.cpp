@@ -5,8 +5,7 @@
 #include "sys/time.h"
 #endif
 
-namespace Trinity
-{
+namespace Trinity {
 
 void Util_getCurrentSystemTime(DateTime& dateTime)
 {
@@ -18,6 +17,7 @@ void Util_getCurrentSystemTime(DateTime& dateTime)
 	dateTime.day = sys.wDay;
 	dateTime.hour = sys.wHour;
 	dateTime.minute = sys.wMinute;
+	dateTime.second = sys.wSecond;
 	dateTime.millisecond = sys.wMilliseconds;
 #endif
 

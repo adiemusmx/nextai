@@ -9,8 +9,7 @@
 #include <GL/glut.h>
 #include <GL/glu.h>
 
-namespace Trinity
-{
+namespace Trinity {
 
 class GL_Bitmap
 {
@@ -34,10 +33,10 @@ private:
 private:
 	void generateTexture();
 
-	unsigned long m_width;
-	unsigned long m_height;
+	size_t m_width;
+	size_t m_height;
 
-	char* m_data;
+	CHAR* m_data;
 	Rect m_area;
 
 	GLuint m_texture;

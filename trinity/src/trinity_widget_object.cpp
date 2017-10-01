@@ -2,8 +2,7 @@
 #include "trinity_util_log.h"
 #include <algorithm>
 
-namespace Trinity
-{
+namespace Trinity {
 
 WidgetObject::WidgetObject(ObjectId id)
 {

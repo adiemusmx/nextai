@@ -4,8 +4,7 @@
 #include "trinity_common_define.h"
 #include "trinity_common_types.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 class AppServiceParam
 {
@@ -131,6 +130,8 @@ private:
 
 	// Event listeners
 	std::vector<AppEventListener*> m_listeners;
+
+	Rect m_area;
 };
 }
 

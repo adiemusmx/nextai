@@ -3,8 +3,7 @@
 #include <cstdlib>
 #include <cstring>
 
-namespace Trinity
-{
+namespace Trinity {
 
 GL_Line::GL_Line()
 {
@@ -36,7 +35,7 @@ void GL_Line::draw()
 void GL_Line::setPoints(const Point* points, size_t count)
 {
 	size_t loopIdx;
-	TRI_INFO_LOG("points[%p] count[%lu]", points, count);
+	TRI_INFO_LOG("points[%p] count[%zu]", points, count);
 	m_points.clear();
 
 	for (loopIdx = 0; loopIdx < count; ++loopIdx)
