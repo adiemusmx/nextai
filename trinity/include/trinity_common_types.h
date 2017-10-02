@@ -29,10 +29,6 @@ typedef unsigned long uint64;
 #define CHAR char
 #endif
 
-#ifndef LONG
-#define LONG long
-#endif
-
 #include <vector>
 
 namespace Trinity {

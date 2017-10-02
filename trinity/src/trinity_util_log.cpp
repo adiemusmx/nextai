@@ -37,12 +37,13 @@ void Logger::print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_
 	if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
 		return;
 
-	DateTime currentTime;
-	Util_getCurrentSystemTime(currentTime);
+	DateTime currentTime = DateTime::now();
 
 	if (m_logLevel[E_LOG_OUTPUT_CONSOLE] <= level)
 	{
-		printf("[%02d:%02d:%02d.%03d][%s][%s:%d|%s]%s\n", currentTime.hour, currentTime.minute, currentTime.second, currentTime.millisecond, LogLevelTable[level], trimFileName(fileName), lineNum, funcName, content);
+		printf("[%02u:%02u:%02u.%03u][%s][%s:%d|%s]%s\n",
+		       currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond(),
+		       currentTime.getMillisecond(), LogLevelTable[level], trimFileName(fileName), lineNum, funcName, content);
 	}
 }
 
