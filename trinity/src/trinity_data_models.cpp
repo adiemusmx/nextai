@@ -1,4 +1,4 @@
-﻿#include "trinity_data_models.h"
+﻿#include "trinity/trinity_data_models.h"
 
 namespace Trinity
 {

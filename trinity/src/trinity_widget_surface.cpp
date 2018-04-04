@@ -1,4 +1,4 @@
-#include "trinity_widget_surface.h"
+#include "trinity/trinity_widget_surface.h"
 
 namespace Trinity
 {

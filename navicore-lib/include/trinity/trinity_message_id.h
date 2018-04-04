@@ -1,0 +1,4 @@
+#ifndef _TRINITY_MESSAGE_ID_H_
+#define _TRINITY_MESSAGE_ID_H_
+
+#endif // !_TRINITY_MESSAGE_ID_H_

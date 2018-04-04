@@ -1,5 +1,5 @@
-#include "trinity_gl_bitmap.h"
-#include "trinity_util_log.h"
+#include "trinity/trinity_gl_bitmap.h"
+#include "trinity/trinity_util_log.h"
 
 namespace Trinity {
 GL_Bitmap::GL_Bitmap(const char* fileName)

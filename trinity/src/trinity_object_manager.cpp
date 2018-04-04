@@ -1,5 +1,5 @@
-#include "trinity_object_manager.h"
-#include "trinity_util_log.h"
+#include "trinity/trinity_object_manager.h"
+#include "trinity/trinity_util_log.h"
 
 namespace Trinity {
 ObjectManager* ObjectManager::getInstance()

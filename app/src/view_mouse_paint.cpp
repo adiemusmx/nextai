@@ -1,7 +1,7 @@
 #include "view_mouse_paint.h"
 #include "app_object_id.h"
-#include "trinity_util_log.h"
-#include "trinity_widget_picture.h"
+#include "trinity/trinity_util_log.h"
+#include "trinity/trinity_widget_picture.h"
 #include <algorithm>
 
 using namespace Trinity;
@@ -29,11 +29,12 @@ void ViewMousePaint::drawImpl()
 	Trinity::WidgetView::drawImpl();
 
 	// Mouse track line
-	std::for_each(m_glLines.begin(), m_glLines.end(), [](auto p)
+	std::vector<Trinity::GL_Line*>::iterator iter = m_glLines.begin();
+	while (iter != m_glLines.end())
 	{
-		p->draw();
-	});
-
+		(*iter)->draw();
+		++iter;
+	}
 }
 
 BOOL ViewMousePaint::touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[])

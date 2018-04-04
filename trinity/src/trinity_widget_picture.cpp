@@ -1,5 +1,5 @@
-#include "trinity_widget_picture.h"
-#include "trinity_util_log.h"
+#include "trinity/trinity_widget_picture.h"
+#include "trinity/trinity_util_log.h"
 
 namespace Trinity {
 

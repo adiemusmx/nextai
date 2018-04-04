@@ -1,7 +1,7 @@
-#include "trinity_util_log.h"
+#include "trinity/trinity_util_log.h"
 #include <cstdio>
 #include <cstring>
-#include "trinity_util_time.h"
+#include "trinity/trinity_util_time.h"
 
 namespace Trinity {
 

@@ -1,8 +1,8 @@
 #ifndef _VIEW_MOUSE_PAINT_H_
 #define _VIEW_MOUSE_PAINT_H_
 
-#include "trinity_widget_view.h"
-#include "trinity_gl_line.h"
+#include "trinity/trinity_widget_view.h"
+#include "trinity/trinity_gl_line.h"
 
 class ViewMousePaint : public Trinity::WidgetView, Trinity::AppEventListener
 {

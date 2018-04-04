@@ -1,9 +1,9 @@
-﻿#include "trinity_app_service.h"
+﻿#include "trinity/trinity_app_service.h"
 #include "GL/glut.h"
-#include "trinity_message_center.h"
-#include "trinity_widget_picture.h"
-#include "trinity_object_manager.h"
-#include "trinity_util_log.h"
+#include "trinity/trinity_message_center.h"
+#include "trinity/trinity_widget_picture.h"
+#include "trinity/trinity_object_manager.h"
+#include "trinity/trinity_util_log.h"
 #include <algorithm>
 
 #define VECTOR_NOTIFY(listeners, func,...)	\

@@ -1,5 +1,5 @@
-#include "trinity_widget_object.h"
-#include "trinity_util_log.h"
+#include "trinity/trinity_widget_object.h"
+#include "trinity/trinity_util_log.h"
 #include <algorithm>
 
 namespace Trinity {

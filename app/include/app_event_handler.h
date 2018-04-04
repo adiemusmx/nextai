@@ -1,7 +1,7 @@
 #ifndef _APP_EVENT_HANDLER_H_
 #define _APP_EVENT_HANDLER_H_
 
-#include "trinity_app_service.h"
+#include "trinity/trinity_app_service.h"
 
 class AppEventHandler : public Trinity::AppEventListener
 {

@@ -1,5 +1,5 @@
 #include "app_event_handler.h"
-#include "trinity_object_manager.h"
+#include "trinity/trinity_object_manager.h"
 #include "view_mouse_paint.h"
 
 AppEventHandler* AppEventHandler::getInstance()

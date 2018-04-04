@@ -1,4 +1,4 @@
-#include "trinity_widget_view.h"
+#include "trinity/trinity_widget_view.h"
 
 namespace Trinity
 {

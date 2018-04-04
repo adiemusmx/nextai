@@ -1,5 +1,5 @@
-#include "trinity_gl_line.h"
-#include "trinity_util_log.h"
+#include "trinity/trinity_gl_line.h"
+#include "trinity/trinity_util_log.h"
 #include <cstdlib>
 #include <cstring>
 

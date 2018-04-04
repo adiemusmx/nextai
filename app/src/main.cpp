@@ -1,4 +1,4 @@
-﻿#include "trinity_app_service.h"
+﻿#include "trinity/trinity_app_service.h"
 #include "app_event_handler.h"
 
 int main(int argc, char* argv[])
