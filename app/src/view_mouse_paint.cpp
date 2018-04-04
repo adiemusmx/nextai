@@ -1,12 +1,19 @@
 #include "view_mouse_paint.h"
 #include "app_object_id.h"
 #include "trinity_util_log.h"
+#include "trinity_widget_picture.h"
 #include <algorithm>
 
 using namespace Trinity;
 
 ViewMousePaint::ViewMousePaint() : Trinity::WidgetView(OBJECT_ID_SCREEN_MOUSE_PAINT)
 {
+	Trinity::WidgetPicture* picture = new Trinity::WidgetPicture(1000);
+	Rect area = {0, 0, Trinity::AppService::getInstance()->getWindowsWidth(), Trinity::AppService::getInstance()->getWindowsHeight()};
+	picture->setPath("res/background.bmp");
+	picture->setDrawableArea(area);
+
+	addChild(picture);
 	Trinity::AppService::getInstance()->addEventListener(this);
 }
 

@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
 	Trinity::AppServiceParam param;
 	param.argc = argc;
 	param.argv = argv;
-	param.windowsArea = {0, 0, 800, 480};
+	param.windowsArea = {0, 0, 1024, 768};
 	param.windowsTitle = "Trinity sample app";
 	rs->init(param);
 

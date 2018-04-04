@@ -126,6 +126,16 @@ void AppService::run()
 	VECTOR_NOTIFY(m_listeners, cleanupCompleted);
 }
 
+size_t AppService::getWindowsWidth()
+{
+	return RECT_getWidth(m_area);
+}
+
+size_t AppService::getWindowsHeight()
+{
+	return  RECT_getHeight(m_area);
+}
+
 AppService::AppService()
 {
 	TRI_TRACE_LOG();
@@ -165,7 +175,7 @@ void AppService::idleFunc()
 
 void AppService::keyBoardFunc(int key, int x, int y)
 {
-	TRI_INFO_LOG("[GLUT] key[%d] x[%d] y[%d]", key, x, y);
+	TRI_VERBOSE_LOG("[GLUT] key[%d] x[%d] y[%d]", key, x, y);
 	switch (key)
 	{
 	case GLUT_KEY_UP:
@@ -188,12 +198,12 @@ void AppService::mouseFunc(int button, int state, int x, int y)
 	touchPos[0].y = y;
 	if (state == GLUT_DOWN)
 	{
-		TRI_INFO_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
+		TRI_VERBOSE_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
 		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_BEGAN, 1, touchId, touchPos);
 	}
 	else if (state == GLUT_UP)
 	{
-		TRI_INFO_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
+		TRI_VERBOSE_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
 		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_ENDED, 1, touchId, touchPos);
 	}
 }
@@ -205,7 +215,7 @@ void AppService::motionFunc(int x, int y)
 
 	touchPos[0].x = x;
 	touchPos[0].y = y;
-	TRI_INFO_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
+	TRI_VERBOSE_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
 	VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_MOVED, 1, touchId, touchPos);
 }
 

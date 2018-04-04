@@ -1,8 +1,7 @@
 #include "trinity_widget_picture.h"
 #include "trinity_util_log.h"
 
-namespace Trinity
-{
+namespace Trinity {
 
 WidgetPicture::WidgetPicture(ObjectId id): WidgetObject(id)
 {

@@ -32,7 +32,7 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 
 	if (fp == NULL)
 	{
-		TRI_ERROR_LOG("Image[%s] do NOT exist.", fileName);
+		TRI_ERROR_LOG("Image[%s] do not exist.", fileName);
 		return FALSE;
 	}
 	fseek(fp, 18, SEEK_CUR);
@@ -128,6 +128,7 @@ const Rect& GL_Bitmap::getArea()
 
 void GL_Bitmap::draw()
 {
+	TRI_INFO_LOG("area[%d,%d,%d,%d]W[%d]H[%d]", m_area.left, m_area.top, m_area.right, m_area.bottom, m_width, m_height);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, getTexture());
 	glEnable(GL_ALPHA_TEST);

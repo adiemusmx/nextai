@@ -103,6 +103,11 @@ public:
 	// Run
 	void run();
 
+	// Windows property
+	size_t getWindowsWidth();
+	size_t getWindowsHeight();
+
+
 private:
 	// function of draw
 	static void displayFunc();
