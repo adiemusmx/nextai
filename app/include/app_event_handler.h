@@ -3,14 +3,16 @@
 
 #include "trinity/trinity_app_service.h"
 
-class AppEventHandler : public Trinity::AppEventListener
+class AppEventHandler : public MapBarDL::AppEventListener
 {
 public:
 	static AppEventHandler* getInstance();
 
 	virtual BOOL initCompleted();
 
-	virtual BOOL touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[]);
+	virtual BOOL render();
+
+	virtual BOOL touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 private:
 	AppEventHandler() {}

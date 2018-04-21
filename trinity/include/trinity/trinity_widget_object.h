@@ -1,14 +1,12 @@
 #ifndef _TRINITY_WIDGET_OBJECT_H_
 #define _TRINITY_WIDGET_OBJECT_H_
 
-#include "trinity_common_types.h"
-#include "trinity_common_define.h"
 #include "trinity_object_id.h"
 #include "trinity_app_service.h"
 
 typedef unsigned long ObjectId;
 
-namespace Trinity
+namespace MapBarDL
 {
 
 // Widget

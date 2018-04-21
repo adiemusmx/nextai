@@ -3,10 +3,10 @@
 
 int main(int argc, char* argv[])
 {
-	Trinity::AppService* rs = Trinity::AppService::getInstance();
+	MapBarDL::AppService* rs = MapBarDL::AppService::getInstance();
 
 	// Initialize environment
-	Trinity::AppServiceParam param;
+	MapBarDL::AppServiceParam param;
 	param.argc = argc;
 	param.argv = argv;
 	param.windowsArea = {0, 0, 1024, 768};

@@ -1,9 +1,10 @@
+#include "stdafx.h"
 #include "trinity/trinity_util_log.h"
 #include <cstdio>
 #include <cstring>
 #include "trinity/trinity_util_time.h"
 
-namespace Trinity {
+namespace MapBarDL {
 
 Logger::Logger()
 {

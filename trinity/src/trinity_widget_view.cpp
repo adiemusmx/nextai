@@ -1,6 +1,7 @@
+#include "stdafx.h"
 #include "trinity/trinity_widget_view.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
 WidgetView::WidgetView(ObjectId id): WidgetObject(id)

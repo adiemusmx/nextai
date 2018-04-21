@@ -1,9 +1,11 @@
+#include "stdafx.h"
 #include "trinity/trinity_gl_line.h"
 #include "trinity/trinity_util_log.h"
-#include <cstdlib>
-#include <cstring>
 
-namespace Trinity {
+#include <GL/glut.h>
+#include <GL/glu.h>
+
+namespace MapBarDL {
 
 GL_Line::GL_Line()
 {

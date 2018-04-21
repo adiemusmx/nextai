@@ -1,13 +1,10 @@
 #ifndef _TRINITY_GL_LINE_H_
 #define _TRINITY_GL_LINE_H_
 
-#include "trinity_common_define.h"
-#include "trinity_common_types.h"
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
 
-#include <GL/glut.h>
-#include <GL/glu.h>
-
-namespace Trinity {
+namespace MapBarDL {
 
 // 1111111111111111 --> ！！！！！！！！！！！！！！
 #define GL_LINE_STYLE_1 0xFFFF

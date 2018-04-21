@@ -1,6 +1,7 @@
-﻿#include "trinity/trinity_data_models.h"
+﻿#include "stdafx.h"
+#include "trinity/trinity_data_models.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
 void DataModel::addListener(DataModelListener* listener)

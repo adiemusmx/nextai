@@ -3,16 +3,16 @@
 
 #include "trinity_widget_object.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
-enum SurfaceID
+enum SURFACE_ID
 {
-	SurfaceID_BASE,			// Background
-	SurfaceID_VIEW,			// usser view
-	SurfaceID_ONS,			// ons view
-	SurfaceID_INTERRUPT,	// interrup view
-	SurfaceID_MAX
+	SURFACE_ID_BASE,			// Background
+	SURFACE_ID_VIEW,			// usser view
+	SURFACE_ID_ONS,			// ons view
+	SURFACE_ID_INTERRUPT,	// interrup view
+	SURFACE_ID_MAX
 };
 
 class WidgetSurface : public WidgetObject

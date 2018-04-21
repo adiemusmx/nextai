@@ -1,7 +1,9 @@
 #ifndef _TRINITY_WIDGET_BUTTON_H_
 #define _TRINITY_WIDGET_BUTTON_H_
 
-namespace Trinity
+#include "trinity/trinity_widget_object.h"
+
+namespace MapBarDL
 {
 
 class WidgetButton : public WidgetObject
@@ -13,7 +15,7 @@ public:
 private:
 	// Disable copy constructor
 	DISABLE_CLASS_COPY(WidgetButton);
-}
+};
 
 }
 

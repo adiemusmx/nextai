@@ -1,12 +1,15 @@
 #ifndef _TRINITY_OBJECT_MANAGER_H_
 #define _TRINITY_OBJECT_MANAGER_H_
 
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
+
 #include "trinity_widget_object.h"
 #include "trinity_widget_surface.h"
 #include "trinity_widget_view.h"
 #include "trinity_app_service.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
 class ObjectManager : AppEventListener
@@ -20,8 +23,8 @@ public:
 	void cleanup();
 
 	// Add and remove view
-	void addView(SurfaceID surface, WidgetView* view);
-	void removeView(SurfaceID surface, WidgetView* view);
+	void addView(SURFACE_ID surface, WidgetView* view);
+	void removeView(SURFACE_ID surface, WidgetView* view);
 
 	// Draw function
 	void draw();
@@ -41,7 +44,7 @@ private:
 	virtual BOOL touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 	// Root of the object's tree.
-	WidgetSurface* m_surfaces[SurfaceID_MAX];
+	WidgetSurface* m_surfaces[SURFACE_ID_MAX];
 };
 }
 

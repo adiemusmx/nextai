@@ -1,10 +1,10 @@
 ﻿#ifndef _TRINITY_UTIL_LOG_H_
 #define _TRINITY_UTIL_LOG_H_
 
-#include "trinity_common_define.h"
-#include "trinity_common_types.h"
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
 // LOG output dest

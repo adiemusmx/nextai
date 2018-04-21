@@ -1,7 +1,8 @@
+#include "stdafx.h"
 #include "trinity/trinity_gl_bitmap.h"
 #include "trinity/trinity_util_log.h"
 
-namespace Trinity {
+namespace MapBarDL {
 GL_Bitmap::GL_Bitmap(const char* fileName)
 {
 	m_texture = 0;

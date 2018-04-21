@@ -1,11 +1,11 @@
 #ifndef _TRINITY_WIDGET_PICTURE_H_
 #define _TRINITY_WIDGET_PICTURE_H_
 
-#include "trinity_common_define.h"
+
 #include "trinity_gl_bitmap.h"
 #include "trinity_widget_object.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
 class WidgetPicture : public WidgetObject

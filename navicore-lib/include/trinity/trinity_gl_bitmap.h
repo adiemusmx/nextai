@@ -1,15 +1,10 @@
 #ifndef _TRINITY_GL_BITMAP_H_
 #define _TRINITY_GL_BITMAP_H_
 
-#include "trinity_common_types.h"
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
 
-#include <cstdlib>
-#include <stdio.h>
-
-#include <GL/glut.h>
-#include <GL/glu.h>
-
-namespace Trinity {
+namespace MapBarDL {
 
 class GL_Bitmap
 {
@@ -28,7 +23,7 @@ public:
 	void draw();
 
 private:
-	GLuint getTexture();
+	uint32 getTexture();
 
 private:
 	void generateTexture();
@@ -39,7 +34,7 @@ private:
 	CHAR* m_data;
 	Rect m_area;
 
-	GLuint m_texture;
+	uint32 m_texture;
 };
 
 }

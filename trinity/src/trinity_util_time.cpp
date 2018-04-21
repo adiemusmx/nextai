@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "trinity/trinity_util_time.h"
 
 #ifdef SYSTEM_LINUX
@@ -5,7 +6,7 @@
 #include "sys/time.h"
 #endif
 
-namespace Trinity {
+namespace MapBarDL {
 
 DateTime::DateTime()
 {

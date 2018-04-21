@@ -1,7 +1,8 @@
+#include "stdafx.h"
 #include "trinity/trinity_widget_picture.h"
 #include "trinity/trinity_util_log.h"
 
-namespace Trinity {
+namespace MapBarDL {
 
 WidgetPicture::WidgetPicture(ObjectId id): WidgetObject(id)
 {

@@ -1,6 +1,7 @@
 #include "app_event_handler.h"
 #include "trinity/trinity_object_manager.h"
 #include "view_mouse_paint.h"
+#include "render_system/render_system.h"
 
 AppEventHandler* AppEventHandler::getInstance()
 {
@@ -10,12 +11,36 @@ AppEventHandler* AppEventHandler::getInstance()
 
 BOOL AppEventHandler::initCompleted()
 {
-	Trinity::ObjectManager::getInstance()->addView(Trinity::SurfaceID_VIEW, new ViewMousePaint());
+	//MapBarDL::ObjectManager::getInstance()->addView(MapBarDL::SURFACE_ID_VIEW, new ViewMousePaint());
 
 	return FALSE;
 }
 
-BOOL AppEventHandler::touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[])
+BOOL AppEventHandler::render()
+{
+	Point points[10];
+	points[0].x = points[0].y = 10;
+	for (int32 loopIdx = 1; loopIdx < element_of(points); ++loopIdx)
+	{
+		points[loopIdx].x = points[loopIdx - 1].x + 10;
+		points[loopIdx].y = points[loopIdx - 1].y + 10;
+	}
+	ColorCode color = 0x0000FFFF;
+	RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_2, color);
+
+	Point polygonPoint[6];
+	polygonPoint[0].x = 300; polygonPoint[0].y = 300;
+	polygonPoint[1].x = 400; polygonPoint[1].y = 250;
+	polygonPoint[2].x = 400; polygonPoint[2].y = 400;
+	polygonPoint[3].x = 350; polygonPoint[3].y = 490;
+	polygonPoint[4].x = 300; polygonPoint[4].y = 420;
+	polygonPoint[5].x = 250; polygonPoint[5].y = 250;
+	RENDER_SYSTEM()->drawPolygon(polygonPoint, element_of(polygonPoint), 1.0f, 1, LINE_STYLE_1, color, MapBarDL::POLYGON_MODE_POINT);
+
+	return FALSE;
+}
+
+BOOL AppEventHandler::touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 {
 	return FALSE;
 }

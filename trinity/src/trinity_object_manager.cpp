@@ -1,7 +1,9 @@
+#include "stdafx.h"
 #include "trinity/trinity_object_manager.h"
 #include "trinity/trinity_util_log.h"
+#include "trinity/trinity_widget_surface.h"
 
-namespace Trinity {
+namespace MapBarDL {
 ObjectManager* ObjectManager::getInstance()
 {
 	static ObjectManager obj;
@@ -11,17 +13,17 @@ ObjectManager* ObjectManager::getInstance()
 void ObjectManager::init()
 {
 	TRI_TRACE_LOG();
-	m_surfaces[SurfaceID_BASE] = new WidgetSurface(OBJECT_ID_SURFACE_BASE);
-	m_surfaces[SurfaceID_VIEW] = new WidgetSurface(OBJECT_ID_SURFACE_VIEW);
-	m_surfaces[SurfaceID_ONS] = new WidgetSurface(OBJECT_ID_SURFACE_ONS);
-	m_surfaces[SurfaceID_INTERRUPT] = new WidgetSurface(OBJECT_ID_SURFACE_INTERRUPT);
+	m_surfaces[SURFACE_ID_BASE] = new WidgetSurface(OBJECT_ID_SURFACE_BASE);
+	m_surfaces[SURFACE_ID_VIEW] = new WidgetSurface(OBJECT_ID_SURFACE_VIEW);
+	m_surfaces[SURFACE_ID_ONS] = new WidgetSurface(OBJECT_ID_SURFACE_ONS);
+	m_surfaces[SURFACE_ID_INTERRUPT] = new WidgetSurface(OBJECT_ID_SURFACE_INTERRUPT);
 }
 
 void ObjectManager::cleanup()
 {
 	TRI_TRACE_LOG();
 	size_t loopIdx;
-	for (loopIdx = 0; loopIdx < SurfaceID_MAX; ++loopIdx)
+	for (loopIdx = 0; loopIdx < SURFACE_ID_MAX; ++loopIdx)
 	{
 		if (m_surfaces[loopIdx] != NULL)
 		{
@@ -31,28 +33,28 @@ void ObjectManager::cleanup()
 	}
 }
 
-void ObjectManager::addView(SurfaceID surface, WidgetView* view)
+void ObjectManager::addView(SURFACE_ID surface, WidgetView* view)
 {
 	TRI_INFO_LOG("surface[%d] view[%p]", surface, view);
-	if (surface >= SurfaceID_BASE && surface < SurfaceID_MAX && view != NULL)
+	if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
 		m_surfaces[surface]->addChild(view);
 	else
-		TRI_WARNING_LOG("Invalid surfaceID[%d] view[%p]", surface, view);
+		TRI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
 }
 
-void ObjectManager::removeView(SurfaceID surface, WidgetView* view)
+void ObjectManager::removeView(SURFACE_ID surface, WidgetView* view)
 {
 	TRI_INFO_LOG("surface[%d] view[%p]", surface, view);
-	if (surface >= SurfaceID_BASE && surface < SurfaceID_MAX && view != NULL)
+	if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
 		m_surfaces[surface]->removeChild(view);
 	else
-		TRI_WARNING_LOG("Invalid surfaceID[%d] view[%p]", surface, view);
+		TRI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
 }
 
 void ObjectManager::draw()
 {
 	size_t loopIdx;
-	for (loopIdx = 0; loopIdx < SurfaceID_MAX; ++loopIdx)
+	for (loopIdx = 0; loopIdx < SURFACE_ID_MAX; ++loopIdx)
 	{
 		if (m_surfaces[loopIdx] != NULL)
 			m_surfaces[loopIdx]->draw();
@@ -63,7 +65,7 @@ ObjectManager::ObjectManager()
 {
 	TRI_TRACE_LOG();
 	size_t loopIdx;
-	for (loopIdx = 0; loopIdx < SurfaceID_MAX; ++loopIdx)
+	for (loopIdx = 0; loopIdx < SURFACE_ID_MAX; ++loopIdx)
 	{
 		m_surfaces[loopIdx] = NULL;
 	}
@@ -86,7 +88,7 @@ BOOL ObjectManager::touch(TouchType touch, int32 touchCount, const int32 touchId
 	TRI_INFO_LOG("touch[%d] touchCount[%d] touchId[%d] touchPos[%d,%d]", touch, touchCount, touchId[0], touchPos[0].x, touchPos[0].y);
 	BOOL ret = FALSE;
 	size_t loopIdx;
-	for (loopIdx = SurfaceID_MAX - 1; (loopIdx >= 0) && (ret == FALSE); --loopIdx)
+	for (loopIdx = SURFACE_ID_MAX - 1; (loopIdx >= 0) && (ret == FALSE); --loopIdx)
 	{
 		if (m_surfaces[loopIdx] != NULL)
 			ret = m_surfaces[loopIdx]->hit(touch, touchCount, touchId, touchPos);

@@ -1,10 +1,10 @@
 #ifndef _TRINITY_UTIL_TIME_H_
 #define _TRINITY_UTIL_TIME_H_
 
-#include "trinity_common_types.h"
-#include <string>
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
 
-namespace Trinity {
+namespace MapBarDL {
 
 // Date
 class DateTime

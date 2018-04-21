@@ -1,10 +1,10 @@
 ﻿#ifndef _TRINITY_APP_SERVICE_H_
 #define _TRINITY_APP_SERVICE_H_
 
-#include "trinity_common_define.h"
-#include "trinity_common_types.h"
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
 
-namespace Trinity {
+namespace MapBarDL {
 
 class AppServiceParam
 {
@@ -73,6 +73,9 @@ public:
 
 	// Before Render.
 	virtual BOOL renderStarted();
+
+	// Render.
+	virtual BOOL render();
 
 	// After Render.
 	virtual BOOL renderCompleted();

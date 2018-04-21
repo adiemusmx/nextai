@@ -1,5 +1,5 @@
-﻿#include "trinity/trinity_app_service.h"
-#include "GL/glut.h"
+﻿#include "stdafx.h"
+#include "trinity/trinity_app_service.h"
 #include "trinity/trinity_message_center.h"
 #include "trinity/trinity_widget_picture.h"
 #include "trinity/trinity_object_manager.h"
@@ -10,7 +10,7 @@
 	for (size_t loopIdx = 0; loopIdx < listeners.size(); ++loopIdx) \
 		if (listeners[loopIdx]->func(__VA_ARGS__)) break;\
 
-namespace Trinity {
+namespace MapBarDL {
 
 BOOL AppEventListener::initStarted()
 {
@@ -38,6 +38,11 @@ BOOL AppEventListener::renderStarted()
 }
 
 BOOL AppEventListener::renderCompleted()
+{
+	return FALSE;
+}
+
+BOOL AppEventListener::render()
 {
 	return FALSE;
 }
@@ -158,6 +163,7 @@ void AppService::displayFunc()
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderStarted);
 
+	VECTOR_NOTIFY(getInstance()->m_listeners, render);
 	// Object manager draw
 	ObjectManager::getInstance()->draw();
 

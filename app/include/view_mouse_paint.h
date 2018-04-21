@@ -4,7 +4,7 @@
 #include "trinity/trinity_widget_view.h"
 #include "trinity/trinity_gl_line.h"
 
-class ViewMousePaint : public Trinity::WidgetView, Trinity::AppEventListener
+class ViewMousePaint : public MapBarDL::WidgetView, MapBarDL::AppEventListener
 {
 public:
 	ViewMousePaint();
@@ -12,10 +12,10 @@ public:
 
 	virtual void drawImpl();
 
-	virtual BOOL touch(Trinity::TouchType touch, int32 touchCount, const int32 touchId[], const Trinity::Point touchPos[]);
+	virtual BOOL touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 private:
-	std::vector<Trinity::GL_Line*> m_glLines;
+	std::vector<MapBarDL::GL_Line*> m_glLines;
 };
 
 #endif // !_VIEW_MOUSE_PAINT_H_

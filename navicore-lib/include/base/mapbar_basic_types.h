@@ -31,8 +31,6 @@ typedef unsigned long uint64;
 
 #include <vector>
 
-namespace Trinity {
-
 // Int Point
 struct Point
 {
@@ -67,8 +65,5 @@ struct DoubleRect
 
 // Color
 typedef uint64 ColorCode;
-
-
-}
 
 #endif // !_TRINITY_COMMON_TYPES_H_

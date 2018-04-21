@@ -3,7 +3,7 @@
 
 #include "trinity_widget_object.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 
 class WidgetView : public WidgetObject

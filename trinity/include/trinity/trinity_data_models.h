@@ -1,11 +1,10 @@
 ﻿#ifndef _TRINITY_DATA_MODELS_H_
 #define _TRINITY_DATA_MODELS_H_
 
-#include "trinity_common_types.h"
-#include "trinity_common_define.h"
-#include "vector"
+#include "base/mapbar_basic_define.h"
+#include "base/mapbar_basic_types.h"
 
-namespace Trinity
+namespace MapBarDL
 {
 class DataModel;
 

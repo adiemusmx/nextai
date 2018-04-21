@@ -1,7 +1,7 @@
 #ifndef _TRINITY_WIDGET_OVERLAY_H_
 #define _TRINITY_WIDGET_OVERLAY_H_
 
-namespace Trinity
+namespace MapBarDL
 {
 
 class WidgetOverlay : public WidgetObject
@@ -13,7 +13,7 @@ public:
 private:
 	// Disable copy constructor
 	DISABLE_CLASS_COPY(WidgetOverlay);
-}
+};
 
 }
 

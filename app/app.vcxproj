@@ -81,9 +81,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LibraryPath>..\navicore-lib\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>include;..\navicore-lib\include;$(IncludePath)</IncludePath>
+    <IncludePath>include;..\base\include;..\render_system\include;..\trinity\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)exe\</OutDir>
-    <IntDir>$(SolutionDir)obj\</IntDir>
+    <IntDir>$(ProjectDir)obj\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>SYSTEM_WINDOWS;ARCH_X86;BUILD_DEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>trinity_win32.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>render_system_win32.lib;trinity_win32.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\navicore-lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
