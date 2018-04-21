@@ -1,5 +1,5 @@
-#ifndef _TRINITY_COMMON_TYPES_H_
-#define _TRINITY_COMMON_TYPES_H_
+#ifndef _MAPBAR_BASIC_TYPES_H_
+#define _MAPBAR_BASIC_TYPES_H_
 
 typedef int int32;
 typedef int32 BOOL;
@@ -66,4 +66,4 @@ struct DoubleRect
 // Color
 typedef uint64 ColorCode;
 
-#endif // !_TRINITY_COMMON_TYPES_H_
+#endif // !_MAPBAR_BASIC_TYPES_H_

@@ -18,6 +18,7 @@ BOOL AppEventHandler::initCompleted()
 
 BOOL AppEventHandler::render()
 {
+	// Line
 	Point points[10];
 	points[0].x = points[0].y = 10;
 	for (int32 loopIdx = 1; loopIdx < element_of(points); ++loopIdx)
@@ -28,6 +29,7 @@ BOOL AppEventHandler::render()
 	ColorCode color = 0x0000FFFF;
 	RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_2, color);
 
+	// Polygon
 	Point polygonPoint[6];
 	polygonPoint[0].x = 300; polygonPoint[0].y = 300;
 	polygonPoint[1].x = 400; polygonPoint[1].y = 250;
@@ -36,6 +38,11 @@ BOOL AppEventHandler::render()
 	polygonPoint[4].x = 300; polygonPoint[4].y = 420;
 	polygonPoint[5].x = 250; polygonPoint[5].y = 250;
 	RENDER_SYSTEM()->drawPolygon(polygonPoint, element_of(polygonPoint), 1.0f, 1, LINE_STYLE_1, color, MapBarDL::POLYGON_MODE_POINT);
+
+	// Picture
+	Rect drawArea = { 300, 300, 600, 600 };
+	static MapBarDL::TEXTURE_ID textureId = RENDER_SYSTEM()->allocTexture("res/test1.bmp");
+	RENDER_SYSTEM()->drawPicture(textureId, drawArea);
 
 	return FALSE;
 }

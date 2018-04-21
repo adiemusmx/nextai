@@ -1,5 +1,5 @@
-﻿#ifndef _TRINITY_COMMON_DEFINE_H_
-#define _TRINITY_COMMON_DEFINE_H_
+﻿#ifndef _MAPBAR_BASIC_DEFINE_H_
+#define _MAPBAR_BASIC_DEFINE_H_
 
 // Max length of file's path
 #define FILE_PATH_MAX_LENGTH 1024
@@ -45,4 +45,4 @@
 #define COLOR_GET_ALPHA(color)	((color & 0x000000FF) / 256.0f)
 
 
-#endif // !_TRINITY_COMMON_DEFINE_H_
+#endif // !_MAPBAR_BASIC_DEFINE_H_

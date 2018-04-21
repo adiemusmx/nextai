@@ -21,6 +21,12 @@
   <ItemGroup>
     <ClInclude Include="include\base\mapbar_basic_define.h" />
     <ClInclude Include="include\base\mapbar_basic_types.h" />
+    <ClInclude Include="include\base\mapbar_log.h" />
+    <ClInclude Include="include\base\mapbar_time.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\mapbar_log.cpp" />
+    <ClCompile Include="src\mapbar_time.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DFBFAA3F-E08A-4F2A-8214-190AA4D56092}</ProjectGuid>

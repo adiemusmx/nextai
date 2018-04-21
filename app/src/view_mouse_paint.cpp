@@ -1,6 +1,6 @@
 #include "view_mouse_paint.h"
 #include "app_object_id.h"
-#include "trinity/trinity_util_log.h"
+#include "base/mapbar_log.h"
 #include "trinity/trinity_widget_picture.h"
 #include <algorithm>
 

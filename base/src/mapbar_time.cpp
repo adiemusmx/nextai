@@ -1,5 +1,4 @@
-#include "stdafx.h"
-#include "trinity/trinity_util_time.h"
+#include "base/mapbar_time.h"
 
 #ifdef SYSTEM_LINUX
 #include "time.h"

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "trinity/trinity_gl_line.h"
-#include "trinity/trinity_util_log.h"
+#include "base/mapbar_log.h"
 
 #include <GL/glut.h>
 #include <GL/glu.h>
@@ -40,7 +40,7 @@ void GL_Line::draw()
 void GL_Line::setPoints(const Point* points, size_t count)
 {
 	size_t loopIdx;
-	TRI_VERBOSE_LOG("points[%p] count[%zu]", points, count);
+	MAPBAR_VERBOSE_LOG("points[%p] count[%zu]", points, count);
 	m_points.clear();
 
 	for (loopIdx = 0; loopIdx < count; ++loopIdx)
@@ -51,37 +51,37 @@ void GL_Line::setPoints(const Point* points, size_t count)
 
 void GL_Line::appendPoint(const Point& point)
 {
-	TRI_VERBOSE_LOG("point[%d,%d]", point.x, point.y);
+	MAPBAR_VERBOSE_LOG("point[%d,%d]", point.x, point.y);
 	m_points.push_back(point);
 }
 
 void GL_Line::clearPoints()
 {
-	TRI_VERBOSE_LOG("clear point");
+	MAPBAR_VERBOSE_LOG("clear point");
 	m_points.clear();
 }
 
 void GL_Line::setWidth(float width)
 {
-	TRI_VERBOSE_LOG("width[%f]", width);
+	MAPBAR_VERBOSE_LOG("width[%f]", width);
 	m_width = width;
 }
 
 void GL_Line::setStyleFactor(int32 factor)
 {
-	TRI_VERBOSE_LOG("factor[%x]", factor);
+	MAPBAR_VERBOSE_LOG("factor[%x]", factor);
 	m_styleFacor = factor;
 }
 
 void GL_Line::setStyle(int32 style)
 {
-	TRI_VERBOSE_LOG("style[%x]", style);
+	MAPBAR_VERBOSE_LOG("style[%x]", style);
 	m_style = style;
 }
 
 void GL_Line::setColor(ColorCode color)
 {
-	TRI_VERBOSE_LOG("color[%x]", color);
+	MAPBAR_VERBOSE_LOG("color[%x]", color);
 	printf("Color [%f %f %f %f]\n", COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color), COLOR_GET_ALPHA(color));
 	m_color = color;
 }

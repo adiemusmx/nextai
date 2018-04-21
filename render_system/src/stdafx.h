@@ -3,6 +3,7 @@
 
 #include "base/mapbar_basic_define.h"
 #include "base/mapbar_basic_types.h"
+#include "base/mapbar_log.h"
 
 #include "GL/glut.h"
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "trinity/trinity_gl_bitmap.h"
-#include "trinity/trinity_util_log.h"
+#include "base/mapbar_log.h"
 
 namespace MapBarDL {
 GL_Bitmap::GL_Bitmap(const char* fileName)
@@ -33,44 +33,44 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 
 	if (fp == NULL)
 	{
-		TRI_ERROR_LOG("Image[%s] do not exist.", fileName);
+		MAPBAR_ERROR_LOG("Image[%s] do not exist.", fileName);
 		return FALSE;
 	}
 	fseek(fp, 18, SEEK_CUR);
 
 	if ((i = fread(&m_width, 4, 1, fp)) != 1)
 	{
-		TRI_ERROR_LOG("Image[%s] read width failed.", fileName);
+		MAPBAR_ERROR_LOG("Image[%s] read width failed.", fileName);
 		return FALSE;
 	}
 
 	if ((i = fread(&m_height, 4, 1, fp)) != 1)
 	{
-		TRI_ERROR_LOG("Image[%s] read height failed.", fileName);
+		MAPBAR_ERROR_LOG("Image[%s] read height failed.", fileName);
 		return FALSE;
 	}
 
-	TRI_INFO_LOG("m_width[%zu] m_height[%zu]", m_width, m_height)
+	MAPBAR_INFO_LOG("m_width[%zu] m_height[%zu]", m_width, m_height)
 	size = m_width * m_height * 3;
 	if ((fread(&planes, 2, 1, fp)) != 1)
 	{
-		TRI_ERROR_LOG("Image[%s] read planes' flag failed.", fileName);
+		MAPBAR_ERROR_LOG("Image[%s] read planes' flag failed.", fileName);
 		return FALSE;
 	}
 	if (planes != 1)
 	{
-		TRI_ERROR_LOG("Image[%s] is not bmp file.", fileName);
+		MAPBAR_ERROR_LOG("Image[%s] is not bmp file.", fileName);
 		return FALSE;
 	}
 
 	if ((i = fread(&bpp, 2, 1, fp)) != 1)
 	{
-		TRI_ERROR_LOG("Can NOT read Image[%s] bpp.", fileName);
+		MAPBAR_ERROR_LOG("Can NOT read Image[%s] bpp.", fileName);
 		return FALSE;
 	}
 	if (bpp != 24)
 	{
-		TRI_ERROR_LOG("Image[%s] is not 24bpp.", fileName);
+		MAPBAR_ERROR_LOG("Image[%s] is not 24bpp.", fileName);
 		return FALSE;
 	}
 
@@ -78,12 +78,12 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 	m_data = (char*)malloc(size);
 	if (m_data == NULL)
 	{
-		TRI_ERROR_LOG("Image[%s]'s malloc failed. size[%zu]", fileName, size);
+		MAPBAR_ERROR_LOG("Image[%s]'s malloc failed. size[%zu]", fileName, size);
 		return FALSE;
 	}
 	if ((i = fread(m_data, size, 1, fp)) != 1)
 	{
-		TRI_ERROR_LOG("Can NOT read image[%s] data.", fileName);
+		MAPBAR_ERROR_LOG("Can NOT read image[%s] data.", fileName);
 		return FALSE;
 	}
 	for (i = 0; i < size; i += 3)
@@ -129,7 +129,7 @@ const Rect& GL_Bitmap::getArea()
 
 void GL_Bitmap::draw()
 {
-	TRI_INFO_LOG("area[%d,%d,%d,%d]W[%d]H[%d]", m_area.left, m_area.top, m_area.right, m_area.bottom, m_width, m_height);
+	MAPBAR_INFO_LOG("area[%d,%d,%d,%d]W[%d]H[%d]", m_area.left, m_area.top, m_area.right, m_area.bottom, m_width, m_height);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, getTexture());
 	glEnable(GL_ALPHA_TEST);

@@ -29,8 +29,6 @@
     <ClCompile Include="src\trinity_gl_polygon.cpp" />
     <ClCompile Include="src\trinity_message_center.cpp" />
     <ClCompile Include="src\trinity_object_manager.cpp" />
-    <ClCompile Include="src\trinity_util_log.cpp" />
-    <ClCompile Include="src\trinity_util_time.cpp" />
     <ClCompile Include="src\trinity_widget_button.cpp" />
     <ClCompile Include="src\trinity_widget_label.cpp" />
     <ClCompile Include="src\trinity_widget_list.cpp" />
@@ -50,8 +48,6 @@
     <ClInclude Include="include\trinity\trinity_message_id.h" />
     <ClInclude Include="include\trinity\trinity_object_id.h" />
     <ClInclude Include="include\trinity\trinity_object_manager.h" />
-    <ClInclude Include="include\trinity\trinity_util_log.h" />
-    <ClInclude Include="include\trinity\trinity_util_time.h" />
     <ClInclude Include="include\trinity\trinity_widget_button.h" />
     <ClInclude Include="include\trinity\trinity_widget_label.h" />
     <ClInclude Include="include\trinity\trinity_widget_list.h" />

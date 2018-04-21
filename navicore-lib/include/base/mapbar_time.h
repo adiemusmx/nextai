@@ -1,5 +1,5 @@
-#ifndef _TRINITY_UTIL_TIME_H_
-#define _TRINITY_UTIL_TIME_H_
+#ifndef _MAPBAR_TIME_H_
+#define _MAPBAR_TIME_H_
 
 #include "base/mapbar_basic_define.h"
 #include "base/mapbar_basic_types.h"
@@ -70,4 +70,4 @@ private:
 
 }
 
-#endif // !_TRINITY_UTIL_TIME_H_
+#endif // !_MAPBAR_TIME_H_

@@ -10,6 +10,9 @@ namespace MapBarDL {
 #define LINE_STYLE_2 0xAAAA			// 1010101010101010 --> --------------
 #define LINE_STYLE_3 0xCCCC			// 1100110011001100 --> ——  ——  ——  ——
 
+#define INVALID_TEXTURE_ID (-1)
+typedef uint32 TEXTURE_ID;
+
 	// Polygon Mode
 	enum POLYGON_MODE
 	{
@@ -30,9 +33,18 @@ namespace MapBarDL {
 		void init();
 		void cleanup();
 
-		// Draw line
-		void drawPolyLine(Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor);
-		void drawPolygon(Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor, POLYGON_MODE polygonMode);
+		// Texture (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
+		TEXTURE_ID allocTexture(const CHAR* fileName, TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
+		void releaseTexture(TEXTURE_ID textureId);
+
+		// Line
+		void drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor);
+
+		// Polygon
+		void drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor, POLYGON_MODE polygonMode);
+
+		// Picture
+		void drawPicture(TEXTURE_ID textureId, const Rect& drawArea);
 
 	private:
 		// Constructor
@@ -41,6 +53,9 @@ namespace MapBarDL {
 
 		// Disable copy constructor
 		DISABLE_CLASS_COPY(RenderSystem);
+
+		// Load bmp file
+		BOOL loadBmpFile(const CHAR* bmpFile, size_t& width, size_t& height, CHAR** data);
 	};
 }
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "trinity/trinity_widget_picture.h"
-#include "trinity/trinity_util_log.h"
+#include "base/mapbar_log.h"
 
 namespace MapBarDL {
 
@@ -37,7 +37,7 @@ void WidgetPicture::setPath(const CHAR* path)
 {
 	if (path == NULL)
 	{
-		TRI_WARNING_LOG("Path is a null pointer!");
+		MAPBAR_WARNING_LOG("Path is a null pointer!");
 		return;
 	}
 
