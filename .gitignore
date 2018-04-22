@@ -41,6 +41,9 @@
 Debug/
 Release/
 ipch/
+*.tlog/
+vc120.idb
+*.log
 *.db
 obj/
 /build/exe/*.ilk

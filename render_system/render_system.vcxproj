@@ -42,9 +42,9 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -80,15 +80,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)..\navicore-lib\lib\</OutDir>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <TargetExt>.lib</TargetExt>
     <TargetName>$(ProjectName)_win32</TargetName>
-    <IntDir>$(ProjectDir)obj\</IntDir>
-    <IncludePath>include;../base/include;$(IncludePath)</IncludePath>
+    <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>include;../base/include;../third_party/include;$(IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)lib\</OutDir>
     <TargetExt>_win32.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>include;../base/include;../third_party/include;$(IncludePath);</IncludePath>
+    <TargetName>$(ProjectName)_win32</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,8 +104,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <PreBuildEvent>
-      <Command>rmdir ..\navicore-lib\include\$(ProjectName) /s /q
-xcopy .\include ..\navicore-lib\include /s /e /y</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,6 +127,7 @@ xcopy .\include ..\navicore-lib\include /s /e /y</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SYSTEM_WINDOWS;ARCH_X86;BUILD_RELEASE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

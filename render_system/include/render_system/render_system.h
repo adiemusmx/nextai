@@ -37,6 +37,9 @@ typedef uint32 TEXTURE_ID;
 		TEXTURE_ID allocTexture(const CHAR* fileName, TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
 		void releaseTexture(TEXTURE_ID textureId);
 
+		// Point
+		void drawPoint(const Point& point, float pointSize, ColorCode pointColor);
+
 		// Line
 		void drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor);
 

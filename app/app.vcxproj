@@ -44,7 +44,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -80,10 +80,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>..\navicore-lib\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>include;..\base\include;..\render_system\include;..\trinity\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\third_party\lib\;$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <IncludePath>include;..\base\include;..\render_system\include;..\trinity\include;..\third_party\include;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)exe\</OutDir>
-    <IntDir>$(ProjectDir)obj\</IntDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>include;..\base\include;..\render_system\include;..\trinity\include;..\third_party\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\third_party\lib\;$(SolutionDir)$(Configuration)\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)exe\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,10 +121,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SYSTEM_WINDOWS;ARCH_X86;BUILD_RELEASE;_CRT_SECURE_NO_WARNINGS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>base_win32.lib;render_system_win32.lib;trinity_win32.lib;glut32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -1,9 +1,0 @@
-#ifndef _TRINITY_OBJECT_ID_H_
-#define _TRINITY_OBJECT_ID_H_
-
-#define OBJECT_ID_SURFACE_BASE      1
-#define OBJECT_ID_SURFACE_VIEW      2
-#define OBJECT_ID_SURFACE_ONS       3
-#define OBJECT_ID_SURFACE_INTERRUPT 4
-
-#endif // !_TRINITY_OBJECT_ID_H_

@@ -1,6 +1,9 @@
 ﻿#include "stdafx.h"
 #include "render_system/render_system.h"
 
+#define COLOR_WHITE 0x00000000
+#define COLOR_BLACK 0xFFFFFF00
+
 namespace MapBarDL
 {
 	RenderSystem* RenderSystem::instance()
@@ -15,6 +18,17 @@ namespace MapBarDL
 
 	void RenderSystem::cleanup()
 	{
+	}
+
+	void RenderSystem::drawPoint(const Point& point, float pointSize, ColorCode pointColor)
+	{
+		glBegin(GL_POINT);
+
+		glColor4f(COLOR_GET_RED(pointColor), COLOR_GET_GREEN(pointColor), COLOR_GET_BLUE(pointColor), COLOR_GET_ALPHA(pointColor));
+		glPointSize(pointSize);
+		glVertex3i(point.x, point.y, 0);
+
+		glEnd();
 	}
 
 	void RenderSystem::drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor)
@@ -84,7 +98,8 @@ namespace MapBarDL
 
 	void RenderSystem::drawPicture(TEXTURE_ID textureId, const Rect& drawArea)
 	{
-		//MAPBAR_VERBOSE_LOG("area[%d,%d,%d,%d]", drawArea.left, drawArea.top, drawArea.right, drawArea.bottom);
+		glColor4f(COLOR_GET_RED(COLOR_BLACK), COLOR_GET_GREEN(COLOR_BLACK), COLOR_GET_BLUE(COLOR_BLACK), COLOR_GET_ALPHA(COLOR_BLACK));
+
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		glEnable(GL_ALPHA_TEST);
