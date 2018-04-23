@@ -47,8 +47,12 @@ BOOL AppEventHandler::render()
 
 	// Picture
 	Rect drawArea = { 300, 300, 600, 600 };
-	static MapBarDL::TEXTURE_ID textureId = RENDER_SYSTEM()->allocTexture("res/test.bmp");
-	RENDER_SYSTEM()->drawPicture(textureId, drawArea);
+	static MapBarDL::TEXTURE_ID textureId = RENDER_SYSTEM()->allocTexture(L"res/test.bmp");
+	RENDER_SYSTEM()->drawTexture(textureId, drawArea);
+
+	Rect drawArea2 = { 600, 300, 900, 600 };
+	static MapBarDL::TEXTURE_ID textureId2 = RENDER_SYSTEM()->allocTexture(L"res/test.jpg");
+	RENDER_SYSTEM()->drawTexture(textureId2, drawArea2);
 
 	return FALSE;
 }

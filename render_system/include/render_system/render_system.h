@@ -1,25 +1,12 @@
-﻿#ifndef _RENDER_SYSTEM_H_
-#define _RENDER_SYSTEM_H_
+﻿#ifndef _MAPBAR_RENDER_SYSTEM_H_
+#define _MAPBAR_RENDER_SYSTEM_H_
+
+#include "base/mapbar_string.h"
+#include "render_system/render_system_types.h"
 
 #define RENDER_SYSTEM() MapBarDL::RenderSystem::instance()
 
 namespace MapBarDL {
-
-	// Line Style
-#define LINE_STYLE_1 0xFFFF			// 1111111111111111 --> ——————————————
-#define LINE_STYLE_2 0xAAAA			// 1010101010101010 --> --------------
-#define LINE_STYLE_3 0xCCCC			// 1100110011001100 --> ——  ——  ——  ——
-
-#define INVALID_TEXTURE_ID (-1)
-typedef uint32 TEXTURE_ID;
-
-	// Polygon Mode
-	enum POLYGON_MODE
-	{
-		POLYGON_MODE_POINT,		// 表示只显示顶点，多边形用点显示
-		POLYGON_MODE_LINE,		// 表示显示线段，多边形用轮廓显示
-		POLYGON_MODE_FILL		// 表示显示面，多边形采用填充形式
-	};
 
 	// Render System
 	class RenderSystem
@@ -33,10 +20,6 @@ typedef uint32 TEXTURE_ID;
 		void init();
 		void cleanup();
 
-		// Texture (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
-		TEXTURE_ID allocTexture(const CHAR* fileName, TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
-		void releaseTexture(TEXTURE_ID textureId);
-
 		// Point
 		void drawPoint(const Point& point, float pointSize, ColorCode pointColor);
 
@@ -46,8 +29,10 @@ typedef uint32 TEXTURE_ID;
 		// Polygon
 		void drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor, POLYGON_MODE polygonMode);
 
-		// Picture
-		void drawPicture(TEXTURE_ID textureId, const Rect& drawArea);
+		// Texture (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
+		TEXTURE_ID allocTexture(const MbString& fileName, TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
+		void releaseTexture(TEXTURE_ID textureId);
+		void drawTexture(TEXTURE_ID textureId, const Rect& drawArea);
 
 	private:
 		// Constructor
@@ -58,8 +43,10 @@ typedef uint32 TEXTURE_ID;
 		DISABLE_CLASS_COPY(RenderSystem);
 
 		// Load bmp file
-		BOOL loadBmpFile(const CHAR* bmpFile, size_t& width, size_t& height, CHAR** data);
+		BOOL loadBmpFile(const MbString& bmpFile, size_t& width, size_t& height, CHAR** data);
+
+		TEXTURE_ID allocBmpTexture(const MbString& fileName);
 	};
 }
 
-#endif // !_RENDER_SYSTEM_H_
+#endif // !_MAPBAR_RENDER_SYSTEM_H_

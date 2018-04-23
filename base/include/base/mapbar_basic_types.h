@@ -8,6 +8,7 @@ typedef unsigned long uint64;
 
 #ifdef SYSTEM_WINDOWS
 #include <windows.h>
+#include <assert.h>
 #else
 #include <stdio.h>
 #include <stdlib.h>

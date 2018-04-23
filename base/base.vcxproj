@@ -22,10 +22,14 @@
     <ClInclude Include="include\base\mapbar_basic_define.h" />
     <ClInclude Include="include\base\mapbar_basic_types.h" />
     <ClInclude Include="include\base\mapbar_log.h" />
+    <ClInclude Include="include\base\mapbar_object.h" />
+    <ClInclude Include="include\base\mapbar_string.h" />
     <ClInclude Include="include\base\mapbar_time.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\mapbar_log.cpp" />
+    <ClCompile Include="src\mapbar_object.cpp" />
+    <ClCompile Include="src\mapbar_string.cpp" />
     <ClCompile Include="src\mapbar_time.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

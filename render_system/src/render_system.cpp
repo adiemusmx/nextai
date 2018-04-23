@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "render_system/render_system.h"
+#include "render_system/free_image.h"
 
 #define COLOR_WHITE 0x00000000
 #define COLOR_BLACK 0xFFFFFF00
@@ -18,6 +19,7 @@ namespace MapBarDL
 
 	void RenderSystem::cleanup()
 	{
+		
 	}
 
 	void RenderSystem::drawPoint(const Point& point, float pointSize, ColorCode pointColor)
@@ -62,20 +64,30 @@ namespace MapBarDL
 		glFlush();
 	}
 
-	TEXTURE_ID RenderSystem::allocTexture(const CHAR* fileName, TEXTURE_ID oldTextureId)
+	TEXTURE_ID RenderSystem::allocTexture(const MbString& fileName, TEXTURE_ID oldTextureId)
+	{
+		// 删除旧的纹理
+		releaseTexture(oldTextureId);
+
+		TEXTURE_ID textureId = INVALID_TEXTURE_ID;
+
+		//textureId = allocBmpTexture(fileName);
+		textureId = FreeImage::loadTexture(fileName);
+
+		return textureId;
+	}
+
+	TEXTURE_ID RenderSystem::allocBmpTexture(const MbString& fileName)
 	{
 		size_t width, height;
 		CHAR* fileBuffer;
 		TEXTURE_ID textureId = INVALID_TEXTURE_ID;
-		if (fileName == NULL || loadBmpFile(fileName, width, height, &fileBuffer) == FALSE)
+		if (fileName == L"" || loadBmpFile(fileName, width, height, &fileBuffer) == FALSE)
 		{
 			// 非法文件，或载入失败
 			MAPBAR_ERROR_LOG("File[%s] load failed.", fileName);
 			return textureId;
 		}
-
-		// 删除旧的纹理
-		releaseTexture(oldTextureId);
 
 		glEnable(GL_TEXTURE_2D);
 		glGenTextures(1, &textureId);
@@ -96,7 +108,7 @@ namespace MapBarDL
 		}
 	}
 
-	void RenderSystem::drawPicture(TEXTURE_ID textureId, const Rect& drawArea)
+	void RenderSystem::drawTexture(TEXTURE_ID textureId, const Rect& drawArea)
 	{
 		glColor4f(COLOR_GET_RED(COLOR_BLACK), COLOR_GET_GREEN(COLOR_BLACK), COLOR_GET_BLUE(COLOR_BLACK), COLOR_GET_ALPHA(COLOR_BLACK));
 
@@ -119,7 +131,7 @@ namespace MapBarDL
 		glFlush();
 	}
 
-	BOOL RenderSystem::loadBmpFile(const CHAR* bmpFile, size_t& width, size_t& height, CHAR** data)
+	BOOL RenderSystem::loadBmpFile(const MbString& bmpFile, size_t& width, size_t& height, CHAR** data)
 	{
 		FILE* fp;
 		size_t size;
@@ -128,7 +140,7 @@ namespace MapBarDL
 		unsigned short int bpp;
 		char temp;
 
-		fp = fopen(bmpFile, "rb");
+		fp = _wfopen(bmpFile.cStr(), L"rb");
 
 		if (fp == NULL)
 		{
@@ -186,7 +198,7 @@ namespace MapBarDL
 			return FALSE;
 		}
 
-		// 配色颠倒处理
+		// 配色颠倒处理（RGB修改为BGR）
 		for (i = 0; i < size; i += 3)
 		{
 			temp = (*data)[i];
