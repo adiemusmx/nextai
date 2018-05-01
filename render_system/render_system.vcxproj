@@ -24,11 +24,13 @@
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\render_util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\render_system\free_image.h" />
     <ClInclude Include="include\render_system\render_system.h" />
     <ClInclude Include="include\render_system\render_system_types.h" />
+    <ClInclude Include="include\render_system\render_util.h" />
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

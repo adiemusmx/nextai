@@ -71,7 +71,7 @@ void AppService::init(AppServiceParam& param)
 
 	m_area = param.windowsArea;
 	glutInitWindowPosition(m_area.left, m_area.top);
-	glutInitWindowSize(RECT_getWidth(m_area), RECT_getHeight(m_area));
+	glutInitWindowSize(m_area.width(), m_area.height());
 
 	glutCreateWindow(param.windowsTitle);
 
@@ -133,12 +133,12 @@ void AppService::run()
 
 size_t AppService::getWindowsWidth()
 {
-	return RECT_getWidth(m_area);
+	return m_area.width();
 }
 
 size_t AppService::getWindowsHeight()
 {
-	return  RECT_getHeight(m_area);
+	return  m_area.height();
 }
 
 AppService::AppService()
@@ -158,7 +158,7 @@ void AppService::displayFunc()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glOrtho(0.0, RECT_getWidth(getInstance()->m_area), RECT_getHeight(getInstance()->m_area), 0.0, -1.0, 1.0);
+	glOrtho(0.0, getInstance()->m_area.width(), getInstance()->m_area.height(), 0.0, -1.0, 1.0);
 
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderStarted);

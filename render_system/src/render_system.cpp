@@ -64,12 +64,12 @@ namespace MapBarDL
 		glFlush();
 	}
 
-	TEXTURE_ID RenderSystem::allocTexture(const MbString& fileName, TEXTURE_ID oldTextureId)
+	PICTURE_TEXTURE_ID RenderSystem::allocPictureTexture(const MbString& fileName, PICTURE_TEXTURE_ID oldTextureId)
 	{
 		// 删除旧的纹理
-		releaseTexture(oldTextureId);
+		releasePictureTexture(oldTextureId);
 
-		TEXTURE_ID textureId = INVALID_TEXTURE_ID;
+		PICTURE_TEXTURE_ID textureId = INVALID_TEXTURE_ID;
 
 		//textureId = allocBmpTexture(fileName);
 		textureId = FreeImage::loadTexture(fileName);
@@ -77,6 +77,7 @@ namespace MapBarDL
 		return textureId;
 	}
 
+#if 0
 	TEXTURE_ID RenderSystem::allocBmpTexture(const MbString& fileName)
 	{
 		size_t width, height;
@@ -99,8 +100,9 @@ namespace MapBarDL
 
 		return textureId;
 	}
+#endif
 
-	void RenderSystem::releaseTexture(TEXTURE_ID textureId)
+	void RenderSystem::releasePictureTexture(PICTURE_TEXTURE_ID textureId)
 	{
 		if (textureId != INVALID_TEXTURE_ID && glIsTexture(textureId))
 		{
@@ -108,7 +110,7 @@ namespace MapBarDL
 		}
 	}
 
-	void RenderSystem::drawTexture(TEXTURE_ID textureId, const Rect& drawArea)
+	void RenderSystem::drawPicture(PICTURE_TEXTURE_ID& textureId, const Rect& drawArea)
 	{
 		glColor4f(COLOR_GET_RED(COLOR_BLACK), COLOR_GET_GREEN(COLOR_BLACK), COLOR_GET_BLUE(COLOR_BLACK), COLOR_GET_ALPHA(COLOR_BLACK));
 
@@ -131,6 +133,58 @@ namespace MapBarDL
 		glFlush();
 	}
 
+	TextTextureInfo RenderSystem::allocTextTexture(const MbString& str)
+	{
+		HDC hDC = wglGetCurrentDC();
+#if 0
+		// 计算字符的个数
+		// 如果是双字节字符的（比如中文字符），两个字节才算一个字符
+		// 否则一个字节算一个字符
+		len = 0;
+		for (i = 0; str[i] != '\0'; ++i)
+		{
+			if (IsDBCSLeadByte(str[i]))
+				++i;
+			++len;
+		}
+#endif
+
+		TextTextureInfo ret;
+		ret.num = str.length();
+		ret.texture = glGenLists(ret.num);
+
+		MbAssert(ret.texture != 0);
+		
+		glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
+
+		// 逐个输出字符
+		for (size_t i = 0; i < ret.num; ++i)
+		{
+			WCHAR temp = str[i];
+			wglUseFontBitmapsW(hDC, temp, 1, ret.texture + i);
+		}
+
+		return ret;
+	}
+
+	void RenderSystem::releaseTextTexture(TextTextureInfo& info)
+	{
+		glDeleteLists(info.texture, info.num);
+		info.texture = INVALID_TEXTURE_ID;
+		info.num = 0;
+	}
+
+	void RenderSystem::drawText(const TextTextureInfo& info, const Rect& drawArea)
+	{
+		glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
+
+		for (size_t i = 0; i < info.num; ++i)
+		{
+			glCallList(info.texture + i);
+		}
+	}
+
+#if 0
 	BOOL RenderSystem::loadBmpFile(const MbString& bmpFile, size_t& width, size_t& height, CHAR** data)
 	{
 		FILE* fp;
@@ -207,6 +261,7 @@ namespace MapBarDL
 		}
 		return TRUE;
 	}
+#endif
 
 	RenderSystem::RenderSystem()
 	{

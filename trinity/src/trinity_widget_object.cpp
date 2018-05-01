@@ -124,7 +124,7 @@ BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[],
 	if (!m_visible || !m_hitEnable)
 		return false;
 
-	if (!RECT_testPOINT(m_hitableArea, touchPos[0]))
+	if (!m_hitableArea.testPoint(touchPos[0]))
 		return false;
 
 	for (auto pObj : m_children)

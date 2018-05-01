@@ -12,7 +12,7 @@ namespace MapBarDL
 	class FreeImage
 	{
 	public:
-		static TEXTURE_ID loadTexture(const MbString& filePath);
+		static PICTURE_TEXTURE_ID loadTexture(const MbString& filePath);
 
 	private:
 		static GLBITMAP * convFIBitmap2GLBitmap(FIBITMAP* fibmp);

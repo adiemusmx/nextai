@@ -12,7 +12,8 @@ namespace MapBarDL
 #define LINE_STYLE_3 0xCCCC			// 1100110011001100 --> ！！  ！！  ！！  ！！
 
 #define INVALID_TEXTURE_ID (-1)
-	typedef uint32 TEXTURE_ID;
+	typedef uint32 PICTURE_TEXTURE_ID;
+	typedef uint32 TEXT_TEXTURE_ID;
 
 	// Polygon Mode
 	enum POLYGON_MODE

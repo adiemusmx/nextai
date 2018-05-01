@@ -1,8 +1,6 @@
 ﻿#ifndef _MAPBAR_BASIC_DEFINE_H_
 #define _MAPBAR_BASIC_DEFINE_H_
 
-#include "base/mapbar_basic_types.h"
-
 // Max length of file's path
 #define FILE_PATH_MAX_LENGTH 1024
 
@@ -20,17 +18,6 @@
 
 // ############ RECT ############
 // Return whether the point p is in rect r
-#define RECT_testPOINT(r, p) \
-	(r.left <= p.x && r.right >= p.x && r.top <= p.y && r.bottom >= p.y)
-
-#define RECT_getHeight(r) \
-	(r.bottom - r.top)
-
-#define RECT_getWidth(r) \
-	(r.right - r.left)
-
-#define RECT_invalidate(r) \
-	r.left = r.top = r.right = r.bottom = 0
 
 // ############ ARRAY ############
 #define element_of(x) \
@@ -59,6 +46,13 @@
 #define MbDeleteArray(o) delete[] o
 #endif
 
+#define MIN(l,r) (l > r ? r : l)
+#define MAX(l,r) (l < r ? r : l)
+
 #define MbAssert(expr) assert(expr)
+
+#define FLOOR(x) (static_cast<int32>(x))
+
+#define PI 3.1415926f
 
 #endif // !_MAPBAR_BASIC_DEFINE_H_
