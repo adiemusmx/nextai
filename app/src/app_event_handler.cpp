@@ -26,15 +26,15 @@ BOOL AppEventHandler::render()
 
 	// Line
 	Point points[2];
-	points[1].x = points[1].y = 10;
-	points[0].x = 500;
-	points[0].y = 300;
+	points[0].x = points[0].y = 10;
+	points[1].x = 500;
+	points[1].y = 300;
 	RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_1, color);
 
 	Segment seg;
-	seg.start = points[0];
-	seg.end = points[1];
-	seg.angel();
+	seg.start = points[1];
+	seg.end = points[0];
+	float angel = seg.angel();
 
 	// Polygon
 	Point polygonPoint[6];

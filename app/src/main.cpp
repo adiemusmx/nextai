@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 	param.argc = argc;
 	param.argv = argv;
 	param.windowsArea = {0, 0, 1024, 768};
-	param.windowsTitle = "Trinity sample app";
+	param.windowsTitle = "OpenGL 测试";
 	rs->init(param);
 
 	rs->addEventListener(AppEventHandler::getInstance());

@@ -144,8 +144,6 @@ public:
 	BOOL slope(float& k){ 
 		if (start.x == end.x) return FALSE; 
 		k = ((float)end.y - (float)start.y) / ((float)end.x - (float)start.x);
-		if (start.y > end.y)
-			k = 0 - k;
 		return TRUE;
 	}
 
@@ -168,18 +166,27 @@ public:
 		float ret = 0;
 		if (radian(r))
 		{
-			ret = 180 / PI * r;
+			if (r > 0)
+			{
+				if (start.x < end.x) 
+					ret = 180 / PI * r;
+				else 
+					ret = 180 / PI * r + 180;
+			}
+			else
+			{
+				if (start.x > end.x)
+					ret = 180 / PI * r + 180;
+				else
+					ret = 180 / PI * r + 360;
+			}
 		}
 		else
 		{
 			if (start.x > end.x)
-			{
 				ret = 270;
-			}
 			else
-			{
 				ret = 90;
-			}
 		}
 
 		return ret;
