@@ -2,8 +2,9 @@
 #include "render_system/render_system.h"
 #include "render_system/free_image.h"
 
-#define COLOR_WHITE 0x00000000
-#define COLOR_BLACK 0xFFFFFF00
+#define COLOR_WHITE 0x000000FF
+#define COLOR_BLACK 0xFFFFFFFF
+
 
 namespace MapBarDL
 {
@@ -77,31 +78,6 @@ namespace MapBarDL
 		return textureId;
 	}
 
-#if 0
-	TEXTURE_ID RenderSystem::allocBmpTexture(const MbString& fileName)
-	{
-		size_t width, height;
-		CHAR* fileBuffer;
-		TEXTURE_ID textureId = INVALID_TEXTURE_ID;
-		if (fileName == L"" || loadBmpFile(fileName, width, height, &fileBuffer) == FALSE)
-		{
-			// 非法文件，或载入失败
-			MAPBAR_ERROR_LOG("File[%s] load failed.", fileName);
-			return textureId;
-		}
-
-		glEnable(GL_TEXTURE_2D);
-		glGenTextures(1, &textureId);
-		glBindTexture(GL_TEXTURE_2D, textureId);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexImage2D(GL_TEXTURE_2D, 0, 3, (GLsizei)width, (GLsizei)height, 0, GL_RGB, GL_UNSIGNED_BYTE, fileBuffer);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		return textureId;
-	}
-#endif
-
 	void RenderSystem::releasePictureTexture(PICTURE_TEXTURE_ID textureId)
 	{
 		if (textureId != INVALID_TEXTURE_ID && glIsTexture(textureId))
@@ -136,26 +112,23 @@ namespace MapBarDL
 	TextTextureInfo RenderSystem::allocTextTexture(const MbString& str)
 	{
 		HDC hDC = wglGetCurrentDC();
-#if 0
-		// 计算字符的个数
-		// 如果是双字节字符的（比如中文字符），两个字节才算一个字符
-		// 否则一个字节算一个字符
-		len = 0;
-		for (i = 0; str[i] != '\0'; ++i)
-		{
-			if (IsDBCSLeadByte(str[i]))
-				++i;
-			++len;
-		}
-#endif
+
+		HFONT hFont = CreateFontA(13, 0, 0, 0, FW_MEDIUM, 0, 0, 0,
+			GB2312_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+			DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "楷体_GB2312");
+		HFONT hOldFont = (HFONT)SelectObject(hDC, hFont);
+		DeleteObject(hOldFont);
 
 		TextTextureInfo ret;
+
 		ret.num = str.length();
 		ret.texture = glGenLists(ret.num);
 
 		MbAssert(ret.texture != 0);
-		
-		glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
+
+		//glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
+
+		glRasterPos2f(0.8f, 0.8f);
 
 		// 逐个输出字符
 		for (size_t i = 0; i < ret.num; ++i)
@@ -163,6 +136,12 @@ namespace MapBarDL
 			WCHAR temp = str[i];
 			wglUseFontBitmapsW(hDC, temp, 1, ret.texture + i);
 		}
+
+		for (size_t i = 0; i < ret.num; ++i)
+		{
+			glCallList(ret.texture + i);
+		}
+		glFlush();
 
 		return ret;
 	}
@@ -176,92 +155,20 @@ namespace MapBarDL
 
 	void RenderSystem::drawText(const TextTextureInfo& info, const Rect& drawArea)
 	{
-		glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
+		HDC hDC = wglGetCurrentDC();
 
+#if 0
+		glRasterPos2f(0.0f, 0.0f);
+		ColorCode color = 0x00FF0088;
+		glColor4f(COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color), COLOR_GET_ALPHA(color));
 		for (size_t i = 0; i < info.num; ++i)
 		{
 			glCallList(info.texture + i);
 		}
-	}
-
-#if 0
-	BOOL RenderSystem::loadBmpFile(const MbString& bmpFile, size_t& width, size_t& height, CHAR** data)
-	{
-		FILE* fp;
-		size_t size;
-		size_t i;
-		unsigned short int planes;
-		unsigned short int bpp;
-		char temp;
-
-		fp = _wfopen(bmpFile.cStr(), L"rb");
-
-		if (fp == NULL)
-		{
-			MAPBAR_ERROR_LOG("Image[%s] do not exist.", bmpFile);
-			return FALSE;
-		}
-		fseek(fp, 18, SEEK_CUR);
-
-		if ((i = fread(&width, 4, 1, fp)) != 1)
-		{
-			MAPBAR_ERROR_LOG("Image[%s] read width failed.", bmpFile);
-			return FALSE;
-		}
-
-		if ((i = fread(&height, 4, 1, fp)) != 1)
-		{
-			MAPBAR_ERROR_LOG("Image[%s] read height failed.", bmpFile);
-			return FALSE;
-		}
-
-		MAPBAR_INFO_LOG("width[%u] height[%u]", width, height)
-			size = width * height * 3;
-		if ((fread(&planes, 2, 1, fp)) != 1)
-		{
-			MAPBAR_ERROR_LOG("Image[%s] read planes' flag failed.", bmpFile);
-			return FALSE;
-		}
-		if (planes != 1)
-		{
-			MAPBAR_ERROR_LOG("Image[%s] is not bmp file.", bmpFile);
-			return FALSE;
-		}
-
-		if ((i = fread(&bpp, 2, 1, fp)) != 1)
-		{
-			MAPBAR_ERROR_LOG("Can NOT read Image[%s] bpp.", bmpFile);
-			return FALSE;
-		}
-		if (bpp != 24)
-		{
-			MAPBAR_ERROR_LOG("Image[%s] is not 24bpp.", bmpFile);
-			return FALSE;
-		}
-
-		fseek(fp, 24, SEEK_CUR);
-		*data = (CHAR*)malloc(size);
-		if (*data == NULL)
-		{
-			MAPBAR_ERROR_LOG("Image[%s]'s malloc failed. size[%zu]", bmpFile, size);
-			return FALSE;
-		}
-		if ((i = fread(*data, size, 1, fp)) != 1)
-		{
-			MAPBAR_ERROR_LOG("Can NOT read image[%s] data.", bmpFile);
-			return FALSE;
-		}
-
-		// 配色颠倒处理（RGB修改为BGR）
-		for (i = 0; i < size; i += 3)
-		{
-			temp = (*data)[i];
-			(*data)[i] = (*data)[i + 2];
-			(*data)[i + 2] = temp;
-		}
-		return TRUE;
-	}
+		glFlush();
 #endif
+	}
+
 
 	RenderSystem::RenderSystem()
 	{

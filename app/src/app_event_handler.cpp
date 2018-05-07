@@ -29,7 +29,7 @@ BOOL AppEventHandler::render()
 	points[0].x = points[0].y = 10;
 	points[1].x = 500;
 	points[1].y = 300;
-	RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_1, color);
+	//RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_1, color);
 
 	Segment seg;
 	seg.start = points[1];
@@ -45,7 +45,7 @@ BOOL AppEventHandler::render()
 	polygonPoint[4].x = 300; polygonPoint[4].y = 420;
 	polygonPoint[5].x = 250; polygonPoint[5].y = 250;
 	color = 0x00FF00FF;
-	//RENDER_SYSTEM()->drawPolygon(polygonPoint, element_of(polygonPoint), 1.0f, 1, LINE_STYLE_1, color, MapBarDL::POLYGON_MODE_POINT);
+	RENDER_SYSTEM()->drawPolygon(polygonPoint, element_of(polygonPoint), 1.0f, 1, LINE_STYLE_1, color, MapBarDL::POLYGON_MODE_POINT);
 
 	// Picture
 	Rect drawArea = { 600, 0, 900, 300 };
@@ -56,11 +56,11 @@ BOOL AppEventHandler::render()
 	static MapBarDL::PICTURE_TEXTURE_ID textureId2 = RENDER_SYSTEM()->allocPictureTexture(L"res/test.jpg");
 	//RENDER_SYSTEM()->drawPicture(textureId2, drawArea2);
 
-	MapBarDL::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Hello World!");
-	//RENDER_SYSTEM()->drawText(text1, drawArea2);
+	MapBarDL::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Nothing");
+	RENDER_SYSTEM()->drawText(text1, drawArea2);
 
 	MapBarDL::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"ÄãºÃ£¬ÊÀ½ç£¡");
-	//RENDER_SYSTEM()->drawText(text2, drawArea2);
+	RENDER_SYSTEM()->drawText(text2, drawArea2);
 
 	return FALSE;
 }

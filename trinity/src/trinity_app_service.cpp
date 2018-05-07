@@ -152,23 +152,93 @@ AppService::~AppService()
 	m_listeners.clear();
 }
 
+void drawCNString(const char* str) {
+	int len, i;
+	wchar_t* wstring;
+	HDC hDC = wglGetCurrentDC();
+	GLuint list = glGenLists(1);
+
+	// 计算字符的个数
+	// 如果是双字节字符的（比如中文字符），两个字节才算一个字符
+	// 否则一个字节算一个字符
+	len = 0;
+	for (i = 0; str[i] != '\0'; ++i)
+	{
+		if (IsDBCSLeadByte(str[i]))
+			++i;
+		++len;
+	}
+
+	// 将混合字符转化为宽字符
+	wstring = (wchar_t*)malloc((len + 1) * sizeof(wchar_t));
+	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, str, -1, wstring, len);
+	wstring[len] = L'\0';
+
+	// 逐个输出字符
+	for (i = 0; i < len; i++) {
+		wglUseFontBitmapsW(hDC, wstring[i], 1, list);
+		glCallList(list);
+	}
+
+	// 回收所有临时资源
+	free(wstring);
+	glDeleteLists(list, 1);
+}
+
+#if 1
+#define MAX_CHAR        128
+
+void drawString(const char* str) {
+	static int isFirstCall = 1;
+	static GLuint lists;
+
+	if( isFirstCall ) { // 如果是第一次调用，执行初始化
+		// 为每一个ASCII字符产生一个显示列表
+		isFirstCall = 0;
+
+		// 申请MAX_CHAR个连续的显示列表编号
+		lists = glGenLists(MAX_CHAR);
+
+		// 把每个字符的绘制命令都装到对应的显示列表中
+		wglUseFontBitmaps(wglGetCurrentDC(), 0, MAX_CHAR, lists);
+	}
+	// 调用每个字符对应的显示列表，绘制每个字符
+	for (; *str != '\0'; ++str)
+		glCallList(lists + *str);
+}
+#endif
+
 void AppService::displayFunc()
 {
 	// Gl environment
+	glViewport(0, 0, getInstance()->m_area.width(), getInstance()->m_area.height());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glOrtho(0.0, getInstance()->m_area.width(), getInstance()->m_area.height(), 0.0, -1.0, 1.0);
+
+	float width = (float)getInstance()->m_area.width();
+	float height = (float)getInstance()->m_area.height();
+	
+	if (width <= height)
+	{
+		glOrtho(0, 1.5, 0, 1.5 * height / width, -10.0, 10.0);
+	}
+	else
+	{
+		glOrtho(0, 1.5 * width / height, 0, 1.5, -10.0, 10.0);
+	}
 
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderStarted);
 
 	VECTOR_NOTIFY(getInstance()->m_listeners, render);
+
 	// Object manager draw
 	ObjectManager::getInstance()->draw();
 
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderCompleted);
+	//glClear(GL_COLOR_BUFFER_BIT);
 
 	// Swap buffers
 	glutSwapBuffers();

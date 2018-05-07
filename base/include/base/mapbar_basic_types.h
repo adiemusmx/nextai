@@ -210,6 +210,24 @@ public:
 	}
 };
 
+class Line
+{
+public:
+	Point point;
+	float angel;
+
+	Line() {}
+	Line(Point p, float a){
+		point = p;
+		angel = a;
+	}
+	Line(Segment s)
+	{
+		point = s.start;
+		angel = s.angel();
+	}
+};
+
 // Color
 typedef uint64 ColorCode;
  
