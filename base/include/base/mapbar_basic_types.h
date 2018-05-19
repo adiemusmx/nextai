@@ -36,7 +36,7 @@ public:
 };
 
 typedef Point ScreenPoint;			/* 屏幕坐标 */
-typedef Point CordinatesPoint;		/* 经纬度坐标 */
+typedef Point MapPoint;		/* 经纬度坐标 */
 typedef Point NdsPoint;				/* Nds坐标 */
 
 /* 中心轴 */

@@ -37,7 +37,7 @@ void ViewMousePaint::drawImpl()
 	}
 }
 
-BOOL ViewMousePaint::touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+BOOL ViewMousePaint::touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const MapBarDL::ScreenPoint touchPos[])
 {
 	const ColorCode colorCodeTable[] = { 0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0x888888FF };
 	static int32 loopIdx = 0;

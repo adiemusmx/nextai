@@ -12,7 +12,7 @@ public:
 
 	virtual BOOL render();
 
-	virtual BOOL touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+	virtual BOOL touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const MapBarDL::ScreenPoint touchPos[]);
 
 private:
 	AppEventHandler() {}

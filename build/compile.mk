@@ -1,15 +1,16 @@
-# The Target File Name
-TARGET = app.exe
+# Objects Files
+SOURCES := $(wildcard src/*.cpp) $(wildcard src/*.c)
+OBJECTS := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
 
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS_DIRS) $(LDFLAGS)
+	$(AR) cq $(TARGET) $(OBJECTS)
+	rm -rf ./lib
+	mkdir ./lib
+	mv $(TARGET) ./lib/$(TARGET)
 %.o : %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
 %.o : %.c
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
-	
-# Common makefile
-include ../build/configuration.mk
 	
 #define DEP_BUILD
 #@set -e; rm -f $@; \
@@ -28,3 +29,4 @@ rm -f $@.$$$$
 clean :
 #	rm -rf $(TARGET) $(OBJECTS) $(DEPS) ../src/*.d.* ../src/*.d
 	rm -rf $(TARGET) ./src/*.o
+
