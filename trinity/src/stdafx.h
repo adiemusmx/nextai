@@ -6,7 +6,8 @@
 #include <stdio.h>
 #include <string>
 
-#include "GL/glut.h"
+#include <GL/glut.h>
+#include <GL/glu.h>
 #include <algorithm>
 
 #endif // !_STDAFX_H_

@@ -36,6 +36,7 @@ public:
 
 	// Output log text
 	void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content);
+	void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const WCHAR* content);
 
 	// TODO
 	void openFile(CHAR* filePath);

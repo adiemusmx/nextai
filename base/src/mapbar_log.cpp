@@ -47,6 +47,23 @@ void Logger::print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_
 	}
 }
 
+void Logger::print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const WCHAR* content)
+{
+	const CHAR* LogLevelTable[] = { "OFF", "VERBOSE", "TRACE", "INFO", "WARN", "ERROR", "MAX" };
+
+	if (E_LOG_LEVEL_OFF > level && E_LOG_LEVEL_MAX <= level)
+		return;
+
+	DateTime currentTime = DateTime::now();
+
+	if (m_logLevel[E_LOG_OUTPUT_CONSOLE] <= level)
+	{
+		printf("[%02u:%02u:%02u.%03u][%s][%s:%d|%s]%S\n",
+			currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond(),
+			currentTime.getMillisecond(), LogLevelTable[level], trimFileName(fileName), lineNum, funcName, content);
+	}
+}
+
 void Logger::setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level)
 {
 	if (output < E_LOG_OUTPUT_FILE || output >= E_LOG_OUTPUT_MAX)

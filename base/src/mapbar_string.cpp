@@ -5,17 +5,34 @@ namespace MapBarDL
 {
 	MbString::MbString()
 	{
+#ifdef D_USE_STD_STRING
 		m_buffer = L"";
+#else
+		m_bufferSize = D_MAPBAR_STRING_BUFFER_DEFAULT_SIZE;
+		m_buffer = MbNewArray(WCHAR, m_bufferSize);
+		memset(m_buffer, 0x00, sizeof(WCHAR)* m_bufferSize);
+#endif
 	}
 
 	MbString::MbString(const WCHAR* str)
 	{
+#ifdef D_USE_STD_STRING
 		m_buffer = str;
+#else
+		wcscpy_s(m_buffer, m_bufferSize, str);
+#endif
 	}
 
 	MbString::MbString(const MbString& str)
 	{
+#ifdef D_USE_STD_STRING
 		m_buffer = str.m_buffer;
+#else
+		if (m_buffer != str.m_buffer)
+		{
+			memcpy(m_buffer, str.m_buffer, sizeof(WCHAR)* m_bufferSize);
+		}
+#endif
 	}
 
 	MbString::~MbString()
@@ -25,28 +42,33 @@ namespace MapBarDL
 
 	MbString MbString::operator=(const MbString& str)
 	{
+#ifdef D_USE_STD_STRING
 		m_buffer = str.m_buffer;
+#else
+		if (m_buffer != str.m_buffer)
+		{
+			memcpy(m_buffer, str.m_buffer, sizeof(WCHAR)* m_bufferSize);
+		}
+#endif
 		return *this;
 	}
 
 	BOOL MbString::operator==(const MbString& str)const
 	{
+#ifdef D_USE_STD_STRING
 		return m_buffer == str.m_buffer;
+#else
+		return wcscmp(m_buffer, str.m_buffer) == 0 ? TRUE : FALSE;
+#endif
 	}
 
 	BOOL MbString::operator==(const WCHAR* str)const
 	{
+#ifdef D_USE_STD_STRING
 		return m_buffer == std::wstring(str);
-	}
-
-	BOOL MbString::operator>(const MbString& str)const
-	{
-		return m_buffer > str.m_buffer;
-	}
-
-	BOOL MbString::operator>(const WCHAR* str)const
-	{
-		return m_buffer > std::wstring(str);
+#else
+		return wcscmp(m_buffer, str) == 0 ? TRUE : FALSE;
+#endif
 	}
 
 	WCHAR MbString::operator[](int32 index)const
@@ -150,7 +172,11 @@ namespace MapBarDL
 
 	size_t MbString::length()const
 	{
+#ifdef D_USE_STD_STRING
 		return m_buffer.length();
+#else
+		return wcslen(m_buffer);
+#endif
 	}
 
 	MbString MbString::cat(const MbString& str)const
@@ -179,6 +205,10 @@ namespace MapBarDL
 
 	const WCHAR* MbString::cStr()const
 	{
+#ifdef D_USE_STD_STRING
 		return m_buffer.c_str();
+#else
+		return m_buffer;
+#endif
 	}
 }

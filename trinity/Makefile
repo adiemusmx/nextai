@@ -18,6 +18,7 @@ CFLAGS += -O
 CFLAGS += -g
 CFLAGS += -DGLUT_DISABLE_ATEXIT_HACK
 CFLAGS += -DGLUT_NO_WARNING_DISABLE
+CFLAGS += -DGLUT_NO_LIB_PRAGMA
 
 CFLAGS += -DBUILD_DEBUG
 
@@ -50,6 +51,8 @@ endif
 
 # Include dir
 INCLUDE_DIRS = -I./include/
+INCLUDE_DIRS += -I../third_party/include/
+INCLUDE_DIRS += -I../base/include/
 
 $(TARGET) : $(OBJECTS)
 	$(AR) cq $(TARGET) $(OBJECTS)

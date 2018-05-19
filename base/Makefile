@@ -1,13 +1,15 @@
 # The Target File Name
-TARGET = app.exe
+TARGET = libbase.a
 
 # Compile Tool
 CXX = g++
+AR = ar
 
 # Objects Files
-SOURCES = $(wildcard ./src/*.cpp) $(wildcard ./src/*.c)
+#INCLUDES = $(wildcard ../include/*.h)
+SOURCES = $(wildcard src/*.cpp) $(wildcard src/*.c)
 OBJECTS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
-#DEPS = $(OBJECTS:%.o=%.d) 
+#DEPS = $(OBJECTS:%.o=%.d)
 
 # CLAGS
 CFLAGS = -Wall
@@ -32,7 +34,7 @@ CFLAGS += -DARCH_X64
 endif
 
 # Libraries dir
-LIBS_DIRS = -L../trinity/lib/
+LIBS_DIRS = -L./lib/
 
 # Libraries
 LDFLAGS =
@@ -41,23 +43,19 @@ LDFLAGS += -lGL
 LDFLAGS += -lGLU
 LDFLAGS += -lglut
 else
-LDFLAGS += -lwinmm
 LDFLAGS += -lopengl32
 LDFLAGS += -lglu32
 LDFLAGS += -lglut32
 endif
 
-LDFLAGS += -lbase_win32
-LDFLAGS += -lrender_system_win32
-LDFLAGS += -ltrinity_win32
-LDFLAGS += -lFreeImage_win32
-
 # Include dir
-INCLUDE_DIRS = -Iinclude/
-INCLUDE_DIRS += -I../trinity/include/
+INCLUDE_DIRS = -I./include/
 
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS_DIRS) $(LDFLAGS)
+	$(AR) cq $(TARGET) $(OBJECTS)
+	rm -rf ./lib
+	mkdir ./lib
+	mv $(TARGET) ./lib/$(TARGET)
 %.o : %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
 %.o : %.c

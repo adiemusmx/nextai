@@ -2,9 +2,6 @@
 #include "trinity/trinity_gl_line.h"
 #include "base/mapbar_log.h"
 
-#include <GL/glut.h>
-#include <GL/glu.h>
-
 namespace MapBarDL {
 
 GL_Line::GL_Line()
@@ -40,7 +37,7 @@ void GL_Line::draw()
 void GL_Line::setPoints(const Point* points, size_t count)
 {
 	size_t loopIdx;
-	MAPBAR_VERBOSE_LOG("points[%p] count[%zu]", points, count);
+	MAPBAR_VERBOSE_LOG("points[%p] count[%u]", points, count);
 	m_points.clear();
 
 	for (loopIdx = 0; loopIdx < count; ++loopIdx)
@@ -81,8 +78,7 @@ void GL_Line::setStyle(int32 style)
 
 void GL_Line::setColor(ColorCode color)
 {
-	MAPBAR_VERBOSE_LOG("color[%x]", color);
-	printf("Color [%f %f %f %f]\n", COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color), COLOR_GET_ALPHA(color));
+	MAPBAR_VERBOSE_LOG("color[%x]", (uint32)color);
 	m_color = color;
 }
 

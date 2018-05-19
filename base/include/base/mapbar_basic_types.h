@@ -1,11 +1,6 @@
 #ifndef _MAPBAR_BASIC_TYPES_H_
 #define _MAPBAR_BASIC_TYPES_H_
 
-typedef int int32;
-typedef int32 BOOL;
-typedef unsigned int uint32;
-typedef unsigned long uint64;
-
 #ifdef SYSTEM_WINDOWS
 #include <windows.h>
 #include <assert.h>
@@ -14,26 +9,17 @@ typedef unsigned long uint64;
 #include <stdlib.h>
 #endif
 
-#include "base/mapbar_basic_define.h"
-
-#ifndef TRUE
-#define TRUE 1
-#endif
-
-#ifndef FALSE
-#define FALSE 0
-#endif
-
-#ifndef WCHAR
-#define WCHAR wchar_t
-#endif
-
-#ifndef CHAR
-#define CHAR char
-#endif
-
+#include <string>
+#include <math.h>
+#include <sys/types.h>
 #include <vector>
 
+#include "base/mapbar_basic_define.h"
+
+namespace MapBarDL
+{
+
+// ∞Îæ∂
 typedef float Radian;
 
 // µ„–≈œ¢
@@ -202,10 +188,11 @@ public:
 	}
 
 	void expand_start(float length){
-		// TODO
+		assert(0);
 	}
 
 	void expand_end(float length){
+		assert(0);
 		// TODO
 	}
 };
@@ -230,5 +217,7 @@ public:
 
 // Color
 typedef uint64 ColorCode;
- 
+
+}
+
 #endif // !_MAPBAR_BASIC_TYPES_H_

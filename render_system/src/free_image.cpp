@@ -81,7 +81,7 @@ namespace MapBarDL
 	GLuint FreeImage::loadTexture(const MbString& filePath)
 	{
 		GLuint tex = 0;
-		unsigned char *bits = NULL;
+		//unsigned char *bits = NULL;
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		FIBITMAP *bitmap = NULL;
 		GLBITMAP *glbmp = NULL;

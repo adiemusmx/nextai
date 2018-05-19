@@ -1,7 +1,6 @@
 #ifndef _MAPBAR_TIME_H_
 #define _MAPBAR_TIME_H_
 
-#include "base/mapbar_basic_define.h"
 #include "base/mapbar_basic_types.h"
 
 namespace MapBarDL {

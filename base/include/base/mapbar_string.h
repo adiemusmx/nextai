@@ -26,10 +26,6 @@ namespace MapBarDL
 		virtual BOOL operator==(const WCHAR* str)const;
 		virtual BOOL operator!=(const MbString& str)const { return !((*this) == str); }
 		virtual BOOL operator!=(const WCHAR* str)const { return !((*this) == str); }
-		virtual BOOL operator>(const MbString& str)const;
-		virtual BOOL operator>(const WCHAR* str)const;
-		virtual BOOL operator<(const MbString& str)const { return !((*this) > str); }
-		virtual BOOL operator<(const WCHAR* str)const { return !((*this) > str); }
 
 		/* 取独立的字符 */
 		virtual WCHAR operator[](int32 index)const;
@@ -73,7 +69,14 @@ namespace MapBarDL
 		virtual const WCHAR* cStr()const;
 
 	private:
+		// wstring好像不支持
+#ifdef D_USE_STD_STRING
 		std::wstring m_buffer;
+#else
+#define D_MAPBAR_STRING_BUFFER_DEFAULT_SIZE TEXT_MAX_LENGTH
+		WCHAR* m_buffer;
+		size_t m_bufferSize;
+#endif
 	};
 }
 

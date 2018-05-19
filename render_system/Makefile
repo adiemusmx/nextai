@@ -1,5 +1,5 @@
 # The Target File Name
-TARGET = libtrinity.a
+TARGET = librender_system.a
 
 # Compile Tool
 CXX = g++
@@ -18,6 +18,7 @@ CFLAGS += -O
 CFLAGS += -g
 CFLAGS += -DGLUT_DISABLE_ATEXIT_HACK
 CFLAGS += -DGLUT_NO_WARNING_DISABLE
+CFLAGS += -DGLUT_NO_LIB_PRAGMA
 
 CFLAGS += -DBUILD_DEBUG
 
@@ -33,23 +34,10 @@ else
 CFLAGS += -DARCH_X64
 endif
 
-# Libraries dir
-LIBS_DIRS = -L./lib/
-
-# Libraries
-LDFLAGS =
-ifeq ($(shell uname), Linux)
-LDFLAGS += -lGL
-LDFLAGS += -lGLU
-LDFLAGS += -lglut
-else
-LDFLAGS += -lopengl32
-LDFLAGS += -lglu32
-LDFLAGS += -lglut32
-endif
-
 # Include dir
 INCLUDE_DIRS = -I./include/
+INCLUDE_DIRS += -I../third_party/include/
+INCLUDE_DIRS += -I../base/include/
 
 $(TARGET) : $(OBJECTS)
 	$(AR) cq $(TARGET) $(OBJECTS)
