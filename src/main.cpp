@@ -7,7 +7,7 @@ void initWindows(void)
 {
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glMatrixMode(GL_PROJECTION);
-    glOrtho(-52, 53, -53, 52, 5, 15);
+    glOrtho(-52, 53, -53, 62, 5, 15);
     glMatrixMode(GL_MODELVIEW);
     gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
 
@@ -20,15 +20,26 @@ void initWindows(void)
 // 画正方形，用于显示方块。指定方块左上角的坐标和颜色
 void displaySquare(GLint x, GLint y, GLint red, GLint green, GLint blue)
 {
+	
 	glBegin(GL_QUADS);
-
-	glColor3f(red, green, blue);
+	glColor3d(red, green, blue);
 	glVertex2f(x,y);
 	glVertex2f(x + SQUARE_LENGTH, y);
 	glVertex2f(x + SQUARE_LENGTH, y - SQUARE_LENGTH);
 	glVertex2f(x, y - SQUARE_LENGTH);
-
 	glEnd();
+
+	// 给方块增加一个边框，增强视觉效果
+	glBegin(GL_LINE_LOOP);
+	glColor3d(0, 0, 0);
+	glLineWidth(0.01f);
+	glVertex2f(x,y);
+	glVertex2f(x + SQUARE_LENGTH, y);
+	glVertex2f(x + SQUARE_LENGTH, y - SQUARE_LENGTH);
+	glVertex2f(x, y - SQUARE_LENGTH);
+	glEnd();
+
+	glFlush();
 }
 
 // 表示边框的函数
