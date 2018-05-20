@@ -50,7 +50,7 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 		return FALSE;
 	}
 
-	MAPBAR_INFO_LOG("m_width[%zu] m_height[%zu]", m_width, m_height)
+	MAPBAR_INFO_LOG("m_width[%u] m_height[%u]", m_width, m_height)
 	size = m_width * m_height * 3;
 	if ((fread(&planes, 2, 1, fp)) != 1)
 	{
@@ -78,7 +78,7 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 	m_data = (char*)malloc(size);
 	if (m_data == NULL)
 	{
-		MAPBAR_ERROR_LOG("Image[%s]'s malloc failed. size[%zu]", fileName, size);
+		MAPBAR_ERROR_LOG("Image[%s]'s malloc failed. size[%u]", fileName, size);
 		return FALSE;
 	}
 	if ((i = fread(m_data, size, 1, fp)) != 1)

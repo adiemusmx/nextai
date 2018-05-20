@@ -1,4 +1,4 @@
-#include "base/mapbar_object.h"
+ï»¿#include "base/mapbar_object.h"
 #include "base/mapbar_basic_define.h"
 #include "base/mapbar_basic_types.h"
 
@@ -24,7 +24,7 @@ namespace MapBarDL
 	{
 		MbAssert(size != 0);
 
-		/* ÖØĞÂÉêÇë¿Õ¼ä */
+		/* é‡æ–°ç”³è¯·ç©ºé—´ */
 		if (size > m_bufferSize)
 		{
 			size_t newSize = ((size / m_bufferStep) + 1) * m_bufferStep;
@@ -38,7 +38,7 @@ namespace MapBarDL
 				m_bufferSize = newSize;
 			}
 		}
-		/* ĞÂµÄ¿Õ¼äÔ¶Ğ¡ÓÚ */
+		/* æ–°çš„ç©ºé—´è¿œå°äº */
 		else if (size < m_bufferSize / 10 && size > m_bufferStep)
 		{
 			if (size < m_bufferStep && m_bufferSize != m_bufferStep)

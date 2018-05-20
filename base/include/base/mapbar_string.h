@@ -1,4 +1,4 @@
-#ifndef _MAPBAR_STRING_H_
+ï»¿#ifndef _MAPBAR_STRING_H_
 #define _MAPBAR_STRING_H_
 
 #include "base/mapbar_basic_types.h"
@@ -8,36 +8,36 @@ namespace MapBarDL
 	class MbString
 	{
 	public:
-		/* ¹¹Ôìº¯Êı */
+		/* æ„é€ å‡½æ•° */
 		MbString();
 		MbString(const WCHAR* str);
 
-		/* ¿½±´¹¹Ôìº¯Êı */
+		/* æ‹·è´æ„é€ å‡½æ•° */
 		MbString(const MbString& str);
 
-		/* Îö¹¹º¯Êı */
+		/* ææ„å‡½æ•° */
 		virtual ~MbString();
 
-		/* ¸³Öµ */
+		/* èµ‹å€¼ */
 		virtual MbString operator=(const MbString& str);
 		
-		/* ±È½Ï×Ö·û´® */
+		/* æ¯”è¾ƒå­—ç¬¦ä¸² */
 		virtual BOOL operator==(const MbString& str)const;
 		virtual BOOL operator==(const WCHAR* str)const;
 		virtual BOOL operator!=(const MbString& str)const { return !((*this) == str); }
 		virtual BOOL operator!=(const WCHAR* str)const { return !((*this) == str); }
 
-		/* È¡¶ÀÁ¢µÄ×Ö·û */
+		/* å–ç‹¬ç«‹çš„å­—ç¬¦ */
 		virtual WCHAR operator[](int32 index)const;
 		
-		/* ½ØÈ¡×Ö·û´® */
+		/* æˆªå–å­—ç¬¦ä¸² */
 		virtual MbString sub(int32 startPos, int32 endPos);
 		virtual MbString operator()(int32 startPos, int32 endPos);
 
-		/* Ìæ»»×Ö·û´® */
+		/* æ›¿æ¢å­—ç¬¦ä¸² */
 		virtual MbString replace(const MbString& oldStr, const MbString& newStr);
 
-		/* ²éÕÒ×Ö·û´® */
+		/* æŸ¥æ‰¾å­—ç¬¦ä¸² */
 		virtual int32 find(const MbString& str)const;
 		virtual int32 find(const WCHAR* str)const;
 		virtual BOOL startsWith(const MbString& str)const;
@@ -45,7 +45,7 @@ namespace MapBarDL
 		virtual BOOL endsWith(const MbString& str)const;
 		virtual BOOL endsWith(const WCHAR* str)const;
 
-		/* Çå¿Õ×Ö·û´®£¬Ä¬ÈÏÇå³ı¿Õ¸ñ£¬ÖÆ±í·û */
+		/* æ¸…ç©ºå­—ç¬¦ä¸²ï¼Œé»˜è®¤æ¸…é™¤ç©ºæ ¼ï¼Œåˆ¶è¡¨ç¬¦ */
 		virtual void trim(const MbString& characters);
 		virtual void trim(const WCHAR* characters = NULL);
 		virtual void trimStart(const MbString& characters);
@@ -53,23 +53,23 @@ namespace MapBarDL
 		virtual void trimEnd(const MbString& characters);
 		virtual void trimEnd(const WCHAR* characters = NULL);
 
-		/* ÇĞ·Ö×Ö·û´® */
+		/* åˆ‡åˆ†å­—ç¬¦ä¸² */
 		virtual void split(const MbString& characters);
 		virtual void split(const WCHAR* characters);
 
-		/* ×Ö·û´®³¤¶È */
+		/* å­—ç¬¦ä¸²é•¿åº¦ */
 		virtual size_t length()const;
 
-		/* ×Ö·û´®Æ´½Ó */
+		/* å­—ç¬¦ä¸²æ‹¼æ¥ */
 		virtual MbString cat(const MbString& str)const;
 		virtual MbString operator+(const MbString& str)const;
 		virtual MbString operator+=(const MbString& str);
-		virtual MbString operator*(size_t times)const;		/* ×Ö·û´®ÖØ¸´times´Î */
+		virtual MbString operator*(size_t times)const;		/* å­—ç¬¦ä¸²é‡å¤timesæ¬¡ */
 
 		virtual const WCHAR* cStr()const;
 
 	private:
-		// wstringºÃÏñ²»Ö§³Ö
+		// wstringå¥½åƒä¸æ”¯æŒ
 #ifdef D_USE_STD_STRING
 		std::wstring m_buffer;
 #else

@@ -1,4 +1,4 @@
-#include "base/mapbar_time.h"
+﻿#include "base/mapbar_time.h"
 
 #ifdef SYSTEM_LINUX
 #include "time.h"

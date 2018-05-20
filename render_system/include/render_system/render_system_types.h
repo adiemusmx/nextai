@@ -7,9 +7,9 @@
 namespace MapBarDL
 {
 	// Line Style
-#define LINE_STYLE_1 0xFFFF			// 1111111111111111 --> ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+#define LINE_STYLE_1 0xFFFF			// 1111111111111111 --> â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 #define LINE_STYLE_2 0xAAAA			// 1010101010101010 --> --------------
-#define LINE_STYLE_3 0xCCCC			// 1100110011001100 --> ¡ª¡ª  ¡ª¡ª  ¡ª¡ª  ¡ª¡ª
+#define LINE_STYLE_3 0xCCCC			// 1100110011001100 --> â€”â€”  â€”â€”  â€”â€”  â€”â€”
 
 #define INVALID_TEXTURE_ID (-1)
 	typedef uint32 PICTURE_TEXTURE_ID;
@@ -18,9 +18,9 @@ namespace MapBarDL
 	// Polygon Mode
 	enum POLYGON_MODE
 	{
-		POLYGON_MODE_POINT,		// ±íÊ¾Ö»ÏÔÊ¾¶¥µã£¬¶à±ßÐÎÓÃµãÏÔÊ¾
-		POLYGON_MODE_LINE,		// ±íÊ¾ÏÔÊ¾Ïß¶Î£¬¶à±ßÐÎÓÃÂÖÀªÏÔÊ¾
-		POLYGON_MODE_FILL		// ±íÊ¾ÏÔÊ¾Ãæ£¬¶à±ßÐÎ²ÉÓÃÌî³äÐÎÊ½
+		POLYGON_MODE_POINT,		// è¡¨ç¤ºåªæ˜¾ç¤ºé¡¶ç‚¹ï¼Œå¤šè¾¹å½¢ç”¨ç‚¹æ˜¾ç¤º
+		POLYGON_MODE_LINE,		// è¡¨ç¤ºæ˜¾ç¤ºçº¿æ®µï¼Œå¤šè¾¹å½¢ç”¨è½®å»“æ˜¾ç¤º
+		POLYGON_MODE_FILL		// è¡¨ç¤ºæ˜¾ç¤ºé¢ï¼Œå¤šè¾¹å½¢é‡‡ç”¨å¡«å……å½¢å¼
 	};
 }
 

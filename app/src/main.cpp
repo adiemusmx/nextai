@@ -1,15 +1,8 @@
 #include "trinity/trinity_app_service.h"
 #include "app_event_handler.h"
 
-#ifdef COMPILER_MINGW
-int main(void)
-{
-	int argc;
-	wchar_t **argv = CommandLineToArgvW(GetCommandLineW(), &argc);
-#else
 int main(int argc, char *argv[])
 {
-#endif
 	MapBarDL::AppService* rs = MapBarDL::AppService::getInstance();
 	// Initialize environment
 	MapBarDL::AppServiceParam param;

@@ -11,7 +11,7 @@ CFLAGS += -DGLUT_DISABLE_ATEXIT_HACK
 CFLAGS += -DGLUT_NO_WARNING_DISABLE
 CFLAGS += -DGLUT_NO_LIB_PRAGMA
 CFLAGS += -DBUILD_DEBUG
-CFALGS += -DCOMPILER_MINGW
+CFLAGS += -DCOMPILER_MINGW
 
 ifeq ($(shell uname), Linux)
 CFLAGS += -DSYSTEM_LINUX
@@ -26,7 +26,8 @@ CFLAGS += -DARCH_X64
 endif
 
 # Include dir
-INCLUDE_DIRS  = -I../base/include/
+INCLUDE_DIRS  = -I./include/
+INCLUDE_DIRS += -I../base/include/
 INCLUDE_DIRS += -I../render_system/include/
 INCLUDE_DIRS += -I../third_party/include/
 INCLUDE_DIRS += -I../trinity/include/
@@ -38,16 +39,16 @@ LDFLAGS += -lGL
 LDFLAGS += -lGLU
 LDFLAGS += -lglut
 else
-LDFLAGS += -lwinmm
+LDFLAGS += -lwinmm.lib
 LDFLAGS += -lopengl32
 LDFLAGS += -lglu32
 LDFLAGS += -lglut32
 endif
 
-LDFLAGS += -lbase
-LDFLAGS += -lrender_system
-LDFLAGS += -ltrinity
-LDFLAGS += -lFreeImage_win32
+LDFLAGS += -lbase.lib
+LDFLAGS += -lrender_system.lib
+LDFLAGS += -ltrinity.lib
+LDFLAGS += -lFreeImage_win32.lib
 
 # Libraries dir
 LIBS_DIRS  = -L../base/lib/

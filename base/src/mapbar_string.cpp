@@ -1,4 +1,4 @@
-#include "base/mapbar_string.h"
+﻿#include "base/mapbar_string.h"
 #include "base/mapbar_basic_define.h"
 
 namespace MapBarDL

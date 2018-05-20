@@ -1,4 +1,4 @@
-#ifndef _MAPBAR_BASIC_TYPES_H_
+ï»¿#ifndef _MAPBAR_BASIC_TYPES_H_
 #define _MAPBAR_BASIC_TYPES_H_
 
 #ifdef SYSTEM_WINDOWS
@@ -19,10 +19,10 @@
 namespace MapBarDL
 {
 
-// °ë¾¶
+// åŠå¾„
 typedef float Radian;
 
-// µãĞÅÏ¢
+// ç‚¹ä¿¡æ¯
 class Point
 {
 public:
@@ -35,11 +35,11 @@ public:
 	BOOL isValid() { return !(x == INT_MAX || y == INT_MAX); }
 };
 
-typedef Point ScreenPoint;			/* ÆÁÄ»×ø±ê */
-typedef Point MapPoint;		/* ¾­Î³¶È×ø±ê */
-typedef Point NdsPoint;				/* Nds×ø±ê */
+typedef Point ScreenPoint;			/* å±å¹•åæ ‡ */
+typedef Point MapPoint;		/* ç»çº¬åº¦åæ ‡ */
+typedef Point NdsPoint;				/* Ndsåæ ‡ */
 
-/* ÖĞĞÄÖá */
+/* ä¸­å¿ƒè½´ */
 class Pivot
 {
 public:
@@ -55,7 +55,7 @@ public:
 	T y;
 };
 
-// ¾ØĞÎ¿ò
+// çŸ©å½¢æ¡†
 class Rect
 {
 public:
@@ -111,9 +111,9 @@ public:
 	}
 };
 
-typedef Rect ScreenRect;			/* ÆÁÄ»¾ØĞÎ¿ò */
-typedef Rect CordinatesRect;		/* ¾­Î³¶È¾ØĞÎ¿ò */
-typedef Rect NdsRect;				/* Nds¾ØĞÎ¿ò */
+typedef Rect ScreenRect;			/* å±å¹•çŸ©å½¢æ¡† */
+typedef Rect CordinatesRect;		/* ç»çº¬åº¦çŸ©å½¢æ¡† */
+typedef Rect NdsRect;				/* NdsçŸ©å½¢æ¡† */
 
 class Segment
 {

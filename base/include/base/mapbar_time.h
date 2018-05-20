@@ -1,4 +1,4 @@
-#ifndef _MAPBAR_TIME_H_
+﻿#ifndef _MAPBAR_TIME_H_
 #define _MAPBAR_TIME_H_
 
 #include "base/mapbar_basic_types.h"

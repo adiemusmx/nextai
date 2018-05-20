@@ -155,9 +155,8 @@ namespace MapBarDL
 
 	void RenderSystem::drawText(const TextTextureInfo& info, const Rect& drawArea)
 	{
-		HDC hDC = wglGetCurrentDC();
-
 #if 0
+		HDC hDC = wglGetCurrentDC();
 		glRasterPos2f(0.0f, 0.0f);
 		ColorCode color = 0x00FF0088;
 		glColor4f(COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color), COLOR_GET_ALPHA(color));

@@ -5,27 +5,27 @@ namespace MapBarDL
 	class RenderUtil
 	{
 	public:
-		/* ¼ÆËã¼ıÍ·µÄÖ÷¸É */
+		/* è®¡ç®—ç®­å¤´çš„ä¸»å¹² */
 		static size_t getArrowOutline(
-			const Point* points,	/* ÊäÈëµãĞÅÏ¢ */
-			size_t points_size,	/* ÊäÈëµãÊıÁ¿ */
-			Point* outline,		/* Êä³öµãĞÅÏ¢ */
-			size_t outline_size,	/* Êä³öµãÊıÁ¿ */
-			float trunk_width,		/* Ö÷¸ÉÏß¿í */
-			float arrow_width,		/* ¼ıÍ·Ïß¿í */
-			float arrow_height	/* ¼ıÍ·¸ß¶È */
+			const Point* points,	/* è¾“å…¥ç‚¹ä¿¡æ¯ */
+			size_t points_size,	/* è¾“å…¥ç‚¹æ•°é‡ */
+			Point* outline,		/* è¾“å‡ºç‚¹ä¿¡æ¯ */
+			size_t outline_size,	/* è¾“å‡ºç‚¹æ•°é‡ */
+			float trunk_width,		/* ä¸»å¹²çº¿å®½ */
+			float arrow_width,		/* ç®­å¤´çº¿å®½ */
+			float arrow_height	/* ç®­å¤´é«˜åº¦ */
 			);
 
-		/* ¼ÆËã¼ıÍ·µÄÍâ±ß¿ò */
+		/* è®¡ç®—ç®­å¤´çš„å¤–è¾¹æ¡† */
 		static size_t getArrowBorderOutline(
-			const Point* points,	/* ÊäÈëµãĞÅÏ¢ */
-			size_t points_size,	/* ÊäÈëµãÊıÁ¿ */
-			Point* outline,		/* Êä³öµãĞÅÏ¢ */
-			size_t outline_size,	/* Êä³öµãÊıÁ¿ */
-			float trunk_width,		/* Ö÷¸ÉÏß¿í */
-			float arrow_width,		/* ¼ıÍ·Ïß¿í */
-			float arrow_height,	/* ¼ıÍ·¸ß¶È */
-			float border_width	/* ±ß¿òµÄ¿í¶È */
+			const Point* points,	/* è¾“å…¥ç‚¹ä¿¡æ¯ */
+			size_t points_size,	/* è¾“å…¥ç‚¹æ•°é‡ */
+			Point* outline,		/* è¾“å‡ºç‚¹ä¿¡æ¯ */
+			size_t outline_size,	/* è¾“å‡ºç‚¹æ•°é‡ */
+			float trunk_width,		/* ä¸»å¹²çº¿å®½ */
+			float arrow_width,		/* ç®­å¤´çº¿å®½ */
+			float arrow_height,	/* ç®­å¤´é«˜åº¦ */
+			float border_width	/* è¾¹æ¡†çš„å®½åº¦ */
 			);
 	};
 }

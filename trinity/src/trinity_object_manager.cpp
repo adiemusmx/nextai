@@ -92,7 +92,7 @@ BOOL ObjectManager::touch(TouchType touch, int32 touchCount, const int32 touchId
 	{
 		if (m_surfaces[loopIdx] != NULL)
 			ret = m_surfaces[loopIdx]->hit(touch, touchCount, touchId, touchPos);
-		MAPBAR_INFO_LOG("touch surface[%zu,%p] ret[%d]", loopIdx, m_surfaces[loopIdx], ret);
+		MAPBAR_INFO_LOG("touch surface[%u,%p] ret[%d]", loopIdx, m_surfaces[loopIdx], ret);
 	}
 	return ret;
 }

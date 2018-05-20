@@ -8,9 +8,9 @@ $(TARGET) : $(OBJECTS)
 	mkdir ./lib
 	mv $(TARGET) ./lib/$(TARGET)
 %.o : %.cpp
-	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
+	$(CXX) $(CFLAGS) $(INCLUDE_DIRS) -c $< -o $@ 
 %.o : %.c
-	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
+	$(CXX) $(CFLAGS) $(INCLUDE_DIRS) -c $< -o $@ 
 	
 #define DEP_BUILD
 #@set -e; rm -f $@; \

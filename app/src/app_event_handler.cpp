@@ -1,4 +1,4 @@
-#include "app_event_handler.h"
+ï»¿#include "app_event_handler.h"
 #include "trinity/trinity_object_manager.h"
 #include "view_mouse_paint.h"
 #include "render_system/render_system.h"
@@ -59,7 +59,7 @@ BOOL AppEventHandler::render()
 	MapBarDL::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Nothing");
 	RENDER_SYSTEM()->drawText(text1, drawArea2);
 
-	MapBarDL::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"ÄãºÃ£¬ÊÀ½ç£¡");
+	MapBarDL::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"ï¿½ï¿½ï¿½");
 	RENDER_SYSTEM()->drawText(text2, drawArea2);
 
 	return FALSE;

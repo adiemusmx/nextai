@@ -1,4 +1,4 @@
-#ifndef _MAPBAR_OBJECT_H_
+ï»¿#ifndef _MAPBAR_OBJECT_H_
 #define _MAPBAR_OBJECT_H_
 
 #include "base/mapbar_basic_types.h"
@@ -11,16 +11,16 @@ namespace MapBarDL
 		MbObject();
 		virtual ~MbObject();
 		
-		/* ÉêÇë¿Õ¼ä */
+		/* ç”³è¯·ç©ºé—´ */
 		void alloc(size_t size);
-		size_t getSize() { return m_bufferSize; }		/* ¿Õ¼ä´óĞ¡Ö»ÄÜ»ñÈ¡¡£ĞŞ¸ÄÇëÊ¹ÓÃalloc */
+		size_t getSize() { return m_bufferSize; }		/* ç©ºé—´å¤§å°åªèƒ½è·å–ã€‚ä¿®æ”¹è¯·ä½¿ç”¨alloc */
 
-		/* Ôö¼ÓÒıÓÃ¼ÆÊı */
+		/* å¢åŠ å¼•ç”¨è®¡æ•° */
 		void addRef() { ++m_refCount; }
 		void removeRef() { --m_refCount; }
 		size_t getRefCount() { return m_refCount; }
 
-		/* Éè¶¨ÉêÇë¿Õ¼äµÄ²½³¤ */
+		/* è®¾å®šç”³è¯·ç©ºé—´çš„æ­¥é•¿ */
 		void setStep(size_t step) { m_bufferStep = step; }
 		size_t getStep() { return m_bufferStep; }
 
@@ -30,9 +30,9 @@ namespace MapBarDL
 
 		void recycle(size_t size);
 
-		void* m_buffer;
+		CHAR* m_buffer;
 		size_t m_bufferSize;
-		size_t m_bufferStep;	/* Ä¬ÈÏ1k */
+		size_t m_bufferStep;	/* é»˜è®¤1k */
 		size_t m_refCount;
 	};
 }
