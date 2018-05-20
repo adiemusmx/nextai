@@ -63,6 +63,8 @@ typedef unsigned long uint64;
 #ifdef SYSTEM_LINUX
 #define WCHAR wchar_t
 #define CHAR char
+#define TRUE 1
+#define FALSE 0
 #endif
 
 #ifndef MB_LEN_MAX
