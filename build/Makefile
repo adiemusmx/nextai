@@ -3,7 +3,7 @@ all:
 	$(MAKE) -C ../render_system
 	$(MAKE) -C ../trinity
 	$(MAKE) -C ../app
-	cp ./app/app.exe ./app.exe -f
+	cp ../app/app.exe ./app.exe -f
 
 clean:
 	$(MAKE) clean -C ../base

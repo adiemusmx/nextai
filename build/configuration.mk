@@ -36,7 +36,13 @@ INCLUDE_DIRS += -I../trinity/include/
 LDFLAGS  = 
 LDFLAGS += -ltrinity
 LDFLAGS += -lrender_system
+
+ifeq ($(shell uname), Linux)
+LDFLAGS += -lFreeImage
+else
 LDFLAGS += -lFreeImage_win32
+endif
+
 LDFLAGS += -lbase
 
 ifeq ($(shell uname), Linux)
@@ -47,9 +53,8 @@ else
 LDFLAGS += -lglut32
 LDFLAGS += -lglu32
 LDFLAGS += -lopengl32
-endif
-
 LDFLAGS += -lwinmm
+endif
 
 # Libraries dir
 LIBS_DIRS  = -L../base/lib/
