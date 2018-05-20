@@ -111,6 +111,8 @@ namespace MapBarDL
 
 	TextTextureInfo RenderSystem::allocTextTexture(const MbString& str)
 	{
+		TextTextureInfo ret;
+#ifdef SYSTEM_WINDOWS
 		HDC hDC = wglGetCurrentDC();
 
 		HFONT hFont = CreateFontA(13, 0, 0, 0, FW_MEDIUM, 0, 0, 0,
@@ -118,8 +120,6 @@ namespace MapBarDL
 			DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS, "楷体_GB2312");
 		HFONT hOldFont = (HFONT)SelectObject(hDC, hFont);
 		DeleteObject(hOldFont);
-
-		TextTextureInfo ret;
 
 		ret.num = str.length();
 		ret.texture = glGenLists(ret.num);
@@ -142,8 +142,8 @@ namespace MapBarDL
 			glCallList(ret.texture + i);
 		}
 		glFlush();
-
-		return ret;
+#endif
+		return ret;	
 	}
 
 	void RenderSystem::releaseTextTexture(TextTextureInfo& info)

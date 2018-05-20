@@ -63,10 +63,17 @@ typedef unsigned long uint64;
 #ifdef SYSTEM_LINUX
 #define WCHAR wchar_t
 #define CHAR char
+
 #define TRUE 1
 #define FALSE 0
+
+#define LONG long
+
+#define INT_MAX       2147483647    /* maximum (signed) int value */
+
 #endif
 
+#if 0
 #if !MB_LEN_MAX
 #define MB_LEN_MAX    5             /* max. # bytes in multibyte char */
 #endif
@@ -88,7 +95,7 @@ typedef unsigned long uint64;
 #endif
 
 #if !INT_MAX
-#define INT_MAX       2147483647    /* maximum (signed) int value */
+
 #endif
 
 #if !UINT_MAX
@@ -117,6 +124,7 @@ typedef unsigned long uint64;
 
 #if !ULLONG_MAX
 #define ULLONG_MAX    0xffffffffffffffffui64       /* maximum unsigned long long int value */
+#endif
 #endif
 
 #define D_USE_STD_STRING
