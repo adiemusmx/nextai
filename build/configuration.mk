@@ -33,22 +33,23 @@ INCLUDE_DIRS += -I../third_party/include/
 INCLUDE_DIRS += -I../trinity/include/
 
 # Libraries
-LDFLAGS =
+LDFLAGS  = 
+LDFLAGS += -ltrinity
+LDFLAGS += -lrender_system
+LDFLAGS += -lFreeImage_win32
+LDFLAGS += -lbase
+
 ifeq ($(shell uname), Linux)
 LDFLAGS += -lGL
 LDFLAGS += -lGLU
 LDFLAGS += -lglut
 else
-LDFLAGS += -lwinmm.lib
-LDFLAGS += -lopengl32
-LDFLAGS += -lglu32
 LDFLAGS += -lglut32
+LDFLAGS += -lglu32
+LDFLAGS += -lopengl32
 endif
 
-LDFLAGS += -lbase.lib
-LDFLAGS += -lrender_system.lib
-LDFLAGS += -ltrinity.lib
-LDFLAGS += -lFreeImage_win32.lib
+LDFLAGS += -lwinmm
 
 # Libraries dir
 LIBS_DIRS  = -L../base/lib/

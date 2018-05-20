@@ -8,7 +8,7 @@ SOURCES := $(wildcard src/*.cpp) $(wildcard src/*.c)
 OBJECTS := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
 
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(OBJECTS) -o $(TARGET) $(LIBS_DIRS) $(LDFLAGS)
+	$(CXX) $(OBJECTS) $(LIBS_DIRS) $(LDFLAGS) -o $(TARGET)
 %.o : %.cpp
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
 %.o : %.c
