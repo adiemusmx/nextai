@@ -1,4 +1,4 @@
-#ifndef _MAPBAR_RENDER_SYSTEM_TYPES_H_
+﻿#ifndef _MAPBAR_RENDER_SYSTEM_TYPES_H_
 #define _MAPBAR_RENDER_SYSTEM_TYPES_H_
 
 #include "base/mapbar_basic_types.h"

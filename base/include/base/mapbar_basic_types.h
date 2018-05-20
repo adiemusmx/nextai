@@ -3,11 +3,10 @@
 
 #ifdef SYSTEM_WINDOWS
 #include <windows.h>
-#include <assert.h>
-#else
+#endif
 #include <stdio.h>
 #include <stdlib.h>
-#endif
+#include <assert.h>
 
 #include <string>
 #include <math.h>
@@ -18,6 +17,7 @@
 
 namespace MapBarDL
 {
+	void mb_assert(BOOL value, const CHAR* message);
 
 // 半径
 typedef float Radian;
