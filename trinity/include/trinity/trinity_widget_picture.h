@@ -5,7 +5,7 @@
 #include "trinity_gl_bitmap.h"
 #include "trinity_widget_object.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 
 class WidgetPicture : public WidgetObject

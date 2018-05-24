@@ -2,7 +2,7 @@
 #include "render_system/free_image.h"
 #include "free_image/FreeImage.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	class GLBITMAP
 	{

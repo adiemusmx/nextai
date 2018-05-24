@@ -1,15 +1,15 @@
 #ifndef _TRINITY_OBJECT_MANAGER_H_
 #define _TRINITY_OBJECT_MANAGER_H_
 
-#include "base/mapbar_basic_define.h"
-#include "base/mapbar_basic_types.h"
+#include "base/nextai_basic_define.h"
+#include "base/nextai_basic_types.h"
 
 #include "trinity_widget_object.h"
 #include "trinity_widget_surface.h"
 #include "trinity_widget_view.h"
 #include "trinity_app_service.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 
 class ObjectManager : AppEventListener

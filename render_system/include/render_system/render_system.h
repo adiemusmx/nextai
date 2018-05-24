@@ -1,12 +1,12 @@
-﻿#ifndef _MAPBAR_RENDER_SYSTEM_H_
-#define _MAPBAR_RENDER_SYSTEM_H_
+﻿#ifndef _nextai_RENDER_SYSTEM_H_
+#define _nextai_RENDER_SYSTEM_H_
 
-#include "base/mapbar_string.h"
+#include "base/nextai_string.h"
 #include "render_system/render_system_types.h"
 
-#define RENDER_SYSTEM() MapBarDL::RenderSystem::instance()
+#define RENDER_SYSTEM() NextAI::RenderSystem::instance()
 
-namespace MapBarDL {
+namespace NextAI {
 
 	class TextTextureInfo
 	{
@@ -64,4 +64,4 @@ namespace MapBarDL {
 	};
 }
 
-#endif // !_MAPBAR_RENDER_SYSTEM_H_
+#endif // !_nextai_RENDER_SYSTEM_H_

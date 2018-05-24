@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "render_system/render_util.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	size_t RenderUtil::getArrowOutline(
 		const Point* points,

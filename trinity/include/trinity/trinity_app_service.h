@@ -1,10 +1,10 @@
 ﻿#ifndef _TRINITY_APP_SERVICE_H_
 #define _TRINITY_APP_SERVICE_H_
 
-#include "base/mapbar_basic_define.h"
-#include "base/mapbar_basic_types.h"
+#include "base/nextai_basic_define.h"
+#include "base/nextai_basic_types.h"
 
-namespace MapBarDL {
+namespace NextAI {
 
 class AppServiceParam
 {

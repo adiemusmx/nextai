@@ -1,10 +1,10 @@
 #ifndef _TRINITY_GL_LINE_H_
 #define _TRINITY_GL_LINE_H_
 
-#include "base/mapbar_basic_define.h"
-#include "base/mapbar_basic_types.h"
+#include "base/nextai_basic_define.h"
+#include "base/nextai_basic_types.h"
 
-namespace MapBarDL {
+namespace NextAI {
 
 // 1111111111111111 --> ！！！！！！！！！！！！！！
 #define GL_LINE_STYLE_1 0xFFFF

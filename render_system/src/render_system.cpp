@@ -6,7 +6,7 @@
 #define COLOR_BLACK 0xFFFFFFFF
 
 
-namespace MapBarDL
+namespace NextAI
 {
 	RenderSystem* RenderSystem::instance()
 	{

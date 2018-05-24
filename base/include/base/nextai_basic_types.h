@@ -1,5 +1,5 @@
-﻿#ifndef _MAPBAR_BASIC_TYPES_H_
-#define _MAPBAR_BASIC_TYPES_H_
+﻿#ifndef _nextai_BASIC_TYPES_H_
+#define _nextai_BASIC_TYPES_H_
 
 #ifdef SYSTEM_WINDOWS
 #include <windows.h>
@@ -13,9 +13,9 @@
 #include <sys/types.h>
 #include <vector>
 
-#include "base/mapbar_basic_define.h"
+#include "base/nextai_basic_define.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	void mb_assert(BOOL value, const CHAR* message);
 
@@ -220,4 +220,4 @@ typedef uint64 ColorCode;
 
 }
 
-#endif // !_MAPBAR_BASIC_TYPES_H_
+#endif // !_nextai_BASIC_TYPES_H_

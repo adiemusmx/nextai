@@ -3,7 +3,7 @@
 
 #include "trinity/trinity_widget_object.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 
 class WidgetButton : public WidgetObject

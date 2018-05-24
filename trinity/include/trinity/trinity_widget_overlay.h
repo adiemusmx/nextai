@@ -1,7 +1,7 @@
 #ifndef _TRINITY_WIDGET_OVERLAY_H_
 #define _TRINITY_WIDGET_OVERLAY_H_
 
-namespace MapBarDL
+namespace NextAI
 {
 
 class WidgetOverlay : public WidgetObject

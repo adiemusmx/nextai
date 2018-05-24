@@ -6,7 +6,7 @@
 
 typedef unsigned long ObjectId;
 
-namespace MapBarDL
+namespace NextAI
 {
 
 // Widget

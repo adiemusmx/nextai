@@ -1,9 +1,9 @@
-﻿#ifndef _MAPBAR_TIME_H_
-#define _MAPBAR_TIME_H_
+﻿#ifndef _nextai_TIME_H_
+#define _nextai_TIME_H_
 
-#include "base/mapbar_basic_types.h"
+#include "base/nextai_basic_types.h"
 
-namespace MapBarDL {
+namespace NextAI {
 
 // Date
 class DateTime
@@ -69,4 +69,4 @@ private:
 
 }
 
-#endif // !_MAPBAR_TIME_H_
+#endif // !_nextai_TIME_H_

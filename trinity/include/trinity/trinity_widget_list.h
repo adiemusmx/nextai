@@ -1,7 +1,7 @@
 #ifndef _TRINITY_WIDGET_LIST_H_
 #define _TRINITY_WIDGET_LIST_H_
 
-namespace MapBarDL
+namespace NextAI
 {
 
 class WidgetList : public WidgetObject

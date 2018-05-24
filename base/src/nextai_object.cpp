@@ -1,8 +1,8 @@
-﻿#include "base/mapbar_object.h"
-#include "base/mapbar_basic_define.h"
-#include "base/mapbar_basic_types.h"
+﻿#include "base/nextai_object.h"
+#include "base/nextai_basic_define.h"
+#include "base/nextai_basic_types.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	MbObject::MbObject()
 	{

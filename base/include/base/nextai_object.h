@@ -1,9 +1,9 @@
-﻿#ifndef _MAPBAR_OBJECT_H_
-#define _MAPBAR_OBJECT_H_
+﻿#ifndef _nextai_OBJECT_H_
+#define _nextai_OBJECT_H_
 
-#include "base/mapbar_basic_types.h"
+#include "base/nextai_basic_types.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	class MbObject
 	{
@@ -37,4 +37,4 @@ namespace MapBarDL
 	};
 }
 
-#endif // !_MAPBAR_OBJECT_H_
+#endif // !_nextai_OBJECT_H_

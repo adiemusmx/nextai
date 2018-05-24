@@ -1,10 +1,10 @@
-﻿#ifndef _MAPBAR_RENDER_SYSTEM_TYPES_H_
-#define _MAPBAR_RENDER_SYSTEM_TYPES_H_
+﻿#ifndef _nextai_RENDER_SYSTEM_TYPES_H_
+#define _nextai_RENDER_SYSTEM_TYPES_H_
 
-#include "base/mapbar_basic_types.h"
-#include "base/mapbar_string.h"
+#include "base/nextai_basic_types.h"
+#include "base/nextai_string.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	// Line Style
 #define LINE_STYLE_1 0xFFFF			// 1111111111111111 --> ——————————————
@@ -24,4 +24,4 @@ namespace MapBarDL
 	};
 }
 
-#endif // !_MAPBAR_RENDER_SYSTEM_TYPES_H_
+#endif // !_nextai_RENDER_SYSTEM_TYPES_H_

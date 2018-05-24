@@ -1,6 +1,6 @@
-﻿#include "base/mapbar_basic_types.h"
+﻿#include "base/nextai_basic_types.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	class RenderUtil
 	{

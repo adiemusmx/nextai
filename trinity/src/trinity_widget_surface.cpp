@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "trinity/trinity_widget_surface.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 
 WidgetSurface::WidgetSurface(ObjectId id): WidgetObject(id)

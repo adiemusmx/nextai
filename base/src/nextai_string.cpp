@@ -1,14 +1,14 @@
-﻿#include "base/mapbar_string.h"
-#include "base/mapbar_basic_define.h"
+﻿#include "base/nextai_string.h"
+#include "base/nextai_basic_define.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 	MbString::MbString()
 	{
 #ifdef D_USE_STD_STRING
 		m_buffer = L"";
 #else
-		m_bufferSize = D_MAPBAR_STRING_BUFFER_DEFAULT_SIZE;
+		m_bufferSize = D_nextai_STRING_BUFFER_DEFAULT_SIZE;
 		m_buffer = MbNewArray(WCHAR, m_bufferSize);
 		memset(m_buffer, 0x00, sizeof(WCHAR)* m_bufferSize);
 #endif

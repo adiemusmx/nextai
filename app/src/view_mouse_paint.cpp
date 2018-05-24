@@ -1,35 +1,35 @@
 #include "view_mouse_paint.h"
 #include "app_object_id.h"
-#include "base/mapbar_log.h"
+#include "base/nextai_log.h"
 #include "trinity/trinity_widget_picture.h"
 #include <algorithm>
 
-using namespace MapBarDL;
+using namespace NextAI;
 
-ViewMousePaint::ViewMousePaint() : MapBarDL::WidgetView(OBJECT_ID_SCREEN_MOUSE_PAINT)
+ViewMousePaint::ViewMousePaint() : NextAI::WidgetView(OBJECT_ID_SCREEN_MOUSE_PAINT)
 {
-	MapBarDL::WidgetPicture* picture = new MapBarDL::WidgetPicture(1000);
-	Rect area = {0, 0, MapBarDL::AppService::getInstance()->getWindowsWidth(), MapBarDL::AppService::getInstance()->getWindowsHeight()};
+	NextAI::WidgetPicture* picture = new NextAI::WidgetPicture(1000);
+	Rect area = {0, 0, NextAI::AppService::getInstance()->getWindowsWidth(), NextAI::AppService::getInstance()->getWindowsHeight()};
 	picture->setPath("res/background.bmp");
 	picture->setDrawableArea(area);
 
 	addChild(picture);
-	MapBarDL::AppService::getInstance()->addEventListener(this);
+	NextAI::AppService::getInstance()->addEventListener(this);
 }
 
 ViewMousePaint::~ViewMousePaint()
 {
-	MapBarDL::AppService::getInstance()->removeEventListener(this);
+	NextAI::AppService::getInstance()->removeEventListener(this);
 	m_glLines.clear();
 }
 
 void ViewMousePaint::drawImpl()
 {
 	// Parent's draw fucntion
-	MapBarDL::WidgetView::drawImpl();
+	NextAI::WidgetView::drawImpl();
 
 	// Mouse track line
-	std::vector<MapBarDL::GL_Line*>::iterator iter = m_glLines.begin();
+	std::vector<NextAI::GL_Line*>::iterator iter = m_glLines.begin();
 	while (iter != m_glLines.end())
 	{
 		(*iter)->draw();
@@ -37,14 +37,14 @@ void ViewMousePaint::drawImpl()
 	}
 }
 
-BOOL ViewMousePaint::touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const MapBarDL::ScreenPoint touchPos[])
+BOOL ViewMousePaint::touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[])
 {
 	const ColorCode colorCodeTable[] = { 0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0x888888FF };
 	static int32 loopIdx = 0;
-	static MapBarDL::GL_Line* glLine = NULL;
+	static NextAI::GL_Line* glLine = NULL;
 	if (touch == TouchType_BEGAN)
 	{
-		glLine = new MapBarDL::GL_Line();
+		glLine = new NextAI::GL_Line();
 		glLine->setStyle(GL_LINE_STYLE_3);
 		glLine->setWidth(3);
 		glLine->setStyleFactor(3);

@@ -1,11 +1,11 @@
-#ifndef _MAPBAR_FREE_IMAGE_H_
-#define _MAPBAR_FREE_IMAGE_H_
+#ifndef _nextai_FREE_IMAGE_H_
+#define _nextai_FREE_IMAGE_H_
 
 #include "render_system/render_system_types.h"
 
 struct FIBITMAP;
 
-namespace MapBarDL
+namespace NextAI
 {
 	class GLBITMAP;
 
@@ -20,4 +20,4 @@ namespace MapBarDL
 	};
 }
 
-#endif // !_MAPBAR_FREE_IMAGE_H_
+#endif // !_nextai_FREE_IMAGE_H_

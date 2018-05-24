@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-	MapBarDL::AppService* rs = MapBarDL::AppService::getInstance();
+	NextAI::AppService* rs = NextAI::AppService::getInstance();
 	// Initialize environment
-	MapBarDL::AppServiceParam param;
+	NextAI::AppServiceParam param;
 	param.argc = argc;
 	param.argv = argv;
 	param.windowsArea = {0, 0, 1024, 768};

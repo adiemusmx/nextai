@@ -1,5 +1,5 @@
-﻿#ifndef _MAPBAR_BASIC_DEFINE_H_
-#define _MAPBAR_BASIC_DEFINE_H_
+﻿#ifndef _nextai_BASIC_DEFINE_H_
+#define _nextai_BASIC_DEFINE_H_
 
 typedef int int32;
 typedef int32 BOOL;
@@ -39,7 +39,7 @@ typedef unsigned long uint64;
 
 // ############ MEMORY ###########
 
-#if defined(MAPBAR_USE_MEMORY_DEBUGGER)
+#if defined(nextai_USE_MEMORY_DEBUGGER)
 #define MbNew(T, ...) ((T*)_MemoryDebugger_addRecord(new T(__VA_ARGS__), sizeof(T), __FILE__, __LINE__, __FUNCTION__))
 #define MbNewArray(T, n) (T*)_MemoryDebugger_addRecord(new T[n], sizeof(T) * n, __FILE__, __LINE__, __FUNCTION__);
 #define MbDelete(o) {_MemoryDebugger_removeRecord(o); delete o; }
@@ -129,4 +129,4 @@ typedef unsigned long uint64;
 
 #define D_USE_STD_STRING
 
-#endif // !_MAPBAR_BASIC_DEFINE_H_
+#endif // !_nextai_BASIC_DEFINE_H_

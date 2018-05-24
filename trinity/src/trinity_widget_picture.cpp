@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "trinity/trinity_widget_picture.h"
-#include "base/mapbar_log.h"
+#include "base/nextai_log.h"
 
-namespace MapBarDL {
+namespace NextAI {
 
 WidgetPicture::WidgetPicture(ObjectId id): WidgetObject(id)
 {
@@ -37,7 +37,7 @@ void WidgetPicture::setPath(const CHAR* path)
 {
 	if (path == NULL)
 	{
-		MAPBAR_WARNING_LOG("Path is a null pointer!");
+		nextai_WARNING_LOG("Path is a null pointer!");
 		return;
 	}
 

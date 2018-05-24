@@ -1,7 +1,7 @@
 #ifndef _TRINITY_WIDGET_LABEL_H_
 #define _TRINITY_WIDGET_LABEL_H_
 
-namespace MapBarDL
+namespace NextAI
 {
 
 class WidgetLabel : public WidgetObject

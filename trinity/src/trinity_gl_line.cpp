@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "trinity/trinity_gl_line.h"
-#include "base/mapbar_log.h"
+#include "base/nextai_log.h"
 
-namespace MapBarDL {
+namespace NextAI {
 
 GL_Line::GL_Line()
 {
@@ -37,7 +37,7 @@ void GL_Line::draw()
 void GL_Line::setPoints(const Point* points, size_t count)
 {
 	size_t loopIdx;
-	MAPBAR_VERBOSE_LOG("points[%p] count[%u]", points, count);
+	nextai_VERBOSE_LOG("points[%p] count[%u]", points, count);
 	m_points.clear();
 
 	for (loopIdx = 0; loopIdx < count; ++loopIdx)
@@ -48,37 +48,37 @@ void GL_Line::setPoints(const Point* points, size_t count)
 
 void GL_Line::appendPoint(const Point& point)
 {
-	MAPBAR_VERBOSE_LOG("point[%d,%d]", point.x, point.y);
+	nextai_VERBOSE_LOG("point[%d,%d]", point.x, point.y);
 	m_points.push_back(point);
 }
 
 void GL_Line::clearPoints()
 {
-	MAPBAR_VERBOSE_LOG("clear point");
+	nextai_VERBOSE_LOG("clear point");
 	m_points.clear();
 }
 
 void GL_Line::setWidth(float width)
 {
-	MAPBAR_VERBOSE_LOG("width[%f]", width);
+	nextai_VERBOSE_LOG("width[%f]", width);
 	m_width = width;
 }
 
 void GL_Line::setStyleFactor(int32 factor)
 {
-	MAPBAR_VERBOSE_LOG("factor[%x]", factor);
+	nextai_VERBOSE_LOG("factor[%x]", factor);
 	m_styleFacor = factor;
 }
 
 void GL_Line::setStyle(int32 style)
 {
-	MAPBAR_VERBOSE_LOG("style[%x]", style);
+	nextai_VERBOSE_LOG("style[%x]", style);
 	m_style = style;
 }
 
 void GL_Line::setColor(ColorCode color)
 {
-	MAPBAR_VERBOSE_LOG("color[%x]", (uint32)color);
+	nextai_VERBOSE_LOG("color[%x]", (uint32)color);
 	m_color = color;
 }
 

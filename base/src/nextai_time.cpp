@@ -1,11 +1,11 @@
-﻿#include "base/mapbar_time.h"
+﻿#include "base/nextai_time.h"
 
 #ifdef SYSTEM_LINUX
 #include "time.h"
 #include "sys/time.h"
 #endif
 
-namespace MapBarDL {
+namespace NextAI {
 
 DateTime::DateTime()
 {

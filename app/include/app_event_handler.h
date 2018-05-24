@@ -3,7 +3,7 @@
 
 #include "trinity/trinity_app_service.h"
 
-class AppEventHandler : public MapBarDL::AppEventListener
+class AppEventHandler : public NextAI::AppEventListener
 {
 public:
 	static AppEventHandler* getInstance();
@@ -12,7 +12,7 @@ public:
 
 	virtual BOOL render();
 
-	virtual BOOL touch(MapBarDL::TouchType touch, int32 touchCount, const int32 touchId[], const MapBarDL::ScreenPoint touchPos[]);
+	virtual BOOL touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[]);
 
 private:
 	AppEventHandler() {}

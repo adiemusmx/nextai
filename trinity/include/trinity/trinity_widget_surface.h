@@ -3,7 +3,7 @@
 
 #include "trinity_widget_object.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 
 enum SURFACE_ID

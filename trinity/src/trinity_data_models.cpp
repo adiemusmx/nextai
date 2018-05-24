@@ -1,7 +1,7 @@
 ﻿#include "stdafx.h"
 #include "trinity/trinity_data_models.h"
 
-namespace MapBarDL
+namespace NextAI
 {
 
 void DataModel::addListener(DataModelListener* listener)

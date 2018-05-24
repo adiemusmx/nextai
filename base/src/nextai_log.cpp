@@ -1,9 +1,9 @@
-﻿#include "base/mapbar_log.h"
+﻿#include "base/nextai_log.h"
 #include <cstdio>
 #include <cstring>
-#include "base/mapbar_time.h"
+#include "base/nextai_time.h"
 
-namespace MapBarDL {
+namespace NextAI {
 
 Logger::Logger()
 {
