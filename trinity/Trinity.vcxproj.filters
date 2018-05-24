@@ -1,11 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\trinity_app_service.cpp" />
     <ClCompile Include="src\trinity_data_models.cpp" />
     <ClCompile Include="src\trinity_gl_bitmap.cpp" />
     <ClCompile Include="src\trinity_gl_line.cpp" />
-    <ClCompile Include="src\trinity_message_center.cpp" />
     <ClCompile Include="src\trinity_object_manager.cpp" />
     <ClCompile Include="src\trinity_widget_button.cpp" />
     <ClCompile Include="src\trinity_widget_label.cpp" />
@@ -19,12 +17,9 @@
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\trinity\trinity_app_service.h" />
     <ClInclude Include="include\trinity\trinity_data_models.h" />
     <ClInclude Include="include\trinity\trinity_gl_bitmap.h" />
     <ClInclude Include="include\trinity\trinity_gl_line.h" />
-    <ClInclude Include="include\trinity\trinity_message_center.h" />
-    <ClInclude Include="include\trinity\trinity_message_id.h" />
     <ClInclude Include="include\trinity\trinity_object_id.h" />
     <ClInclude Include="include\trinity\trinity_object_manager.h" />
     <ClInclude Include="include\trinity\trinity_widget_button.h" />

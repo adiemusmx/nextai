@@ -59,8 +59,9 @@ BOOL AppEventHandler::render()
 	NextAI::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Nothing");
 	RENDER_SYSTEM()->drawText(text1, drawArea2);
 
-	NextAI::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"���");
-	RENDER_SYSTEM()->drawText(text2, drawArea2);
+	NextAI::Rect drawArea3 = { 700, 300, 900, 600 };
+	NextAI::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"你好");
+	RENDER_SYSTEM()->drawText(text2, drawArea3);
 
 	return FALSE;
 }

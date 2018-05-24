@@ -1,7 +1,7 @@
 #ifndef _APP_EVENT_HANDLER_H_
 #define _APP_EVENT_HANDLER_H_
 
-#include "trinity/trinity_app_service.h"
+#include "base/nextai_app.h"
 
 class AppEventHandler : public NextAI::AppEventListener
 {

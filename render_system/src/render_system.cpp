@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "render_system/render_system.h"
 #include "render_system/free_image.h"
+#include "base/nextai_app.h"
 
 #define COLOR_WHITE 0x000000FF
 #define COLOR_BLACK 0xFFFFFFFF
@@ -126,22 +127,12 @@ namespace NextAI
 
 		MbAssert(ret.texture != 0);
 
-		//glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
-
-		glRasterPos2f(0.8f, 0.8f);
-
 		// 逐个输出字符
 		for (size_t i = 0; i < ret.num; ++i)
 		{
 			WCHAR temp = str[i];
 			wglUseFontBitmapsW(hDC, temp, 1, ret.texture + i);
 		}
-
-		for (size_t i = 0; i < ret.num; ++i)
-		{
-			glCallList(ret.texture + i);
-		}
-		glFlush();
 #endif
 		return ret;	
 	}
@@ -155,17 +146,19 @@ namespace NextAI
 
 	void RenderSystem::drawText(const TextTextureInfo& info, const Rect& drawArea)
 	{
-#if 0
-		HDC hDC = wglGetCurrentDC();
-		glRasterPos2f(0.0f, 0.0f);
-		ColorCode color = 0x00FF0088;
-		glColor4f(COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color), COLOR_GET_ALPHA(color));
+		GLint width = NEXT_AI_APP_SERVICE()->getWindowsWidth();
+		GLint height = NEXT_AI_APP_SERVICE()->getWindowsHeight();
+
+		gluPerspective(45.0f * 2, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f);
+		glTranslatef(0.0f, 0.0f, -480);         //当前局部坐标为(0,0,-480)
+		glRasterPos2f(-640, -480);//在视口的左下角显示字体
+		//glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
+		//glRasterPos2f(drawArea.left, drawArea.top);
 		for (size_t i = 0; i < info.num; ++i)
 		{
 			glCallList(info.texture + i);
 		}
 		glFlush();
-#endif
 	}
 
 

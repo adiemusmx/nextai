@@ -1,4 +1,4 @@
-#include "trinity/trinity_app_service.h"
+#include "base/nextai_app.h"
 #include "app_event_handler.h"
 
 int main(int argc, char *argv[])
@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
 	param.argc = argc;
 	param.argv = argv;
 	param.windowsArea = {0, 0, 1024, 768};
-	param.windowsTitle = "OpenGL 测试";
+	param.windowsTitle = "Next AI Demo Program";
 	rs->init(param);
 
 	rs->addEventListener(AppEventHandler::getInstance());

@@ -22,12 +22,10 @@
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\trinity_app_service.cpp" />
     <ClCompile Include="src\trinity_data_models.cpp" />
     <ClCompile Include="src\trinity_gl_bitmap.cpp" />
     <ClCompile Include="src\trinity_gl_line.cpp" />
     <ClCompile Include="src\trinity_gl_polygon.cpp" />
-    <ClCompile Include="src\trinity_message_center.cpp" />
     <ClCompile Include="src\trinity_object_manager.cpp" />
     <ClCompile Include="src\trinity_widget_button.cpp" />
     <ClCompile Include="src\trinity_widget_label.cpp" />
@@ -39,13 +37,10 @@
     <ClCompile Include="src\trinity_widget_view.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\trinity\trinity_app_service.h" />
     <ClInclude Include="include\trinity\trinity_data_models.h" />
     <ClInclude Include="include\trinity\trinity_gl_bitmap.h" />
     <ClInclude Include="include\trinity\trinity_gl_line.h" />
     <ClInclude Include="include\trinity\trinity_gl_polygon.h" />
-    <ClInclude Include="include\trinity\trinity_message_center.h" />
-    <ClInclude Include="include\trinity\trinity_message_id.h" />
     <ClInclude Include="include\trinity\trinity_object_id.h" />
     <ClInclude Include="include\trinity\trinity_object_manager.h" />
     <ClInclude Include="include\trinity\trinity_widget_button.h" />

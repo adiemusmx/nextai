@@ -2,7 +2,7 @@
 #define _TRINITY_WIDGET_OBJECT_H_
 
 #include "trinity_object_id.h"
-#include "trinity_app_service.h"
+#include "base/nextai_app.h"
 
 typedef unsigned long ObjectId;
 

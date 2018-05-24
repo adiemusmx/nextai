@@ -1,5 +1,5 @@
-﻿#ifndef _TRINITY_APP_SERVICE_H_
-#define _TRINITY_APP_SERVICE_H_
+﻿#ifndef _nextai_app_H_
+#define _nextai_app_H_
 
 #include "base/nextai_basic_define.h"
 #include "base/nextai_basic_types.h"
@@ -88,6 +88,8 @@ public:
 	virtual BOOL touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 };
 
+#define NEXT_AI_APP_SERVICE() NextAI::AppService::getInstance()
+
 // App core service
 class AppService
 {
@@ -143,4 +145,4 @@ private:
 };
 }
 
-#endif // !_TRINITY_APP_SERVICE_H_
+#endif // !_nextai_app_H_

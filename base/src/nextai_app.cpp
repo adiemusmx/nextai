@@ -1,9 +1,9 @@
-﻿#include "stdafx.h"
-#include "trinity/trinity_app_service.h"
-#include "trinity/trinity_message_center.h"
-#include "trinity/trinity_widget_picture.h"
-#include "trinity/trinity_object_manager.h"
+﻿#include "base/nextai_app.h"
+#include "base/nextai_message.h"
 #include "base/nextai_log.h"
+
+#include <GL/glut.h>
+#include <GL/glu.h>
 #include <algorithm>
 
 #define VECTOR_NOTIFY(listeners, func,...)	\
@@ -117,7 +117,7 @@ void AppService::run()
 	// Init started
 	VECTOR_NOTIFY(m_listeners, initStarted);
 
-	ObjectManager::getInstance()->init();
+	//ObjectManager::getInstance()->init();
 
 	VECTOR_NOTIFY(m_listeners, initCompleted);
 
@@ -126,7 +126,7 @@ void AppService::run()
 
 	VECTOR_NOTIFY(m_listeners, cleanupStarted);
 
-	ObjectManager::getInstance()->cleanup();
+	//ObjectManager::getInstance()->cleanup();
 
 	VECTOR_NOTIFY(m_listeners, cleanupCompleted);
 }
@@ -155,13 +155,12 @@ AppService::~AppService()
 void AppService::displayFunc()
 {
 	// Gl environment
-	glViewport(0, 0, getInstance()->m_area.width(), getInstance()->m_area.height());
+	GLint width = getInstance()->m_area.width();
+	GLint height = getInstance()->m_area.height();
+	glViewport(0, 0, width, height);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
-	float width = (float)getInstance()->m_area.width();
-	float height = (float)getInstance()->m_area.height();
 	
 	if (width <= height)
 	{
@@ -178,7 +177,7 @@ void AppService::displayFunc()
 	VECTOR_NOTIFY(getInstance()->m_listeners, render);
 
 	// Object manager draw
-	ObjectManager::getInstance()->draw();
+	// ObjectManager::getInstance()->draw();
 
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderCompleted);

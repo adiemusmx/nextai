@@ -7,7 +7,7 @@
 #include "trinity_widget_object.h"
 #include "trinity_widget_surface.h"
 #include "trinity_widget_view.h"
-#include "trinity_app_service.h"
+#include "base/nextai_app.h"
 
 namespace NextAI
 {
