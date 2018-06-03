@@ -3,9 +3,11 @@
 #include "render_system/free_image.h"
 #include "base/nextai_app.h"
 
-#define COLOR_WHITE 0x000000FF
-#define COLOR_BLACK 0xFFFFFFFF
-
+#define COLOR_WHITE 0xFFFFFFFF
+#define COLOR_BLACK 0x000000FF
+#define COLOR_RED 0xFF0000FF
+#define COLOR_GREEN 0x00FF00FF
+#define COLOR_BLUE 0x0000FFFF
 
 namespace NextAI
 {
@@ -28,7 +30,7 @@ namespace NextAI
 	{
 		glBegin(GL_POINT);
 
-		glColor4f(COLOR_GET_RED(pointColor), COLOR_GET_GREEN(pointColor), COLOR_GET_BLUE(pointColor), COLOR_GET_ALPHA(pointColor));
+		glColor4f(COLOR_GET_4F(pointColor));
 		glPointSize(pointSize);
 		glVertex3i(point.x, point.y, 0);
 
@@ -42,7 +44,7 @@ namespace NextAI
 		glLineWidth(lineWidth);
 
 		glBegin(GL_LINE_STRIP);
-		glColor4f(COLOR_GET_RED(lineColor), COLOR_GET_GREEN(lineColor), COLOR_GET_BLUE(lineColor), COLOR_GET_ALPHA(lineColor));
+		glColor4f(COLOR_GET_4F(lineColor));
 
 		for (size_t loopIdx = 0; loopIdx < pointsCount; ++loopIdx)
 			glVertex3i(points[loopIdx].x, points[loopIdx].y, 0);
@@ -56,7 +58,7 @@ namespace NextAI
 	void RenderSystem::drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor, POLYGON_MODE polygonMode)
 	{
 		glBegin(GL_POLYGON);
-		glColor4f(COLOR_GET_RED(lineColor), COLOR_GET_GREEN(lineColor), COLOR_GET_BLUE(lineColor), COLOR_GET_ALPHA(lineColor));
+		glColor4f(COLOR_GET_4F(lineColor));
 
 		for (size_t loopIdx = 0; loopIdx < pointsCount; ++loopIdx)
 			glVertex3i(points[loopIdx].x, points[loopIdx].y, 0);
@@ -89,7 +91,7 @@ namespace NextAI
 
 	void RenderSystem::drawPicture(PICTURE_TEXTURE_ID& textureId, const Rect& drawArea)
 	{
-		glColor4f(COLOR_GET_RED(COLOR_BLACK), COLOR_GET_GREEN(COLOR_BLACK), COLOR_GET_BLUE(COLOR_BLACK), COLOR_GET_ALPHA(COLOR_BLACK));
+		glColor4f(COLOR_GET_4F(COLOR_BLACK));
 
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, textureId);
@@ -146,12 +148,27 @@ namespace NextAI
 
 	void RenderSystem::drawText(const TextTextureInfo& info, const Rect& drawArea)
 	{
+#if 1
+		glColor4f(COLOR_GET_4F(COLOR_RED));
+		ScreenPoint startPos = { drawArea.left, drawArea.top };
+		Vector<float> startPosOrtho = APP_SERVICE()->pos2ortho(startPos);
+#if 0
+		glRasterPos2f(startPosOrtho.x, startPosOrtho.y);
+#else
+		glRasterPos2f(0.0f, 0.0f);
+#endif
+		for (size_t i = 0; i < info.num; ++i)
+		{
+			glCallList(info.texture + i);
+		}
+		glFlush();
+#else
 		GLint width = NEXT_AI_APP_SERVICE()->getWindowsWidth();
 		GLint height = NEXT_AI_APP_SERVICE()->getWindowsHeight();
 
-		gluPerspective(45.0f * 2, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f);
-		glTranslatef(0.0f, 0.0f, -480);         //当前局部坐标为(0,0,-480)
-		glRasterPos2f(-640, -480);//在视口的左下角显示字体
+		//gluPerspective(45.0f * 2, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f);
+		//glTranslatef(0.0f, 0.0f, -480);         //当前局部坐标为(0,0,-480)
+		glRasterPos2f(0.0f, 0.0f);//在视口的左下角显示字体
 		//glColor4f(COLOR_GET_RED(COLOR_WHITE), COLOR_GET_GREEN(COLOR_WHITE), COLOR_GET_BLUE(COLOR_WHITE), COLOR_GET_ALPHA(COLOR_WHITE));
 		//glRasterPos2f(drawArea.left, drawArea.top);
 		for (size_t i = 0; i < info.num; ++i)
@@ -159,6 +176,7 @@ namespace NextAI
 			glCallList(info.texture + i);
 		}
 		glFlush();
+#endif
 	}
 
 

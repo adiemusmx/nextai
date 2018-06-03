@@ -90,7 +90,22 @@ public:
 
 #define NEXT_AI_APP_SERVICE() NextAI::AppService::getInstance()
 
+class OrthoInfo
+{
+public:
+	OrthoInfo(){ m_left = m_right = m_bottom = m_top = m_near = m_far; }
+	virtual ~OrthoInfo() {}
+
+	float m_left;
+	float m_right;
+	float m_bottom;
+	float m_top;
+	float m_near;
+	float m_far;
+};
+
 // App core service
+#define APP_SERVICE() NextAI::AppService::getInstance()
 class AppService
 {
 
@@ -112,6 +127,9 @@ public:
 	size_t getWindowsWidth();
 	size_t getWindowsHeight();
 
+	// Convert screen's ortho and screen's pos
+	Vector<float> pos2ortho(const ScreenPoint& p);
+	ScreenPoint ortho2pos(const Vector<float>& r);
 
 private:
 	// function of draw
@@ -142,6 +160,7 @@ private:
 	std::vector<AppEventListener*> m_listeners;
 
 	Rect m_area;
+	OrthoInfo m_ortho;
 };
 }
 

@@ -36,6 +36,8 @@ typedef unsigned long uint64;
 #define COLOR_GET_GREEN(color)	(((color >> 16) & 0x000000FF) / 256.0f)
 #define COLOR_GET_BLUE(color)	(((color >> 8) & 0x000000FF) / 256.0f)
 #define COLOR_GET_ALPHA(color)	((color & 0x000000FF) / 256.0f)
+#define COLOR_GET_4F(color)		COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color), COLOR_GET_ALPHA(color)
+#define COLOR_GET_3F(color)		COLOR_GET_RED(color), COLOR_GET_GREEN(color), COLOR_GET_BLUE(color)
 
 // ############ MEMORY ###########
 

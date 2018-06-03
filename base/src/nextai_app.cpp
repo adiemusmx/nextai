@@ -73,6 +73,22 @@ void AppService::init(AppServiceParam& param)
 	glutInitWindowPosition(m_area.left, m_area.top);
 	glutInitWindowSize(m_area.width(), m_area.height());
 
+	/* Ortho */
+	m_ortho.m_left = -1.5f;
+	m_ortho.m_right = -1.5f;
+	m_ortho.m_near = -10.0f;
+	m_ortho.m_far = 10.0f;
+	if (m_area.width() <= m_area.height())
+	{
+		m_ortho.m_bottom = -1.5f * (float)m_area.height() / (float)m_area.width();
+		m_ortho.m_top = 1.5 * (float)m_area.height() / (float)m_area.width();
+	}
+	else
+	{
+		m_ortho.m_bottom = -1.5f * (float)m_area.width() / (float)m_area.height();
+		m_ortho.m_top = 1.5f * (float)m_area.width() / (float)m_area.height();
+	}
+
 	glutCreateWindow(param.windowsTitle);
 
 	// Render
@@ -141,6 +157,22 @@ size_t AppService::getWindowsHeight()
 	return  m_area.height();
 }
 
+Vector<float> AppService::pos2ortho(const ScreenPoint& p)
+{
+	Vector<float> ret;
+	ret.x = (m_ortho.m_right - m_ortho.m_left) * p.x / m_area.width() + m_ortho.m_left;
+	ret.y = (m_ortho.m_top - m_ortho.m_bottom) * (m_area.height() - p.y) / m_area.height() + m_ortho.m_bottom;
+	return ret;
+}
+
+ScreenPoint AppService::ortho2pos(const Vector<float>& r)
+{
+	ScreenPoint ret;
+	ret.x = (r.x - m_ortho.m_left) * m_area.width() / (m_ortho.m_right - m_ortho.m_left);
+	ret.y = m_area.height() - (r.y - m_ortho.m_bottom) * m_area.height() / (m_ortho.m_top - m_ortho.m_bottom);
+	return ret;
+}
+
 AppService::AppService()
 {
 	nextai_TRACE_LOG_START();
@@ -154,22 +186,20 @@ AppService::~AppService()
 
 void AppService::displayFunc()
 {
+	AppService* instance = getInstance();
+	
 	// Gl environment
-	GLint width = getInstance()->m_area.width();
-	GLint height = getInstance()->m_area.height();
+	GLint width = instance->m_area.width();
+	GLint height = instance->m_area.height();
 	glViewport(0, 0, width, height);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	
-	if (width <= height)
-	{
-		glOrtho(0, 1.5, 0, 1.5 * height / width, -10.0, 10.0);
-	}
-	else
-	{
-		glOrtho(0, 1.5 * width / height, 0, 1.5, -10.0, 10.0);
-	}
+
+	glOrtho(instance->m_ortho.m_left, instance->m_ortho.m_right, 
+		instance->m_ortho.m_bottom, instance->m_ortho.m_top, 
+		instance->m_ortho.m_near, instance->m_ortho.m_far);
 
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderStarted);

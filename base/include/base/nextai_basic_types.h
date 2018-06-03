@@ -35,9 +35,9 @@ public:
 	BOOL isValid() { return !(x == INT_MAX || y == INT_MAX); }
 };
 
-typedef Point ScreenPoint;			/* 屏幕坐标 */
+typedef Point ScreenPoint;	/* 屏幕坐标 */
 typedef Point MapPoint;		/* 经纬度坐标 */
-typedef Point NdsPoint;				/* Nds坐标 */
+typedef Point NdsPoint;		/* Nds坐标 */
 
 /* 中心轴 */
 class Pivot

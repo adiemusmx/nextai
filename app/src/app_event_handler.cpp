@@ -22,14 +22,14 @@ BOOL AppEventHandler::render()
 	
 	// Point
 	NextAI::Point center = { 600, 100 };
-	//RENDER_SYSTEM()->drawPoint(center, 4.0f, color);
+	RENDER_SYSTEM()->drawPoint(center, 4.0f, color);
 
 	// Line
 	NextAI::Point points[2];
 	points[0].x = points[0].y = 10;
 	points[1].x = 500;
 	points[1].y = 300;
-	//RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_1, color);
+	RENDER_SYSTEM()->drawPolyLine(points, element_of(points), 1.0f, 1, LINE_STYLE_1, color);
 
 	NextAI::Segment seg;
 	seg.start = points[1];
@@ -50,11 +50,11 @@ BOOL AppEventHandler::render()
 	// Picture
 	NextAI::Rect drawArea = { 600, 0, 900, 300 };
 	static NextAI::PICTURE_TEXTURE_ID textureId = RENDER_SYSTEM()->allocPictureTexture(L"res/test.bmp");
-	//RENDER_SYSTEM()->drawPicture(textureId, drawArea);
+	RENDER_SYSTEM()->drawPicture(textureId, drawArea);
 
 	NextAI::Rect drawArea2 = { 600, 300, 900, 600 };
 	static NextAI::PICTURE_TEXTURE_ID textureId2 = RENDER_SYSTEM()->allocPictureTexture(L"res/test.jpg");
-	//RENDER_SYSTEM()->drawPicture(textureId2, drawArea2);
+	RENDER_SYSTEM()->drawPicture(textureId2, drawArea2);
 
 	NextAI::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Nothing");
 	RENDER_SYSTEM()->drawText(text1, drawArea2);
