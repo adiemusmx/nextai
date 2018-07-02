@@ -5,6 +5,7 @@ typedef int int32;
 typedef int32 BOOL;
 typedef unsigned int uint32;
 typedef unsigned long uint64;
+typedef unsigned int LONG;
 
 // Max length of file's path
 #define FILE_PATH_MAX_LENGTH 1024
@@ -68,8 +69,6 @@ typedef unsigned long uint64;
 
 #define TRUE 1
 #define FALSE 0
-
-#define LONG long
 
 #define INT_MAX       2147483647    /* maximum (signed) int value */
 
