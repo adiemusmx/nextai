@@ -28,7 +28,7 @@ void WidgetObject::addChild(WidgetObject* child)
 {
 	if (child == NULL)
 	{
-		nextai_WARNING_LOG("Add null pointer object!");
+		NEXTAI_WARNING_LOG("Add null pointer object!");
 		return;
 	}
 	auto pObj = std::find(m_children.begin(), m_children.end(), child);
@@ -38,7 +38,7 @@ void WidgetObject::addChild(WidgetObject* child)
 	}
 	else
 	{
-		nextai_WARNING_LOG("Add same object[%lu], it's weird.", child->m_id);
+		NEXTAI_WARNING_LOG("Add same object[%lu], it's weird.", child->m_id);
 	}
 }
 
@@ -46,7 +46,7 @@ void WidgetObject::removeChild(WidgetObject* child)
 {
 	if (child == NULL)
 	{
-		nextai_WARNING_LOG("Remove null pointer object!");
+		NEXTAI_WARNING_LOG("Remove null pointer object!");
 		return;
 	}
 	auto pObj = std::find(m_children.begin(), m_children.end(), child);
@@ -56,7 +56,7 @@ void WidgetObject::removeChild(WidgetObject* child)
 	}
 	else
 	{
-		nextai_WARNING_LOG("Can't find object[%lu], it's weird.", child->m_id);
+		NEXTAI_WARNING_LOG("Can't find object[%lu], it's weird.", child->m_id);
 	}
 }
 
@@ -64,7 +64,7 @@ BOOL WidgetObject::isChild(WidgetObject* child)
 {
 	if (child == NULL)
 	{
-		nextai_WARNING_LOG("Remove null pointer object!");
+		NEXTAI_WARNING_LOG("Remove null pointer object!");
 		return FALSE;
 	}
 	auto pObj = std::find(m_children.begin(), m_children.end(), child);

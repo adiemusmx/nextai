@@ -75,7 +75,7 @@ namespace NextAI
 
 		PICTURE_TEXTURE_ID textureId = INVALID_TEXTURE_ID;
 
-		//textureId = allocBmpTexture(fileName);
+		
 		textureId = FreeImage::loadTexture(fileName);
 
 		return textureId;
@@ -83,7 +83,7 @@ namespace NextAI
 
 	void RenderSystem::releasePictureTexture(PICTURE_TEXTURE_ID textureId)
 	{
-		if (textureId != INVALID_TEXTURE_ID && glIsTexture(textureId))
+		if (textureId != (PICTURE_TEXTURE_ID)INVALID_TEXTURE_ID && glIsTexture(textureId))
 		{
 			glDeleteTextures(1, &textureId);
 		}

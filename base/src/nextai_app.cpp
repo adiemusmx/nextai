@@ -102,7 +102,7 @@ void AppService::init(AppServiceParam& param)
 
 void AppService::addEventListener(AppEventListener* listener)
 {
-	nextai_INFO_LOG("listener[%p]", listener);
+	NEXTAI_INFO_LOG("listener[%p]", listener);
 	std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 	if (iter == m_listeners.end())
 	{
@@ -110,13 +110,13 @@ void AppService::addEventListener(AppEventListener* listener)
 	}
 	else
 	{
-		nextai_WARNING_LOG("Listener[%p] duplicate.", listener);
+		NEXTAI_WARNING_LOG("Listener[%p] duplicate.", listener);
 	}
 }
 
 void AppService::removeEventListener(AppEventListener* listener)
 {
-	nextai_INFO_LOG("listener[%p]", listener);
+	NEXTAI_INFO_LOG("listener[%p]", listener);
 	std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 	if (iter != m_listeners.end())
 	{
@@ -124,7 +124,7 @@ void AppService::removeEventListener(AppEventListener* listener)
 	}
 	else
 	{
-		nextai_WARNING_LOG("Listener[%p] not found.", listener);
+		NEXTAI_WARNING_LOG("Listener[%p] not found.", listener);
 	}
 }
 
@@ -175,12 +175,12 @@ ScreenPoint AppService::ortho2pos(const Vector<float>& r)
 
 AppService::AppService()
 {
-	nextai_TRACE_LOG_START();
+	NEXTAI_TRACE_LOG_START();
 }
 
 AppService::~AppService()
 {
-	nextai_TRACE_LOG_START();
+	NEXTAI_TRACE_LOG_START();
 	m_listeners.clear();
 }
 
@@ -224,7 +224,7 @@ void AppService::idleFunc()
 
 void AppService::keyBoardFunc(int key, int x, int y)
 {
-	nextai_VERBOSE_LOG("[GLUT] key[%d] x[%d] y[%d]", key, x, y);
+	NEXTAI_VERBOSE_LOG("[GLUT] key[%d] x[%d] y[%d]", key, x, y);
 	switch (key)
 	{
 	case GLUT_KEY_UP:
@@ -247,12 +247,12 @@ void AppService::mouseFunc(int button, int state, int x, int y)
 	touchPos[0].y = y;
 	if (state == GLUT_DOWN)
 	{
-		nextai_VERBOSE_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
+		NEXTAI_VERBOSE_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
 		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_BEGAN, 1, touchId, touchPos);
 	}
 	else if (state == GLUT_UP)
 	{
-		nextai_VERBOSE_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
+		NEXTAI_VERBOSE_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
 		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_ENDED, 1, touchId, touchPos);
 	}
 }
@@ -264,13 +264,13 @@ void AppService::motionFunc(int x, int y)
 
 	touchPos[0].x = x;
 	touchPos[0].y = y;
-	nextai_VERBOSE_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
+	NEXTAI_VERBOSE_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
 	VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_MOVED, 1, touchId, touchPos);
 }
 
 void AppService::passiveMotionFunc(int x, int y)
 {
-	// nextai_INFO_LOG("[GLUT] x[%d] y[%d]", x, y);
+	// NEXTAI_INFO_LOG("[GLUT] x[%d] y[%d]", x, y);
 }
 
 }

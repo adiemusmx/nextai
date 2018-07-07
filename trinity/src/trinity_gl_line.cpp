@@ -37,7 +37,7 @@ void GL_Line::draw()
 void GL_Line::setPoints(const Point* points, size_t count)
 {
 	size_t loopIdx;
-	nextai_VERBOSE_LOG("points[%p] count[%u]", points, count);
+	NEXTAI_VERBOSE_LOG("points[%p] count[%u]", points, count);
 	m_points.clear();
 
 	for (loopIdx = 0; loopIdx < count; ++loopIdx)
@@ -48,37 +48,37 @@ void GL_Line::setPoints(const Point* points, size_t count)
 
 void GL_Line::appendPoint(const Point& point)
 {
-	nextai_VERBOSE_LOG("point[%d,%d]", point.x, point.y);
+	NEXTAI_VERBOSE_LOG("point[%d,%d]", point.x, point.y);
 	m_points.push_back(point);
 }
 
 void GL_Line::clearPoints()
 {
-	nextai_VERBOSE_LOG("clear point");
+	NEXTAI_VERBOSE_LOG("clear point");
 	m_points.clear();
 }
 
 void GL_Line::setWidth(float width)
 {
-	nextai_VERBOSE_LOG("width[%f]", width);
+	NEXTAI_VERBOSE_LOG("width[%f]", width);
 	m_width = width;
 }
 
 void GL_Line::setStyleFactor(int32 factor)
 {
-	nextai_VERBOSE_LOG("factor[%x]", factor);
+	NEXTAI_VERBOSE_LOG("factor[%x]", factor);
 	m_styleFacor = factor;
 }
 
 void GL_Line::setStyle(int32 style)
 {
-	nextai_VERBOSE_LOG("style[%x]", style);
+	NEXTAI_VERBOSE_LOG("style[%x]", style);
 	m_style = style;
 }
 
 void GL_Line::setColor(ColorCode color)
 {
-	nextai_VERBOSE_LOG("color[%x]", (uint32)color);
+	NEXTAI_VERBOSE_LOG("color[%x]", (uint32)color);
 	m_color = color;
 }
 

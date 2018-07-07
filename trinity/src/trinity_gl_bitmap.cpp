@@ -33,44 +33,44 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 
 	if (fp == NULL)
 	{
-		nextai_ERROR_LOG("Image[%s] do not exist.", fileName);
+		NEXTAI_ERROR_LOG("Image[%s] do not exist.", fileName);
 		return FALSE;
 	}
 	fseek(fp, 18, SEEK_CUR);
 
 	if ((i = fread(&m_width, 4, 1, fp)) != 1)
 	{
-		nextai_ERROR_LOG("Image[%s] read width failed.", fileName);
+		NEXTAI_ERROR_LOG("Image[%s] read width failed.", fileName);
 		return FALSE;
 	}
 
 	if ((i = fread(&m_height, 4, 1, fp)) != 1)
 	{
-		nextai_ERROR_LOG("Image[%s] read height failed.", fileName);
+		NEXTAI_ERROR_LOG("Image[%s] read height failed.", fileName);
 		return FALSE;
 	}
 
-	nextai_INFO_LOG("m_width[%u] m_height[%u]", m_width, m_height)
+	NEXTAI_INFO_LOG("m_width[%u] m_height[%u]", m_width, m_height)
 	size = m_width * m_height * 3;
 	if ((fread(&planes, 2, 1, fp)) != 1)
 	{
-		nextai_ERROR_LOG("Image[%s] read planes' flag failed.", fileName);
+		NEXTAI_ERROR_LOG("Image[%s] read planes' flag failed.", fileName);
 		return FALSE;
 	}
 	if (planes != 1)
 	{
-		nextai_ERROR_LOG("Image[%s] is not bmp file.", fileName);
+		NEXTAI_ERROR_LOG("Image[%s] is not bmp file.", fileName);
 		return FALSE;
 	}
 
 	if ((i = fread(&bpp, 2, 1, fp)) != 1)
 	{
-		nextai_ERROR_LOG("Can NOT read Image[%s] bpp.", fileName);
+		NEXTAI_ERROR_LOG("Can NOT read Image[%s] bpp.", fileName);
 		return FALSE;
 	}
 	if (bpp != 24)
 	{
-		nextai_ERROR_LOG("Image[%s] is not 24bpp.", fileName);
+		NEXTAI_ERROR_LOG("Image[%s] is not 24bpp.", fileName);
 		return FALSE;
 	}
 
@@ -78,12 +78,12 @@ BOOL GL_Bitmap::setPath(const char* fileName)
 	m_data = (char*)malloc(size);
 	if (m_data == NULL)
 	{
-		nextai_ERROR_LOG("Image[%s]'s malloc failed. size[%u]", fileName, size);
+		NEXTAI_ERROR_LOG("Image[%s]'s malloc failed. size[%u]", fileName, size);
 		return FALSE;
 	}
 	if ((i = fread(m_data, size, 1, fp)) != 1)
 	{
-		nextai_ERROR_LOG("Can NOT read image[%s] data.", fileName);
+		NEXTAI_ERROR_LOG("Can NOT read image[%s] data.", fileName);
 		return FALSE;
 	}
 	for (i = 0; i < size; i += 3)
@@ -129,7 +129,7 @@ const Rect& GL_Bitmap::getArea()
 
 void GL_Bitmap::draw()
 {
-	nextai_INFO_LOG("area[%d,%d,%d,%d]W[%d]H[%d]", m_area.left, m_area.top, m_area.right, m_area.bottom, m_width, m_height);
+	NEXTAI_INFO_LOG("area[%d,%d,%d,%d]W[%d]H[%d]", m_area.left, m_area.top, m_area.right, m_area.bottom, m_width, m_height);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, getTexture());
 	glEnable(GL_ALPHA_TEST);

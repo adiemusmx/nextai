@@ -37,7 +37,7 @@ void WidgetPicture::setPath(const CHAR* path)
 {
 	if (path == NULL)
 	{
-		nextai_WARNING_LOG("Path is a null pointer!");
+		NEXTAI_WARNING_LOG("Path is a null pointer!");
 		return;
 	}
 
