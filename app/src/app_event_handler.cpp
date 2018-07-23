@@ -49,19 +49,19 @@ BOOL AppEventHandler::render()
 
 	// Picture
 	NextAI::Rect drawArea = { 600, 0, 900, 300 };
-	static NextAI::PICTURE_TEXTURE_ID textureId = RENDER_SYSTEM()->allocPictureTexture(L"res/test.bmp");
+	static NextAI::PICTURE_TEXTURE_ID textureId = RENDER_SYSTEM()->allocPictureTexture(L"test.bmp");
 	RENDER_SYSTEM()->drawPicture(textureId, drawArea);
 
 	NextAI::Rect drawArea2 = { 600, 300, 900, 600 };
-	static NextAI::PICTURE_TEXTURE_ID textureId2 = RENDER_SYSTEM()->allocPictureTexture(L"res/test.jpg");
+	static NextAI::PICTURE_TEXTURE_ID textureId2 = RENDER_SYSTEM()->allocPictureTexture(L"test.jpg");
 	RENDER_SYSTEM()->drawPicture(textureId2, drawArea2);
 
-	NextAI::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Nothing");
-	RENDER_SYSTEM()->drawText(text1, drawArea2);
+	//NextAI::TextTextureInfo text1 = RENDER_SYSTEM()->allocTextTexture(L"Nothing");
+	//RENDER_SYSTEM()->drawText(text1, drawArea2);
 
-	NextAI::Rect drawArea3 = { 700, 300, 900, 600 };
-	NextAI::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"你好");
-	RENDER_SYSTEM()->drawText(text2, drawArea3);
+	//NextAI::Rect drawArea3 = { 700, 300, 900, 600 };
+	//NextAI::TextTextureInfo text2 = RENDER_SYSTEM()->allocTextTexture(L"你好");
+	//RENDER_SYSTEM()->drawText(text2, drawArea3);
 
 	return FALSE;
 }

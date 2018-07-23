@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_LOG_H_
-#define _nextai_LOG_H_
+﻿#ifndef _NEXTAI_LOG_H_
+#define _NEXTAI_LOG_H_
 
 #include "base/nextai_basic_define.h"
 #include "base/nextai_basic_types.h"
@@ -70,9 +70,9 @@ private:
 #define NEXTAI_TRACE_LOG() {	\
 		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, ""); }
 
-#define NEXTAI_TRACE_LOG_FLAG(flag) { \
+#define NEXTAI_TRACE_LOG_FLAG(format,...) { \
 		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, "%s", flag); \
+		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
 		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
 
 #define NEXTAI_TRACE_LOG_FLAG_END(flag) { \
@@ -87,7 +87,7 @@ private:
 
 #define NEXTAI_INFO_W_LOG(format,...) { \
 		WCHAR _temp_log_buffer[512]; \
-		swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+		swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
 		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
 
 #define NEXTAI_WARNING_LOG(format,...) { \
@@ -97,7 +97,7 @@ private:
 
 #define NEXTAI_WARNING_W_LOG(format,...) { \
 		WCHAR _temp_log_buffer[512]; \
-		swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+		swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
 		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
 
 #define NEXTAI_ERROR_LOG(format,...) { \
@@ -107,7 +107,7 @@ private:
 
 #define NEXTAI_ERROR_W_LOG(format,...) { \
 		WCHAR _temp_log_buffer[512]; \
-		swprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+		swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
 		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
 
 #endif // !_NEXTAI_LOG_H_

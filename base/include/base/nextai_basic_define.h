@@ -1,11 +1,14 @@
-﻿#ifndef _nextai_BASIC_DEFINE_H_
-#define _nextai_BASIC_DEFINE_H_
+﻿#ifndef _NEXTAI_BASIC_DEFINE_H_
+#define _NEXTAI_BASIC_DEFINE_H_
 
 typedef int int32;
 typedef int32 BOOL;
 typedef unsigned int uint32;
 typedef unsigned long uint64;
+
+#ifndef SYSTEM_WINDOWS
 typedef int32 LONG;
+#endif
 
 // Max length of file's path
 #define FILE_PATH_MAX_LENGTH 1024
@@ -130,4 +133,4 @@ typedef int32 LONG;
 
 #define D_USE_STD_STRING
 
-#endif // !_nextai_BASIC_DEFINE_H_
+#endif // !_NEXTAI_BASIC_DEFINE_H_

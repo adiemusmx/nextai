@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_RENDER_SYSTEM_H_
-#define _nextai_RENDER_SYSTEM_H_
+﻿#ifndef _NEXTAI_RENDER_SYSTEM_H_
+#define _NEXTAI_RENDER_SYSTEM_H_
 
 #include "base/nextai_string.h"
 #include "render_system/render_system_types.h"
@@ -43,12 +43,12 @@ namespace NextAI {
 		void drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor, POLYGON_MODE polygonMode);
 
 		// Picture (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
-		PICTURE_TEXTURE_ID allocPictureTexture(const MbString& fileName, PICTURE_TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
+		PICTURE_TEXTURE_ID allocPictureTexture(const WCHAR* fileName, PICTURE_TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
 		void releasePictureTexture(PICTURE_TEXTURE_ID textureId);
-		void drawPicture(PICTURE_TEXTURE_ID& textureId, const Rect& drawArea);
+		void drawPicture(PICTURE_TEXTURE_ID textureId, const Rect& drawArea);
 
 		// Text (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
-		TextTextureInfo allocTextTexture(const MbString& str);
+		TextTextureInfo allocTextTexture(const WCHAR* str);
 		void releaseTextTexture(TextTextureInfo& info);
 		void drawText(const TextTextureInfo& info, const Rect& drawArea);
 
@@ -64,4 +64,4 @@ namespace NextAI {
 	};
 }
 
-#endif // !_nextai_RENDER_SYSTEM_H_
+#endif // !_NEXTAI_RENDER_SYSTEM_H_

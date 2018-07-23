@@ -1,6 +1,8 @@
 ﻿#include "base/nextai_string.h"
 #include "base/nextai_basic_define.h"
 
+#if 0
+
 namespace NextAI
 {
 	MbString::MbString()
@@ -8,7 +10,7 @@ namespace NextAI
 #ifdef D_USE_STD_STRING
 		m_buffer = L"";
 #else
-		m_bufferSize = D_nextai_STRING_BUFFER_DEFAULT_SIZE;
+		m_bufferSize = D_NEXTAI_STRING_BUFFER_DEFAULT_SIZE;
 		m_buffer = MbNewArray(WCHAR, m_bufferSize);
 		memset(m_buffer, 0x00, sizeof(WCHAR)* m_bufferSize);
 #endif
@@ -212,3 +214,5 @@ namespace NextAI
 #endif
 	}
 }
+
+#endif // 0

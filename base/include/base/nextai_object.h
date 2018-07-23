@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_OBJECT_H_
-#define _nextai_OBJECT_H_
+﻿#ifndef _NEXTAI_OBJECT_H_
+#define _NEXTAI_OBJECT_H_
 
 #include "base/nextai_basic_types.h"
 
@@ -37,4 +37,4 @@ namespace NextAI
 	};
 }
 
-#endif // !_nextai_OBJECT_H_
+#endif // !_NEXTAI_OBJECT_H_

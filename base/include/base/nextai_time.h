@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_TIME_H_
-#define _nextai_TIME_H_
+﻿#ifndef _NEXTAI_TIME_H_
+#define _NEXTAI_TIME_H_
 
 #include "base/nextai_basic_types.h"
 
@@ -69,4 +69,4 @@ private:
 
 }
 
-#endif // !_nextai_TIME_H_
+#endif // !_NEXTAI_TIME_H_

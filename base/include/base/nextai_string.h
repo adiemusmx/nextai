@@ -1,5 +1,7 @@
-﻿#ifndef _nextai_STRING_H_
-#define _nextai_STRING_H_
+﻿#ifndef _NEXTAI_STRING_H_
+#define _NEXTAI_STRING_H_
+
+#if 0
 
 #include "base/nextai_basic_types.h"
 
@@ -73,11 +75,13 @@ namespace NextAI
 #ifdef D_USE_STD_STRING
 		std::wstring m_buffer;
 #else
-#define D_nextai_STRING_BUFFER_DEFAULT_SIZE TEXT_MAX_LENGTH
+#define D_NEXTAI_STRING_BUFFER_DEFAULT_SIZE TEXT_MAX_LENGTH
 		WCHAR* m_buffer;
 		size_t m_bufferSize;
 #endif
 	};
 }
 
-#endif // !_nextai_STRING_H_
+#endif // 0
+
+#endif // !_NEXTAI_STRING_H_

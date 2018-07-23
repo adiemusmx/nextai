@@ -78,14 +78,14 @@ namespace NextAI
 		}
 	}
 
-	GLuint FreeImage::loadTexture(const MbString& filePath)
+	GLuint FreeImage::loadTexture(const WCHAR* filePath)
 	{
 		GLuint tex = 0;
 		//unsigned char *bits = NULL;
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		FIBITMAP *bitmap = NULL;
 		GLBITMAP *glbmp = NULL;
-		const WCHAR* filename = filePath.cStr();
+		const WCHAR* filename = filePath;
 
 		fif = FreeImage_GetFileTypeU(filename, 0);
 		if (FIF_UNKNOWN == fif) {

@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_app_H_
-#define _nextai_app_H_
+﻿#ifndef _NEXTAI_app_H_
+#define _NEXTAI_app_H_
 
 #include "base/nextai_basic_define.h"
 #include "base/nextai_basic_types.h"
@@ -164,4 +164,4 @@ private:
 };
 }
 
-#endif // !_nextai_app_H_
+#endif // !_NEXTAI_app_H_

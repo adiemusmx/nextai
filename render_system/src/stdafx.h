@@ -2,6 +2,7 @@
 #define _STDAFX_H_
 
 #include "base/nextai_basic_define.h"
+#include "base/nextai_file_system.h"
 #include "base/nextai_log.h"
 
 #include <GL/glut.h>

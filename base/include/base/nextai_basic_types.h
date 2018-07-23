@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_BASIC_TYPES_H_
-#define _nextai_BASIC_TYPES_H_
+﻿#ifndef _NEXTAI_BASIC_TYPES_H_
+#define _NEXTAI_BASIC_TYPES_H_
 
 #ifdef SYSTEM_WINDOWS
 #include <windows.h>
@@ -220,4 +220,4 @@ typedef uint64 ColorCode;
 
 }
 
-#endif // !_nextai_BASIC_TYPES_H_
+#endif // !_NEXTAI_BASIC_TYPES_H_

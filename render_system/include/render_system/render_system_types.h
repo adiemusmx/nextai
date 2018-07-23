@@ -1,5 +1,5 @@
-﻿#ifndef _nextai_RENDER_SYSTEM_TYPES_H_
-#define _nextai_RENDER_SYSTEM_TYPES_H_
+﻿#ifndef _NEXTAI_RENDER_SYSTEM_TYPES_H_
+#define _NEXTAI_RENDER_SYSTEM_TYPES_H_
 
 #include "base/nextai_basic_types.h"
 #include "base/nextai_string.h"
@@ -11,7 +11,7 @@ namespace NextAI
 #define LINE_STYLE_2 0xAAAA			// 1010101010101010 --> --------------
 #define LINE_STYLE_3 0xCCCC			// 1100110011001100 --> ——  ——  ——  ——
 
-#define INVALID_TEXTURE_ID (-1)
+#define INVALID_TEXTURE_ID ((PICTURE_TEXTURE_ID)-1)
 	typedef uint32 PICTURE_TEXTURE_ID;
 	typedef uint32 TEXT_TEXTURE_ID;
 
@@ -24,4 +24,4 @@ namespace NextAI
 	};
 }
 
-#endif // !_nextai_RENDER_SYSTEM_TYPES_H_
+#endif // !_NEXTAI_RENDER_SYSTEM_TYPES_H_

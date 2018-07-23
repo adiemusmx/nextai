@@ -1,5 +1,5 @@
-#ifndef _nextai_FREE_IMAGE_H_
-#define _nextai_FREE_IMAGE_H_
+#ifndef _NEXTAI_FREE_IMAGE_H_
+#define _NEXTAI_FREE_IMAGE_H_
 
 #include "render_system/render_system_types.h"
 
@@ -12,7 +12,7 @@ namespace NextAI
 	class FreeImage
 	{
 	public:
-		static PICTURE_TEXTURE_ID loadTexture(const MbString& filePath);
+		static PICTURE_TEXTURE_ID loadTexture(const WCHAR* filePath);
 
 	private:
 		static GLBITMAP * convFIBitmap2GLBitmap(FIBITMAP* fibmp);
@@ -20,4 +20,4 @@ namespace NextAI
 	};
 }
 
-#endif // !_nextai_FREE_IMAGE_H_
+#endif // !_NEXTAI_FREE_IMAGE_H_

@@ -1,6 +1,7 @@
 ﻿#include "base/nextai_app.h"
 #include "base/nextai_message.h"
 #include "base/nextai_log.h"
+#include "base/nextai_file_system.h"
 
 #include <GL/glut.h>
 #include <GL/glu.h>
@@ -90,6 +91,8 @@ void AppService::init(AppServiceParam& param)
 	}
 
 	glutCreateWindow(param.windowsTitle);
+
+	NEXTAI_INFO_W_LOG(L"App workspace[%s]", FileSystem::getCurrentDirectory());
 
 	// Render
 	glutDisplayFunc(displayFunc);
@@ -196,22 +199,22 @@ void AppService::displayFunc()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-
+	
+#if 1
+	glOrtho(0.0, getInstance()->m_area.width(), getInstance()->m_area.height(), 0.0, -1.0, 1.0);
+#else
 	glOrtho(instance->m_ortho.m_left, instance->m_ortho.m_right, 
 		instance->m_ortho.m_bottom, instance->m_ortho.m_top, 
 		instance->m_ortho.m_near, instance->m_ortho.m_far);
+#endif
 
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderStarted);
 
 	VECTOR_NOTIFY(getInstance()->m_listeners, render);
 
-	// Object manager draw
-	// ObjectManager::getInstance()->draw();
-
 	// Render
 	VECTOR_NOTIFY(getInstance()->m_listeners, renderCompleted);
-	//glClear(GL_COLOR_BUFFER_BIT);
 
 	// Swap buffers
 	glutSwapBuffers();

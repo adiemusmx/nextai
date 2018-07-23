@@ -68,28 +68,34 @@ namespace NextAI
 		glFlush();
 	}
 
-	PICTURE_TEXTURE_ID RenderSystem::allocPictureTexture(const MbString& fileName, PICTURE_TEXTURE_ID oldTextureId)
+	PICTURE_TEXTURE_ID RenderSystem::allocPictureTexture(const WCHAR* fileName, PICTURE_TEXTURE_ID oldTextureId)
 	{
 		// 删除旧的纹理
-		releasePictureTexture(oldTextureId);
+		if (oldTextureId != INVALID_TEXTURE_ID)
+		{
+			releasePictureTexture(oldTextureId);
+		}
 
-		PICTURE_TEXTURE_ID textureId = INVALID_TEXTURE_ID;
-
-		
-		textureId = FreeImage::loadTexture(fileName);
-
-		return textureId;
+		if (!FileSystem::isExist(fileName))
+		{
+			NEXTAI_WARNING_W_LOG(L"Can NOT find file[%s]", fileName);
+			return INVALID_TEXTURE_ID;
+		}
+		else
+		{
+			return FreeImage::loadTexture(fileName);
+		}
 	}
 
 	void RenderSystem::releasePictureTexture(PICTURE_TEXTURE_ID textureId)
 	{
-		if (textureId != (PICTURE_TEXTURE_ID)INVALID_TEXTURE_ID && glIsTexture(textureId))
+		if (textureId != INVALID_TEXTURE_ID && glIsTexture(textureId))
 		{
 			glDeleteTextures(1, &textureId);
 		}
 	}
 
-	void RenderSystem::drawPicture(PICTURE_TEXTURE_ID& textureId, const Rect& drawArea)
+	void RenderSystem::drawPicture(PICTURE_TEXTURE_ID textureId, const Rect& drawArea)
 	{
 		glColor4f(COLOR_GET_4F(COLOR_BLACK));
 
@@ -112,7 +118,7 @@ namespace NextAI
 		glFlush();
 	}
 
-	TextTextureInfo RenderSystem::allocTextTexture(const MbString& str)
+	TextTextureInfo RenderSystem::allocTextTexture(const WCHAR* str)
 	{
 		TextTextureInfo ret;
 #ifdef SYSTEM_WINDOWS
@@ -124,7 +130,7 @@ namespace NextAI
 		HFONT hOldFont = (HFONT)SelectObject(hDC, hFont);
 		DeleteObject(hOldFont);
 
-		ret.num = str.length();
+		ret.num = wcslen(str);
 		ret.texture = glGenLists(ret.num);
 
 		MbAssert(ret.texture != 0);
