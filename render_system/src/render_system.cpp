@@ -19,11 +19,12 @@ namespace NextAI
 
 	void RenderSystem::init()
 	{
+		FreeImage::init();
 	}
 
 	void RenderSystem::cleanup()
 	{
-		
+		FreeImage::cleanup();
 	}
 
 	void RenderSystem::drawPoint(const Point& point, float pointSize, ColorCode pointColor)

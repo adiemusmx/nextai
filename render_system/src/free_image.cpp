@@ -78,6 +78,16 @@ namespace NextAI
 		}
 	}
 
+	void FreeImage::init()
+	{
+		FreeImage_Initialise();
+	}
+
+	void FreeImage::cleanup()
+	{
+		FreeImage_DeInitialise();
+	}
+
 	GLuint FreeImage::loadTexture(const WCHAR* filePath)
 	{
 		GLuint tex = 0;

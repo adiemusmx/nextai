@@ -12,6 +12,9 @@ namespace NextAI
 	class FreeImage
 	{
 	public:
+		static void init();
+		static void cleanup();
+
 		static PICTURE_TEXTURE_ID loadTexture(const WCHAR* filePath);
 
 	private:

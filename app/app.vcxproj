@@ -99,7 +99,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>winmm.lib;opengl32.lib;glu32.lib;glut32.lib;base_win32.lib;render_system_win32.lib;trinity_win32.lib;FreeImage_win32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\navicore-lib\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\third_party\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>

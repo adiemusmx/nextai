@@ -13,13 +13,9 @@ namespace NextAI
 
 	BOOL FileSystem::isExist(const WCHAR* path)
 	{
-		WCHAR fullpath[FILE_PATH_MAX_LENGTH] = { 0 };
-		//if (!isAbsolute(path))
-		//{
-		//	wcscpy_s(fullpath, getCurrentDirectory());
-		//}
-		wcscat_s(fullpath, path);
 #if 0
+		WCHAR fullpath[FILE_PATH_MAX_LENGTH] = { 0 };
+		wcscat_s(fullpath, path);
 		return _waccess(fullpath, FILE_EXIST_FLAG);
 #else
 		std::wifstream file(path, std::ios::in);
