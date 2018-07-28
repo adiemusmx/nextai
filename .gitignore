@@ -47,3 +47,4 @@ vc120.idb
 *.db
 obj/
 /build/exe/*.ilk
+/build/*.opendb
