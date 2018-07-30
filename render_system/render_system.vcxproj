@@ -19,7 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\free_image.cpp" />
+    <ClCompile Include="src\render_font.cpp" />
+    <ClCompile Include="src\render_image.cpp" />
     <ClCompile Include="src\render_system.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -27,7 +28,8 @@
     <ClCompile Include="src\render_util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\render_system\free_image.h" />
+    <ClInclude Include="include\render_system\render_font.h" />
+    <ClInclude Include="include\render_system\render_image.h" />
     <ClInclude Include="include\render_system\render_system.h" />
     <ClInclude Include="include\render_system\render_system_types.h" />
     <ClInclude Include="include\render_system\render_util.h" />

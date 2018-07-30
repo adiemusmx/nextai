@@ -2,6 +2,7 @@
 #define _NEXTAI_RENDER_SYSTEM_H_
 
 #include "base/nextai_string.h"
+#include "render_system/render_font.h"
 #include "render_system/render_system_types.h"
 
 #define RENDER_SYSTEM() NextAI::RenderSystem::instance()
@@ -21,43 +22,48 @@ namespace NextAI {
 		size_t num;
 	};
 
-	// Render System
+	/* Render System */
 	class RenderSystem
 	{
 
 	public:
-		// Get the instance of the app service.
+		/* 单例模式 */
 		static RenderSystem* instance();
 
-		// Initialize
+		/* 初始化和析构 */
 		void init();
 		void cleanup();
 
-		// Point
-		void drawPoint(const Point& point, float pointSize, ColorCode pointColor);
+		/* Point描画 */
+		void drawPoint(const Point& point, float pointSize, PixelColor pointColor);
 
-		// Line
-		void drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor);
+		/* Line描画 */
+		void drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor);
 
-		// Polygon
-		void drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, ColorCode lineColor, POLYGON_MODE polygonMode);
+		/* Polygon描画 */
+		void drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode);
 
-		// Picture (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
+		/* 
+		 * Picture描画
+		 * allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture 
+		 */
 		PICTURE_TEXTURE_ID allocPictureTexture(const WCHAR* fileName, PICTURE_TEXTURE_ID oldTextureId = INVALID_TEXTURE_ID);
 		void releasePictureTexture(PICTURE_TEXTURE_ID textureId);
 		void drawPicture(PICTURE_TEXTURE_ID textureId, const Rect& drawArea);
 
-		// Text (allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture)
-		TextTextureInfo allocTextTexture(const WCHAR* str);
-		void releaseTextTexture(TextTextureInfo& info);
-		void drawText(const TextTextureInfo& info, const Rect& drawArea);
+		/* 
+		 * Text描画
+		 * allocTexture函数的oldTextureId会被release，无需外部调用releaseTexture 
+		 */
+		void drawText(const Font* font, const Point& pos, PixelColor color, const CHAR* text);
+		void drawText(const Font* font, const Point& pos, PixelColor color, const WCHAR* text);
 
 	private:
-		// Constructor
+		/* 构造函数和析构函数 */
 		RenderSystem();
 		virtual ~RenderSystem();
 
-		// Disable copy constructor
+		/* 禁止拷贝函数 */
 		DISABLE_CLASS_COPY(RenderSystem);
 
 		

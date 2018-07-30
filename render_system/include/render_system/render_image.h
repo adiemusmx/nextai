@@ -1,5 +1,5 @@
-#ifndef _NEXTAI_FREE_IMAGE_H_
-#define _NEXTAI_FREE_IMAGE_H_
+#ifndef _NEXTAI_RENDER_IMAGE_H_
+#define _NEXTAI_RENDER_IMAGE_H_
 
 #include "render_system/render_system_types.h"
 
@@ -23,4 +23,4 @@ namespace NextAI
 	};
 }
 
-#endif // !_NEXTAI_FREE_IMAGE_H_
+#endif // !_NEXTAI_RENDER_IMAGE_H_

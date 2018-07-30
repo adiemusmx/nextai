@@ -76,7 +76,7 @@ void GL_Line::setStyle(int32 style)
 	m_style = style;
 }
 
-void GL_Line::setColor(ColorCode color)
+void GL_Line::setColor(PixelColor color)
 {
 	NEXTAI_VERBOSE_LOG("color[%x]", (uint32)color);
 	m_color = color;

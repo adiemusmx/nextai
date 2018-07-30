@@ -39,7 +39,7 @@ void ViewMousePaint::drawImpl()
 
 BOOL ViewMousePaint::touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[])
 {
-	const ColorCode colorCodeTable[] = { 0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0x888888FF };
+	const PixelColor PixelColorTable[] = { 0xFF0000FF, 0x00FF00FF, 0x0000FFFF, 0x888888FF };
 	static int32 loopIdx = 0;
 	static NextAI::GL_Line* glLine = NULL;
 	if (touch == TouchType_BEGAN)
@@ -48,7 +48,7 @@ BOOL ViewMousePaint::touch(NextAI::TouchType touch, int32 touchCount, const int3
 		glLine->setStyle(GL_LINE_STYLE_3);
 		glLine->setWidth(3);
 		glLine->setStyleFactor(3);
-		glLine->setColor(colorCodeTable[loopIdx++ % element_of(colorCodeTable)]);
+		glLine->setColor(PixelColorTable[loopIdx++ % element_of(PixelColorTable)]);
 		glLine->appendPoint(touchPos[0]);
 		m_glLines.push_back(glLine);
 	}

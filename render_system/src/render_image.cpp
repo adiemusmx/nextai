@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "render_system/free_image.h"
+#include "render_system/render_image.h"
 #include "free_image/FreeImage.h"
 
 namespace NextAI
@@ -108,8 +108,6 @@ namespace NextAI
 
 		if (!bitmap)
 			return 0;
-
-		printf("bit: %d\n", FreeImage_GetBPP(bitmap));
 
 		glbmp = convFIBitmap2GLBitmap(bitmap);
 		if (!glbmp)

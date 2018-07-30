@@ -40,8 +40,8 @@ public:
 	virtual int32 getStyle() { return m_style; }
 
 	// Color
-	virtual void setColor(ColorCode color);
-	virtual ColorCode getColor() { return m_color; }
+	virtual void setColor(PixelColor color);
+	virtual PixelColor getColor() { return m_color; }
 
 private:
 	std::vector<Point> m_points;
@@ -54,7 +54,7 @@ private:
 	int32 m_style;			// Default: 0xFFFF
 
 	// color --> RGBA
-	ColorCode m_color;		// Default: 0xFF000000
+	PixelColor m_color;		// Default: 0xFF000000
 };
 
 }
