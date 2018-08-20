@@ -21,27 +21,28 @@ namespace NextAI
 	{
 	public:
 		/* 监听优先级 */
-		enum ListenerLevel
+		enum class ListenerLevel
 		{
-			ListenerLevel_low,			/* 低优先级（默认） */
-			ListenerLevel_medium,		/* 中优先级 */
-			ListenerLevel_high			/* 高优先级 */
+			Low = 0,		/* 低优先级（默认） */
+			Medium,			/* 中优先级 */
+			High,			/* 高优先级 */
+			Max
 		};
 
 		/* 提取消息的模式 */
-		enum PeekMessageMode
+		enum class PeekMessageMode
 		{
-			PeekMessageMode_noremove,	/* 不从队列中移除消息 */
-			PeekMessageMode_remove		/* 从队列中移除消息 */
+			NoRemove = 0,	/* 不从队列中移除消息 */
+			Remove			/* 从队列中移除消息 */
 		};
 
 	public:
 		static MessageCenter* getInstance();
 
 		/* 同步消息接口 */
-		void send(NEXT_AI_MESSAGE_ID id, void* lParam, void* rParam);		/* 同步消息发送 */
-		void addListener(IMessageListener* listener);						/* 添加监听 */
-		void removeListener(IMessageListener* listener);						/* 删除监听 */
+		void send(NEXT_AI_MESSAGE_ID id, void* lParam, void* rParam);			/* 同步消息发送 */
+		void addListener(IMessageListener* listener, ListenerLevel level);		/* 添加监听 */
+		void removeListener(IMessageListener* listener, ListenerLevel level);	/* 删除监听 */
 
 		/* 异步消息接口 */
 		void post(NEXT_AI_MESSAGE_ID id);		/* 异步消息发送 */
@@ -53,8 +54,11 @@ namespace NextAI
 		MessageCenter();
 		virtual ~MessageCenter();
 
+		/* 禁用拷贝构造函数 */
+		DISABLE_CLASS_COPY(MessageCenter);
+
 		/* 同步消息监听者 */
-		std::vector<IMessageListener*> m_listeners;
+		std::vector<IMessageListener*> m_listeners[(int32)ListenerLevel::Max];
 
 		/* 异步消息队列 */
 		std::list<NEXT_AI_MESSAGE_ID> m_messages;

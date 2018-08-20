@@ -3,82 +3,101 @@
 
 #include "trinity_object_id.h"
 #include "base/nextai_app.h"
+#include "base/nextai_object.h"
+#include "render_system/render_system.h"
 
 typedef unsigned long ObjectId;
 
 namespace NextAI
 {
 
-// Widget
-class WidgetObject
-{
-public:
-	// Constructor and destructor
-	WidgetObject(ObjectId id);
-	virtual ~WidgetObject();
+	/* 控件 */
+	class WidgetObject : public NiObject
+	{
+	public:
+		/* 构造函数和析构函数 */
+		WidgetObject(ObjectId id);
+		virtual ~WidgetObject();
 
-	// Add and remove child widget.
-	virtual void addChild(WidgetObject* child);
-	virtual void removeChild(WidgetObject* child);
-	virtual BOOL isChild(WidgetObject* child);
+		/* 管理子控件 */
+		virtual void addChild(WidgetObject* child);
+		virtual void removeChild(WidgetObject* child);
+		virtual BOOL isChild(WidgetObject* child);
 
-	// Get object id.
-	virtual WidgetObject* getObjectById(ObjectId id);
+		/* 获得子控件 */
+		virtual WidgetObject* getItem(size_t index);
+		virtual WidgetObject* operator[](size_t index);
+		virtual size_t getItemCount();
 
-	// Drawable
-	virtual void draw();
-	virtual void drawImpl();
-	virtual void setDrawableArea(const Rect& area);
-	virtual const Rect& getDrawableArea();
+		/* 获得ObjectID */
+		virtual WidgetObject* getObjectById(ObjectId id);
 
-	// Hitable
-	virtual BOOL hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
-	virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
-	virtual void setHitableArea(const Rect& area);
-	virtual const Rect& getHitableArea();
+		/* 描画 */
+		virtual void draw();
+		virtual void drawImpl();
+		virtual void setDrawableArea(const Rect& area);
+		virtual const Rect& getDrawableArea();
 
-	// Visible
-	virtual void setVisible(BOOL visible);
-	virtual BOOL getVisible();
+		/* 点击 */
+		virtual BOOL hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual void setHitableArea(const Rect& area);
+		virtual const Rect& getHitableArea();
 
-	// Hit enable
-	virtual void setHitEnable(BOOL hitEnable);
-	virtual BOOL getHitEnable();
+		/* 是否可见 */
+		virtual void setVisible(BOOL visible);
+		virtual BOOL getVisible();
 
-	// Hit trans enable
-	virtual void setHitTransEnable(BOOL hitTransEnable);
-	virtual BOOL getHitTransEnable();
+		/* 点击事件 */
+		virtual void setHitEnable(BOOL hitEnable);
+		virtual BOOL getHitEnable();
 
-	// Need refresh
-	virtual void invalidate();
-	virtual BOOL isNeedsRefresh();
+		/* 点击透过 */
+		virtual void setHitTransEnable(BOOL hitTransEnable);
+		virtual BOOL getHitTransEnable();
 
-private:
-	// Disable copy constructor
-	DISABLE_CLASS_COPY(WidgetObject);
+		/* 是否需要进行刷新 */
+		virtual void invalidate();
+		virtual BOOL isNeedsRefresh();
 
-	// Object's id.
-	ObjectId m_id;
+		/* 设定捕捉Touch事件 */
+		virtual void setCaptureTouch(BOOL isCapture);
+		virtual BOOL isCaptureTouch();
+		virtual WidgetObject*  getCaptureTouchObject();
 
-	// Drawable area
-	Rect m_drawableArea;
+	private:
+		/* 禁用拷贝构造函数 */
+		DISABLE_CLASS_COPY(WidgetObject);
 
-	// Hitable area
-	Rect m_hitableArea;
+		/* 禁用常用的一些操作符号 */
+		BOOL operator==(WidgetObject& object);
+		BOOL operator!=(WidgetObject& object);
+		BOOL operator!();
 
-	// Hitable properties
-	BOOL m_hitEnable;		// Default[FALSE]: Call hitImpl function.
-	BOOL m_hitTransEnable;	// Default[TRUE]: Send hit event to other widget.
+		/* 唯一ID */
+		ObjectId m_id;
 
-	// Visible
-	BOOL m_visible;			// Default[TRUE]
+		/* 描画相关 */
+		Rect m_drawableArea;
 
-	// Need refresh flag
-	BOOL m_needsRefresh;	// Default[TRUE]
+		/* 点击事件相关 */
+		Rect m_hitableArea;
+		BOOL m_hitEnable;		// Default[FALSE]: Call hitImpl function.
+		BOOL m_hitTransEnable;	// Default[TRUE]: Send hit event to other widget.
 
-	// Children
-	std::vector<WidgetObject*> m_children;
-};
+		/* 是否可见 */
+		BOOL m_visible;			// Default[TRUE]
+
+		/* 是否需要刷新 */
+		BOOL m_needsRefresh;	// Default[TRUE]
+
+		/* 是否捕捉点击事件。如果当前开始处理TouchBegan消息，
+		 * 则后续直至End的消息都会发送给该控件。 */
+		BOOL m_isCaptureTouch;
+
+		/* 子控件 */
+		std::vector<WidgetObject*> m_children;
+	};
 
 }
 #endif // !_TRINITY_WIDGET_OBJECT_H_

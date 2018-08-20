@@ -4,47 +4,53 @@
 
 namespace NextAI {
 
-WidgetPicture::WidgetPicture(ObjectId id): WidgetObject(id)
-{
-	m_bmp = NULL;
-}
-
-WidgetPicture::~WidgetPicture()
-{
-	if (m_bmp != NULL)
+	WidgetPicture::WidgetPicture(ObjectId id): WidgetObject(id)
 	{
-		delete(m_bmp);
-		m_bmp = NULL;
-	}
-}
-
-void WidgetPicture::drawImpl()
-{
-	if (m_bmp == NULL)
-		return;
-
-	m_bmp->draw();
-}
-
-void WidgetPicture::setDrawableArea(const Rect& area)
-{
-	WidgetObject::setDrawableArea(area);
-	if (m_bmp != NULL)
-		m_bmp->setArea(area);
-}
-
-void WidgetPicture::setPath(const CHAR* path)
-{
-	if (path == NULL)
-	{
-		NEXTAI_WARNING_LOG("Path is a null pointer!");
-		return;
+		m_picture = INVALID_TEXTURE_ID;
+		memset(m_path, 0x00, sizeof(m_path));
 	}
 
-	if (m_bmp != NULL)
-		m_bmp->setPath(path);
-	else
-		m_bmp = new GL_Bitmap(path);
-}
+	WidgetPicture::~WidgetPicture()
+	{
+		release();
+	}
+
+	void WidgetPicture::drawImpl()
+	{
+		if (m_picture == INVALID_TEXTURE_ID)
+			return;
+
+		/* 图片资源描画 */
+		RENDER_SYSTEM()->drawPicture(m_picture, getDrawableArea());
+	}
+
+	void WidgetPicture::setPath(const WCHAR* path)
+	{
+		if (path == NULL)
+		{
+			NEXTAI_WARNING_LOG("Path is a null pointer!");
+			return;
+		}
+
+		/* 保存图片路径 */
+		wcscpy_s(m_path, path);
+
+		/* 加载新的纹理资源 */
+		m_picture = RENDER_SYSTEM()->allocPictureTexture(m_path, m_picture);
+	}
+
+	const WCHAR* WidgetPicture::getPath()
+	{
+		return m_path;
+	}
+
+	void WidgetPicture::release()
+	{
+		if (m_picture != INVALID_TEXTURE_ID)
+		{
+			RENDER_SYSTEM()->releasePictureTexture(m_picture);
+			m_picture = INVALID_TEXTURE_ID;
+		}
+	}
 
 }

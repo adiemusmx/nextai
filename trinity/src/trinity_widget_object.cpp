@@ -3,196 +3,244 @@
 #include "base/nextai_log.h"
 #include <algorithm>
 
-namespace NextAI {
-
-WidgetObject::WidgetObject(ObjectId id)
+namespace NextAI 
 {
-	m_id = id;
 
-	m_drawableArea = { 0, 0, 0, 0 };
-	m_hitableArea = { 0, 0, 0, 0 };
+	WidgetObject::WidgetObject(ObjectId id)
+	{
+		m_id = id;
 
-	m_hitEnable = FALSE;
-	m_hitTransEnable = TRUE;
+		m_drawableArea = { 0, 0, 0, 0 };
+		m_hitableArea = { 0, 0, 0, 0 };
 
-	m_visible = TRUE;
-	m_needsRefresh = TRUE;
-}
+		m_hitEnable = FALSE;
+		m_hitTransEnable = TRUE;
 
-WidgetObject::~WidgetObject()
-{
-	m_children.clear();
-}
+		m_visible = TRUE;
+		m_needsRefresh = TRUE;
 
-void WidgetObject::addChild(WidgetObject* child)
-{
-	if (child == NULL)
-	{
-		NEXTAI_WARNING_LOG("Add null pointer object!");
-		return;
+		m_isCaptureTouch = FALSE;
 	}
-	auto pObj = std::find(m_children.begin(), m_children.end(), child);
-	if (pObj == m_children.end())
-	{
-		m_children.push_back(child);
-	}
-	else
-	{
-		NEXTAI_WARNING_LOG("Add same object[%lu], it's weird.", child->m_id);
-	}
-}
 
-void WidgetObject::removeChild(WidgetObject* child)
-{
-	if (child == NULL)
+	WidgetObject::~WidgetObject()
 	{
-		NEXTAI_WARNING_LOG("Remove null pointer object!");
-		return;
+		m_children.clear();
 	}
-	auto pObj = std::find(m_children.begin(), m_children.end(), child);
-	if (pObj != m_children.end())
-	{
-		m_children.erase(pObj);
-	}
-	else
-	{
-		NEXTAI_WARNING_LOG("Can't find object[%lu], it's weird.", child->m_id);
-	}
-}
 
-BOOL WidgetObject::isChild(WidgetObject* child)
-{
-	if (child == NULL)
+	void WidgetObject::addChild(WidgetObject* child)
 	{
-		NEXTAI_WARNING_LOG("Remove null pointer object!");
-		return FALSE;
-	}
-	auto pObj = std::find(m_children.begin(), m_children.end(), child);
-	if (pObj == m_children.end())
-	{
-		return FALSE;
-	}
-	else
-	{
-		return TRUE;
-	}
-}
-
-WidgetObject* WidgetObject::getObjectById(ObjectId id)
-{
-	if (id == m_id)
-		return this;
-
-	WidgetObject* ret = NULL;
-	for (auto pObj : m_children)
-	{
-		ret = pObj->getObjectById(id);
-		if (ret != NULL)
+		if (child == NULL)
 		{
-			break;
+			NEXTAI_WARNING_LOG("Add null pointer object!");
+			return;
+		}
+		auto pObj = std::find(m_children.begin(), m_children.end(), child);
+		if (pObj == m_children.end())
+		{
+			m_children.push_back(child);
+		}
+		else
+		{
+			NEXTAI_WARNING_LOG("Add same object[%lu], it's weird.", child->m_id);
 		}
 	}
-	return ret;
-}
 
-void WidgetObject::draw()
-{
-	for (auto pObj : m_children)
+	void WidgetObject::removeChild(WidgetObject* child)
 	{
-		pObj->draw();
+		if (child == NULL)
+		{
+			NEXTAI_WARNING_LOG("Remove null pointer object!");
+			return;
+		}
+		auto pObj = std::find(m_children.begin(), m_children.end(), child);
+		if (pObj != m_children.end())
+		{
+			m_children.erase(pObj);
+		}
+		else
+		{
+			NEXTAI_WARNING_LOG("Can't find object[%lu], it's weird.", child->m_id);
+		}
 	}
-	drawImpl();
-}
 
-void WidgetObject::drawImpl()
-{
-	// TODO
-}
-
-void WidgetObject::setDrawableArea(const Rect& area)
-{
-	m_drawableArea = area;
-}
-
-const Rect& WidgetObject::getDrawableArea()
-{
-	return m_drawableArea;
-}
-
-BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
-{
-	if (!m_visible || !m_hitEnable)
-		return false;
-
-	if (!m_hitableArea.testPoint(touchPos[0]))
-		return false;
-
-	for (auto pObj : m_children)
+	BOOL WidgetObject::isChild(WidgetObject* child)
 	{
-		if (pObj->hit(touch, touchCount, touchId, touchPos) == TRUE)
+		if (child == NULL)
+		{
+			NEXTAI_WARNING_LOG("Remove null pointer object!");
+			return FALSE;
+		}
+		auto pObj = std::find(m_children.begin(), m_children.end(), child);
+		if (pObj == m_children.end())
+		{
+			return FALSE;
+		}
+		else
+		{
 			return TRUE;
+		}
 	}
 
-	if (hitImpl(touch, touchCount, touchId, touchPos) || !m_hitTransEnable)
-		return TRUE;
-	else
+	WidgetObject* WidgetObject::getItem(size_t index)
+	{
+		return m_children[index];
+	}
+
+	WidgetObject* WidgetObject::operator[](size_t index)
+	{
+		return m_children[index];
+	}
+
+	size_t WidgetObject::getItemCount()
+	{
+		return m_children.size();
+	}
+
+	WidgetObject* WidgetObject::getObjectById(ObjectId id)
+	{
+		if (id == m_id)
+			return this;
+
+		WidgetObject* ret = NULL;
+		for (auto pObj : m_children)
+		{
+			ret = pObj->getObjectById(id);
+			if (ret != NULL)
+			{
+				break;
+			}
+		}
+		return ret;
+	}
+
+	void WidgetObject::draw()
+	{
+		for (auto pObj : m_children)
+		{
+			pObj->draw();
+		}
+		drawImpl();
+	}
+
+	void WidgetObject::drawImpl()
+	{
+		// TODO
+	}
+
+	void WidgetObject::setDrawableArea(const Rect& area)
+	{
+		m_drawableArea = area;
+	}
+
+	const Rect& WidgetObject::getDrawableArea()
+	{
+		return m_drawableArea;
+	}
+
+	BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	{
+		if (!m_visible || !m_hitEnable)
+			return false;
+
+		if (!m_hitableArea.testPoint(touchPos[0]))
+			return false;
+
+		for (auto pObj : m_children)
+		{
+			if (pObj->hit(touch, touchCount, touchId, touchPos) == TRUE)
+				return TRUE;
+		}
+
+		if (hitImpl(touch, touchCount, touchId, touchPos) || !m_hitTransEnable)
+			return TRUE;
+		else
+			return FALSE;
+	}
+
+	BOOL WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	{
+		// TODO
 		return FALSE;
-}
+	}
 
-BOOL WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
-{
-	// TODO
-	return FALSE;
-}
+	void WidgetObject::setHitableArea(const Rect& area)
+	{
+		m_hitableArea = area;
+	}
 
-void WidgetObject::setHitableArea(const Rect& area)
-{
-	m_hitableArea = area;
-}
+	const Rect& WidgetObject::getHitableArea()
+	{
+		return m_hitableArea;
+	}
 
-const Rect& WidgetObject::getHitableArea()
-{
-	return m_hitableArea;
-}
+	void WidgetObject::setVisible(BOOL visible)
+	{
+		m_visible = visible;
+	}
 
-void WidgetObject::setVisible(BOOL visible)
-{
-	m_visible = visible;
-}
+	BOOL WidgetObject::getVisible()
+	{
+		return m_visible;
+	}
 
-BOOL WidgetObject::getVisible()
-{
-	return m_visible;
-}
+	void WidgetObject::setHitEnable(BOOL hitEnable)
+	{
+		m_hitEnable = hitEnable;
+	}
 
-void WidgetObject::setHitEnable(BOOL hitEnable)
-{
-	m_hitEnable = hitEnable;
-}
+	BOOL WidgetObject::getHitEnable()
+	{
+		return m_hitEnable;
+	}
 
-BOOL WidgetObject::getHitEnable()
-{
-	return m_hitEnable;
-}
+	void WidgetObject::setHitTransEnable(BOOL hitTransEnable)
+	{
+		m_hitTransEnable = hitTransEnable;
+	}
 
-void WidgetObject::setHitTransEnable(BOOL hitTransEnable)
-{
-	m_hitTransEnable = hitTransEnable;
-}
+	BOOL WidgetObject::getHitTransEnable()
+	{
+		return m_hitTransEnable;
+	}
 
-BOOL WidgetObject::getHitTransEnable()
-{
-	return m_hitTransEnable;
-}
+	void WidgetObject::invalidate()
+	{
+		m_needsRefresh = TRUE;
+	}
 
-void WidgetObject::invalidate()
-{
-	m_needsRefresh = TRUE;
-}
+	BOOL WidgetObject::isNeedsRefresh()
+	{
+		return m_needsRefresh;
+	}
 
-BOOL WidgetObject::isNeedsRefresh()
-{
-	return m_needsRefresh;
-}
+	void WidgetObject::setCaptureTouch(BOOL isCapture)
+	{
+		m_isCaptureTouch = isCapture;
+	}
 
+	BOOL WidgetObject::isCaptureTouch()
+	{
+		return m_isCaptureTouch;
+	}
+
+	WidgetObject* WidgetObject::getCaptureTouchObject()
+	{
+		WidgetObject* ret = NULL;
+
+		if (m_isCaptureTouch == TRUE)
+		{
+			ret = this;
+		}
+		else
+		{
+			for (auto pObj : m_children)
+			{
+				ret = pObj->getCaptureTouchObject();
+				if (ret != NULL)
+					break;
+			}
+		}
+
+		return ret;
+	}
 }

@@ -10,8 +10,8 @@ enum SURFACE_ID
 {
 	SURFACE_ID_BASE,			// Background
 	SURFACE_ID_VIEW,			// usser view
-	SURFACE_ID_ONS,			// ons view
-	SURFACE_ID_INTERRUPT,	// interrup view
+	SURFACE_ID_ONS,				// ons view
+	SURFACE_ID_INTERRUPT,		// interrup view
 	SURFACE_ID_MAX
 };
 

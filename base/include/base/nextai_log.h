@@ -6,108 +6,109 @@
 
 namespace NextAI
 {
+	/* 日志 */
+	class Logger
+	{
+	public:
 
-// LOG output dest
-enum E_LOG_OUTPUT
-{
-	E_LOG_OUTPUT_FILE,			// File
-	E_LOG_OUTPUT_CONSOLE,		// Console
-	E_LOG_OUTPUT_MAX
-};
+		/* 输出平台 */
+		enum class Platform
+		{
+			File = 0,	/* 文件（未实现） */
+			Console,	/* 控制台 */
+			Max
+		};
 
-// LOG output level
-enum E_LOG_LEVEL
-{
-	E_LOG_LEVEL_OFF,			// Off
-	E_LOG_LEVEL_VERBOSE,		// detail
-	E_LOG_LEVEL_TRACE,			// trace
-	E_LOG_LEVEL_INFO,			// infomation
-	E_LOG_LEVEL_WARNING,		// warning
-	E_LOG_LEVEL_ERROR,			// error
-	E_LOG_LEVEL_MAX
-};
+		/* 输出级别 */
+		enum class Level
+		{
+			Off,			/* 关闭 */
+			Verbose,		/* 最详细 */
+			Trace,			/* 跟踪函数调用 */
+			Info,			/* 重要信息 */
+			Warning,		/* 重要警告 */
+			Error,			/* 致命错误 */
+			Max
+		};
 
-// Log object
-class Logger
-{
-public:
-	// Single instance
-	static Logger* getInstance();
+	public:
+		// Single instance
+		static Logger* getInstance();
 
-	// Output log text
-	void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const CHAR* content);
-	void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, E_LOG_LEVEL level, const WCHAR* content);
+		// Output log text
+		void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, Level level, const CHAR* content);
+		void print(const CHAR* fileName, const CHAR* funcName, int32 lineNum, Level level, const WCHAR* content);
 
-	// TODO
-	void openFile(CHAR* filePath);
-	void closeFile();
+		// TODO
+		void openFile(CHAR* filePath);
+		void closeFile();
 
-	void setLevel(E_LOG_OUTPUT output, E_LOG_LEVEL level);
+		void setLevel(Platform output, Level level);
 
-private:
-	Logger();
+	private:
+		Logger();
 
-	// Disable copy constructor
-	DISABLE_CLASS_COPY(Logger);
+		/* 禁用拷贝构造函数 */
+		DISABLE_CLASS_COPY(Logger);
 
-	const CHAR* trimFileName(const CHAR* fileName);
+		const CHAR* trimFileName(const CHAR* fileName);
 
-	BOOL m_logLevel[E_LOG_OUTPUT_MAX];
-};
+		Level m_logLevel[(int32)Platform::Max];
+	};
 }
 
 #define NEXTAI_VERBOSE_LOG(format,...) { \
-		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_VERBOSE, _temp_log_buffer); }
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Verbose, _temp_log_buffer); }
 
 #define NEXTAI_TRACE_LOG_START() { \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[START]");}
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Trace, "[START]"); }
 
 #define NEXTAI_TRACE_LOG_END() { \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, "[END]"); }
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Trace, "[END]"); }
 
 #define NEXTAI_TRACE_LOG() {	\
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, ""); }
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Trace, ""); }
 
 #define NEXTAI_TRACE_LOG_FLAG(format,...) { \
-		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Trace, _temp_log_buffer); }
 
 #define NEXTAI_TRACE_LOG_FLAG_END(flag) { \
-		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, "[END] %s", flag); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_TRACE, _temp_log_buffer); }
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, "[END] %s", flag); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Trace, _temp_log_buffer); }
 
 #define NEXTAI_INFO_LOG(format,...) { \
-		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Info, _temp_log_buffer); }
 
 #define NEXTAI_INFO_W_LOG(format,...) { \
-		WCHAR _temp_log_buffer[512]; \
-		swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_INFO, _temp_log_buffer); }
+	WCHAR _temp_log_buffer[512]; \
+	swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Info, _temp_log_buffer); }
 
 #define NEXTAI_WARNING_LOG(format,...) { \
-		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Warning, _temp_log_buffer); }
 
 #define NEXTAI_WARNING_W_LOG(format,...) { \
-		WCHAR _temp_log_buffer[512]; \
-		swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_WARNING, _temp_log_buffer); }
+	WCHAR _temp_log_buffer[512]; \
+	swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Warning, _temp_log_buffer); }
 
 #define NEXTAI_ERROR_LOG(format,...) { \
-		CHAR _temp_log_buffer[512]; \
-		sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
+	CHAR _temp_log_buffer[512]; \
+	sprintf(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Error, _temp_log_buffer); }
 
 #define NEXTAI_ERROR_W_LOG(format,...) { \
-		WCHAR _temp_log_buffer[512]; \
-		swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
-		NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, E_LOG_LEVEL_ERROR, _temp_log_buffer); }
+	WCHAR _temp_log_buffer[512]; \
+	swprintf_s(_temp_log_buffer, format, ##__VA_ARGS__); \
+	NextAI::Logger::getInstance()->print(__FILE__, __FUNCTION__, __LINE__, NextAI::Logger::Level::Error, _temp_log_buffer); }
 
 #endif // !_NEXTAI_LOG_H_

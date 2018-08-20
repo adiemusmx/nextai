@@ -46,15 +46,15 @@ typedef int32 LONG;
 // ############ MEMORY ###########
 
 #if defined(nextai_USE_MEMORY_DEBUGGER)
-#define MbNew(T, ...) ((T*)_MemoryDebugger_addRecord(new T(__VA_ARGS__), sizeof(T), __FILE__, __LINE__, __FUNCTION__))
-#define MbNewArray(T, n) (T*)_MemoryDebugger_addRecord(new T[n], sizeof(T) * n, __FILE__, __LINE__, __FUNCTION__);
-#define MbDelete(o) {_MemoryDebugger_removeRecord(o); delete o; }
-#define MbDeleteArray(o) {_MemoryDebugger_removeRecord(o); delete[] o; }
+#define NiNew(T, ...) ((T*)_MemoryDebugger_addRecord(new T(__VA_ARGS__), sizeof(T), __FILE__, __LINE__, __FUNCTION__))
+#define NiNewArray(T, n) (T*)_MemoryDebugger_addRecord(new T[n], sizeof(T) * n, __FILE__, __LINE__, __FUNCTION__);
+#define NiDelete(o) {_MemoryDebugger_removeRecord(o); delete o; }
+#define NiDeleteArray(o) {_MemoryDebugger_removeRecord(o); delete[] o; }
 #else
-#define MbNew(T, ...) (new T(__VA_ARGS__))
-#define MbDelete(o) delete o
-#define MbNewArray(T, n) new T[n]
-#define MbDeleteArray(o) delete[] o
+#define NiNew(T, ...) (new T(__VA_ARGS__))
+#define NiDelete(o) delete o
+#define NiNewArray(T, n) new T[n]
+#define NiDeleteArray(o) delete[] o
 #endif
 
 #define MIN(l,r) (l > r ? r : l)
