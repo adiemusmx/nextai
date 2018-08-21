@@ -24,6 +24,10 @@ namespace NextAI
 
 		/* 获得成员数量 */
 		virtual size_t getCount();
+
+		/* 取得单个元素 */
+		virtual WidgetObject* getItem(int32 index);
+
 	private:
 		/* 禁用构造函数 */
 		DISABLE_CLASS_COPY(WidgetGroup);

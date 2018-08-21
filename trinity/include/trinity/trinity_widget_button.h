@@ -46,22 +46,16 @@ namespace NextAI
 		virtual void setStatus(Status status);
 		virtual Status getStatus();
 
-		/* 加入组 */
-		virtual void setGroup(WidgetGroup* group);
-
 	private:
 		/* 禁用构造函数 */
 		DISABLE_CLASS_COPY(WidgetButton);
 
-	private:
+	protected:
 		/* 状态 */
 		Status m_status;
 
 		/* 图片资源纹理 */
 		WidgetPicture* m_pictures[(int32)Status::Max];
-
-		/* 组 */
-		WidgetGroup* m_group;
 	};
 
 	/* 
@@ -90,9 +84,21 @@ namespace NextAI
 		/* 点击处理 */
 		virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
+		/* 设定选中状态 */
+		virtual void setChecked();
+
+		/* 加入组 */
+		virtual void setGroup(WidgetGroup* group);
+
 	private:
 		/* 禁用构造函数 */
 		DISABLE_CLASS_COPY(WidgetRadioButton);
+
+		/* 组 */
+		WidgetGroup* m_group;
+
+		/* 选中状态 */
+		BOOL m_check;
 	};
 
 	/* 
@@ -110,6 +116,9 @@ namespace NextAI
 	private:
 		/* 禁用构造函数 */
 		DISABLE_CLASS_COPY(WidgetCheckButton);
+
+		/* 选中状态 */
+		BOOL m_check;
 	};
 }
 

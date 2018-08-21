@@ -43,4 +43,9 @@ namespace NextAI
 	{
 		return m_members.size();
 	}
+
+	WidgetObject* WidgetGroup::getItem(int32 index)
+	{
+		return m_members[index];
+	}
 }
