@@ -1,13 +1,12 @@
 ﻿#ifndef _NEXTAI_STRING_H_
 #define _NEXTAI_STRING_H_
 
-#if 0
-
 #include "base/nextai_basic_types.h"
+#include "base/nextai_object.h"
 
 namespace NextAI
 {
-	class MbString
+	class MbString : public NiObject
 	{
 	public:
 		/* 构造函数 */
@@ -72,7 +71,7 @@ namespace NextAI
 
 	private:
 		// wstring好像不支持
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		std::wstring m_buffer;
 #else
 #define D_NEXTAI_STRING_BUFFER_DEFAULT_SIZE TEXT_MAX_LENGTH
@@ -81,7 +80,5 @@ namespace NextAI
 #endif
 	};
 }
-
-#endif // 0
 
 #endif // !_NEXTAI_STRING_H_

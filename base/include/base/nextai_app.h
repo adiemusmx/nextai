@@ -88,7 +88,7 @@ public:
 	virtual BOOL touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 };
 
-#define NEXT_AI_APP_SERVICE() NextAI::AppService::getInstance()
+#define NEXT_AI_APP_SERVICE() NextAI::AppService::instance()
 
 class OrthoInfo
 {
@@ -105,13 +105,13 @@ public:
 };
 
 // App core service
-#define APP_SERVICE() NextAI::AppService::getInstance()
+#define APP_SERVICE() NextAI::AppService::instance()
 class AppService
 {
 
 public:
 	// Get the instance of the app service.
-	static AppService* getInstance();
+	static AppService* instance();
 
 	// Initialize
 	void init(AppServiceParam& param);

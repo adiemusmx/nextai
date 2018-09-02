@@ -8,6 +8,7 @@ namespace NextAI
 
 	WidgetObject::WidgetObject(ObjectId id)
 	{
+		NEXTAI_TRACE_LOG_FLAG("Id[%d]", id);
 		m_id = id;
 
 		m_drawableArea = { 0, 0, 0, 0 };
@@ -24,10 +25,11 @@ namespace NextAI
 
 	WidgetObject::~WidgetObject()
 	{
+		NEXTAI_TRACE_LOG_FLAG("Id[%d]", m_id);
 		m_children.clear();
 	}
 
-	void WidgetObject::addChild(WidgetObject* child)
+	void WidgetObject::addChild(SMART_PTR<WidgetObject>& child)
 	{
 		if (child == NULL)
 		{
@@ -45,7 +47,7 @@ namespace NextAI
 		}
 	}
 
-	void WidgetObject::removeChild(WidgetObject* child)
+	void WidgetObject::removeChild(const SMART_PTR<WidgetObject>& child)
 	{
 		if (child == NULL)
 		{
@@ -63,7 +65,7 @@ namespace NextAI
 		}
 	}
 
-	BOOL WidgetObject::isChild(WidgetObject* child)
+	BOOL WidgetObject::isChild(const SMART_PTR<WidgetObject>& child)
 	{
 		if (child == NULL)
 		{
@@ -81,12 +83,12 @@ namespace NextAI
 		}
 	}
 
-	WidgetObject* WidgetObject::getItem(size_t index)
+	SMART_PTR<WidgetObject>& WidgetObject::getItem(size_t index)
 	{
 		return m_children[index];
 	}
 
-	WidgetObject* WidgetObject::operator[](size_t index)
+	SMART_PTR<WidgetObject>& WidgetObject::operator[](size_t index)
 	{
 		return m_children[index];
 	}

@@ -3,7 +3,7 @@
 #include "view_mouse_paint.h"
 #include "render_system/render_system.h"
 
-AppEventHandler* AppEventHandler::getInstance()
+AppEventHandler* AppEventHandler::instance()
 {
 	static AppEventHandler instance;
 	return &instance;
@@ -11,7 +11,7 @@ AppEventHandler* AppEventHandler::getInstance()
 
 BOOL AppEventHandler::initCompleted()
 {
-	//NextAI::ObjectManager::getInstance()->addView(NextAI::SURFACE_ID_VIEW, new ViewMousePaint());
+	//NextAI::ObjectManager::instance()->addView(NextAI::SURFACE_ID_VIEW, new ViewMousePaint());
 
 	return FALSE;
 }

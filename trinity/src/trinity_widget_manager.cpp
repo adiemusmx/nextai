@@ -5,7 +5,7 @@
 
 namespace NextAI 
 {
-	WidgetManager* WidgetManager::getInstance()
+	WidgetManager* WidgetManager::instance()
 	{
 		static WidgetManager obj;
 		return &obj;
@@ -15,21 +15,21 @@ namespace NextAI
 	{
 		NEXTAI_TRACE_LOG_START();
 
-		m_root = AllocNiObject(WidgetObject, 0);
-		m_root->addChild(AllocNiObject(WidgetSurface, OBJECT_ID_SURFACE_BASE));
-		m_root->addChild(AllocNiObject(WidgetSurface, OBJECT_ID_SURFACE_VIEW));
-		m_root->addChild(AllocNiObject(WidgetSurface, OBJECT_ID_SURFACE_ONS));
-		m_root->addChild(AllocNiObject(WidgetSurface, OBJECT_ID_SURFACE_INTERRUPT));
+		m_root = SMART_PTR<WidgetObject>(NiNew(WidgetObject, 0));
+		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_BASE)));
+		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_VIEW)));
+		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_ONS)));
+		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_INTERRUPT)));
+
+		NEXTAI_TRACE_LOG_END();
 	}
 
 	void WidgetManager::cleanup()
 	{
-		NEXTAI_TRACE_LOG_START();
-
-		ReleaseNiObject(m_root);
+		NEXTAI_TRACE_LOG();
 	}
 
-	void WidgetManager::addView(SURFACE_ID surface, WidgetView* view)
+	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
 	{
 		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
@@ -38,7 +38,7 @@ namespace NextAI
 			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
 	}
 
-	void WidgetManager::removeView(SURFACE_ID surface, WidgetView* view)
+	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
 	{
 		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
@@ -84,7 +84,7 @@ namespace NextAI
 		{
 			if (m_root->getItem(loopIdx) != NULL)
 				ret = m_root->getItem(loopIdx)->hit(touch, touchCount, touchId, touchPos);
-			NEXTAI_INFO_LOG("touch surface[%u,%p] ret[%d]", loopIdx, m_root[loopIdx], ret);
+			// NEXTAI_INFO_LOG("touch surface[%u,%p] ret[%d]", loopIdx, m_root[loopIdx], ret);
 		}
 		return ret;
 	}

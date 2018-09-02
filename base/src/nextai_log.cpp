@@ -14,7 +14,7 @@ namespace NextAI {
 		m_logLevel[(int32)Platform::Console] = Level::Verbose;
 	}
 
-	Logger* Logger::getInstance()
+	Logger* Logger::instance()
 	{
 		static Logger instance;
 		return &instance;
@@ -63,6 +63,16 @@ namespace NextAI {
 				currentTime.getHour(), currentTime.getMinute(), currentTime.getSecond(),
 				currentTime.getMillisecond(), _g_logLevelNameTable[(int32)level], trimFileName(fileName), lineNum, funcName, content);
 		}
+	}
+
+	void Logger::enableFile(const WCHAR* filePath)
+	{
+		m_file.open(filePath, FileAccessMode::Append);
+	}
+
+	void Logger::disableFile()
+	{
+		if (m_file.isOpen()) m_file.close();
 	}
 
 	void Logger::setLevel(Platform output, Level level)

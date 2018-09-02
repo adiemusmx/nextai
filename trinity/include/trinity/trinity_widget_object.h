@@ -12,7 +12,7 @@ namespace NextAI
 {
 
 	/* 控件 */
-	class WidgetObject : public NiObject
+	class WidgetObject
 	{
 	public:
 		/* 构造函数和析构函数 */
@@ -20,13 +20,13 @@ namespace NextAI
 		virtual ~WidgetObject();
 
 		/* 管理子控件 */
-		virtual void addChild(WidgetObject* child);
-		virtual void removeChild(WidgetObject* child);
-		virtual BOOL isChild(WidgetObject* child);
+		virtual void addChild(SMART_PTR<WidgetObject>& child);
+		virtual void removeChild(const SMART_PTR<WidgetObject>& child);
+		virtual BOOL isChild(const SMART_PTR<WidgetObject>& child);
 
 		/* 获得子控件 */
-		virtual WidgetObject* getItem(size_t index);
-		virtual WidgetObject* operator[](size_t index);
+		virtual SMART_PTR<WidgetObject>& getItem(size_t index);
+		virtual SMART_PTR<WidgetObject>& operator[](size_t index);
 		virtual size_t getItemCount();
 
 		/* 获得ObjectID */
@@ -96,7 +96,7 @@ namespace NextAI
 		BOOL m_isCaptureTouch;
 
 		/* 子控件 */
-		std::vector<WidgetObject*> m_children;
+		std::vector<SMART_PTR<WidgetObject>> m_children;
 	};
 
 }

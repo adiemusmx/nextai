@@ -6,7 +6,7 @@
 class AppEventHandler : public NextAI::AppEventListener
 {
 public:
-	static AppEventHandler* getInstance();
+	static AppEventHandler* instance();
 
 	virtual BOOL initCompleted();
 

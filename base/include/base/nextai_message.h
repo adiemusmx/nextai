@@ -7,7 +7,7 @@
 #include <vector>
 #include <list>
 
-#define MESSAGE_CENTER() NextAI::MessageCenter::getInstance()
+#define MESSAGE_CENTER() NextAI::MessageCenter::instance()
 
 namespace NextAI
 {
@@ -37,7 +37,7 @@ namespace NextAI
 		};
 
 	public:
-		static MessageCenter* getInstance();
+		static MessageCenter* instance();
 
 		/* 同步消息接口 */
 		void send(NEXT_AI_MESSAGE_ID id, void* lParam, void* rParam);			/* 同步消息发送 */

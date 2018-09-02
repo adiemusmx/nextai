@@ -11,7 +11,7 @@
 
 namespace NextAI
 {
-#define WIDGET_MANAGER() NextAI::WidgetManager::getInstance()
+#define WIDGET_MANAGER() NextAI::WidgetManager::instance()
 
 	/* 
 	 * 控件管理模块 
@@ -20,15 +20,15 @@ namespace NextAI
 	{
 	public:
 		/* 单例模式 */
-		static WidgetManager* getInstance();
+		static WidgetManager* instance();
 
 		/* 初始化和析构 */
 		void init();
 		void cleanup();
 
 		/* 管理View */
-		void addView(SURFACE_ID surface, WidgetView* view);
-		void removeView(SURFACE_ID surface, WidgetView* view);
+		void addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view);
+		void removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view);
 
 		/* 描画函数 */
 		void draw();
@@ -47,7 +47,7 @@ namespace NextAI
 		DISABLE_CLASS_COPY(WidgetManager);
 
 		/* 根节点 */
-		WidgetObject* m_root;
+		SMART_PTR<WidgetObject> m_root;
 	};
 }
 

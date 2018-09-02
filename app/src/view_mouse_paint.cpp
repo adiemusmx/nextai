@@ -9,17 +9,17 @@ using namespace NextAI;
 ViewMousePaint::ViewMousePaint() : NextAI::WidgetView(OBJECT_ID_SCREEN_MOUSE_PAINT)
 {
 	NextAI::WidgetPicture* picture = new NextAI::WidgetPicture(1000);
-	Rect area = {0, 0, NextAI::AppService::getInstance()->getWindowsWidth(), NextAI::AppService::getInstance()->getWindowsHeight()};
+	Rect area = {0, 0, NextAI::AppService::instance()->getWindowsWidth(), NextAI::AppService::instance()->getWindowsHeight()};
 	picture->setPath("res/background.bmp");
 	picture->setDrawableArea(area);
 
 	addChild(picture);
-	NextAI::AppService::getInstance()->addEventListener(this);
+	NextAI::AppService::instance()->addEventListener(this);
 }
 
 ViewMousePaint::~ViewMousePaint()
 {
-	NextAI::AppService::getInstance()->removeEventListener(this);
+	NextAI::AppService::instance()->removeEventListener(this);
 	m_glLines.clear();
 }
 

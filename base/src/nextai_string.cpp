@@ -1,24 +1,22 @@
 ﻿#include "base/nextai_string.h"
 #include "base/nextai_basic_define.h"
 
-#if 0
-
 namespace NextAI
 {
 	MbString::MbString()
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		m_buffer = L"";
 #else
 		m_bufferSize = D_NEXTAI_STRING_BUFFER_DEFAULT_SIZE;
-		m_buffer = MbNewArray(WCHAR, m_bufferSize);
+		m_buffer = NiNewArray(WCHAR, m_bufferSize);
 		memset(m_buffer, 0x00, sizeof(WCHAR)* m_bufferSize);
 #endif
 	}
 
 	MbString::MbString(const WCHAR* str)
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		m_buffer = str;
 #else
 		wcscpy_s(m_buffer, m_bufferSize, str);
@@ -27,7 +25,7 @@ namespace NextAI
 
 	MbString::MbString(const MbString& str)
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		m_buffer = str.m_buffer;
 #else
 		if (m_buffer != str.m_buffer)
@@ -44,7 +42,7 @@ namespace NextAI
 
 	MbString MbString::operator=(const MbString& str)
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		m_buffer = str.m_buffer;
 #else
 		if (m_buffer != str.m_buffer)
@@ -57,7 +55,7 @@ namespace NextAI
 
 	BOOL MbString::operator==(const MbString& str)const
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		return m_buffer == str.m_buffer;
 #else
 		return wcscmp(m_buffer, str.m_buffer) == 0 ? TRUE : FALSE;
@@ -66,7 +64,7 @@ namespace NextAI
 
 	BOOL MbString::operator==(const WCHAR* str)const
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		return m_buffer == std::wstring(str);
 #else
 		return wcscmp(m_buffer, str) == 0 ? TRUE : FALSE;
@@ -174,7 +172,7 @@ namespace NextAI
 
 	size_t MbString::length()const
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		return m_buffer.length();
 #else
 		return wcslen(m_buffer);
@@ -207,12 +205,10 @@ namespace NextAI
 
 	const WCHAR* MbString::cStr()const
 	{
-#ifdef D_USE_STD_STRING
+#ifdef NEXTAI_USE_STD_STRING
 		return m_buffer.c_str();
 #else
 		return m_buffer;
 #endif
 	}
 }
-
-#endif // 0

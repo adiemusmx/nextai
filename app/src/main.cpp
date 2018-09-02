@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-	NextAI::AppService* rs = NextAI::AppService::getInstance();
+	NextAI::AppService* rs = NextAI::AppService::instance();
 	// Initialize environment
 	NextAI::AppServiceParam param;
 	param.argc = argc;
@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	param.windowsTitle = "Next AI Demo Program";
 	rs->init(param);
 
-	rs->addEventListener(AppEventHandler::getInstance());
+	rs->addEventListener(AppEventHandler::instance());
 
 	// main loop
 	rs->run();

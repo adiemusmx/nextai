@@ -7,45 +7,49 @@ namespace NextAI
 {
 	class NiObject
 	{
-		friend NiObject* AllocObject();
-		friend void AddReference(NiObject* object);
-		friend void ReleaseObject(NiObject* object);
-
 	public:
-		NiObject();
-		virtual ~NiObject();
+		/* 构造函数 */
+		NiObject()
+		{
+			m_refCount = 0;
+		}
+		
+		/* 析构函数 */
+		virtual ~NiObject() {}
 
-		NiObject(const NiObject&);
-		NiObject& operator=(const NiObject&);
+		/* 增加引用 */
+		void retain()
+		{
+			++this->m_refCount;
+		}
 
+		/* 释放引用 */
+		void release()
+		{
+			if (this->m_refCount == 1)
+			{
+				this->m_refCount = 0;
+				NiDelete(this);
+			}
+			else if (this->m_refCount > 1)
+			{
+				--this->m_refCount;
+			}
+			else
+			{
+				assert(this->m_refCount < 1);
+			}
+		}		
+
+	private:
+		/* 禁止拷贝 */
+		DISABLE_CLASS_COPY(NiObject);
+
+		/* 引用计数 */
 		size_t m_refCount;
 	};
 
-	/* 创建空间 */
-#define AllocNiObject(T, ...) (new T(__VA_ARGS__))
-
-	/* 增加引用 */
-	inline void AddNiObjectRef(NiObject* object)
-	{
-		++object->m_refCount;
-	}
-
-	/* 释放引用 */
-	inline void ReleaseNiObject(NiObject* object)
-	{
-		if (object->m_refCount == 1)
-		{
-			NiDelete(object);
-		}
-		else if (object->m_refCount > 1)
-		{
-			--object->m_refCount;
-		}
-		else
-		{
-			assert(object->m_refCount < 1);
-		}
-	}
+	
 }
 
 #endif // !_NEXTAI_OBJECT_H_

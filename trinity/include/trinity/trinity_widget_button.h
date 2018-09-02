@@ -88,14 +88,14 @@ namespace NextAI
 		virtual void setChecked();
 
 		/* 加入组 */
-		virtual void setGroup(WidgetGroup* group);
+		virtual void setGroup(SMART_PTR<WidgetGroup>& group);
 
 	private:
 		/* 禁用构造函数 */
 		DISABLE_CLASS_COPY(WidgetRadioButton);
 
 		/* 组 */
-		WidgetGroup* m_group;
+		SMART_PTR<WidgetGroup> m_group;
 
 		/* 选中状态 */
 		BOOL m_check;

@@ -4,7 +4,7 @@
 namespace NextAI
 {
 
-	MessageCenter* MessageCenter::getInstance()
+	MessageCenter* MessageCenter::instance()
 	{
 		static MessageCenter instance;
 		return &instance;

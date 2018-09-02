@@ -1,10 +1,13 @@
 ﻿#ifndef _NEXTAI_BASIC_DEFINE_H_
 #define _NEXTAI_BASIC_DEFINE_H_
 
+#include <memory>
+
 typedef int int32;
 typedef int32 BOOL;
 typedef unsigned int uint32;
 typedef unsigned long uint64;
+typedef unsigned char BIT_DATA;
 
 #ifndef SYSTEM_WINDOWS
 typedef int32 LONG;
@@ -131,6 +134,11 @@ typedef int32 LONG;
 #endif
 #endif
 
-#define D_USE_STD_STRING
+#define NI_PROPERTY(...) 
+#define NI_ATTRIBUTE(...)
+
+#define SMART_PTR std::shared_ptr
+#define WEAK_PTR std::weak_ptr
+#define UNIQUE_PTR std::unique_ptr
 
 #endif // !_NEXTAI_BASIC_DEFINE_H_

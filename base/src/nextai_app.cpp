@@ -58,7 +58,7 @@ BOOL AppEventListener::touch(TouchType touch, int32 touchCount, const int32 touc
 	return FALSE;
 }
 
-AppService* AppService::getInstance()
+AppService* AppService::instance()
 {
 	static AppService service;
 	return &service;
@@ -136,7 +136,7 @@ void AppService::run()
 	// Init started
 	VECTOR_NOTIFY(m_listeners, initStarted);
 
-	//ObjectManager::getInstance()->init();
+	//ObjectManager::instance()->init();
 
 	VECTOR_NOTIFY(m_listeners, initCompleted);
 
@@ -145,7 +145,7 @@ void AppService::run()
 
 	VECTOR_NOTIFY(m_listeners, cleanupStarted);
 
-	//ObjectManager::getInstance()->cleanup();
+	//ObjectManager::instance()->cleanup();
 
 	VECTOR_NOTIFY(m_listeners, cleanupCompleted);
 }
@@ -189,7 +189,7 @@ AppService::~AppService()
 
 void AppService::displayFunc()
 {
-	AppService* instance = getInstance();
+	AppService* instance = AppService::instance();
 	
 	// Gl environment
 	GLint width = instance->m_area.width();
@@ -201,7 +201,7 @@ void AppService::displayFunc()
 	glLoadIdentity();
 	
 #if 1
-	glOrtho(0.0, getInstance()->m_area.width(), getInstance()->m_area.height(), 0.0, -1.0, 1.0);
+	glOrtho(0.0, AppService::instance()->m_area.width(), AppService::instance()->m_area.height(), 0.0, -1.0, 1.0);
 #else
 	glOrtho(instance->m_ortho.m_left, instance->m_ortho.m_right, 
 		instance->m_ortho.m_bottom, instance->m_ortho.m_top, 
@@ -209,12 +209,9 @@ void AppService::displayFunc()
 #endif
 
 	// Render
-	VECTOR_NOTIFY(getInstance()->m_listeners, renderStarted);
-
-	VECTOR_NOTIFY(getInstance()->m_listeners, render);
-
-	// Render
-	VECTOR_NOTIFY(getInstance()->m_listeners, renderCompleted);
+	VECTOR_NOTIFY(AppService::instance()->m_listeners, renderStarted);
+	VECTOR_NOTIFY(AppService::instance()->m_listeners, render);
+	VECTOR_NOTIFY(AppService::instance()->m_listeners, renderCompleted);
 
 	// Swap buffers
 	glutSwapBuffers();
@@ -251,12 +248,12 @@ void AppService::mouseFunc(int button, int state, int x, int y)
 	if (state == GLUT_DOWN)
 	{
 		NEXTAI_VERBOSE_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
-		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_BEGAN, 1, touchId, touchPos);
+		VECTOR_NOTIFY(instance()->m_listeners, touch, TouchType_BEGAN, 1, touchId, touchPos);
 	}
 	else if (state == GLUT_UP)
 	{
 		NEXTAI_VERBOSE_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
-		VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_ENDED, 1, touchId, touchPos);
+		VECTOR_NOTIFY(instance()->m_listeners, touch, TouchType_ENDED, 1, touchId, touchPos);
 	}
 }
 
@@ -268,7 +265,7 @@ void AppService::motionFunc(int x, int y)
 	touchPos[0].x = x;
 	touchPos[0].y = y;
 	NEXTAI_VERBOSE_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
-	VECTOR_NOTIFY(getInstance()->m_listeners, touch, TouchType_MOVED, 1, touchId, touchPos);
+	VECTOR_NOTIFY(instance()->m_listeners, touch, TouchType_MOVED, 1, touchId, touchPos);
 }
 
 void AppService::passiveMotionFunc(int x, int y)

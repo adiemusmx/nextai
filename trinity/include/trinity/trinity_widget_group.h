@@ -19,14 +19,14 @@ namespace NextAI
 		virtual ~WidgetGroup();
 
 		/* 管理成员 */
-		void addMember(WidgetObject* object);
-		void removeMember(WidgetObject* object);
+		void addMember(WEAK_PTR<WidgetObject>& object);
+		void removeMember(WEAK_PTR<WidgetObject>& object);
 
 		/* 获得成员数量 */
 		virtual size_t getCount();
 
 		/* 取得单个元素 */
-		virtual WidgetObject* getItem(int32 index);
+		virtual WEAK_PTR<WidgetObject>& getItem(int32 index);
 
 	private:
 		/* 禁用构造函数 */
@@ -34,7 +34,7 @@ namespace NextAI
 
 	private:
 		/* 成员 */
-		std::vector<WidgetObject*> m_members;
+		std::vector<WEAK_PTR<WidgetObject>> m_members;
 	};
 }
 #endif // !_TRINITY_WIDGET_GROUP_H_

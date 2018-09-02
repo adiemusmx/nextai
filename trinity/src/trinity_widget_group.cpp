@@ -10,32 +10,24 @@ namespace NextAI
 
 	WidgetGroup::~WidgetGroup()
 	{
-		std::vector<WidgetObject*>::iterator iter = m_members.begin();
-		while (iter != m_members.end())
-		{
-			ReleaseNiObject(*iter);
-			m_members.erase(iter);
-			++iter;
-		}
+		m_members.clear();
 	}
 
-	void WidgetGroup::addMember(WidgetObject* object)
+	void WidgetGroup::addMember(WEAK_PTR<WidgetObject>& object)
 	{
-		std::vector<WidgetObject*>::iterator iter = std::find(m_members.begin(), m_members.end(), object);
+		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = std::find(m_members.begin(), m_members.end(), object);
 		if (iter == m_members.end())
 		{
 			m_members.push_back(object);
-			AddNiObjectRef(object);
 		}
 	}
 
-	void WidgetGroup::removeMember(WidgetObject* object)
+	void WidgetGroup::removeMember(WEAK_PTR<WidgetObject>& object)
 	{
-		std::vector<WidgetObject*>::iterator iter = std::find(m_members.begin(), m_members.end(), object);
+		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = std::find(m_members.begin(), m_members.end(), object);
 		if (iter != m_members.end())
 		{
 			m_members.erase(iter);
-			ReleaseNiObject(object);
 		}
 	}
 
@@ -44,7 +36,7 @@ namespace NextAI
 		return m_members.size();
 	}
 
-	WidgetObject* WidgetGroup::getItem(int32 index)
+	WEAK_PTR<WidgetObject>& WidgetGroup::getItem(int32 index)
 	{
 		return m_members[index];
 	}

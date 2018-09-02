@@ -155,19 +155,12 @@ namespace NextAI
 		}
 	}
 
-	void WidgetRadioButton::setGroup(WidgetGroup* group)
+	void WidgetRadioButton::setGroup(SMART_PTR<WidgetGroup>& group)
 	{
 		NEXTAI_INFO_LOG("this[%p] group[%p]", this, group);
 
-		if (m_group != NULL)
-		{
-			m_group->removeMember(this);
-			ReleaseNiObject(m_group);
-		}
-
 		m_group = group;
-		AddNiObjectRef(m_group);
-		m_group->addMember(this);
+		m_group->addMember(WEAK_PTR<WidgetObject>((WidgetObject*)this));
 	}
 
 	WidgetCheckButton::WidgetCheckButton(ObjectId id) : WidgetButton(id)
