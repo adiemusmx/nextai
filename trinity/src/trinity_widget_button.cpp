@@ -31,7 +31,7 @@ namespace NextAI
 		m_pictures[(int32)m_status]->drawImpl();
 	}
 
-	BOOL WidgetButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	HitResult WidgetButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
 		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
@@ -51,10 +51,10 @@ namespace NextAI
 		/* 无效 */
 		else if (m_status == Status::Disabled)
 		{
-			return FALSE;
+			return HitResult::Missed;
 		}
 
-		return TRUE;
+		return HitResult::Hit;
 	}
 
 	void WidgetButton::setPath(Status status, const WCHAR* path)
@@ -94,13 +94,12 @@ namespace NextAI
 	{
 		if (m_group != NULL)
 		{
-			m_group->removeMember(this);
-			ReleaseNiObject(m_group);
+			m_group->removeMember(SMART_PTR<WidgetObject>((WidgetObject*)this));
 			m_group = NULL;
 		}
 	}
 
-	BOOL WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
 		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
@@ -129,10 +128,10 @@ namespace NextAI
 		/* 无效 */
 		else if (m_status == Status::Disabled)
 		{
-			return FALSE;
+			return HitResult::Missed;
 		}
 
-		return TRUE;
+		return HitResult::Hit;
 	}
 
 	void WidgetRadioButton::setChecked()
@@ -143,8 +142,8 @@ namespace NextAI
 		{
 			for (size_t loopIdx = 0; loopIdx < m_group->getCount(); ++loopIdx)
 			{
-				BOOL isChecked = (m_group->getItem(loopIdx) == this);
-				WidgetRadioButton* button = (WidgetRadioButton*)m_group->getItem(loopIdx);
+				WidgetRadioButton* button = (WidgetRadioButton*)(SMART_PTR<WidgetObject>(m_group->getItem(loopIdx))).get();
+				BOOL isChecked = (button == this);
 				button->m_check = isChecked;
 				button->m_status = isChecked ? Status::Selected : Status::Normal;
 			}
@@ -160,7 +159,7 @@ namespace NextAI
 		NEXTAI_INFO_LOG("this[%p] group[%p]", this, group);
 
 		m_group = group;
-		m_group->addMember(WEAK_PTR<WidgetObject>((WidgetObject*)this));
+		m_group->addMember(SMART_PTR<WidgetObject>((WidgetObject*)this));
 	}
 
 	WidgetCheckButton::WidgetCheckButton(ObjectId id) : WidgetButton(id)
@@ -173,7 +172,7 @@ namespace NextAI
 
 	}
 
-	BOOL WidgetCheckButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	HitResult WidgetCheckButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
 		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
@@ -200,9 +199,9 @@ namespace NextAI
 		/* 无效 */
 		else if (m_status == Status::Disabled)
 		{
-			return FALSE;
+			return HitResult::Missed;
 		}
 
-		return TRUE;
+		return HitResult::Hit;
 	}
 }

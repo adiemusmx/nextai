@@ -34,10 +34,10 @@ namespace NextAI
 		void draw();
 
 		/* 硬件消息 */
-		virtual BOOL hardkey(HardkeyID key);
+		virtual ListenerResult hardkey(HardkeyID key);
 
 		/* 点击事件 */
-		virtual BOOL touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual ListenerResult touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 	private:
 		WidgetManager();

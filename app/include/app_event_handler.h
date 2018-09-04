@@ -8,11 +8,15 @@ class AppEventHandler : public NextAI::AppEventListener
 public:
 	static AppEventHandler* instance();
 
-	virtual BOOL initCompleted();
+	virtual NextAI::ListenerResult initStarted();
 
-	virtual BOOL render();
+	virtual NextAI::ListenerResult initCompleted();
 
-	virtual BOOL touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[]);
+	virtual NextAI::ListenerResult cleanupCompleted();
+
+	virtual NextAI::ListenerResult render();
+
+	virtual NextAI::ListenerResult touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[]);
 
 private:
 	AppEventHandler() {}

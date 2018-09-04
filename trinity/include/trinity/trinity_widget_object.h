@@ -10,6 +10,11 @@ typedef unsigned long ObjectId;
 
 namespace NextAI
 {
+	enum class HitResult
+	{
+		Hit = 0,		/* 命中 */
+		Missed,			/* 未命中 */
+	};
 
 	/* 控件 */
 	class WidgetObject
@@ -39,8 +44,8 @@ namespace NextAI
 		virtual const Rect& getDrawableArea();
 
 		/* 点击 */
-		virtual BOOL hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
-		virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual HitResult hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 		virtual void setHitableArea(const Rect& area);
 		virtual const Rect& getHitableArea();
 

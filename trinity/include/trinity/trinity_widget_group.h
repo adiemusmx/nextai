@@ -19,8 +19,8 @@ namespace NextAI
 		virtual ~WidgetGroup();
 
 		/* 管理成员 */
-		void addMember(WEAK_PTR<WidgetObject>& object);
-		void removeMember(WEAK_PTR<WidgetObject>& object);
+		void addMember(SMART_PTR<WidgetObject>& object);
+		void removeMember(SMART_PTR<WidgetObject>& object);
 
 		/* 获得成员数量 */
 		virtual size_t getCount();

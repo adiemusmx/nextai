@@ -35,7 +35,7 @@ namespace NextAI
 		virtual void drawImpl();
 
 		/* 点击处理 */
-		virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 		/* 设定图片路径
 		 * 不要频繁调用本函数，会涉及到纹理的申请和释放 */
@@ -82,7 +82,7 @@ namespace NextAI
 		virtual ~WidgetRadioButton();
 
 		/* 点击处理 */
-		virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 		/* 设定选中状态 */
 		virtual void setChecked();
@@ -111,7 +111,7 @@ namespace NextAI
 		virtual ~WidgetCheckButton();
 
 		/* 点击处理 */
-		virtual BOOL hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
+		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 	private:
 		/* 禁用构造函数 */

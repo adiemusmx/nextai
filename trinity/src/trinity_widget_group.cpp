@@ -13,21 +13,46 @@ namespace NextAI
 		m_members.clear();
 	}
 
-	void WidgetGroup::addMember(WEAK_PTR<WidgetObject>& object)
+	void WidgetGroup::addMember(SMART_PTR<WidgetObject>& object)
 	{
-		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = std::find(m_members.begin(), m_members.end(), object);
+		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = m_members.begin();
+		while (iter != m_members.end())
+		{
+			WidgetObject* obj = (WidgetObject*)(SMART_PTR<WidgetObject>(*iter)).get();
+			if (obj == object.get())
+			{
+				NEXTAI_TRACE_LOG_FLAG("Add Same Member![%p]", object.get());
+				break;
+			}
+			++iter;
+		}
+
 		if (iter == m_members.end())
 		{
 			m_members.push_back(object);
 		}
 	}
 
-	void WidgetGroup::removeMember(WEAK_PTR<WidgetObject>& object)
+	void WidgetGroup::removeMember(SMART_PTR<WidgetObject>& object)
 	{
-		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = std::find(m_members.begin(), m_members.end(), object);
+		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = m_members.begin();
+		while (iter != m_members.end())
+		{
+			WidgetObject* obj = (WidgetObject*)(SMART_PTR<WidgetObject>(*iter)).get();
+			if (obj == object.get())
+			{
+				break;
+			}
+			++iter;
+		}
+
 		if (iter != m_members.end())
 		{
 			m_members.erase(iter);
+		}
+		else
+		{
+			NEXTAI_TRACE_LOG_FLAG("Remove Invalidate Member![%p]", object.get());
 		}
 	}
 

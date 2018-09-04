@@ -9,14 +9,25 @@ AppEventHandler* AppEventHandler::instance()
 	return &instance;
 }
 
-BOOL AppEventHandler::initCompleted()
+NextAI::ListenerResult AppEventHandler::initStarted()
 {
-	//NextAI::ObjectManager::instance()->addView(NextAI::SURFACE_ID_VIEW, new ViewMousePaint());
-
-	return FALSE;
+	WIDGET_MANAGER()->init();
+	return NextAI::ListenerResult::OK;
 }
 
-BOOL AppEventHandler::render()
+NextAI::ListenerResult AppEventHandler::initCompleted()
+{
+	//NextAI::ObjectManager::instance()->addView(NextAI::SURFACE_ID_VIEW, new ViewMousePaint());
+	return NextAI::ListenerResult::OK;
+}
+
+NextAI::ListenerResult AppEventHandler::cleanupCompleted()
+{
+	WIDGET_MANAGER()->cleanup();
+	return NextAI::ListenerResult::OK;
+}
+
+NextAI::ListenerResult AppEventHandler::render()
 {
 	NextAI::PixelColor color = 0x0000FFFF;
 	
@@ -67,10 +78,10 @@ BOOL AppEventHandler::render()
 	NextAI::ScreenPoint pos2 = { 700, 400 };
 	RENDER_SYSTEM()->drawText(font2, pos2, COLOR_BLUE, L"你好");
 
-	return FALSE;
+	return NextAI::ListenerResult::OK;
 }
 
-BOOL AppEventHandler::touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[])
+NextAI::ListenerResult AppEventHandler::touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[])
 {
-	return FALSE;
+	return NextAI::ListenerResult::OK;
 }

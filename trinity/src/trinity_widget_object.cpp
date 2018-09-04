@@ -139,30 +139,30 @@ namespace NextAI
 		return m_drawableArea;
 	}
 
-	BOOL WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	HitResult WidgetObject::hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
 		if (!m_visible || !m_hitEnable)
-			return false;
+			return HitResult::Missed;
 
 		if (!m_hitableArea.testPoint(touchPos[0]))
-			return false;
+			return HitResult::Missed;
 
 		for (auto pObj : m_children)
 		{
-			if (pObj->hit(touch, touchCount, touchId, touchPos) == TRUE)
-				return TRUE;
+			if (pObj->hit(touch, touchCount, touchId, touchPos) == HitResult::Hit)
+				return HitResult::Hit;;
 		}
 
-		if (hitImpl(touch, touchCount, touchId, touchPos) || !m_hitTransEnable)
-			return TRUE;
+		if (hitImpl(touch, touchCount, touchId, touchPos) == HitResult::Hit || !m_hitTransEnable)
+			return HitResult::Hit;
 		else
-			return FALSE;
+			return HitResult::Missed;
 	}
 
-	BOOL WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	HitResult WidgetObject::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
 		// TODO
-		return FALSE;
+		return HitResult::Missed;
 	}
 
 	void WidgetObject::setHitableArea(const Rect& area)

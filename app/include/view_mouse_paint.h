@@ -11,7 +11,7 @@ public:
 
 	virtual void drawImpl();
 
-	virtual BOOL touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[]);
+	virtual NextAI::ListenerResult touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[]);
 };
 
 #endif // !_VIEW_MOUSE_PAINT_H_
