@@ -16,7 +16,7 @@ namespace NextAI
 	/* 
 	 * 控件管理模块 
 	 */
-	class WidgetManager : AppEventListener
+	class WidgetManager : public AppEventListener
 	{
 	public:
 		/* 单例模式 */
@@ -31,7 +31,7 @@ namespace NextAI
 		void removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view);
 
 		/* 描画函数 */
-		void draw();
+		virtual ListenerResult render();
 
 		/* 硬件消息 */
 		virtual ListenerResult hardkey(HardkeyID key);

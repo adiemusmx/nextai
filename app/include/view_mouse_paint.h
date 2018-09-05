@@ -12,6 +12,9 @@ public:
 	virtual void drawImpl();
 
 	virtual NextAI::ListenerResult touch(NextAI::TouchType touch, int32 touchCount, const int32 touchId[], const NextAI::ScreenPoint touchPos[]);
+
+private:
+	std::vector<NextAI::Point> m_mouseTrace;
 };
 
 #endif // !_VIEW_MOUSE_PAINT_H_

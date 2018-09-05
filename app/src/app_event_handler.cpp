@@ -12,6 +12,7 @@ AppEventHandler* AppEventHandler::instance()
 NextAI::ListenerResult AppEventHandler::initStarted()
 {
 	WIDGET_MANAGER()->init();
+	WIDGET_MANAGER()->addView(NextAI::SURFACE_ID_VIEW, SMART_PTR<NextAI::WidgetView>(NiNew(ViewMousePaint)));
 	return NextAI::ListenerResult::OK;
 }
 

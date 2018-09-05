@@ -34,33 +34,50 @@ namespace NextAI
 
 	void RenderSystem::drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor)
 	{
-		glEnable(GL_LINE_STIPPLE);
-		glLineStipple(lineStyleFactor, lineStyle);
-		glLineWidth(lineWidth);
-
-		glBegin(GL_LINE_STRIP);
-		glColor4f(COLOR_GET_4F(lineColor));
+		beginDrawPolyLine(lineWidth, lineStyleFactor, lineStyle, lineColor);
 
 		for (size_t loopIdx = 0; loopIdx < pointsCount; ++loopIdx)
 			glVertex3i(points[loopIdx].x, points[loopIdx].y, 0);
 
-		glEnd();
-		glDisable(GL_LINE_STIPPLE);
+		endDrawPolyLine();
+	}
 
-		glFlush();
+	void RenderSystem::drawPolyLine(const std::vector<Point>& points, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor)
+	{
+		beginDrawPolyLine(lineWidth, lineStyleFactor, lineStyle, lineColor);
+
+		std::vector<Point>::const_iterator iter = points.begin();
+		while (iter != points.end())
+		{
+			glVertex3i(iter->x, iter->y, 0);
+			++iter;
+		}
+
+		endDrawPolyLine();
 	}
 
 	void RenderSystem::drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode)
 	{
-		glBegin(GL_POLYGON);
-		glColor4f(COLOR_GET_4F(lineColor));
+		beginDrawPolygon(lineWidth, lineStyleFactor, lineStyle, lineColor, polygonMode);
 
 		for (size_t loopIdx = 0; loopIdx < pointsCount; ++loopIdx)
 			glVertex3i(points[loopIdx].x, points[loopIdx].y, 0);
 
-		glEnd();
+		endDrawPolygon();
+	}
 
-		glFlush();
+	void RenderSystem::drawPolygon(const std::vector<Point>& points, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode)
+	{
+		beginDrawPolygon(lineWidth, lineStyleFactor, lineStyle, lineColor, polygonMode);
+
+		std::vector<Point>::const_iterator iter = points.begin();
+		while (iter != points.end())
+		{
+			glVertex3i(iter->x, iter->y, 0);
+			++iter;
+		}
+
+		endDrawPolygon();
 	}
 
 	PICTURE_TEXTURE_ID RenderSystem::allocPictureTexture(const WCHAR* fileName, PICTURE_TEXTURE_ID oldTextureId)
@@ -131,5 +148,33 @@ namespace NextAI
 	RenderSystem::~RenderSystem()
 	{
 
+	}
+
+	void RenderSystem::beginDrawPolyLine(float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor)
+	{
+		glEnable(GL_LINE_STIPPLE);
+		glLineStipple(lineStyleFactor, lineStyle);
+		glLineWidth(lineWidth);
+		glBegin(GL_LINE_STRIP);
+		glColor4f(COLOR_GET_4F(lineColor));
+	}
+
+	void RenderSystem::endDrawPolyLine()
+	{
+		glEnd();
+		glDisable(GL_LINE_STIPPLE);
+		glFlush();
+	}
+
+	void RenderSystem::beginDrawPolygon(float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode)
+	{
+		glBegin(GL_POLYGON);
+		glColor4f(COLOR_GET_4F(lineColor));
+	}
+
+	void RenderSystem::endDrawPolygon()
+	{
+		glEnd();
+		glFlush();
 	}
 }

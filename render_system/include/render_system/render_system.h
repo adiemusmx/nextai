@@ -39,9 +39,11 @@ namespace NextAI {
 
 		/* Line描画 */
 		void drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor);
+		void drawPolyLine(const std::vector<Point>& points, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor);
 
 		/* Polygon描画 */
 		void drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode);
+		void drawPolygon(const std::vector<Point>& points, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode);
 
 		/* 
 		 * Picture描画
@@ -66,7 +68,12 @@ namespace NextAI {
 		/* 禁止拷贝函数 */
 		DISABLE_CLASS_COPY(RenderSystem);
 
-		
+		/* 内部准备环境 */
+		void beginDrawPolyLine(float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor);
+		void endDrawPolyLine();
+
+		void beginDrawPolygon(float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode);
+		void endDrawPolygon();
 	};
 }
 

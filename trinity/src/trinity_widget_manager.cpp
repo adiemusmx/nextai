@@ -21,12 +21,16 @@ namespace NextAI
 		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_ONS)));
 		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_INTERRUPT)));
 
+		APP_SERVICE()->addEventListener(this);
+
 		NEXTAI_TRACE_LOG_END();
 	}
 
 	void WidgetManager::cleanup()
 	{
 		NEXTAI_TRACE_LOG();
+
+		APP_SERVICE()->removeEventListener(this);
 	}
 
 	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
@@ -47,7 +51,7 @@ namespace NextAI
 			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
 	}
 
-	void WidgetManager::draw()
+	ListenerResult WidgetManager::render()
 	{
 		size_t loopIdx;
 		for (loopIdx = 0; loopIdx < SURFACE_ID_MAX; ++loopIdx)
@@ -55,6 +59,7 @@ namespace NextAI
 			if (m_root->getItem(loopIdx) != NULL)
 				m_root->getItem(loopIdx)->draw();
 		}
+		return ListenerResult::OK;
 	}
 
 	WidgetManager::WidgetManager()
@@ -71,6 +76,7 @@ namespace NextAI
 	ListenerResult WidgetManager::hardkey(HardkeyID key)
 	{
 		NEXTAI_INFO_LOG("key[%d]", key);
+
 		// TODO
 		return ListenerResult::OK;
 	}
@@ -79,8 +85,8 @@ namespace NextAI
 	{
 		NEXTAI_INFO_LOG("touch[%d] touchCount[%d] touchId[%d] touchPos[%d,%d]", touch, touchCount, touchId[0], touchPos[0].x, touchPos[0].y);
 		ListenerResult ret = ListenerResult::OK;
-		size_t loopIdx;
-		for (loopIdx = SURFACE_ID_MAX - 1; (loopIdx >= 0) && (ret == ListenerResult::OK); --loopIdx)
+		
+		for (int32 loopIdx = m_root->getItemCount() - 1; (loopIdx >= 0) && (ret == ListenerResult::OK); --loopIdx)
 		{
 			if (m_root->getItem(loopIdx) != NULL)
 				ret = m_root->getItem(loopIdx)->hit(touch, touchCount, touchId, touchPos) == HitResult::Hit ? ListenerResult::BLOCK_OTHERS : ListenerResult::OK;
