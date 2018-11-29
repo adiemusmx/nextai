@@ -93,7 +93,7 @@ namespace NextAI {
 	class OrthoInfo
 	{
 	public:
-		OrthoInfo(){ m_left = m_right = m_bottom = m_top = m_near = m_far; }
+		OrthoInfo(){ m_left = m_right = m_bottom = m_top = m_near = m_far = 1.0f; }
 		virtual ~OrthoInfo() {}
 
 		float m_left;

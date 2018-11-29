@@ -1,11 +1,11 @@
-﻿#include "base/nextai_app.h"
+﻿#include "stdafx.h"
+#include "base/nextai_app.h"
 #include "base/nextai_message.h"
-#include "base/nextai_log.h"
+
 #include "base/nextai_file_system.h"
 
 #include <GL/glut.h>
 #include <GL/glu.h>
-#include <algorithm>
 
 #define VECTOR_NOTIFY(listeners, func,...)	\
 	for (size_t loopIdx = 0; loopIdx < listeners.size(); ++loopIdx) \

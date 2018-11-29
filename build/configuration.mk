@@ -32,6 +32,10 @@ INCLUDE_DIRS += -I../render_system/include/
 INCLUDE_DIRS += -I../third_party/include/
 INCLUDE_DIRS += -I../trinity/include/
 
+ifeq ($(shell uname), Linux)
+#INCLUDE_DIRS += -I/usr/include/x86_64-linux-gnu/sys/
+endif
+
 # Libraries
 LDFLAGS  = 
 LDFLAGS += -ltrinity

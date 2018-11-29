@@ -1,7 +1,5 @@
+#include "stdafx.h"
 #include "base/nextai_file_system.h"
-#include "base/nextai_log.h"
-#include <io.h>
-#include <fstream>
 
 #define  FILE_EXIST_FLAG	0     /* Check for file existence */
 #define  FILE_EXE_FLAG		1     /* Check for execute permission. */
@@ -14,12 +12,10 @@ namespace NextAI
 
 	BOOL FileSystem::isExist(const WCHAR* path)
 	{
-#if 0
-		WCHAR fullpath[FILE_PATH_MAX_LENGTH] = { 0 };
-		wcscat_s(fullpath, path);
-		return _waccess(fullpath, FILE_EXIST_FLAG);
+#ifdef SYSTEM_LINUX
+		return waccess(path);
 #else
-		std::wifstream file(path, std::ios::in);
+		std::wifstream file(path, std::wifstream::in);
 		return file ? TRUE : FALSE;
 #endif
 	}

@@ -1,6 +1,4 @@
-﻿#include "base/nextai_log.h"
-#include <cstdio>
-#include <cstring>
+﻿#include "stdafx.h"
 #include "base/nextai_time.h"
 
 #define NEXT_AI_LOG_FORMAT_STRING   "[%02u:%02u:%02u.%03u][%s][%s:%d|%s]%s\n"
