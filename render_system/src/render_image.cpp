@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "render_system/render_image.h"
-#include "free_image/FreeImage.h"
+#include "FreeImage/FreeImage.h"
 
 namespace NextAI
 {

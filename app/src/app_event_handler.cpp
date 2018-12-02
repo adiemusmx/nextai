@@ -68,14 +68,14 @@ NextAI::ListenerResult AppEventHandler::render()
 	static NextAI::PICTURE_TEXTURE_ID textureId2 = RENDER_SYSTEM()->allocPictureTexture(L"res/test.jpg");
 	RENDER_SYSTEM()->drawPicture(textureId2, drawArea2);
 
-	static NextAI::Font* font = NextAI::Font::allocFont(16, "宋体");
+	static NextAI::Font* font = NextAI::WindowsFont::allocFont(16, "宋体");
 	NextAI::ScreenPoint pos = { 600, 300 };
 	RENDER_SYSTEM()->drawText(font, pos, COLOR_RED, L"Hello World");
 
 	NextAI::ScreenPoint pos3 = { 630, 330 };
 	RENDER_SYSTEM()->drawText(font, pos3, COLOR_RED, "Hello World");
 
-	static NextAI::Font* font2 = NextAI::Font::allocFont(29, "黑体");
+	static NextAI::Font* font2 = NextAI::WindowsFont::allocFont(29, "黑体");
 	NextAI::ScreenPoint pos2 = { 700, 400 };
 	RENDER_SYSTEM()->drawText(font2, pos2, COLOR_BLUE, L"你好");
 

@@ -3,16 +3,20 @@
 #include "base/nextai_basic_define.h"
 #include "render_system/render_system.h"
 
-#ifdef SYSTEM_LINUX
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_opengl.h>
-#endif
-
 namespace NextAI
 {
-	Font* Font::allocFont()
+	Font::Font()
+	{
+		
+		
+	}
+
+	Font::~Font()
+	{
+
+	}
+
+	Font* WindowsFont::allocFont()
 	{
 		Font* ret = NULL;
 #ifdef SYSTEM_WINDOWS
@@ -23,7 +27,7 @@ namespace NextAI
 		return ret;
 	}
 
-	Font* Font::allocFont(int32 height, const CHAR* pszFaceName)
+	Font* WindowsFont::allocFont(int32 height, const CHAR* pszFaceName)
 	{
 		Font* ret = NULL;
 #ifdef SYSTEM_WINDOWS
@@ -34,14 +38,14 @@ namespace NextAI
 		return ret;
 	}
 
-	Font* Font::allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
+	Font* WindowsFont::allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
 		FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
 		FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
 		FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName)
 	{
 		Font* ret = NULL;
 #ifdef SYSTEM_WINDOWS
-		ret = new WindowsFont(height, width, escapement, orientation, 
+		ret = new WindowsFont(height, width, escapement, orientation,
 			weight, italic, underline, strikeOut,
 			charSet, outPrecision, clipPrecision,
 			quality, pitchAndFamily, pszFaceName);
@@ -49,7 +53,7 @@ namespace NextAI
 		return ret;
 	}
 
-	void Font::release(Font* font)
+	void WindowsFont::release(Font* font)
 	{
 		if (font != NULL)
 		{
@@ -57,23 +61,12 @@ namespace NextAI
 		}
 	}
 
-	Font::Font()
-	{
-		m_handle = NULL;
-		m_texture = INVALID_TEXTURE_ID;
-		m_height = 0;
-	}
-
-	Font::~Font()
-	{
-
-	}
-
 	WindowsFont::WindowsFont(int32 height, int32 width, int32 escapement, int32 orientation,
 		FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
 		FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
 		FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName)
 	{
+		m_texture = INVALID_TEXTURE_ID;
 		m_height = height;
 		m_handle = CreateFontA(
 			height, width, escapement, orientation,
@@ -146,4 +139,19 @@ namespace NextAI
 			m_texture = INVALID_TEXTURE_ID;
 		}
 	}
+
+	Font* FreeTypeFont::allocFont() { return NULL; }
+	Font* FreeTypeFont::allocFont(int32 height, const CHAR* pszFaceName) { return NULL; }
+	Font* FreeTypeFont::allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
+		FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
+		FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
+		FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName) {
+		return NULL;
+	}
+
+	FreeTypeFont::FreeTypeFont() {}
+	FreeTypeFont::~FreeTypeFont() {}
+
+	void FreeTypeFont::drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const {}
+	void FreeTypeFont::drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const {}
 }

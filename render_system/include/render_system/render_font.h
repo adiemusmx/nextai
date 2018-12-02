@@ -99,6 +99,23 @@ namespace NextAI
 	class Font
 	{
 	public:
+		Font();
+		virtual ~Font();
+
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const = 0;
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const = 0;
+
+	protected:
+		/* Disable copy constructor and operator= */
+		Font(const Font&);
+		Font& operator=(const Font&);
+	};
+
+	/* Alloc font object with CreateFontA */
+	class WindowsFont : public Font
+	{
+	public:
+		/* Alloc and release windows font object */
 		static Font* allocFont();
 		static Font* allocFont(int32 height, const CHAR* pszFaceName);
 		static Font* allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
@@ -107,28 +124,7 @@ namespace NextAI
 			FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName);
 		static void release(Font* font);
 
-		virtual void drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const = 0;
-		virtual void drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const = 0;
-
-	protected:
-		Font();
-		virtual ~Font();
-		Font(const Font&);
-		Font& operator=(const Font&);
-
-	protected:
-#ifdef SYSTEM_LINUX
-		//TTF_Font* m_handle;
-#else
-		HFONT m_handle;
-#endif
-		TEXT_TEXTURE_ID m_texture;
-		int32 m_height;
-	};
-
-	class WindowsFont : public Font
-	{
-	public:
+		/* Constructor */
 		WindowsFont(int32 height, int32 width, int32 escapement, int32 orientation, 
 			FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut, 
 			FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision, 
@@ -142,6 +138,39 @@ namespace NextAI
 	private:
 		void init();
 		void cleanup();
+
+		/* Disable copy constructor and operator= */
+		WindowsFont(WindowsFont&);
+		WindowsFont& operator=(WindowsFont&);
+
+#ifdef SYSTEM_WINDOWS
+		HFONT m_handle;
+#endif
+		TEXT_TEXTURE_ID m_texture;
+		int32 m_height;
+	};
+
+	class FreeTypeFont : public Font
+	{
+	public:
+		/* Alloc and release freetype font object */
+		static Font* allocFont();
+		static Font* allocFont(int32 height, const CHAR* pszFaceName);
+		static Font* allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
+			FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
+			FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
+			FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName);
+
+		FreeTypeFont();
+		virtual ~FreeTypeFont();
+
+		void drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const;
+		void drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const;
+
+	private:
+		/* Disable copy constructor and operator= */
+		FreeTypeFont(FreeTypeFont&);
+		FreeTypeFont& operator=(FreeTypeFont&);
 	};
 }
 
