@@ -11,7 +11,7 @@
 
 #else
 
-#include <io>
+#include <io.h>
 
 #endif
 

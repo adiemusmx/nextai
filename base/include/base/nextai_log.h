@@ -67,7 +67,7 @@ namespace NextAI
 #ifdef SYSTEM_LINUX
 #define SWPRINTF(x,c,...) swprintf(x,c,##__VA_ARGS__)
 #else
-#define SWPRINTF(x,c,...) swprintf(x,##__VA_ARGS__) 
+#define SWPRINTF(x,c,...) swprintf_s(x,##__VA_ARGS__) 
 #endif
 
 #define NEXTAI_VERBOSE_LOG(format,...) { \

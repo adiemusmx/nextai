@@ -117,7 +117,11 @@ namespace NextAI
 		Font& operator=(const Font&);
 
 	protected:
+#ifdef SYSTEM_LINUX
+		//TTF_Font* m_handle;
+#else
 		HFONT m_handle;
+#endif
 		TEXT_TEXTURE_ID m_texture;
 		int32 m_height;
 	};

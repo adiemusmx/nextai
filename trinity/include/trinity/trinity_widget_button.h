@@ -46,6 +46,9 @@ namespace NextAI
 		virtual void setStatus(Status status);
 		virtual Status getStatus();
 
+		/* 设定控件的描画区域 */
+		virtual void setDrawableArea(const Rect& area);
+
 	private:
 		/* 禁用构造函数 */
 		DISABLE_CLASS_COPY(WidgetButton);
@@ -55,7 +58,7 @@ namespace NextAI
 		Status m_status;
 
 		/* 图片资源纹理 */
-		WidgetPicture* m_pictures[(int32)Status::Max];
+		SMART_PTR<WidgetPicture> m_pictures[(int32)Status::Max];
 	};
 
 	/* 

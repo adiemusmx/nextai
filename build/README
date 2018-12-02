@@ -1,9 +1,9 @@
 *******************************************
 # Depends
 sudo apt-get install git
-sudo apt-get install build-essential
-sudo apt-get install mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev
-sudo apt-get install freeglut3-dev
+sudo apt-get install make
+sudo apt-get install g++
+sudo apt-get install build-essential mesa-common-dev libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev
 *******************************************
 # Wanted Features
 1.显示图片

@@ -1,7 +1,6 @@
 ﻿#ifndef _NEXTAI_RENDER_SYSTEM_H_
 #define _NEXTAI_RENDER_SYSTEM_H_
 
-#include "base/nextai_string.h"
 #include "render_system/render_font.h"
 #include "render_system/render_system_types.h"
 

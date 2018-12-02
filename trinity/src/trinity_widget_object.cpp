@@ -14,7 +14,7 @@ namespace NextAI
 		m_drawableArea = { 0, 0, 0, 0 };
 		m_hitableArea = { 0, 0, 0, 0 };
 
-		m_hitEnable = FALSE;
+		m_hitEnable = TRUE;
 		m_hitTransEnable = TRUE;
 
 		m_visible = TRUE;
@@ -153,7 +153,7 @@ namespace NextAI
 				return HitResult::Hit;;
 		}
 
-		if (hitImpl(touch, touchCount, touchId, touchPos) == HitResult::Hit || !m_hitTransEnable)
+		if (m_hitEnable && hitImpl(touch, touchCount, touchId, touchPos) == HitResult::Hit || !m_hitTransEnable)
 			return HitResult::Hit;
 		else
 			return HitResult::Missed;

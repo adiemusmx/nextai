@@ -3,6 +3,13 @@
 #include "base/nextai_basic_define.h"
 #include "render_system/render_system.h"
 
+#ifdef SYSTEM_LINUX
+#include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
+#include <SDL/SDL_ttf.h>
+#include <SDL/SDL_opengl.h>
+#endif
+
 namespace NextAI
 {
 	Font* Font::allocFont()

@@ -12,13 +12,22 @@ namespace NextAI
 	{
 		char path[PATH_LENGTH_MAX] = {0};
 		wcstombs(path, wpath, element_of(path));
-		return access(path, openmode);
+
+#ifdef SYSTEM_LINUX
+		return access(path, openmode) == 0 ? true : false;
+#else
+		return _access(path, openmode) == 0 ? true : false;
+#endif
 	}
 
 	void wgetcwd(WCHAR* wpath, size_t wpathLengh)
 	{
 		char path[PATH_LENGTH_MAX] = {0};
+#ifdef SYSTEM_LINUX
 		getcwd(path, element_of(path));
+#else
+		GetCurrentDirectory(element_of(path), path);
+#endif
 		mbstowcs(wpath, path, wpathLengh);
 		return;
 	}
@@ -92,6 +101,7 @@ namespace NextAI
 		const std::ios::openmode modeTable[] = {
 			std::ios::in,
 			std::ios::out,
+			std::ios::in | std::ios::out,
 			std::ios::app,
 			std::ios::in | std::ios::binary,
 			std::ios::out | std::ios::binary,
@@ -101,11 +111,16 @@ namespace NextAI
 		return modeTable[(int32)mode];
 	}
 
-	BOOL File::open(const WCHAR* path, FileAccessMode mode)
+	BOOL File::open(const WCHAR* wpath, FileAccessMode mode)
 	{
-		NEXTAI_INFO_W_LOG(L"path[%s] mode[%d]", path, mode);
-		
-		m_file.open(path);
+		NEXTAI_INFO_W_LOG(L"wpath[%s] mode[%d]", wpath, mode);
+#ifdef SYSTEM_LINUX
+		char path[PATH_LENGTH_MAX] = { 0 };
+		wcstombs(path, wpath, element_of(path));
+		m_file.open(path, _FileAccessMode2iosMode(mode));
+#else
+		m_file.open(wpath, _FileAccessMode2iosMode(mode));
+#endif
 		return isOpen();
 	}
 

@@ -49,6 +49,13 @@ namespace NextAI
 		virtual void setHitableArea(const Rect& area);
 		virtual const Rect& getHitableArea();
 
+		/* 语法糖 */
+		virtual void setArea(const Rect& area)
+		{
+			setDrawableArea(area);
+			setHitableArea(area);
+		}
+
 		/* 是否可见 */
 		virtual void setVisible(BOOL visible);
 		virtual BOOL getVisible();

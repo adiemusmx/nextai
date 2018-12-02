@@ -14,8 +14,10 @@ namespace NextAI
 	void WidgetManager::init()
 	{
 		NEXTAI_TRACE_LOG_START();
-
+		Rect full = { 0, 0, APP_SERVICE()->getWindowsWidth(), APP_SERVICE()->getWindowsHeight() };
+		
 		m_root = SMART_PTR<WidgetObject>(NiNew(WidgetObject, 0));
+		m_root->setArea(full);
 		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_BASE)));
 		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_VIEW)));
 		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_ONS)));

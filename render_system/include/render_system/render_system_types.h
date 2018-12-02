@@ -2,7 +2,6 @@
 #define _NEXTAI_RENDER_SYSTEM_TYPES_H_
 
 #include "base/nextai_basic_types.h"
-#include "base/nextai_string.h"
 
 namespace NextAI
 {

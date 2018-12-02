@@ -50,6 +50,7 @@ namespace NextAI
 	{
 		Read,			/* 读文件 */
 		Write,			/* 写文件 */
+		ReadWrite,		/* 读写文件 */
 		Append,			/* 追加文件 */
 		ReadBinary,		/* 二进制读文件 */
 		WriteBinary,	/* 写文件 */
@@ -70,7 +71,7 @@ namespace NextAI
 		virtual ~File();
 
 		/* 打开文件 */
-		BOOL open(const WCHAR* path, FileAccessMode mode);
+		BOOL open(const WCHAR* wpath, FileAccessMode mode);
 
 		/* 文件是否已经被打开 */
 		BOOL isOpen();

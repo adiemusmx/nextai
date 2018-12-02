@@ -29,7 +29,6 @@
     <ClInclude Include="include\base\nextai_message.h" />
     <ClInclude Include="include\base\nextai_message_id.h" />
     <ClInclude Include="include\base\nextai_object.h" />
-    <ClInclude Include="include\base\nextai_string.h" />
     <ClInclude Include="include\base\nextai_time.h" />
   </ItemGroup>
   <ItemGroup>
@@ -39,7 +38,6 @@
     <ClCompile Include="src\nextai_log.cpp" />
     <ClCompile Include="src\nextai_math.cpp" />
     <ClCompile Include="src\nextai_message.cpp" />
-    <ClCompile Include="src\nextai_string.cpp" />
     <ClCompile Include="src\nextai_time.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

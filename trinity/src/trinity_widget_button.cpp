@@ -7,23 +7,16 @@ namespace NextAI
 {
 	WidgetButton::WidgetButton(ObjectId id) : WidgetObject(id)
 	{
+		setHitEnable(TRUE);
 		m_status = Status::Normal;
 		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
 		{
-			m_pictures[loopIdx] = NiNew(WidgetPicture, id);
+			m_pictures[loopIdx] = SMART_PTR<WidgetPicture>(NiNew(WidgetPicture, id));
 		}
 	}
 
 	WidgetButton::~WidgetButton()
 	{
-		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
-		{
-			if (m_pictures[loopIdx] != NULL)
-			{
-				NiDelete(m_pictures[loopIdx]);
-				m_pictures[loopIdx] = NULL;
-			}
-		}
 	}
 
 	void WidgetButton::drawImpl()
@@ -60,7 +53,7 @@ namespace NextAI
 	void WidgetButton::setPath(Status status, const WCHAR* path)
 	{
 		NEXTAI_INFO_W_LOG(L"this[%p] status[%d] path[%s]", this, status, path);
-		m_pictures[(int32)m_status]->setPath(path);
+		m_pictures[(int32)status]->setPath(path);
 	}
 
 	const WCHAR* WidgetButton::getPath(Status status)
@@ -72,6 +65,21 @@ namespace NextAI
 	{
 		NEXTAI_INFO_LOG("this[%p] status[%d]", this, status);
 		m_status = status;
+	}
+
+	WidgetButton::Status WidgetButton::getStatus()
+	{
+		return m_status;
+	}
+
+	void WidgetButton::setDrawableArea(const Rect& area)
+	{
+		WidgetObject::setDrawableArea(area);
+
+		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		{
+			m_pictures[loopIdx]->setDrawableArea(area);
+		}
 	}
 
 	WidgetPushButton::WidgetPushButton(ObjectId id) : WidgetButton(id)
