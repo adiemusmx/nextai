@@ -230,6 +230,8 @@ typedef uint64 PixelColor;
 #define COLOR_GREEN 0x00FF00FF
 #define COLOR_BLUE 0x0000FFFF
 
+#define PATH_LENGTH_MAX 256
+
 }
 
 #endif // !_NEXTAI_BASIC_TYPES_H_

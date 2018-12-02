@@ -8,25 +8,35 @@
 
 namespace NextAI
 {
+	bool waccess(const WCHAR* wpath, int32 openmode)
+	{
+		char path[PATH_LENGTH_MAX] = {0};
+		wcstombs(path, wpath, element_of(path));
+		return access(path, openmode);
+	}
+
+	void wgetcwd(WCHAR* wpath, size_t wpathLengh)
+	{
+		char path[PATH_LENGTH_MAX] = {0};
+		getcwd(path, element_of(path));
+		mbstowcs(wpath, path, wpathLengh);
+		return;
+	}
+
 	WCHAR FileSystem::m_currentDirectory[FILE_PATH_MAX_LENGTH] = { 0 };
 
 	BOOL FileSystem::isExist(const WCHAR* path)
 	{
-#ifdef SYSTEM_LINUX
-		return waccess(path);
-#else
-		std::wifstream file(path, std::wifstream::in);
-		return file ? TRUE : FALSE;
-#endif
+		return waccess(path, FILE_READ_FLAG);
 	}
 
 	FileSystem::ACCESS_MODE FileSystem::getAccessMode(const WCHAR* path)
 	{
-		if (!_waccess(path, FILE_EXIST_FLAG))
+		if (!waccess(path, FILE_EXIST_FLAG))
 			return FileSystem::ACCESS_MODE_NO_EXIST;
 
-		BOOL readable = _waccess(path, FILE_READ_FLAG);
-		BOOL writeable = _waccess(path, FILE_WRITE_FLAG);
+		BOOL readable = waccess(path, FILE_READ_FLAG);
+		BOOL writeable = waccess(path, FILE_WRITE_FLAG);
 
 		if (readable == TRUE && writeable == FALSE)
 			return FileSystem::ACCESS_MODE_READ_ONLY;
@@ -51,14 +61,13 @@ namespace NextAI
 	{
 		memset(m_currentDirectory, 0x00, sizeof(m_currentDirectory));
 
-		_wgetcwd(m_currentDirectory, element_of(m_currentDirectory));
+		wgetcwd(m_currentDirectory, element_of(m_currentDirectory));
 
-		int32 pathLength = wcslen(m_currentDirectory);
+		uint32 pathLength = wcslen(m_currentDirectory);
 
-		if (pathLength > 1 && pathLength < element_of(m_currentDirectory) - 2 && (m_currentDirectory[pathLength - 1] != '/' || m_currentDirectory[pathLength - 1] != '\\'))
+		if (pathLength > 1 && (pathLength < element_of(m_currentDirectory) - 2) && (m_currentDirectory[pathLength - 1] != '/' || m_currentDirectory[pathLength - 1] != '\\'))
 		{
 #if defined(SYSTEM_WINDOWS)
-			//m_currentDirectory[pathLength] = '\\';
 			m_currentDirectory[pathLength] = '/';
 #else
 			m_currentDirectory[pathLength] = '/';
@@ -96,7 +105,7 @@ namespace NextAI
 	{
 		NEXTAI_INFO_W_LOG(L"path[%s] mode[%d]", path, mode);
 		
-		m_file.open(path, _FileAccessMode2iosMode(mode));
+		m_file.open(path);
 		return isOpen();
 	}
 
