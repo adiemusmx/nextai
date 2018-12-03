@@ -2,6 +2,7 @@
 #include "render_system/render_font.h"
 #include "base/nextai_basic_define.h"
 #include "render_system/render_system.h"
+#include "FreeType/freetype.h"
 
 namespace NextAI
 {
@@ -68,12 +69,13 @@ namespace NextAI
 	{
 		m_texture = INVALID_TEXTURE_ID;
 		m_height = height;
+#ifdef SYSTEM_WINDOWS
 		m_handle = CreateFontA(
 			height, width, escapement, orientation,
 			weight,	italic, underline, strikeOut, charSet,
 			outPrecision, clipPrecision, quality,
 			pitchAndFamily, pszFaceName);
-
+#endif
 		init();
 	}
 
@@ -84,6 +86,7 @@ namespace NextAI
 
 	void WindowsFont::drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const
 	{
+#ifdef SYSTEM_WINDOWS
 		HDC hDC = wglGetCurrentDC();
 		size_t length = strlen(text);
 		length = (length > FONT_TEXTURE_MAX_SIZE ? FONT_TEXTURE_MAX_SIZE : length);
@@ -102,10 +105,12 @@ namespace NextAI
 		glFlush();
 
 		SelectObject(hDC, oldFont);
+#endif
 	}
 
 	void WindowsFont::drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const
 	{
+#ifdef SYSTEM_WINDOWS
 		HDC hDC = wglGetCurrentDC();
 		size_t length = wcslen(text);
 		length = (length > FONT_TEXTURE_MAX_SIZE ? FONT_TEXTURE_MAX_SIZE : length);
@@ -124,6 +129,7 @@ namespace NextAI
 		glFlush();
 
 		SelectObject(hDC, oldFont);
+#endif
 	}
 
 	void WindowsFont::init()
