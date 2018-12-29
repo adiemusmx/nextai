@@ -43,9 +43,9 @@ LDFLAGS += -ltrinity
 LDFLAGS += -lrender_system
 
 ifeq ($(shell uname), Linux)
-LDFLAGS += -lFreeImage
+LDFLAGS += -lfreeimage
 else
-LDFLAGS += -lFreeImage_win32
+LDFLAGS += -lfreeimage_win32
 endif
 
 LDFLAGS += -lbase
@@ -55,7 +55,7 @@ LDFLAGS += -lGL
 LDFLAGS += -lGLU
 LDFLAGS += -lglut
 else
-LDFLAGS += -lglut32
+#LDFLAGS += -lglut32
 LDFLAGS += -lglu32
 LDFLAGS += -lopengl32
 LDFLAGS += -lwinmm

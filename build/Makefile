@@ -5,7 +5,7 @@ all:
 	$(MAKE) -C ../render_system
 	$(MAKE) -C ../trinity
 	$(MAKE) -C ../app
-	$(CXX) $(LIBS_DIRS) $(LDFLAGS) -o app
+	cp -f ../app/lib/app ./exe/app
 
 clean:
 	$(MAKE) clean -C ../base

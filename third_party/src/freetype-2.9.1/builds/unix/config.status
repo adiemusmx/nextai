@@ -437,11 +437,11 @@ Copyright (C) 2012 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/mnt/g/WorkSpace/Github/NextAI/third_party/src/freetype-2.9.1/freetype-2.9.1/builds/unix'
+ac_pwd='/home/leon/Workspace/NextAI/NextAI/third_party/src/freetype-2.9.1/builds/unix'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
-AWK='gawk'
+AWK='mawk'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
 ac_need_defaults=:
@@ -600,7 +600,7 @@ old_postuninstall_cmds=''
 old_archive_cmds='$AR $AR_FLAGS $oldlib$oldobjs~$RANLIB $tool_oldlib'
 lock_old_archive_extraction='no'
 CC='gcc'
-CFLAGS='-g -O2 -fvisibility=hidden'
+CFLAGS='-g -O2 -fvisibility=hidden  -I/usr/include/libpng16'
 compiler=''
 GCC='yes'
 lt_cv_sys_global_symbol_pipe='sed -n -e '\''s/^.*[	 ]\([ABCDGIRSTW][ABCDGIRSTW]*\)[	 ][	 ]*\([_A-Za-z][_A-Za-z0-9]*\)$/\1 \2 \2/p'\'' | sed '\''/ __gnu_lto/d'\'''
@@ -654,7 +654,7 @@ hardcode_minus_L='no'
 hardcode_shlibpath_var='unsupported'
 hardcode_automatic='no'
 inherit_rpath='no'
-link_all_deplibs='unknown'
+link_all_deplibs='no'
 always_export_symbols='no'
 export_symbols_cmds='$NM $libobjs $convenience | $global_symbol_pipe | $SED '\''s/.* //'\'' | sort | uniq > $export_symbols'
 exclude_expsyms='_GLOBAL_OFFSET_TABLE_|_GLOBAL__F[ID]_.*'
@@ -678,8 +678,8 @@ postuninstall_cmds=''
 finish_cmds='PATH="\$PATH:/sbin" ldconfig -n $libdir'
 finish_eval=''
 hardcode_into_libs='yes'
-sys_lib_search_path_spec='/usr/lib/gcc/x86_64-linux-gnu/7 /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /lib '
-configure_time_dlsearch_path='/lib /usr/lib /usr/lib/x86_64-linux-gnu/libfakeroot /usr/local/lib /usr/local/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu '
+sys_lib_search_path_spec='/usr/lib/gcc/x86_64-linux-gnu/8 /usr/lib/x86_64-linux-gnu /usr/lib /lib/x86_64-linux-gnu /lib '
+configure_time_dlsearch_path='/lib /usr/lib /usr/lib/x86_64-linux-gnu/libfakeroot /usr/local/lib /usr/lib/vmware-tools/lib32/libvmGuestLib.so /usr/lib/vmware-tools/lib64/libvmGuestLib.so /usr/lib/vmware-tools/lib32/libvmGuestLibJava.so /usr/lib/vmware-tools/lib64/libvmGuestLibJava.so /usr/lib/vmware-tools/lib32/libDeployPkg.so /usr/lib/vmware-tools/lib64/libDeployPkg.so /usr/local/lib/x86_64-linux-gnu /lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu '
 configure_time_lt_sys_library_path=''
 hardcode_action='immediate'
 enable_dlopen='unknown'
@@ -784,7 +784,7 @@ fi
 
 
 
-FTOPTION_H_SED=" -e \"s|.*#.*def.*FT_CONFIG_OPTION_SYSTEM_ZLIB.*|/* #undef FT_CONFIG_OPTION_SYSTEM_ZLIB */|\" -e \"s|.*#.*def.*FT_CONFIG_OPTION_USE_BZIP2.*|/* #undef FT_CONFIG_OPTION_USE_BZIP2 */|\" -e \"s|.*#.*def.*FT_CONFIG_OPTION_USE_PNG.*|/* #undef FT_CONFIG_OPTION_USE_PNG */|\" -e \"s|.*#.*def.*FT_CONFIG_OPTION_USE_HARFBUZZ.*|/* #undef FT_CONFIG_OPTION_USE_HARFBUZZ */|\""
+FTOPTION_H_SED=" -e \"s|.*#.*def.*FT_CONFIG_OPTION_SYSTEM_ZLIB.*|#define FT_CONFIG_OPTION_SYSTEM_ZLIB|\" -e \"s|.*#.*def.*FT_CONFIG_OPTION_USE_BZIP2.*|/* #undef FT_CONFIG_OPTION_USE_BZIP2 */|\" -e \"s|.*#.*def.*FT_CONFIG_OPTION_USE_PNG.*|#define FT_CONFIG_OPTION_USE_PNG|\" -e \"s|.*#.*def.*FT_CONFIG_OPTION_USE_HARFBUZZ.*|/* #undef FT_CONFIG_OPTION_USE_HARFBUZZ */|\""
 
 
 # Handling of arguments.
@@ -866,18 +866,18 @@ S["LIBOBJS"]=""
 S["build_libtool_libs"]=""
 S["wl"]="-Wl,"
 S["hardcode_libdir_flag_spec"]="$wl-rpath $wl$libdir"
-S["LIBSSTATIC_CONFIG"]="-lfreetype"
-S["LIBS_PRIVATE"]=""
+S["LIBSSTATIC_CONFIG"]="-lfreetype -lz -lpng16 -lm -lz -lm"
+S["LIBS_PRIVATE"]="-lz -lpng16 -lm -lz -lm"
 S["REQUIRES_PRIVATE"]=""
 S["ftmac_c"]=""
 S["LIB_CLOCK_GETTIME"]=""
 S["HARFBUZZ_LIBS"]=""
 S["HARFBUZZ_CFLAGS"]=""
-S["LIBPNG_LIBS"]=""
-S["LIBPNG_CFLAGS"]=""
+S["LIBPNG_LIBS"]="-lpng16"
+S["LIBPNG_CFLAGS"]="-I/usr/include/libpng16"
 S["BZIP2_LIBS"]=""
 S["BZIP2_CFLAGS"]=""
-S["ZLIB_LIBS"]=""
+S["ZLIB_LIBS"]="-lz"
 S["ZLIB_CFLAGS"]=""
 S["XX_ANSIFLAGS"]=" -pedantic -ansi"
 S["XX_CFLAGS"]="-Wall"
@@ -897,7 +897,7 @@ S["LIPO"]=""
 S["NMEDIT"]=""
 S["DSYMUTIL"]=""
 S["MANIFEST_TOOL"]=":"
-S["AWK"]="gawk"
+S["AWK"]="mawk"
 S["RANLIB"]="ranlib"
 S["STRIP"]="strip"
 S["ac_ct_AR"]="ar"
@@ -923,8 +923,8 @@ S["OBJEXT"]="o"
 S["EXEEXT"]=""
 S["ac_ct_CC"]="gcc"
 S["CPPFLAGS"]=""
-S["LDFLAGS"]=""
-S["CFLAGS"]="-g -O2 -fvisibility=hidden"
+S["LDFLAGS"]=" -lz -lpng16"
+S["CFLAGS"]="-g -O2 -fvisibility=hidden  -I/usr/include/libpng16"
 S["CC"]="gcc"
 S["host_os"]="linux-gnu"
 S["host_vendor"]="pc"
@@ -955,6 +955,7 @@ S["infodir"]="${datarootdir}/info"
 S["docdir"]="${datarootdir}/doc/${PACKAGE_TARNAME}"
 S["oldincludedir"]="/usr/include"
 S["includedir"]="${prefix}/include"
+S["runstatedir"]="${localstatedir}/run"
 S["localstatedir"]="${prefix}/var"
 S["sharedstatedir"]="${prefix}/com"
 S["sysconfdir"]="${prefix}/etc"
@@ -1353,7 +1354,6 @@ $as_echo "$as_me: executing $ac_file commands" >&6;}
     cat <<_LT_EOF >> "$cfgfile"
 #! $SHELL
 # Generated automatically by $as_me ($PACKAGE) $VERSION
-# Libtool was configured on host `(hostname || uname -n) 2>/dev/null | sed 1q`:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.
