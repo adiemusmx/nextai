@@ -8,7 +8,7 @@ namespace NextAI
 
 	WidgetObject::WidgetObject(ObjectId id)
 	{
-		NEXTAI_TRACE_LOG_FLAG("Id[%d]", id);
+		NEXTAI_TRACE_LOG_FLAG("Id[%d]", (int32)id);
 		m_id = id;
 
 		m_drawableArea = { 0, 0, 0, 0 };
@@ -25,11 +25,11 @@ namespace NextAI
 
 	WidgetObject::~WidgetObject()
 	{
-		NEXTAI_TRACE_LOG_FLAG("Id[%d]", m_id);
+		NEXTAI_TRACE_LOG_FLAG("Id[%d]", (int32)m_id);
 		m_children.clear();
 	}
 
-	void WidgetObject::addChild(SMART_PTR<WidgetObject>& child)
+	void WidgetObject::addChild(SMART_PTR<WidgetObject> child)
 	{
 		if (child == NULL)
 		{
@@ -47,7 +47,7 @@ namespace NextAI
 		}
 	}
 
-	void WidgetObject::removeChild(const SMART_PTR<WidgetObject>& child)
+	void WidgetObject::removeChild(const SMART_PTR<WidgetObject> child)
 	{
 		if (child == NULL)
 		{
@@ -65,7 +65,7 @@ namespace NextAI
 		}
 	}
 
-	BOOL WidgetObject::isChild(const SMART_PTR<WidgetObject>& child)
+	BOOL WidgetObject::isChild(const SMART_PTR<WidgetObject> child)
 	{
 		if (child == NULL)
 		{
@@ -83,12 +83,12 @@ namespace NextAI
 		}
 	}
 
-	SMART_PTR<WidgetObject>& WidgetObject::getItem(size_t index)
+	SMART_PTR<WidgetObject> WidgetObject::getItem(size_t index)
 	{
 		return m_children[index];
 	}
 
-	SMART_PTR<WidgetObject>& WidgetObject::operator[](size_t index)
+	SMART_PTR<WidgetObject> WidgetObject::operator[](size_t index)
 	{
 		return m_children[index];
 	}
@@ -153,7 +153,7 @@ namespace NextAI
 				return HitResult::Hit;;
 		}
 
-		if (m_hitEnable && hitImpl(touch, touchCount, touchId, touchPos) == HitResult::Hit || !m_hitTransEnable)
+		if ((m_hitEnable && hitImpl(touch, touchCount, touchId, touchPos) == HitResult::Hit) || !m_hitTransEnable)
 			return HitResult::Hit;
 		else
 			return HitResult::Missed;

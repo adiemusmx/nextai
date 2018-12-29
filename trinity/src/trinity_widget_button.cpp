@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "trinity/trinity_widget_button.h"
 #include "trinity/trinity_widget_group.h"
 #include "base/nextai_object.h"
@@ -9,7 +9,7 @@ namespace NextAI
 	{
 		setHitEnable(TRUE);
 		m_status = Status::Normal;
-		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
 		{
 			m_pictures[loopIdx] = SMART_PTR<WidgetPicture>(NiNew(WidgetPicture, id));
 		}
@@ -26,22 +26,21 @@ namespace NextAI
 
 	HitResult WidgetButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, (int32)m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* Ñ¹ÏÂ */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Ì§Æð */
+
 		else if (m_status == Status::Pressed &&
 			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
 			m_status = Status::Normal;
 			setCaptureTouch(FALSE);
 		}
-		/* ÎÞÐ§ */
+
 		else if (m_status == Status::Disabled)
 		{
 			return HitResult::Missed;
@@ -52,7 +51,7 @@ namespace NextAI
 
 	void WidgetButton::setPath(Status status, const WCHAR* path)
 	{
-		NEXTAI_INFO_W_LOG(L"this[%p] status[%d] path[%s]", this, status, path);
+		NEXTAI_INFO_W_LOG(L"this[%p] status[%d] path[%s]", this, (int32)status, path);
 		m_pictures[(int32)status]->setPath(path);
 	}
 
@@ -63,7 +62,7 @@ namespace NextAI
 
 	void WidgetButton::setStatus(Status status)
 	{
-		NEXTAI_INFO_LOG("this[%p] status[%d]", this, status);
+		NEXTAI_INFO_LOG("this[%p] status[%d]", this, (int32)status);
 		m_status = status;
 	}
 
@@ -76,7 +75,7 @@ namespace NextAI
 	{
 		WidgetObject::setDrawableArea(area);
 
-		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
 		{
 			m_pictures[loopIdx]->setDrawableArea(area);
 		}
@@ -100,24 +99,18 @@ namespace NextAI
 
 	WidgetRadioButton::~WidgetRadioButton()
 	{
-		if (m_group != NULL)
-		{
-			m_group->removeMember(SMART_PTR<WidgetObject>((WidgetObject*)this));
-			m_group = NULL;
-		}
 	}
 
 	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, (int32)m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* Ñ¹ÏÂ */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Ì§Æð */
+
 		else if (m_status == Status::Pressed &&
 			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
@@ -127,13 +120,13 @@ namespace NextAI
 			}
 			setCaptureTouch(FALSE);
 		}
-		/* Ñ¡ÖÐÌ¬ */
+
 		else if (m_status == Status::Selected && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* ÎÞÐ§ */
+
 		else if (m_status == Status::Disabled)
 		{
 			return HitResult::Missed;
@@ -162,14 +155,6 @@ namespace NextAI
 		}
 	}
 
-	void WidgetRadioButton::setGroup(SMART_PTR<WidgetGroup>& group)
-	{
-		NEXTAI_INFO_LOG("this[%p] group[%p]", this, group);
-
-		m_group = group;
-		m_group->addMember(SMART_PTR<WidgetObject>((WidgetObject*)this));
-	}
-
 	WidgetCheckButton::WidgetCheckButton(ObjectId id) : WidgetButton(id)
 	{
 		m_check = FALSE;
@@ -182,15 +167,14 @@ namespace NextAI
 
 	HitResult WidgetCheckButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		NEXTAI_TRACE_LOG_FLAG("this[%p] m_status[%d] touch[%d] count[%d] touchPos[%d,%d][%d,%d]", this, (int32)m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* Ñ¹ÏÂ */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Ì§Æð */
+
 		else if (m_status == Status::Pressed &&
 			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
@@ -198,13 +182,13 @@ namespace NextAI
 			m_status = m_check ? Status::Selected : Status::Normal;
 			setCaptureTouch(FALSE);
 		}
-		/* Ñ¡ÖÐÌ¬ */
+
 		else if (m_status == Status::Selected && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* ÎÞÐ§ */
+
 		else if (m_status == Status::Disabled)
 		{
 			return HitResult::Missed;

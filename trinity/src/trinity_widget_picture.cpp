@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "trinity/trinity_widget_picture.h"
 #include "base/nextai_log.h"
 
@@ -20,7 +20,7 @@ namespace NextAI {
 		if (m_picture == INVALID_TEXTURE_ID)
 			return;
 
-		/* Í¼Æ¬×ÊÔ´Ãè»­ */
+		/* å›¾ç‰‡èµ„æºæç”» */
 		RENDER_SYSTEM()->drawPicture(m_picture, getDrawableArea());
 	}
 
@@ -32,10 +32,10 @@ namespace NextAI {
 			return;
 		}
 
-		/* ±£´æÍ¼Æ¬Â·¾¶ */
-		wcscpy_s(m_path, path);
+		/* ä¿å­˜å›¾ç‰‡è·¯å¾„ */
+		wcscpy(m_path, path);
 
-		/* ¼ÓÔØÐÂµÄÎÆÀí×ÊÔ´ */
+		/* åŠ è½½æ–°çš„çº¹ç†èµ„æº */
 		m_picture = RENDER_SYSTEM()->allocPictureTexture(m_path, m_picture);
 	}
 

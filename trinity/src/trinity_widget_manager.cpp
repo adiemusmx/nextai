@@ -14,7 +14,7 @@ namespace NextAI
 	void WidgetManager::init()
 	{
 		NEXTAI_TRACE_LOG_START();
-		Rect full = { 0, 0, APP_SERVICE()->getWindowsWidth(), APP_SERVICE()->getWindowsHeight() };
+		Rect full = { 0, 0, (int32)APP_SERVICE()->getWindowsWidth(), (int32)APP_SERVICE()->getWindowsHeight() };
 		
 		m_root = SMART_PTR<WidgetObject>(NiNew(WidgetObject, 0));
 		m_root->setArea(full);
@@ -35,22 +35,22 @@ namespace NextAI
 		APP_SERVICE()->removeEventListener(this);
 	}
 
-	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
+	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView> view)
 	{
-		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view);
+		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view.get());
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
 			m_root->getItem(surface)->addChild(SMART_PTR<WidgetObject>(view));
 		else
-			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
+			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view.get());
 	}
 
-	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
+	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView> view)
 	{
-		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view);
+		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view.get());
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
 			m_root->getItem(surface)->removeChild(view);
 		else
-			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
+			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view.get());
 	}
 
 	ListenerResult WidgetManager::render()
@@ -95,5 +95,4 @@ namespace NextAI
 		}
 		return ret;
 	}
-
 }
