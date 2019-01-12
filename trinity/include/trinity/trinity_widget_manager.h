@@ -27,8 +27,8 @@ namespace NextAI
 		void cleanup();
 
 		/* 管理View */
-		void addView(SURFACE_ID surface, SMART_PTR<WidgetView> view);
-		void removeView(SURFACE_ID surface, SMART_PTR<WidgetView> view);
+		void addView(SURFACE_ID surface, std::shared_ptr<WidgetView> view);
+		void removeView(SURFACE_ID surface, std::shared_ptr<WidgetView> view);
 
 		/* 描画函数 */
 		virtual ListenerResult render();
@@ -47,7 +47,7 @@ namespace NextAI
 		DISABLE_CLASS_COPY(WidgetManager);
 
 		/* 根节点 */
-		SMART_PTR<WidgetObject> m_root;
+		std::shared_ptr<WidgetObject> m_root;
 	};
 }
 

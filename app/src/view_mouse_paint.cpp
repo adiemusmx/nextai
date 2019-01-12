@@ -12,12 +12,12 @@ ViewMousePaint::ViewMousePaint() : NextAI::WidgetView(OBJECT_ID_SCREEN_MOUSE_PAI
 {
 	APP_SERVICE()->addEventListener(this);
 
-	SMART_PTR<WidgetPushButton> button = SMART_PTR<WidgetPushButton>(NiNew(WidgetPushButton, 10));
+	std::shared_ptr<WidgetPushButton> button = std::shared_ptr<WidgetPushButton>(NiNew(WidgetPushButton, 10));
 	Rect position = { 0, 0, 100, 100 };
 	button->setArea(position);
 	button->setPath(WidgetButton::Status::Normal, L"res/right_normal.png");
 	button->setPath(WidgetButton::Status::Pressed, L"res/right_pressed.png");
-	this->addChild(SMART_PTR<WidgetObject>(button));
+	this->addChild(std::shared_ptr<WidgetObject>(button));
 }
 
 ViewMousePaint::~ViewMousePaint()

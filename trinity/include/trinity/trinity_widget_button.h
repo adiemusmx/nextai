@@ -58,7 +58,7 @@ namespace NextAI
 		Status m_status;
 
 		/* 图片资源纹理 */
-		SMART_PTR<WidgetPicture> m_pictures[(int32)Status::Max];
+		std::shared_ptr<WidgetPicture> m_pictures[(int32)Status::Max];
 	};
 
 	/* 
@@ -95,7 +95,7 @@ namespace NextAI
 		DISABLE_CLASS_COPY(WidgetRadioButton);
 
 		/* 组 */
-		SMART_PTR<WidgetGroup> m_group;
+		std::shared_ptr<WidgetGroup> m_group;
 
 		/* 选中状态 */
 		BOOL m_check;
@@ -121,5 +121,7 @@ namespace NextAI
 		BOOL m_check;
 	};
 }
+
+std::wostream& operator<<(std::wostream& os, NextAI::WidgetButton::Status mode);
 
 #endif // !_TRINITY_WIDGET_BUTTON_H_

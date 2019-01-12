@@ -29,7 +29,7 @@ namespace NextAI
 		m_children.clear();
 	}
 
-	void WidgetObject::addChild(SMART_PTR<WidgetObject> child)
+	void WidgetObject::addChild(std::shared_ptr<WidgetObject> child)
 	{
 		if (child == NULL)
 		{
@@ -47,7 +47,7 @@ namespace NextAI
 		}
 	}
 
-	void WidgetObject::removeChild(const SMART_PTR<WidgetObject> child)
+	void WidgetObject::removeChild(const std::shared_ptr<WidgetObject> child)
 	{
 		if (child == NULL)
 		{
@@ -65,7 +65,7 @@ namespace NextAI
 		}
 	}
 
-	BOOL WidgetObject::isChild(const SMART_PTR<WidgetObject> child)
+	BOOL WidgetObject::isChild(const std::shared_ptr<WidgetObject> child)
 	{
 		if (child == NULL)
 		{
@@ -83,12 +83,12 @@ namespace NextAI
 		}
 	}
 
-	SMART_PTR<WidgetObject> WidgetObject::getItem(size_t index)
+	std::shared_ptr<WidgetObject> WidgetObject::getItem(size_t index)
 	{
 		return m_children[index];
 	}
 
-	SMART_PTR<WidgetObject> WidgetObject::operator[](size_t index)
+	std::shared_ptr<WidgetObject> WidgetObject::operator[](size_t index)
 	{
 		return m_children[index];
 	}
@@ -150,7 +150,7 @@ namespace NextAI
 		for (auto pObj : m_children)
 		{
 			if (pObj->hit(touch, touchCount, touchId, touchPos) == HitResult::Hit)
-				return HitResult::Hit;;
+				return HitResult::Hit;
 		}
 
 		if ((m_hitEnable && hitImpl(touch, touchCount, touchId, touchPos) == HitResult::Hit) || !m_hitTransEnable)

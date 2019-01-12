@@ -24,14 +24,17 @@ namespace NextAI
 		WidgetObject(ObjectId id);
 		virtual ~WidgetObject();
 
+		virtual void setId(ObjectId id) { m_id = id; }
+		virtual ObjectId getId() { return m_id; }
+
 		/* 管理子控件 */
-		virtual void addChild(SMART_PTR<WidgetObject> child);
-		virtual void removeChild(const SMART_PTR<WidgetObject> child);
-		virtual BOOL isChild(const SMART_PTR<WidgetObject> child);
+		virtual void addChild(std::shared_ptr<WidgetObject> child);
+		virtual void removeChild(const std::shared_ptr<WidgetObject> child);
+		virtual BOOL isChild(const std::shared_ptr<WidgetObject> child);
 
 		/* 获得子控件 */
-		virtual SMART_PTR<WidgetObject> getItem(size_t index);
-		virtual SMART_PTR<WidgetObject> operator[](size_t index);
+		virtual std::shared_ptr<WidgetObject> getItem(size_t index);
+		virtual std::shared_ptr<WidgetObject> operator[](size_t index);
 		virtual size_t getItemCount();
 
 		/* 获得ObjectID */
@@ -108,7 +111,7 @@ namespace NextAI
 		BOOL m_isCaptureTouch;
 
 		/* 子控件 */
-		std::vector<SMART_PTR<WidgetObject>> m_children;
+		std::vector<std::shared_ptr<WidgetObject>> m_children;
 	};
 
 }

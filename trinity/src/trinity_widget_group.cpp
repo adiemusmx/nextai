@@ -13,15 +13,15 @@ namespace NextAI
 		m_members.clear();
 	}
 
-	void WidgetGroup::addMember(SMART_PTR<WidgetObject>& object)
+	void WidgetGroup::addMember(std::shared_ptr<WidgetObject>& object)
 	{
-		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = m_members.begin();
+		std::vector<std::weak_ptr<WidgetObject>>::iterator iter = m_members.begin();
 		while (iter != m_members.end())
 		{
-			WidgetObject* obj = (WidgetObject*)(SMART_PTR<WidgetObject>(*iter)).get();
+			WidgetObject* obj = (WidgetObject*)(std::shared_ptr<WidgetObject>(*iter)).get();
 			if (obj == object.get())
 			{
-				TRINITY_TRACE_LOG("Add Same Member![{}]", object.get());
+				TRINITY_TRACE_LOG("Add Same Member![{}]", object->getId());
 				break;
 			}
 			++iter;
@@ -33,12 +33,12 @@ namespace NextAI
 		}
 	}
 
-	void WidgetGroup::removeMember(SMART_PTR<WidgetObject>& object)
+	void WidgetGroup::removeMember(std::shared_ptr<WidgetObject>& object)
 	{
-		std::vector<WEAK_PTR<WidgetObject>>::iterator iter = m_members.begin();
+		std::vector<std::weak_ptr<WidgetObject>>::iterator iter = m_members.begin();
 		while (iter != m_members.end())
 		{
-			WidgetObject* obj = (WidgetObject*)(SMART_PTR<WidgetObject>(*iter)).get();
+			WidgetObject* obj = (WidgetObject*)(std::shared_ptr<WidgetObject>(*iter)).get();
 			if (obj == object.get())
 			{
 				break;
@@ -52,7 +52,7 @@ namespace NextAI
 		}
 		else
 		{
-			TRINITY_TRACE_LOG("Remove Invalidate Member![{}]", object.get());
+			TRINITY_TRACE_LOG("Remove Invalidate Member![{}]", object->getId());
 		}
 	}
 
@@ -61,7 +61,7 @@ namespace NextAI
 		return m_members.size();
 	}
 
-	WEAK_PTR<WidgetObject>& WidgetGroup::getItem(int32 index)
+	std::weak_ptr<WidgetObject> WidgetGroup::getItem(int32 index)
 	{
 		return m_members[index];
 	}

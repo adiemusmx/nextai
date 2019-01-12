@@ -16,12 +16,12 @@ namespace NextAI
 		TRINITY_TRACE_FUNC();
 		Rect full = { 0, 0, (int32)APP_SERVICE()->getWindowsWidth(), (int32)APP_SERVICE()->getWindowsHeight() };
 		
-		m_root = SMART_PTR<WidgetObject>(NiNew(WidgetObject, 0));
+		m_root = std::shared_ptr<WidgetObject>(NiNew(WidgetObject, 0));
 		m_root->setArea(full);
-		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_BASE)));
-		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_VIEW)));
-		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_ONS)));
-		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_INTERRUPT)));
+		m_root->addChild(std::shared_ptr<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_BASE)));
+		m_root->addChild(std::shared_ptr<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_VIEW)));
+		m_root->addChild(std::shared_ptr<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_ONS)));
+		m_root->addChild(std::shared_ptr<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_INTERRUPT)));
 
 		APP_SERVICE()->addEventListener(this);
 	}
@@ -33,16 +33,16 @@ namespace NextAI
 		APP_SERVICE()->removeEventListener(this);
 	}
 
-	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView> view)
+	void WidgetManager::addView(SURFACE_ID surface, std::shared_ptr<WidgetView> view)
 	{
 		TRINITY_INFO_LOG("surface[{}] view[{}]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
-			m_root->getItem(surface)->addChild(SMART_PTR<WidgetObject>(view));
+			m_root->getItem(surface)->addChild(std::shared_ptr<WidgetObject>(view));
 		else
 			TRINITY_WARN_LOG("Invalid SURFACE_ID[{}] view[{}]", surface, view);
 	}
 
-	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView> view)
+	void WidgetManager::removeView(SURFACE_ID surface, std::shared_ptr<WidgetView> view)
 	{
 		TRINITY_INFO_LOG("surface[{}] view[{}]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)

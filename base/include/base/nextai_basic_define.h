@@ -136,8 +136,4 @@ typedef int32 LONG;
 #define NI_PROPERTY(...) 
 #define NI_ATTRIBUTE(...)
 
-#define SMART_PTR std::shared_ptr
-#define WEAK_PTR std::weak_ptr
-#define UNIQUE_PTR std::unique_ptr
-
 #endif // !_NEXTAI_BASIC_DEFINE_H_

@@ -11,7 +11,7 @@ namespace NextAI
 		m_status = Status::Normal;
 		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
 		{
-			m_pictures[loopIdx] = SMART_PTR<WidgetPicture>(NiNew(WidgetPicture, id));
+			m_pictures[loopIdx] = std::shared_ptr<WidgetPicture>(NiNew(WidgetPicture, id));
 		}
 	}
 
@@ -26,7 +26,7 @@ namespace NextAI
 
 	HitResult WidgetButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		TRINITY_TRACE_LOG(NULL, "this[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", (int)this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		TRINITY_TRACE_LOG("id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
@@ -51,7 +51,7 @@ namespace NextAI
 
 	void WidgetButton::setPath(Status status, const WCHAR* path)
 	{
-		TRINITY_INFO_LOG("this[{}] status[{}] path[{}]", this, status, path);
+		TRINITY_INFO_LOG("id[{}] status[{}] path[{}]", getId(), status, path);
 		m_pictures[(int32)status]->setPath(path);
 	}
 
@@ -62,7 +62,7 @@ namespace NextAI
 
 	void WidgetButton::setStatus(Status status)
 	{
-		TRINITY_INFO_LOG("this[{}] status[{}]", this, status);
+		TRINITY_INFO_LOG("id[{}] status[{}]", getId(), status);
 		m_status = status;
 	}
 
@@ -103,9 +103,8 @@ namespace NextAI
 
 	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		TRINITY_TRACE_LOG("this[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", (int)this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		TRINITY_TRACE_LOG("id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* Ñ¹ÏÂ */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
@@ -138,13 +137,13 @@ namespace NextAI
 
 	void WidgetRadioButton::setChecked()
 	{
-		TRINITY_TRACE_LOG("this[{}]", this);
+		TRINITY_TRACE_LOG("id[{}]", getId());
 
 		if (m_group != NULL)
 		{
 			for (size_t loopIdx = 0; loopIdx < m_group->getCount(); ++loopIdx)
 			{
-				WidgetRadioButton* button = (WidgetRadioButton*)(SMART_PTR<WidgetObject>(m_group->getItem(loopIdx))).get();
+				WidgetRadioButton* button = (WidgetRadioButton*)(std::shared_ptr<WidgetObject>(m_group->getItem(loopIdx))).get();
 				BOOL isChecked = (button == this);
 				button->m_check = isChecked;
 				button->m_status = isChecked ? Status::Selected : Status::Normal;
@@ -152,7 +151,7 @@ namespace NextAI
 		}
 		else
 		{
-			TRINITY_WARN_LOG("this[{}] button's group is NULL.", this);
+			TRINITY_WARN_LOG("id[{}] button's group is NULL.", getId());
 		}
 	}
 
@@ -168,7 +167,7 @@ namespace NextAI
 
 	HitResult WidgetCheckButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		TRINITY_TRACE_LOG("this[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", (int)this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		TRINITY_TRACE_LOG("id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
@@ -197,4 +196,27 @@ namespace NextAI
 
 		return HitResult::Hit;
 	}
+}
+
+std::wostream& operator<<(std::wostream& os, NextAI::WidgetButton::Status mode)
+{
+	switch (mode)
+	{
+	case NextAI::WidgetButton::Status::Normal:
+		os << L"WidgetButton::Status::Normal";
+		break;
+	case NextAI::WidgetButton::Status::Pressed:
+		os << L"WidgetButton::Status::Pressed";
+		break;
+	case NextAI::WidgetButton::Status::Selected:
+		os << L"WidgetButton::Status::Selected";
+		break;
+	case NextAI::WidgetButton::Status::Disabled:
+		os << L"WidgetButton::Status::Disabled";
+		break;
+	default:
+		os << L"WidgetButton::Status::Unknown";
+		break;
+	}
+	return os;
 }
