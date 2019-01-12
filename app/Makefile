@@ -1,33 +1,46 @@
-# The Target File Name
 TARGET = app.exe
 
-# Common makefile
 include ../build/configuration.mk
 
+SOURCES = $(wildcard src/*.cpp) $(wildcard src/*.c)
+VPATH = src
+
+OBJ_DIR = obj
+LIB_DIR = lib
+
+# Objects Files
 SOURCES := $(wildcard src/*.cpp) $(wildcard src/*.c)
-OBJECTS := $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SOURCES)))
+OBJECTS = $(addprefix $(OBJ_DIR)/,$(patsubst %.cpp,%.o,$(notdir $(SOURCES))))
+DEPS = $(OBJECTS:%.o=%.d)
 
 $(TARGET) : $(OBJECTS)
-	$(CXX) $(OBJECTS) $(LIBS_DIRS) $(LDFLAGS) -o $(TARGET)
-%.o : %.cpp
+	if [ ! -d $(LIB_DIR) ]; then mkdir -p $(LIB_DIR); fi;\
+	$(CXX) $(OBJECTS) $(LIBS_DIRS) $(LDFLAGS) -o $(LIB_DIR)/$(TARGET)
+	
+$(OBJ_DIR)/%.o : %.cpp
+	@if [ ! -d $(OBJ_DIR) ]; then mkdir -p $(OBJ_DIR); fi;\
+	echo "    "Compiling \[ $< \]...; \
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
-%.o : %.c
+
+$(OBJ_DIR)/%.o : %.c
+	@if [ ! -d $(OBJ_DIR) ]; then mkdir -p $(OBJ_DIR); fi;\
+	echo "    "Compiling \[ $< \]...; \
 	$(CXX) $(CFLAGS) -c $< -o $@ $(INCLUDE_DIRS)
 	
-#define DEP_BUILD
-#@set -e; rm -f $@; \
+define DEP_BUILD
+@if [ ! -d $(OBJ_DIR) ]; then mkdir -p $(OBJ_DIR); fi;\
+set -e; rm -f $@; \
 $(CXX) -MM $(CFLAGS) $< $(INCLUDE_DIRS) > $@.$$$$; \
-sed 's,\($*\)\.o[ :]*,\1.o $@ : ,g' < $@.$$$$ > $@; \
+sed 's,\($*\)\.o[ :]*,$(OBJ_DIR)/\1.o $@ : ,g' < $@.$$$$ > $@; \
 rm -f $@.$$$$
-#endef
+endef
 
-#%.d : %.cpp
-#	$(DEP_BUILD)
-#%.d: %.c
-#	$(DEP_BUILD)
+$(OBJ_DIR)/%.d : %.cpp
+	$(DEP_BUILD)
+$(OBJ_DIR)/%.d: %.c
+	$(DEP_BUILD)
 
-#-include $(DEPS)
+-include $(DEPS)
 .PHONY : clean
 clean :
-#	rm -rf $(TARGET) $(OBJECTS) $(DEPS) ../src/*.d.* ../src/*.d
-	rm -rf $(TARGET) ./src/*.o
+	rm -rf $(LIB_DIR) $(OBJ_DIR) 

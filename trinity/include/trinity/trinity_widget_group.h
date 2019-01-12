@@ -1,4 +1,4 @@
-#ifndef _TRINITY_WIDGET_GROUP_H_
+ï»¿#ifndef _TRINITY_WIDGET_GROUP_H_
 #define _TRINITY_WIDGET_GROUP_H_
 
 #include "base/nextai_app.h"
@@ -10,7 +10,7 @@ namespace NextAI
 	class WidgetObject;
 
 	/*
-	* ×é¶Ó
+	* ç»„é˜Ÿ
 	*/
 	class WidgetGroup : public NiObject
 	{
@@ -18,22 +18,22 @@ namespace NextAI
 		WidgetGroup();
 		virtual ~WidgetGroup();
 
-		/* ¹ÜÀí³ÉÔ± */
+		/* ç®¡ç†æˆå‘˜ */
 		void addMember(SMART_PTR<WidgetObject>& object);
 		void removeMember(SMART_PTR<WidgetObject>& object);
 
-		/* »ñµÃ³ÉÔ±ÊıÁ¿ */
+		/* è·å¾—æˆå‘˜æ•°é‡ */
 		virtual size_t getCount();
 
-		/* È¡µÃµ¥¸öÔªËØ */
-		virtual WEAK_PTR<WidgetObject>& getItem(int32 index);
+		/* å–å¾—å•ä¸ªå…ƒç´  */
+		virtual WEAK_PTR<WidgetObject> getItem(int32 index);
 
 	private:
-		/* ½ûÓÃ¹¹Ôìº¯Êı */
+		/* ç¦ç”¨æ„é€ å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetGroup);
 
 	private:
-		/* ³ÉÔ± */
+		/* æˆå‘˜ */
 		std::vector<WEAK_PTR<WidgetObject>> m_members;
 	};
 }

@@ -7,6 +7,7 @@ CFLAGS  = -Wall
 CFLAGS += -std=c++14
 CFLAGS += -O
 CFLAGS += -g
+CFLAGS += -Wno-unused-result
 CFLAGS += -DGLUT_DISABLE_ATEXIT_HACK
 CFLAGS += -DGLUT_NO_WARNING_DISABLE
 CFLAGS += -DGLUT_NO_LIB_PRAGMA
@@ -42,9 +43,9 @@ LDFLAGS += -ltrinity
 LDFLAGS += -lrender_system
 
 ifeq ($(shell uname), Linux)
-LDFLAGS += -lFreeImage
+LDFLAGS += -lfreeimage
 else
-LDFLAGS += -lFreeImage_win32
+LDFLAGS += -lfreeimage_win32
 endif
 
 LDFLAGS += -lbase
@@ -54,7 +55,7 @@ LDFLAGS += -lGL
 LDFLAGS += -lGLU
 LDFLAGS += -lglut
 else
-LDFLAGS += -lglut32
+#LDFLAGS += -lglut32
 LDFLAGS += -lglu32
 LDFLAGS += -lopengl32
 LDFLAGS += -lwinmm

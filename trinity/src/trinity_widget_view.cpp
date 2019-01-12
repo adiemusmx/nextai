@@ -6,7 +6,7 @@ namespace NextAI
 
 WidgetView::WidgetView(ObjectId id): WidgetObject(id)
 {
-	Rect full = { 0, 0, APP_SERVICE()->getWindowsWidth(), APP_SERVICE()->getWindowsHeight() };
+	Rect full = { 0, 0, (int32)APP_SERVICE()->getWindowsWidth(), (int32)APP_SERVICE()->getWindowsHeight() };
 	setDrawableArea(full);
 }
 

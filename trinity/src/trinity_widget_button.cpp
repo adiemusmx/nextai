@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 #include "trinity/trinity_widget_button.h"
 #include "trinity/trinity_widget_group.h"
 #include "base/nextai_object.h"
@@ -9,7 +9,7 @@ namespace NextAI
 	{
 		setHitEnable(TRUE);
 		m_status = Status::Normal;
-		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
 		{
 			m_pictures[loopIdx] = SMART_PTR<WidgetPicture>(NiNew(WidgetPicture, id));
 		}
@@ -28,20 +28,19 @@ namespace NextAI
 	{
 		TRINITY_TRACE_LOG(NULL, "this[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* —πœ¬ */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Ãß∆ */
+
 		else if (m_status == Status::Pressed &&
 			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
 			m_status = Status::Normal;
 			setCaptureTouch(FALSE);
 		}
-		/* Œﬁ–ß */
+
 		else if (m_status == Status::Disabled)
 		{
 			return HitResult::Missed;
@@ -76,7 +75,7 @@ namespace NextAI
 	{
 		WidgetObject::setDrawableArea(area);
 
-		for (int32 loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
 		{
 			m_pictures[loopIdx]->setDrawableArea(area);
 		}
@@ -100,24 +99,19 @@ namespace NextAI
 
 	WidgetRadioButton::~WidgetRadioButton()
 	{
-		if (m_group != NULL)
-		{
-			m_group->removeMember(SMART_PTR<WidgetObject>((WidgetObject*)this));
-			m_group = NULL;
-		}
 	}
 
 	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
 		TRINITY_TRACE_LOG("this[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* —πœ¬ */
+		/* √ë¬π√è√Ç */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Ãß∆ */
+
 		else if (m_status == Status::Pressed &&
 			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
@@ -127,13 +121,13 @@ namespace NextAI
 			}
 			setCaptureTouch(FALSE);
 		}
-		/* —°÷–Ã¨ */
+
 		else if (m_status == Status::Selected && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Œﬁ–ß */
+
 		else if (m_status == Status::Disabled)
 		{
 			return HitResult::Missed;
@@ -162,14 +156,6 @@ namespace NextAI
 		}
 	}
 
-	void WidgetRadioButton::setGroup(SMART_PTR<WidgetGroup>& group)
-	{
-		TRINITY_INFO_LOG("this[{}] group[{}]", this, group);
-
-		m_group = group;
-		m_group->addMember(SMART_PTR<WidgetObject>((WidgetObject*)this));
-	}
-
 	WidgetCheckButton::WidgetCheckButton(ObjectId id) : WidgetButton(id)
 	{
 		m_check = FALSE;
@@ -184,13 +170,12 @@ namespace NextAI
 	{
 		TRINITY_TRACE_LOG("this[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", this, m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
-		/* —πœ¬ */
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Ãß∆ */
+
 		else if (m_status == Status::Pressed &&
 			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
@@ -198,13 +183,13 @@ namespace NextAI
 			m_status = m_check ? Status::Selected : Status::Normal;
 			setCaptureTouch(FALSE);
 		}
-		/* —°÷–Ã¨ */
+
 		else if (m_status == Status::Selected && touch == TouchType_BEGAN)
 		{
 			m_status = Status::Pressed;
 			setCaptureTouch(TRUE);
 		}
-		/* Œﬁ–ß */
+
 		else if (m_status == Status::Disabled)
 		{
 			return HitResult::Missed;

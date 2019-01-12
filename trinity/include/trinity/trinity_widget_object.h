@@ -1,4 +1,4 @@
-#ifndef _TRINITY_WIDGET_OBJECT_H_
+ï»¿#ifndef _TRINITY_WIDGET_OBJECT_H_
 #define _TRINITY_WIDGET_OBJECT_H_
 
 #include "trinity_object_id.h"
@@ -12,102 +12,102 @@ namespace NextAI
 {
 	enum class HitResult
 	{
-		Hit = 0,		/* ÃüÖĞ */
-		Missed,			/* Î´ÃüÖĞ */
+		Hit = 0,		/* å‘½ä¸­ */
+		Missed,			/* æœªå‘½ä¸­ */
 	};
 
-	/* ¿Ø¼ş */
+	/* æ§ä»¶ */
 	class WidgetObject
 	{
 	public:
-		/* ¹¹Ôìº¯ÊıºÍÎö¹¹º¯Êı */
+		/* æ„é€ å‡½æ•°å’Œææ„å‡½æ•° */
 		WidgetObject(ObjectId id);
 		virtual ~WidgetObject();
 
-		/* ¹ÜÀí×Ó¿Ø¼ş */
-		virtual void addChild(SMART_PTR<WidgetObject>& child);
-		virtual void removeChild(const SMART_PTR<WidgetObject>& child);
-		virtual BOOL isChild(const SMART_PTR<WidgetObject>& child);
+		/* ç®¡ç†å­æ§ä»¶ */
+		virtual void addChild(SMART_PTR<WidgetObject> child);
+		virtual void removeChild(const SMART_PTR<WidgetObject> child);
+		virtual BOOL isChild(const SMART_PTR<WidgetObject> child);
 
-		/* »ñµÃ×Ó¿Ø¼ş */
-		virtual SMART_PTR<WidgetObject>& getItem(size_t index);
-		virtual SMART_PTR<WidgetObject>& operator[](size_t index);
+		/* è·å¾—å­æ§ä»¶ */
+		virtual SMART_PTR<WidgetObject> getItem(size_t index);
+		virtual SMART_PTR<WidgetObject> operator[](size_t index);
 		virtual size_t getItemCount();
 
-		/* »ñµÃObjectID */
+		/* è·å¾—ObjectID */
 		virtual WidgetObject* getObjectById(ObjectId id);
 
-		/* Ãè»­ */
+		/* æç”» */
 		virtual void draw();
 		virtual void drawImpl();
 		virtual void setDrawableArea(const Rect& area);
 		virtual const Rect& getDrawableArea();
 
-		/* µã»÷ */
+		/* ç‚¹å‡» */
 		virtual HitResult hit(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 		virtual void setHitableArea(const Rect& area);
 		virtual const Rect& getHitableArea();
 
-		/* Óï·¨ÌÇ */
+		/* è¯­æ³•ç³– */
 		virtual void setArea(const Rect& area)
 		{
 			setDrawableArea(area);
 			setHitableArea(area);
 		}
 
-		/* ÊÇ·ñ¿É¼û */
+		/* æ˜¯å¦å¯è§ */
 		virtual void setVisible(BOOL visible);
 		virtual BOOL getVisible();
 
-		/* µã»÷ÊÂ¼ş */
+		/* ç‚¹å‡»äº‹ä»¶ */
 		virtual void setHitEnable(BOOL hitEnable);
 		virtual BOOL getHitEnable();
 
-		/* µã»÷Í¸¹ı */
+		/* ç‚¹å‡»é€è¿‡ */
 		virtual void setHitTransEnable(BOOL hitTransEnable);
 		virtual BOOL getHitTransEnable();
 
-		/* ÊÇ·ñĞèÒª½øĞĞË¢ĞÂ */
+		/* æ˜¯å¦éœ€è¦è¿›è¡Œåˆ·æ–° */
 		virtual void invalidate();
 		virtual BOOL isNeedsRefresh();
 
-		/* Éè¶¨²¶×½TouchÊÂ¼ş */
+		/* è®¾å®šæ•æ‰Touchäº‹ä»¶ */
 		virtual void setCaptureTouch(BOOL isCapture);
 		virtual BOOL isCaptureTouch();
 		virtual WidgetObject*  getCaptureTouchObject();
 
 	private:
-		/* ½ûÓÃ¿½±´¹¹Ôìº¯Êı */
+		/* ç¦ç”¨æ‹·è´æ„é€ å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetObject);
 
-		/* ½ûÓÃ³£ÓÃµÄÒ»Ğ©²Ù×÷·ûºÅ */
+		/* ç¦ç”¨å¸¸ç”¨çš„ä¸€äº›æ“ä½œç¬¦å· */
 		BOOL operator==(WidgetObject& object);
 		BOOL operator!=(WidgetObject& object);
 		BOOL operator!();
 
-		/* Î¨Ò»ID */
+		/* å”¯ä¸€ID */
 		ObjectId m_id;
 
-		/* Ãè»­Ïà¹Ø */
+		/* æç”»ç›¸å…³ */
 		Rect m_drawableArea;
 
-		/* µã»÷ÊÂ¼şÏà¹Ø */
+		/* ç‚¹å‡»äº‹ä»¶ç›¸å…³ */
 		Rect m_hitableArea;
 		BOOL m_hitEnable;		// Default[FALSE]: Call hitImpl function.
 		BOOL m_hitTransEnable;	// Default[TRUE]: Send hit event to other widget.
 
-		/* ÊÇ·ñ¿É¼û */
+		/* æ˜¯å¦å¯è§ */
 		BOOL m_visible;			// Default[TRUE]
 
-		/* ÊÇ·ñĞèÒªË¢ĞÂ */
+		/* æ˜¯å¦éœ€è¦åˆ·æ–° */
 		BOOL m_needsRefresh;	// Default[TRUE]
 
-		/* ÊÇ·ñ²¶×½µã»÷ÊÂ¼ş¡£Èç¹ûµ±Ç°¿ªÊ¼´¦ÀíTouchBeganÏûÏ¢£¬
-		 * ÔòºóĞøÖ±ÖÁEndµÄÏûÏ¢¶¼»á·¢ËÍ¸ø¸Ã¿Ø¼ş¡£ */
+		/* æ˜¯å¦æ•æ‰ç‚¹å‡»äº‹ä»¶ã€‚å¦‚æœå½“å‰å¼€å§‹å¤„ç†TouchBeganæ¶ˆæ¯ï¼Œ
+		 * åˆ™åç»­ç›´è‡³Endçš„æ¶ˆæ¯éƒ½ä¼šå‘é€ç»™è¯¥æ§ä»¶ã€‚ */
 		BOOL m_isCaptureTouch;
 
-		/* ×Ó¿Ø¼ş */
+		/* å­æ§ä»¶ */
 		std::vector<SMART_PTR<WidgetObject>> m_children;
 	};
 

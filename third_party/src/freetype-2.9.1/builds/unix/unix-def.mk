@@ -65,8 +65,8 @@ version_info := 22:1:16
 #
 PKG_CONFIG         := 
 REQUIRES_PRIVATE   := 
-LIBS_PRIVATE       := 
-LIBSSTATIC_CONFIG  := -lfreetype
+LIBS_PRIVATE       := -lz -lpng16 -lm -lz -lm
+LIBSSTATIC_CONFIG  := -lfreetype -lz -lpng16 -lm -lz -lm
 build_libtool_libs := 
 ft_version         := 22.1.16
 

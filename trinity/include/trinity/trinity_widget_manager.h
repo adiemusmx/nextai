@@ -1,4 +1,4 @@
-#ifndef _TRINITY_WIDGET_MANAGER_H_
+ï»¿#ifndef _TRINITY_WIDGET_MANAGER_H_
 #define _TRINITY_WIDGET_MANAGER_H_
 
 #include "base/nextai_basic_define.h"
@@ -14,39 +14,39 @@ namespace NextAI
 #define WIDGET_MANAGER() NextAI::WidgetManager::instance()
 
 	/* 
-	 * ¿Ø¼ş¹ÜÀíÄ£¿é 
+	 * æ§ä»¶ç®¡ç†æ¨¡å— 
 	 */
 	class WidgetManager : public AppEventListener
 	{
 	public:
-		/* µ¥ÀıÄ£Ê½ */
+		/* å•ä¾‹æ¨¡å¼ */
 		static WidgetManager* instance();
 
-		/* ³õÊ¼»¯ºÍÎö¹¹ */
+		/* åˆå§‹åŒ–å’Œææ„ */
 		void init();
 		void cleanup();
 
-		/* ¹ÜÀíView */
-		void addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view);
-		void removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view);
+		/* ç®¡ç†View */
+		void addView(SURFACE_ID surface, SMART_PTR<WidgetView> view);
+		void removeView(SURFACE_ID surface, SMART_PTR<WidgetView> view);
 
-		/* Ãè»­º¯Êı */
+		/* æç”»å‡½æ•° */
 		virtual ListenerResult render();
 
-		/* Ó²¼şÏûÏ¢ */
+		/* ç¡¬ä»¶æ¶ˆæ¯ */
 		virtual ListenerResult hardkey(HardkeyID key);
 
-		/* µã»÷ÊÂ¼ş */
+		/* ç‚¹å‡»äº‹ä»¶ */
 		virtual ListenerResult touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 	private:
 		WidgetManager();
 		virtual ~WidgetManager();
 
-		/* ½ûÓÃ¿½±´º¯Êı */
+		/* ç¦ç”¨æ‹·è´å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetManager);
 
-		/* ¸ù½Úµã */
+		/* æ ¹èŠ‚ç‚¹ */
 		SMART_PTR<WidgetObject> m_root;
 	};
 }

@@ -1,4 +1,4 @@
-#ifndef _TRINITY_WIDGET_BUTTON_H_
+ï»¿#ifndef _TRINITY_WIDGET_BUTTON_H_
 #define _TRINITY_WIDGET_BUTTON_H_
 
 #include "base/nextai_object.h"
@@ -10,59 +10,59 @@ namespace NextAI
 	class WidgetGroup;
 
 	/* 
-	 * °´Å¥¿Ø¼ş£¬Ö§³ÖNormal, Pressed, Selected, Disabled×´Ì¬
-	 * ÄÚ²¿Ê¹ÓÃWidgetPictureÖ§³ÖÍ¼Æ¬µÄ¼ÓÔØ	
+	 * æŒ‰é’®æ§ä»¶ï¼Œæ”¯æŒNormal, Pressed, Selected, DisabledçŠ¶æ€
+	 * å†…éƒ¨ä½¿ç”¨WidgetPictureæ”¯æŒå›¾ç‰‡çš„åŠ è½½	
 	 */
 	class WidgetButton : public WidgetObject
 	{
 	public:
-		/* °´Å¥µÄËÄ×´Ì¬ */
+		/* æŒ‰é’®çš„å››çŠ¶æ€ */
 		enum class Status
 		{
-			Normal = 0,		/* Í¨³£Ì¬ */
-			Pressed,		/* Ñ¹ÏÂÌ¬ */
-			Selected,		/* Ñ¡ÖĞÌ¬ */
-			Disabled,		/* ÎŞĞ§Ì¬ */
+			Normal = 0,		/* é€šå¸¸æ€ */
+			Pressed,		/* å‹ä¸‹æ€ */
+			Selected,		/* é€‰ä¸­æ€ */
+			Disabled,		/* æ— æ•ˆæ€ */
 			Max
 		};
 
 	public:
-		/* ¹¹Ôìº¯Êı */
+		/* æ„é€ å‡½æ•° */
 		WidgetButton(ObjectId id);
 		virtual ~WidgetButton();
 
-		/* Ãè»­ */
+		/* æç”» */
 		virtual void drawImpl();
 
-		/* µã»÷´¦Àí */
+		/* ç‚¹å‡»å¤„ç† */
 		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
-		/* Éè¶¨Í¼Æ¬Â·¾¶
-		 * ²»ÒªÆµ·±µ÷ÓÃ±¾º¯Êı£¬»áÉæ¼°µ½ÎÆÀíµÄÉêÇëºÍÊÍ·Å */
+		/* è®¾å®šå›¾ç‰‡è·¯å¾„
+		 * ä¸è¦é¢‘ç¹è°ƒç”¨æœ¬å‡½æ•°ï¼Œä¼šæ¶‰åŠåˆ°çº¹ç†çš„ç”³è¯·å’Œé‡Šæ”¾ */
 		virtual void setPath(Status status, const WCHAR* path);
 		virtual const WCHAR* getPath(Status status);
 
-		/* Éè¶¨°´Å¥µÄ×´Ì¬ */
+		/* è®¾å®šæŒ‰é’®çš„çŠ¶æ€ */
 		virtual void setStatus(Status status);
 		virtual Status getStatus();
 
-		/* Éè¶¨¿Ø¼şµÄÃè»­ÇøÓò */
+		/* è®¾å®šæ§ä»¶çš„æç”»åŒºåŸŸ */
 		virtual void setDrawableArea(const Rect& area);
 
 	private:
-		/* ½ûÓÃ¹¹Ôìº¯Êı */
+		/* ç¦ç”¨æ„é€ å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetButton);
 
 	protected:
-		/* ×´Ì¬ */
+		/* çŠ¶æ€ */
 		Status m_status;
 
-		/* Í¼Æ¬×ÊÔ´ÎÆÀí */
+		/* å›¾ç‰‡èµ„æºçº¹ç† */
 		SMART_PTR<WidgetPicture> m_pictures[(int32)Status::Max];
 	};
 
 	/* 
-	 * ÆÕÍ¨Ñ¹ÏÂ°´Å¥ 
+	 * æ™®é€šå‹ä¸‹æŒ‰é’® 
 	 */
 	class WidgetPushButton : public WidgetButton
 	{
@@ -71,12 +71,12 @@ namespace NextAI
 		virtual ~WidgetPushButton();
 
 	private:
-		/* ½ûÓÃ¹¹Ôìº¯Êı */
+		/* ç¦ç”¨æ„é€ å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetPushButton);
 	};
 
 	/* 
-	 * µ¥Ñ¡°´Å¥
+	 * å•é€‰æŒ‰é’®
 	 */
 	class WidgetRadioButton : public WidgetButton
 	{
@@ -84,28 +84,25 @@ namespace NextAI
 		WidgetRadioButton(ObjectId id);
 		virtual ~WidgetRadioButton();
 
-		/* µã»÷´¦Àí */
+		/* ç‚¹å‡»å¤„ç† */
 		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
-		/* Éè¶¨Ñ¡ÖĞ×´Ì¬ */
+		/* è®¾å®šé€‰ä¸­çŠ¶æ€ */
 		virtual void setChecked();
 
-		/* ¼ÓÈë×é */
-		virtual void setGroup(SMART_PTR<WidgetGroup>& group);
-
 	private:
-		/* ½ûÓÃ¹¹Ôìº¯Êı */
+		/* ç¦ç”¨æ„é€ å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetRadioButton);
 
-		/* ×é */
+		/* ç»„ */
 		SMART_PTR<WidgetGroup> m_group;
 
-		/* Ñ¡ÖĞ×´Ì¬ */
+		/* é€‰ä¸­çŠ¶æ€ */
 		BOOL m_check;
 	};
 
 	/* 
-	 * ¶àÑ¡°´Å¥ 
+	 * å¤šé€‰æŒ‰é’® 
 	 */
 	class WidgetCheckButton : public WidgetButton
 	{
@@ -113,14 +110,14 @@ namespace NextAI
 		WidgetCheckButton(ObjectId id);
 		virtual ~WidgetCheckButton();
 
-		/* µã»÷´¦Àí */
+		/* ç‚¹å‡»å¤„ç† */
 		virtual HitResult hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 
 	private:
-		/* ½ûÓÃ¹¹Ôìº¯Êı */
+		/* ç¦ç”¨æ„é€ å‡½æ•° */
 		DISABLE_CLASS_COPY(WidgetCheckButton);
 
-		/* Ñ¡ÖĞ×´Ì¬ */
+		/* é€‰ä¸­çŠ¶æ€ */
 		BOOL m_check;
 	};
 }

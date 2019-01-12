@@ -2,7 +2,7 @@
 #include "render_system/render_font.h"
 #include "base/nextai_basic_define.h"
 #include "render_system/render_system.h"
-#include "FreeType/freetype.h"
+#include "freetype/freetype.h"
 
 namespace NextAI
 {
