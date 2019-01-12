@@ -1,4 +1,5 @@
-﻿#include "app_event_handler.h"
+﻿#include "stdafx.h"
+#include "app_event_handler.h"
 #include "trinity/trinity_widget_manager.h"
 #include "view_mouse_paint.h"
 #include "render_system/render_system.h"

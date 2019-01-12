@@ -90,7 +90,7 @@ namespace NextAI
 
 		if (!FileSystem::isExist(fileName))
 		{
-			NEXTAI_WARNING_W_LOG(L"Can NOT find file[%s]", fileName);
+			RENDER_SYSTEM_WARN_LOG("Can NOT find file[%s]", fileName);
 			return INVALID_TEXTURE_ID;
 		}
 		else

@@ -32,8 +32,7 @@ typedef int32 LONG;
 // Return whether the point p is in rect r
 
 // ############ ARRAY ############
-#define element_of(x) \
-	(sizeof(x) / sizeof(x[0]))
+#define element_of(x) (sizeof(x) / sizeof(x[0]))
 
 // ############ TOUCH ############
 #define TOUCH_POINT_MAX_COUNT 10

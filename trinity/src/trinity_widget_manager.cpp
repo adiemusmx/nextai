@@ -13,8 +13,8 @@ namespace NextAI
 
 	void WidgetManager::init()
 	{
-		NEXTAI_TRACE_LOG_START();
-		Rect full = { 0, 0, APP_SERVICE()->getWindowsWidth(), APP_SERVICE()->getWindowsHeight() };
+		TRINITY_TRACE_FUNC();
+		Rect full = { 0, 0, (int32)APP_SERVICE()->getWindowsWidth(), (int32)APP_SERVICE()->getWindowsHeight() };
 		
 		m_root = SMART_PTR<WidgetObject>(NiNew(WidgetObject, 0));
 		m_root->setArea(full);
@@ -24,33 +24,31 @@ namespace NextAI
 		m_root->addChild(SMART_PTR<WidgetObject>(NiNew(WidgetSurface, OBJECT_ID_SURFACE_INTERRUPT)));
 
 		APP_SERVICE()->addEventListener(this);
-
-		NEXTAI_TRACE_LOG_END();
 	}
 
 	void WidgetManager::cleanup()
 	{
-		NEXTAI_TRACE_LOG();
+		TRINITY_TRACE_FUNC();
 
 		APP_SERVICE()->removeEventListener(this);
 	}
 
 	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
 	{
-		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view);
+		TRINITY_INFO_LOG("surface[{}] view[{}]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
 			m_root->getItem(surface)->addChild(SMART_PTR<WidgetObject>(view));
 		else
-			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
+			TRINITY_WARN_LOG("Invalid SURFACE_ID[{}] view[{}]", surface, view);
 	}
 
 	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
 	{
-		NEXTAI_INFO_LOG("surface[%d] view[%p]", surface, view);
+		TRINITY_INFO_LOG("surface[{}] view[{}]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
 			m_root->getItem(surface)->removeChild(view);
 		else
-			NEXTAI_WARNING_LOG("Invalid SURFACE_ID[%d] view[%p]", surface, view);
+			TRINITY_WARN_LOG("Invalid SURFACE_ID[{}] view[{}]", surface, view);
 	}
 
 	ListenerResult WidgetManager::render()
@@ -66,18 +64,18 @@ namespace NextAI
 
 	WidgetManager::WidgetManager()
 	{
-		NEXTAI_TRACE_LOG_START();
+		TRINITY_TRACE_FUNC();
 		m_root = NULL;
 	}
 
 	WidgetManager::~WidgetManager()
 	{
-		NEXTAI_TRACE_LOG_START();
+		TRINITY_TRACE_FUNC();
 	}
 
 	ListenerResult WidgetManager::hardkey(HardkeyID key)
 	{
-		NEXTAI_INFO_LOG("key[%d]", key);
+		TRINITY_INFO_LOG("key[{}]", key);
 
 		// TODO
 		return ListenerResult::OK;
@@ -85,7 +83,7 @@ namespace NextAI
 
 	ListenerResult WidgetManager::touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		NEXTAI_INFO_LOG("touch[%d] touchCount[%d] touchId[%d] touchPos[%d,%d]", touch, touchCount, touchId[0], touchPos[0].x, touchPos[0].y);
+		TRINITY_INFO_LOG("touch[{}] touchCount[{}] touchId[{}] touchPos[{},{}]", touch, touchCount, touchId[0], touchPos[0].x, touchPos[0].y);
 		ListenerResult ret = ListenerResult::OK;
 		
 		for (int32 loopIdx = m_root->getItemCount() - 1; (loopIdx >= 0) && (ret == ListenerResult::OK); --loopIdx)

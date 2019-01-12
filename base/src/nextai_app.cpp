@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "base/nextai_app.h"
 #include "base/nextai_message.h"
-
 #include "base/nextai_file_system.h"
 
 #include <GL/glut.h>
@@ -92,7 +91,8 @@ namespace NextAI {
 
 		glutCreateWindow(param.windowsTitle);
 
-		NEXTAI_INFO_W_LOG(L"App workspace[%s]", FileSystem::getCurrentDirectory());
+		std::wstring path = FileSystem::getCurrentDirectory();
+		BASE_INFO_LOG("App workspace[{}]", path);
 
 		// Render
 		glutDisplayFunc(displayFunc);
@@ -105,7 +105,7 @@ namespace NextAI {
 
 	void AppService::addEventListener(AppEventListener* listener)
 	{
-		NEXTAI_INFO_LOG("listener[%p]", listener);
+		BASE_INFO_LOG("listener[{}]", (void*)listener);
 		std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if (iter == m_listeners.end())
 		{
@@ -113,13 +113,13 @@ namespace NextAI {
 		}
 		else
 		{
-			NEXTAI_WARNING_LOG("Listener[%p] duplicate.", listener);
+			BASE_WARN_LOG("Listener[{}] duplicate.", (void*)listener);
 		}
 	}
 
 	void AppService::removeEventListener(AppEventListener* listener)
 	{
-		NEXTAI_INFO_LOG("listener[%p]", listener);
+		BASE_INFO_LOG("listener[{}]", (void*)listener);
 		std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if (iter != m_listeners.end())
 		{
@@ -127,7 +127,7 @@ namespace NextAI {
 		}
 		else
 		{
-			NEXTAI_WARNING_LOG("Listener[%p] not found.", listener);
+			BASE_WARN_LOG("Listener[{}] not found.", (void*)listener);
 		}
 	}
 
@@ -178,12 +178,12 @@ namespace NextAI {
 
 	AppService::AppService()
 	{
-		NEXTAI_TRACE_LOG_START();
+		BASE_TRACE_FUNC();
 	}
 
 	AppService::~AppService()
 	{
-		NEXTAI_TRACE_LOG_START();
+		BASE_TRACE_FUNC();
 		m_listeners.clear();
 	}
 
@@ -224,7 +224,7 @@ namespace NextAI {
 
 	void AppService::keyBoardFunc(int key, int x, int y)
 	{
-		NEXTAI_VERBOSE_LOG("[GLUT] key[%d] x[%d] y[%d]", key, x, y);
+		NEXTAI_TRACE_LOG("BASE", "GLUT key[{}] pos[{},{}]", key, x, y);
 		switch (key)
 		{
 		case GLUT_KEY_UP:
@@ -247,12 +247,12 @@ namespace NextAI {
 		touchPos[0].y = y;
 		if (state == GLUT_DOWN)
 		{
-			NEXTAI_VERBOSE_LOG("[Gesture][TouchType_BEGAN] pos[%d,%d]", x, y);
+			NEXTAI_TRACE_LOG("BASE", "[Gesture][TouchType_BEGAN] pos[{},{}]", x, y);
 			VECTOR_NOTIFY(instance()->m_listeners, touch, TouchType_BEGAN, 1, touchId, touchPos);
 		}
 		else if (state == GLUT_UP)
 		{
-			NEXTAI_VERBOSE_LOG("[Gesture][TouchType_ENDED] pos[%d,%d]", x, y);
+			NEXTAI_TRACE_LOG("BASE", "[Gesture][TouchType_ENDED] pos[{},{}]", x, y);
 			VECTOR_NOTIFY(instance()->m_listeners, touch, TouchType_ENDED, 1, touchId, touchPos);
 		}
 	}
@@ -264,7 +264,7 @@ namespace NextAI {
 
 		touchPos[0].x = x;
 		touchPos[0].y = y;
-		NEXTAI_VERBOSE_LOG("[Gesture][TouchType_MOVED] pos[%d,%d]", x, y);
+		NEXTAI_TRACE_LOG("BASE", "[Gesture][TouchType_MOVED] pos[{},{}]", x, y);
 		VECTOR_NOTIFY(instance()->m_listeners, touch, TouchType_MOVED, 1, touchId, touchPos);
 	}
 

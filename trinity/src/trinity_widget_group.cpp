@@ -21,7 +21,7 @@ namespace NextAI
 			WidgetObject* obj = (WidgetObject*)(SMART_PTR<WidgetObject>(*iter)).get();
 			if (obj == object.get())
 			{
-				NEXTAI_TRACE_LOG_FLAG("Add Same Member![%p]", object.get());
+				TRINITY_TRACE_LOG("Add Same Member![{}]", object.get());
 				break;
 			}
 			++iter;
@@ -52,7 +52,7 @@ namespace NextAI
 		}
 		else
 		{
-			NEXTAI_TRACE_LOG_FLAG("Remove Invalidate Member![%p]", object.get());
+			TRINITY_TRACE_LOG("Remove Invalidate Member![{}]", object.get());
 		}
 	}
 

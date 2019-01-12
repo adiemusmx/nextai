@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "base/nextai_message.h"
 
 namespace NextAI
@@ -12,7 +12,7 @@ namespace NextAI
 
 	void MessageCenter::send(NEXT_AI_MESSAGE_ID id, void* lParam, void* rParam)
 	{
-		NEXTAI_TRACE_LOG_FLAG("parameter id[%d] lParam[%p] rParam[%p]", (int32)id, lParam, rParam);
+		BASE_TRACE_LOG("parameter id[{}] lParam[{}] rParam[{}]", (int32)id, (void*)lParam, (void*)rParam);
 
 		for (int32 loopIdx = (int32)ListenerLevel::Low; loopIdx < (int32)ListenerLevel::Max; ++loopIdx)
 		{
@@ -28,17 +28,17 @@ namespace NextAI
 
 	void MessageCenter::addListener(IMessageListener* listener, ListenerLevel level)
 	{
-		NEXTAI_TRACE_LOG_FLAG("parameter listener[%p] level[%d]", listener, (int32)level);
+		BASE_TRACE_LOG("parameter listener[{}] level[{}]", (void*)listener, level);
 
 		if (level < ListenerLevel::Low || level > ListenerLevel::High)
 		{
-			NEXTAI_WARNING_LOG("Invalid level[%d].", (int32)level);
+			BASE_WARN_LOG("Invalid level[{}].", level);
 			return;
 		}
 
 		if (listener != NULL)
 		{
-			NEXTAI_WARNING_LOG("Listener is NULL.");
+			BASE_WARN_LOG("Listener is NULL.");
 			return;
 		}
 
@@ -47,17 +47,17 @@ namespace NextAI
 
 	void MessageCenter::removeListener(IMessageListener* listener, ListenerLevel level)
 	{
-		NEXTAI_TRACE_LOG_FLAG("parameter listener[%p] level[%d]", listener, (int32)level);
+		NEXTAI_TRACE_LOG("BASE", "parameter listener[{}] level[{}]", (void*)listener, level);
 
 		if (level < ListenerLevel::Low || level > ListenerLevel::High)
 		{
-			NEXTAI_WARNING_LOG("Invalid level[%d].", (int32)level);
+			BASE_WARN_LOG("Invalid level[{}].", (int32)level);
 			return;
 		}
 
 		if (listener != NULL)
 		{
-			NEXTAI_WARNING_LOG("Listener is NULL.");
+			BASE_WARN_LOG("Listener is NULL.");
 			return;
 		}
 
@@ -66,25 +66,22 @@ namespace NextAI
 
 	void MessageCenter::post(NEXT_AI_MESSAGE_ID id)
 	{
-		NEXTAI_TRACE_LOG_FLAG("parameter id[%d]", (int32)id);
+		NEXTAI_TRACE_LOG("BASE", "parameter id[{}]", (int32)id);
 
 		m_messages.push_back(id);
 	}
 
 	BOOL MessageCenter::peek(NEXT_AI_MESSAGE_ID& id, PeekMessageMode mode)
 	{
-		NEXTAI_TRACE_LOG_FLAG("parameter id[%d] mode[%d]", (int32)id, (int32)mode);
+		NEXTAI_TRACE_LOG("BASE", "parameter id[{}] mode[{}]", (int32)id, (int32)mode);
 
-		/* ��Ϣ��С */
 		if (m_messages.size() == 0)
 		{
 			return FALSE;
 		}
 
-		/* ȡ����Ϣ */
 		id = *(m_messages.begin());
 
-		/* ��ն��п�ʼ */
 		if (mode == PeekMessageMode::Remove)
 		{
 			m_messages.pop_front();
@@ -94,8 +91,7 @@ namespace NextAI
 
 	void MessageCenter::clear()
 	{
-		NEXTAI_TRACE_LOG();
-
+		BASE_TRACE_FUNC();
 		m_messages.clear();
 	}
 

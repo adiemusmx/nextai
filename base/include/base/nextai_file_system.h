@@ -33,7 +33,7 @@ namespace NextAI
 		static BOOL isAbsolute(const WCHAR* path);
 
 		/* 获得当前路径 */
-		static const WCHAR* getCurrentDirectory();
+		static const std::wstring getCurrentDirectory();
 
 	private:
 		FileSystem();

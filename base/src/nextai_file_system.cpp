@@ -66,7 +66,7 @@ namespace NextAI
 #endif
 	}
 
-	const WCHAR* FileSystem::getCurrentDirectory()
+	const std::wstring FileSystem::getCurrentDirectory()
 	{
 		memset(m_currentDirectory, 0x00, sizeof(m_currentDirectory));
 
@@ -113,7 +113,7 @@ namespace NextAI
 
 	BOOL File::open(const WCHAR* wpath, FileAccessMode mode)
 	{
-		NEXTAI_INFO_W_LOG(L"wpath[%s] mode[%d]", wpath, mode);
+		BASE_INFO_LOG(L"wpath[{}] mode[{}]", wpath, mode);
 #ifdef SYSTEM_LINUX
 		char path[PATH_LENGTH_MAX] = { 0 };
 		wcstombs(path, wpath, element_of(path));

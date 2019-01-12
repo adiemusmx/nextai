@@ -10,10 +10,12 @@
     <ClCompile Include="src\app_event_handler.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\view_mouse_paint.cpp" />
+    <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\app_event_handler.h" />
     <ClInclude Include="include\app_object_id.h" />
     <ClInclude Include="include\view_mouse_paint.h" />
+    <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
 </Project>

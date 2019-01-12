@@ -28,7 +28,7 @@ namespace NextAI {
 	{
 		if (path == NULL)
 		{
-			NEXTAI_WARNING_LOG("Path is a null pointer!");
+			TRINITY_WARN_LOG("Path is a null pointer!");
 			return;
 		}
 

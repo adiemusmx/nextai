@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "view_mouse_paint.h"
 #include "app_object_id.h"
 #include "base/nextai_log.h"

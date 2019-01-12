@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "base/nextai_app.h"
 #include "app_event_handler.h"
 
