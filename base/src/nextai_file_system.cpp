@@ -197,3 +197,53 @@ namespace NextAI
 		return FileStatus::OK;
 	}
 }
+
+std::wostream& operator<<(std::wostream& os, NextAI::FileAccessMode mode)
+{
+	switch (mode)
+	{
+	case NextAI::FileAccessMode::Read:
+		os << L"FileAccessMode::Read";
+		break;
+	case NextAI::FileAccessMode::Write:
+		os << L"FileAccessMode::Write";
+		break;
+	case NextAI::FileAccessMode::ReadWrite:
+		os << L"FileAccessMode::ReadWrite";
+		break;
+	case NextAI::FileAccessMode::Append:
+		os << "FileAccessMode::Append";
+		break;
+	case NextAI::FileAccessMode::ReadBinary:
+		os << L"FileAccessMode::ReadBinary";
+		break;
+	case NextAI::FileAccessMode::WriteBinary:
+		os << L"FileAccessMode::WriteBinary";
+		break;
+	case NextAI::FileAccessMode::AppendBinary:
+		os << L"FileAccessMode::AppendBinary";
+		break;
+	default:
+		os << L"FileAccessMode::Unknown";
+		break;
+	}
+	return os;
+}
+
+
+std::wostream& operator<<(std::wostream& os, NextAI::FileStatus mode)
+{
+	switch (mode)
+	{
+	case NextAI::FileStatus::OK:
+		os << L"FileStatus::OK";
+		break;
+	case NextAI::FileStatus::NotOpen:
+		os << L"FileStatus::NotOpen";
+		break;
+	default:
+		os << L"FileStatus::Unknown";
+		break;
+	}
+	return os;
+}

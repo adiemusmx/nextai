@@ -1,5 +1,5 @@
-#ifndef _TRINITY_MESSAGE_CENTER_H_
-#define _TRINITY_MESSAGE_CENTER_H_
+#ifndef _NEXTAI_MESSAGE_H_
+#define _NEXTAI_MESSAGE_H_
 
 #include "base/nextai_basic_define.h"
 #include "base/nextai_basic_types.h"
@@ -63,40 +63,9 @@ namespace NextAI
 		/* 异步消息队列 */
 		std::list<NEXT_AI_MESSAGE_ID> m_messages;
 	};
-
-	std::ostream& operator << (std::ostream& os, MessageCenter::ListenerLevel level)
-	{
-		switch (level)
-		{
-		case MessageCenter::ListenerLevel::Low:
-			os << "ListenerLevel::Low";
-			break;
-		case MessageCenter::ListenerLevel::Medium:
-			os << "ListenerLevel::Medium";
-			break;
-		case MessageCenter::ListenerLevel::High:
-			os << "ListenerLevel::High";
-			break;
-		case MessageCenter::ListenerLevel::Max:
-			os << "ListenerLevel::Max";
-			break;
-		}
-		return os;
-	}
-
-	std::ostream& operator << (std::ostream& os, MessageCenter::PeekMessageMode mode)
-	{
-		switch (mode)
-		{
-		case MessageCenter::PeekMessageMode::NoRemove:
-			os << "PeekMessageMode::NoRemove";
-			break;
-		case MessageCenter::PeekMessageMode::Remove:
-			os << "PeekMessageMode::Remove";
-			break;
-		}
-		return os;
-	}
 }
 
-#endif // !_TRINITY_MESSAGE_CENTER_H_
+std::wostream& operator<<(std::wostream& os, NextAI::MessageCenter::ListenerLevel level);
+std::wostream& operator<<(std::wostream& os, NextAI::MessageCenter::PeekMessageMode mode);
+
+#endif // !_NEXTAI_MESSAGE_H_

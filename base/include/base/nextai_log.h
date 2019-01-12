@@ -7,6 +7,7 @@
 
 #define SPDLOG_WCHAR_TO_UTF8_SUPPORT
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/bundled/ostream.h"
 
 #define LOGGER_BUFFER_MAX_LENGTH 512
 
@@ -32,7 +33,7 @@ namespace NextAI
 		};
 
 	public:
-		Logger(const char* logName, const wchar_t* fileName = L"DefaultFileName");
+		Logger(const char* logName, const char* fileName = "DefaultFileName");
 		virtual ~Logger();
 
 		template<typename... Args>
@@ -45,7 +46,7 @@ namespace NextAI
 			sprintf_s(log_buffer, LOGGER_BUFFER_MAX_LENGTH, "[%s][%s|%s:%d]", tag, file, function, line);
 			mbstowcs(wlog_buffer, log_buffer, LOGGER_BUFFER_MAX_LENGTH);
 			
-			wcscat(wlog_buffer, format);
+			format = wlog_buffer + format;
 
 			switch (level)
 			{

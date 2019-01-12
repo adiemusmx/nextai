@@ -48,3 +48,6 @@ vc120.idb
 obj/
 /build/exe/*.ilk
 /build/*.opendb
+/build/.vs/NextAI/v15/*.opendb
+/build/.vs/NextAI/v15/*.db-shm
+/build/.vs/NextAI/v15/*.db-wal

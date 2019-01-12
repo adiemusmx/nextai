@@ -114,5 +114,38 @@ namespace NextAI
 
 		m_messages.clear();
 	}
+}
 
+std::wostream& operator<<(std::wostream& os, NextAI::MessageCenter::ListenerLevel level)
+{
+	switch (level)
+	{
+	case NextAI::MessageCenter::ListenerLevel::Low:
+		os << L"ListenerLevel::Low";
+		break;
+	case NextAI::MessageCenter::ListenerLevel::Medium:
+		os << L"ListenerLevel::Medium";
+		break;
+	case NextAI::MessageCenter::ListenerLevel::High:
+		os << L"ListenerLevel::High";
+		break;
+	case NextAI::MessageCenter::ListenerLevel::Max:
+		os << L"ListenerLevel::Max";
+		break;
+	}
+	return os;
+}
+
+std::wostream& operator<<(std::wostream& os, NextAI::MessageCenter::PeekMessageMode mode)
+{
+	switch (mode)
+	{
+	case NextAI::MessageCenter::PeekMessageMode::NoRemove:
+		os << L"PeekMessageMode::NoRemove";
+		break;
+	case NextAI::MessageCenter::PeekMessageMode::Remove:
+		os << L"PeekMessageMode::Remove";
+		break;
+	}
+	return os;
 }

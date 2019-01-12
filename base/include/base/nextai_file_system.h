@@ -103,4 +103,7 @@ namespace NextAI
 	};
 }
 
+std::wostream& operator<<(std::wostream& os, NextAI::FileAccessMode mode);
+std::wostream& operator<<(std::wostream& os, NextAI::FileStatus mode);
+
 #endif // !_NEXTAI_FILE_SYSTEM_H_

@@ -33,7 +33,7 @@ namespace NextAI
 		APP_SERVICE()->removeEventListener(this);
 	}
 
-	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
+	void WidgetManager::addView(SURFACE_ID surface, SMART_PTR<WidgetView> view)
 	{
 		TRINITY_INFO_LOG("surface[{}] view[{}]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
@@ -42,7 +42,7 @@ namespace NextAI
 			TRINITY_WARN_LOG("Invalid SURFACE_ID[{}] view[{}]", surface, view);
 	}
 
-	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView>& view)
+	void WidgetManager::removeView(SURFACE_ID surface, SMART_PTR<WidgetView> view)
 	{
 		TRINITY_INFO_LOG("surface[{}] view[{}]", surface, view);
 		if (surface >= SURFACE_ID_BASE && surface < SURFACE_ID_MAX && view != NULL)
