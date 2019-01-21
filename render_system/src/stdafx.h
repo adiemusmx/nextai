@@ -8,10 +8,4 @@
 #include <GL/glut.h>
 #include <GL/glu.h>
 
-#define RENDER_SYSTEM_TRACE_LOG(format, ...) NEXTAI_TRACE_LOG("RENDER_SYSTEM", format, ##__VA_ARGS__)
-#define RENDER_SYSTEM_INFO_LOG(format, ...) NEXTAI_INFO_LOG("RENDER_SYSTEM", format, ##__VA_ARGS__)
-#define RENDER_SYSTEM_WARN_LOG(format, ...) NEXTAI_WARN_LOG("RENDER_SYSTEM", format, ##__VA_ARGS__)
-#define RENDER_SYSTEM_ERROR_LOG(format, ...) NEXTAI_ERROR_LOG("RENDER_SYSTEM", format, ##__VA_ARGS__)
-#define RENDER_SYSTEM_TRACE_FUNC() NEXTAI_TRACE_FUNC("RENDER_SYSTEM")
-
 #endif // !_STDAFX_H_

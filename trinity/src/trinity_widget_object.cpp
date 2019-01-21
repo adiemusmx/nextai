@@ -8,7 +8,7 @@ namespace NextAI
 
 	WidgetObject::WidgetObject(ObjectId id)
 	{
-		TRINITY_TRACE_LOG("Id[{}]", id);
+		NEXTAI_TRACE_LOG("TRINITY", "Id[{}]", id);
 		m_id = id;
 
 		m_drawableArea = { 0, 0, 0, 0 };
@@ -25,7 +25,7 @@ namespace NextAI
 
 	WidgetObject::~WidgetObject()
 	{
-		TRINITY_TRACE_LOG("Id[{}]", m_id);
+		NEXTAI_TRACE_LOG("TRINITY", "Id[{}]", m_id);
 		m_children.clear();
 	}
 
@@ -33,7 +33,7 @@ namespace NextAI
 	{
 		if (child == NULL)
 		{
-			TRINITY_WARN_LOG("Add null pointer object!");
+			NEXTAI_WARN_LOG("TRINITY", "Add null pointer object!");
 			return;
 		}
 		auto pObj = std::find(m_children.begin(), m_children.end(), child);
@@ -43,7 +43,7 @@ namespace NextAI
 		}
 		else
 		{
-			TRINITY_WARN_LOG("Add same object[{}], it's weird.", child->m_id);
+			NEXTAI_WARN_LOG("TRINITY", "Add same object[{}], it's weird.", child->m_id);
 		}
 	}
 
@@ -51,7 +51,7 @@ namespace NextAI
 	{
 		if (child == NULL)
 		{
-			TRINITY_WARN_LOG("Remove null pointer object!");
+			NEXTAI_WARN_LOG("TRINITY", "Remove null pointer object!");
 			return;
 		}
 		auto pObj = std::find(m_children.begin(), m_children.end(), child);
@@ -61,7 +61,7 @@ namespace NextAI
 		}
 		else
 		{
-			TRINITY_WARN_LOG("Can't find object[{}], it's weird.", child->m_id);
+			NEXTAI_WARN_LOG("TRINITY", "Can't find object[{}], it's weird.", child->m_id);
 		}
 	}
 
@@ -69,7 +69,7 @@ namespace NextAI
 	{
 		if (child == NULL)
 		{
-			TRINITY_WARN_LOG("Remove null pointer object!");
+			NEXTAI_WARN_LOG("TRINITY", "Remove null pointer object!");
 			return FALSE;
 		}
 		auto pObj = std::find(m_children.begin(), m_children.end(), child);

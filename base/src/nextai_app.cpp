@@ -92,7 +92,7 @@ namespace NextAI {
 		glutCreateWindow(param.windowsTitle);
 
 		std::wstring path = FileSystem::getCurrentDirectory();
-		BASE_INFO_LOG("App workspace[{}]", path);
+		NEXTAI_TRACE_LOG("BASE", "App workspace[{}]", path);
 
 		// Render
 		glutDisplayFunc(displayFunc);
@@ -105,7 +105,7 @@ namespace NextAI {
 
 	void AppService::addEventListener(AppEventListener* listener)
 	{
-		BASE_INFO_LOG("listener[{}]", (void*)listener);
+		NEXTAI_TRACE_LOG("BASE", "listener[{}]", (void*)listener);
 		std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if (iter == m_listeners.end())
 		{
@@ -113,13 +113,13 @@ namespace NextAI {
 		}
 		else
 		{
-			BASE_WARN_LOG("Listener[{}] duplicate.", (void*)listener);
+			NEXTAI_WARN_LOG("BASE", "Listener[{}] duplicate.", (void*)listener);
 		}
 	}
 
 	void AppService::removeEventListener(AppEventListener* listener)
 	{
-		BASE_INFO_LOG("listener[{}]", (void*)listener);
+		NEXTAI_TRACE_LOG("BASE", "listener[{}]", (void*)listener);
 		std::vector<AppEventListener*>::iterator iter = std::find(m_listeners.begin(), m_listeners.end(), listener);
 		if (iter != m_listeners.end())
 		{
@@ -127,7 +127,7 @@ namespace NextAI {
 		}
 		else
 		{
-			BASE_WARN_LOG("Listener[{}] not found.", (void*)listener);
+			NEXTAI_WARN_LOG("BASE", "Listener[{}] not found.", (void*)listener);
 		}
 	}
 
@@ -176,14 +176,18 @@ namespace NextAI {
 		return ret;
 	}
 
+	void SpdLogInitial();
 	AppService::AppService()
 	{
-		BASE_TRACE_FUNC();
+		// Log
+		SpdLogInitial();
+
+		NEXTAI_TRACE_FUNC("BASE");
 	}
 
 	AppService::~AppService()
 	{
-		BASE_TRACE_FUNC();
+		NEXTAI_TRACE_FUNC("BASE");
 		m_listeners.clear();
 	}
 

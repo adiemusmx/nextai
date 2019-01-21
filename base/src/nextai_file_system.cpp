@@ -113,7 +113,7 @@ namespace NextAI
 
 	BOOL File::open(const WCHAR* wpath, FileAccessMode mode)
 	{
-		BASE_INFO_LOG(L"wpath[{}] mode[{}]", wpath, mode);
+		NEXTAI_TRACE_LOG("BASE", L"wpath[{}] mode[{}]", wpath, mode);
 #ifdef SYSTEM_LINUX
 		char path[PATH_LENGTH_MAX] = { 0 };
 		wcstombs(path, wpath, element_of(path));

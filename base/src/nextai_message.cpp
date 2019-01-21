@@ -12,7 +12,7 @@ namespace NextAI
 
 	void MessageCenter::send(NEXT_AI_MESSAGE_ID id, void* lParam, void* rParam)
 	{
-		BASE_TRACE_LOG("parameter id[{}] lParam[{}] rParam[{}]", (int32)id, (void*)lParam, (void*)rParam);
+		NEXTAI_TRACE_LOG("BASE", "parameter id[{}] lParam[{}] rParam[{}]", (int32)id, (void*)lParam, (void*)rParam);
 
 		for (int32 loopIdx = (int32)ListenerLevel::Low; loopIdx < (int32)ListenerLevel::Max; ++loopIdx)
 		{
@@ -28,17 +28,17 @@ namespace NextAI
 
 	void MessageCenter::addListener(IMessageListener* listener, ListenerLevel level)
 	{
-		BASE_TRACE_LOG("parameter listener[{}] level[{}]", (void*)listener, level);
+		NEXTAI_TRACE_LOG("BASE", "parameter listener[{}] level[{}]", (void*)listener, level);
 
 		if (level < ListenerLevel::Low || level > ListenerLevel::High)
 		{
-			BASE_WARN_LOG("Invalid level[{}].", level);
+			NEXTAI_WARN_LOG("BASE", "Invalid level[{}].", level);
 			return;
 		}
 
 		if (listener != NULL)
 		{
-			BASE_WARN_LOG("Listener is NULL.");
+			NEXTAI_WARN_LOG("BASE", "Listener is NULL.");
 			return;
 		}
 
@@ -51,13 +51,13 @@ namespace NextAI
 
 		if (level < ListenerLevel::Low || level > ListenerLevel::High)
 		{
-			BASE_WARN_LOG("Invalid level[{}].", (int32)level);
+			NEXTAI_WARN_LOG("BASE", "Invalid level[{}].", (int32)level);
 			return;
 		}
 
 		if (listener != NULL)
 		{
-			BASE_WARN_LOG("Listener is NULL.");
+			NEXTAI_WARN_LOG("BASE", "Listener is NULL.");
 			return;
 		}
 
@@ -91,7 +91,7 @@ namespace NextAI
 
 	void MessageCenter::clear()
 	{
-		BASE_TRACE_FUNC();
+		NEXTAI_TRACE_FUNC("BASE");
 		m_messages.clear();
 	}
 

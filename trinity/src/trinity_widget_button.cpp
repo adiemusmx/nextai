@@ -26,7 +26,7 @@ namespace NextAI
 
 	HitResult WidgetButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		TRINITY_TRACE_LOG("id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		NEXTAI_TRACE_LOG("TRINITY", "id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
@@ -51,7 +51,7 @@ namespace NextAI
 
 	void WidgetButton::setPath(Status status, const WCHAR* path)
 	{
-		TRINITY_INFO_LOG("id[{}] status[{}] path[{}]", getId(), status, path);
+		NEXTAI_INFO_LOG("TRINITY", "id[{}] status[{}] path[{}]", getId(), status, path);
 		m_pictures[(int32)status]->setPath(path);
 	}
 
@@ -62,7 +62,7 @@ namespace NextAI
 
 	void WidgetButton::setStatus(Status status)
 	{
-		TRINITY_INFO_LOG("id[{}] status[{}]", getId(), status);
+		NEXTAI_INFO_LOG("TRINITY", "id[{}] status[{}]", getId(), status);
 		m_status = status;
 	}
 
@@ -103,7 +103,7 @@ namespace NextAI
 
 	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		TRINITY_TRACE_LOG("id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		NEXTAI_TRACE_LOG("TRINITY", "id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{
@@ -137,7 +137,7 @@ namespace NextAI
 
 	void WidgetRadioButton::setChecked()
 	{
-		TRINITY_TRACE_LOG("id[{}]", getId());
+		NEXTAI_TRACE_LOG("TRINITY", "id[{}]", getId());
 
 		if (m_group != NULL)
 		{
@@ -151,7 +151,7 @@ namespace NextAI
 		}
 		else
 		{
-			TRINITY_WARN_LOG("id[{}] button's group is NULL.", getId());
+			NEXTAI_WARN_LOG("TRINITY", "id[{}] button's group is NULL.", getId());
 		}
 	}
 
@@ -167,7 +167,7 @@ namespace NextAI
 
 	HitResult WidgetCheckButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		TRINITY_TRACE_LOG("id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+		NEXTAI_TRACE_LOG("TRINITY", "id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
 
 		if (m_status == Status::Normal && touch == TouchType_BEGAN)
 		{

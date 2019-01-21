@@ -22,10 +22,4 @@
 
 #include "base/nextai_log.h"
 
-#define BASE_TRACE_LOG(format, ...) NEXTAI_TRACE_LOG("BASE", format, ##__VA_ARGS__)
-#define BASE_INFO_LOG(format, ...) NEXTAI_INFO_LOG("BASE", format, ##__VA_ARGS__)
-#define BASE_WARN_LOG(format, ...) NEXTAI_WARN_LOG("BASE", format, ##__VA_ARGS__)
-#define BASE_ERROR_LOG(format, ...) NEXTAI_ERROR_LOG("BASE", format, ##__VA_ARGS__)
-#define BASE_TRACE_FUNC() NEXTAI_TRACE_FUNC("BASE")
-
 #endif // !_NEXTAI_STDAFX_H_

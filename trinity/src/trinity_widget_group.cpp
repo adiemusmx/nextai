@@ -21,7 +21,7 @@ namespace NextAI
 			WidgetObject* obj = (WidgetObject*)(std::shared_ptr<WidgetObject>(*iter)).get();
 			if (obj == object.get())
 			{
-				TRINITY_TRACE_LOG("Add Same Member![{}]", object->getId());
+				NEXTAI_TRACE_LOG("TRINITY", "Add Same Member![{}]", object->getId());
 				break;
 			}
 			++iter;
@@ -52,7 +52,7 @@ namespace NextAI
 		}
 		else
 		{
-			TRINITY_TRACE_LOG("Remove Invalidate Member![{}]", object->getId());
+			NEXTAI_TRACE_LOG("TRINITY", "Remove Invalidate Member![{}]", object->getId());
 		}
 	}
 
