@@ -68,10 +68,12 @@ namespace NextAI
 		{
 			wchar_t wformat[LOGGER_BUFFER_MAX_LENGTH] = { 0 };
 			mbstowcs(wformat, format, LOGGER_BUFFER_MAX_LENGTH);
-			log(level, wformat, tag, file, function, line, args...);
+			log(level, wformat, tag, trimFilePath(file), function, line, args...);
 		}
 
 	private:
+		const char* trimFilePath(const char* path);
+
 		std::shared_ptr<spdlog::logger> m_logger;
 	};
 

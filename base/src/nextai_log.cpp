@@ -14,48 +14,28 @@ namespace NextAI
 		console_sink->set_level(spdlog::level::warn);
 
 		char pattern[256] = { 0 };
-		sprintf(pattern, "[%%^%%l%%$] %%v[%s]", logName);
-		console_sink->set_pattern(pattern);
+		console_sink->set_pattern("[%H:%M:%S %z][%^%L%$][T:%t] %v");
 
-		auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(fileName, true);
+		auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(fileName, false);
 		file_sink->set_level(spdlog::level::trace);
+		file_sink->set_pattern("[%H:%M:%S %z][%^%L%$][T:%t] %v");
 
 		spdlog::logger* logger = new spdlog::logger(logName, { console_sink, file_sink });
 		m_logger = std::shared_ptr<spdlog::logger>(logger);
+		spdlog::flush_every(std::chrono::seconds(3));
 	}
 
 	Logger::~Logger()
 	{
 	}
 
-#if 0
-	template<typename... Args>
-	void Logger::log(Logger::Level level, const char* format, const char* tag, const char* file, const char* function, size_t line, const Args &... args)
+	const char* Logger::trimFilePath(const char* path)
 	{
-		if (m_logger == NULL) return;
-
-		char log_buffer[LOGGER_BUFFER_MAX_LENGTH] = { 0 };
-		sprintf(log_buffer, "[{}][{}|{}:{}]%s", format);
-
-		switch (level)
-		{
-		case Level::Trace:
-			m_logger->trace(_temp_log_buffer, tag, file, function, line, args...);
-			break;
-		case Level::Info:
-			m_logger->info(_temp_log_buffer, tag, file, function, line, args...);
-			break;
-		case Level::Warn:
-			m_logger->warn(_temp_log_buffer, tag, file, function, line, args...);
-			break;
-		case Level::Error:
-			m_logger->error(_temp_log_buffer, tag, file, function, line, args...);
-			break;
-		default:
-			break;
-		}
+		const char* ret = path + strlen(path) - 1;
+		while (ret != path && *(ret - 1) != '\\' && *(ret - 1) != '/') { --ret; }
+		return ret;
 	}
-#endif
+
 	std::shared_ptr<Logger> globalLogger;
 
 	void SpdLogInitial()
