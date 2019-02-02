@@ -1,6 +1,8 @@
 #ifndef _NEXTAI_STDAFX_H_
 #define _NEXTAI_STDAFX_H_
 
+#include <vld.h>
+
 #ifdef SYSTEM_LINUX
 
 #include <algorithm>
