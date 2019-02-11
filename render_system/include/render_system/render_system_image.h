@@ -8,18 +8,15 @@ struct FIBITMAP;
 namespace NextAI
 {
 	class GLBITMAP;
-
-	class FreeImage
+	
+	class Image
 	{
 	public:
 		static void init();
 		static void cleanup();
-
-		static PICTURE_TEXTURE_ID loadTexture(const WCHAR* filePath);
-
-	private:
-		static GLBITMAP * convFIBitmap2GLBitmap(FIBITMAP* fibmp);
-		static void freeGLBitmap(GLBITMAP *glbmp);
+		
+		static bool loadTexture(const std::wstring& filePath, PICTURE_TEXTURE_ID& texture);
+		static bool loadTextures(const std::wstring& filePath, int32 count, std::vector<PICTURE_TEXTURE_ID>& textures);
 	};
 }
 

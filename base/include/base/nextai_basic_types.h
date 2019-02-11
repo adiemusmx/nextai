@@ -17,28 +17,28 @@
 
 namespace NextAI
 {
-	void mb_assert(BOOL value, const CHAR* message);
-
+	void mb_assert(bool value, const CHAR* message);
+	
 	// 半径
 	typedef float Radian;
-
+	
 	// 点信息
 	class Point
 	{
 	public:
 		int32 x;
 		int32 y;
-
-		BOOL operator==(const Point& p){ return this->x == p.x && this->y == p.y; }
-		BOOL operator!=(const Point& p){ return !(*this == p); }
+		
+		bool operator==(const Point& p) { return this->x == p.x && this->y == p.y; }
+		bool operator!=(const Point& p) { return !(*this == p); }
 		void invalidate() { x = y = INT_MAX; }
-		BOOL isValid() { return !(x == INT_MAX || y == INT_MAX); }
+		bool isValid() { return !(x == INT_MAX || y == INT_MAX); }
 	};
-
+	
 	typedef Point ScreenPoint;	/* 屏幕坐标 */
 	typedef Point MapPoint;		/* 经纬度坐标 */
 	typedef Point NdsPoint;		/* Nds坐标 */
-
+	
 	/* 中心轴 */
 	class Pivot
 	{
@@ -46,7 +46,7 @@ namespace NextAI
 		float x;
 		float y;
 	};
-
+	
 	template<typename T>
 	class Vector
 	{
@@ -54,7 +54,7 @@ namespace NextAI
 		T x;
 		T y;
 	};
-
+	
 	// 矩形框
 	class Rect
 	{
@@ -63,122 +63,138 @@ namespace NextAI
 		int32 top;
 		int32 right;
 		int32 bottom;
-
-		BOOL operator==(const Rect& r) { 
-			return (left == r.left) 
-				&& (top == r.top) 
-				&& (right == r.right) 
-				&& (bottom == r.bottom);
+		
+		bool operator==(const Rect& r)
+		{
+			return (left == r.left)
+				   && (top == r.top)
+				   && (right == r.right)
+				   && (bottom == r.bottom);
 		}
-
-		BOOL operator!=(const Rect& r) {
+		
+		bool operator!=(const Rect& r)
+		{
 			return !(*this == r);
 		}
-
+		
 		void invalidate() { left = top = right = bottom = 0; }
-		BOOL isValid() { return (left == 0) && (top == 0) && (right == 0) && (bottom == 0); }
+		bool isValid() { return (left == 0) && (top == 0) && (right == 0) && (bottom == 0); }
 		size_t width() { return right - left; }
 		size_t height() { return bottom - top; }
-
-		BOOL testPoint(const Point& p) { return (left <= p.x) && (right >= p.x) && (top <= p.y) && (bottom >= p.y); }
-
-		void combine(const Rect& r)	{
+		
+		bool testPoint(const Point& p) { return (left <= p.x) && (right >= p.x) && (top <= p.y) && (bottom >= p.y); }
+		
+		void combine(const Rect& r)
+		{
 			left = MIN(left, r.left);
 			top = MIN(top, r.top);
 			right = MAX(right, r.right);
 			bottom = MAX(bottom, r.bottom);
 		}
-
-		void combine(const Point& p) {
+		
+		void combine(const Point& p)
+		{
 			left = MIN(left, p.x);
 			top = MIN(top, p.y);
 			right = MAX(right, p.x);
 			bottom = MAX(bottom, p.y);
 		}
-
-		void expand(const Pivot& pivot, Vector<int32> v) {
+		
+		void expand(const Pivot& pivot, Vector<int32> v)
+		{
 			left = FLOOR(left - width() * pivot.x * v.x);
 			top = FLOOR(top - height() * pivot.y * v.y);
 			right = FLOOR(right + width() * (1 - pivot.x) * v.x);
 			bottom = FLOOR(bottom + height() * (1 - pivot.y) * v.y);
 		}
-
-		void setOffset(Vector<int32> offset){
+		
+		void setOffset(Vector<int32> offset)
+		{
 			left += offset.x;
 			top += offset.y;
 			right += offset.x;
 			bottom += offset.y;
 		}
 	};
-
-typedef Rect ScreenRect;			/* 屏幕矩形框 */
-typedef Rect CordinatesRect;		/* 经纬度矩形框 */
-typedef Rect NdsRect;				/* Nds矩形框 */
-
+	
+	typedef Rect ScreenRect;			/* 屏幕矩形框 */
+	typedef Rect CordinatesRect;		/* 经纬度矩形框 */
+	typedef Rect NdsRect;				/* Nds矩形框 */
+	
 	class Segment
 	{
 	public:
 		Point start;
 		Point end;
-
-		Segment(){}
-		Segment(const Point& s, const Point& e){
+		
+		Segment() {}
+		Segment(const Point& s, const Point& e)
+		{
 			start = s;
 			end = e;
 		}
-
-		BOOL slope(float& k){ 
-			if (start.x == end.x) return FALSE; 
+		
+		bool slope(float& k)
+		{
+			if (start.x == end.x)
+			{
+				return false;
+			}
+			
 			k = ((float)end.y - (float)start.y) / ((float)end.x - (float)start.x);
-			return TRUE;
+			return true;
 		}
-
-		BOOL radian(Radian& r){
+		
+		bool radian(Radian& r)
+		{
 			float k;
+			
 			if (slope(k))
 			{
 				r = atan(k);
-				return TRUE;
+				return true;
 			}
 			else
 			{
-				return FALSE;
+				return false;
 			}
 		}
-
+		
 		float angel()
 		{
 			float r = 0;
 			float ret = 0;
+			
 			if (radian(r))
 			{
 				if (r > 0)
 				{
-					if (start.x < end.x) 
-						ret = 180 / PI * r;
-					else 
-						ret = 180 / PI * r + 180;
+					if (start.x < end.x)
+					{ ret = 180 / PI * r; }
+					else
+					{ ret = 180 / PI * r + 180; }
 				}
 				else
 				{
 					if (start.x > end.x)
-						ret = 180 / PI * r + 180;
+					{ ret = 180 / PI * r + 180; }
 					else
-						ret = 180 / PI * r + 360;
+					{ ret = 180 / PI * r + 360; }
 				}
 			}
 			else
 			{
 				if (start.x > end.x)
-					ret = 270;
+				{ ret = 270; }
 				else
-					ret = 90;
+				{ ret = 90; }
 			}
-
+			
 			return ret;
 		}
-
-		Rect bounding() {
+		
+		Rect bounding()
+		{
 			Rect ret = { 0, 0, 0, 0 };
 			ret.left = MIN(start.x, end.x);
 			ret.top = MIN(start.y, end.y);
@@ -186,25 +202,28 @@ typedef Rect NdsRect;				/* Nds矩形框 */
 			ret.bottom = MAX(start.y, end.y);
 			return ret;
 		}
-
-		void expand_start(float length){
+		
+		void expand_start(float length)
+		{
 			assert(0);
 		}
-
-		void expand_end(float length){
+		
+		void expand_end(float length)
+		{
 			assert(0);
 			// TODO
 		}
 	};
-
+	
 	class Line
 	{
 	public:
 		Point point;
 		float angel;
-
+		
 		Line() {}
-		Line(Point p, float a){
+		Line(Point p, float a)
+		{
 			point = p;
 			angel = a;
 		}
@@ -214,24 +233,24 @@ typedef Rect NdsRect;				/* Nds矩形框 */
 			angel = s.angel();
 		}
 	};
-
+	
 	/* 监听者函数返回值 */
 	enum class ListenerResult
 	{
 		OK = 0,				/* 正常执行完毕 */
 		BLOCK_OTHERS,		/* 屏蔽其他的监听者 */
 	};
-
-/* Color */
-typedef uint64 PixelColor;
-#define COLOR_WHITE 0xFFFFFFFF
-#define COLOR_BLACK 0x000000FF
-#define COLOR_RED 0xFF0000FF
-#define COLOR_GREEN 0x00FF00FF
-#define COLOR_BLUE 0x0000FFFF
-
+	
+	/* Color */
+	typedef uint64 PixelColor;
+#define PIXEL_COLOR_WHITE	0xFFFFFFFF
+#define PIXEL_COLOR_BLACK	0x000000FF
+#define PIXEL_COLOR_RED		0xFF0000FF
+#define PIXEL_COLOR_GREEN	0x00FF00FF
+#define PIXEL_COLOR_BLUE	0x0000FFFF
+	
 #define PATH_LENGTH_MAX 256
-
+	
 }
 
 #endif // !_NEXTAI_BASIC_TYPES_H_

@@ -1,10 +1,10 @@
 ﻿#ifndef _NEXTAI_app_H_
 #define _NEXTAI_app_H_
 
-#include "base/nextai_basic_define.h"
 #include "base/nextai_basic_types.h"
 
-namespace NextAI {
+namespace NextAI
+{
 
 	class AppServiceParam
 	{
@@ -12,14 +12,14 @@ namespace NextAI {
 		// Environment param
 		int argc;
 		char** argv;
-
+		
 		// Windows start position, width and height.
 		Rect windowsArea;
-
+		
 		// Windows title
 		const char* windowsTitle;
 	};
-
+	
 	// Hardkey ID
 	enum HardkeyID
 	{
@@ -45,7 +45,7 @@ namespace NextAI {
 		HardkeyID_END,
 		HardkeyID_INSERT
 	};
-
+	
 	// Touch Type
 	enum TouchType
 	{
@@ -54,48 +54,48 @@ namespace NextAI {
 		TouchType_ENDED,		// ended
 		TouchType_CANCELLED		// cancelled
 	};
-
+	
 	// App event listener
 	class AppEventListener
 	{
 	public:
 		// Before App Service init.
 		virtual ListenerResult initStarted();
-
+		
 		// After App Service init.
 		virtual ListenerResult initCompleted();
-
+		
 		// Before App Service cleanup.
 		virtual ListenerResult cleanupStarted();
-
+		
 		// After App Service cleanup.
 		virtual ListenerResult cleanupCompleted();
-
+		
 		// Before Render.
 		virtual ListenerResult renderStarted();
-
+		
 		// Render.
 		virtual ListenerResult render();
-
+		
 		// After Render.
 		virtual ListenerResult renderCompleted();
-
+		
 		// Hardkey
 		virtual ListenerResult hardkey(HardkeyID key);
-
+		
 		// touchCount indicates valid data count of touch.
 		// touchId and touchPos has TOUCH_POINT_MAX_COUNT elements.
 		virtual ListenerResult touch(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[]);
 	};
-
-	#define NEXT_AI_APP_SERVICE() NextAI::AppService::instance()
-
+	
+#define NEXT_AI_APP_SERVICE() NextAI::AppService::instance()
+	
 	class OrthoInfo
 	{
 	public:
-		OrthoInfo(){ m_left = m_right = m_bottom = m_top = m_near = m_far = 1.0f; }
+		OrthoInfo() { m_left = m_right = m_bottom = m_top = m_near = m_far = 1.0f; }
 		virtual ~OrthoInfo() {}
-
+		
 		float m_left;
 		float m_right;
 		float m_bottom;
@@ -103,62 +103,62 @@ namespace NextAI {
 		float m_near;
 		float m_far;
 	};
-
+	
 	// App core service
 #define APP_SERVICE() NextAI::AppService::instance()
 	class AppService
 	{
-
+	
 	public:
 		// Get the instance of the app service.
 		static AppService* instance();
-
+		
 		// Initialize
 		void init(AppServiceParam& param);
-
+		
 		// Event listeners
 		void addEventListener(AppEventListener* listener);
 		void removeEventListener(AppEventListener* listener);
-
+		
 		// Run
 		void run();
-
+		
 		// Windows property
 		size_t getWindowsWidth();
 		size_t getWindowsHeight();
-
+		
 		// Convert screen's ortho and screen's pos
 		Vector<float> pos2ortho(const ScreenPoint& p);
 		ScreenPoint ortho2pos(const Vector<float>& r);
-
+		
 	private:
 		// function of draw
 		static void displayFunc();
-
+		
 		// function of idle
 		static void idleFunc();
-
+		
 		// function of key
 		static void keyBoardFunc(int key, int x, int y);
-
+		
 		// Function of mouse
 		static void mouseFunc(int button, int state, int x, int y);
-
+		
 		// Motion of mouse
 		static void motionFunc(int x, int y);
 		static void passiveMotionFunc(int x, int y);
-
+		
 	private:
 		// Constructor
 		AppService();
 		virtual ~AppService();
-
+		
 		// Disable copy constructor
 		DISABLE_CLASS_COPY(AppService);
-
+		
 		// Event listeners
 		std::vector<AppEventListener*> m_listeners;
-
+		
 		Rect m_area;
 		OrthoInfo m_ortho;
 	};

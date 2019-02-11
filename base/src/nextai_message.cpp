@@ -9,15 +9,16 @@ namespace NextAI
 		static MessageCenter instance;
 		return &instance;
 	}
-
+	
 	void MessageCenter::send(NEXT_AI_MESSAGE_ID id, void* lParam, void* rParam)
 	{
-		NEXTAI_TRACE_LOG("BASE", "parameter id[{}] lParam[{}] rParam[{}]", (int32)id, (void*)lParam, (void*)rParam);
-
+		NEXTAI_TRACE_LOG(L"parameter id[{}] lParam[{}] rParam[{}]", (int32)id, (void*)lParam, (void*)rParam);
+		
 		for (int32 loopIdx = (int32)ListenerLevel::Low; loopIdx < (int32)ListenerLevel::Max; ++loopIdx)
 		{
 			std::vector<IMessageListener*> tmpVector = m_listeners[loopIdx];
 			std::vector<IMessageListener*>::iterator iter = tmpVector.begin();
+			
 			while (iter != tmpVector.end())
 			{
 				(*iter)->onMessageNotify(id, lParam, rParam);
@@ -25,93 +26,92 @@ namespace NextAI
 			}
 		}
 	}
-
+	
 	void MessageCenter::addListener(IMessageListener* listener, ListenerLevel level)
 	{
-		NEXTAI_TRACE_LOG("BASE", "parameter listener[{}] level[{}]", (void*)listener, level);
-
+		NEXTAI_TRACE_LOG(L"parameter listener[{}] level[{}]", (void*)listener, level);
+		
 		if (level < ListenerLevel::Low || level > ListenerLevel::High)
 		{
-			NEXTAI_WARN_LOG("BASE", "Invalid level[{}].", level);
+			NEXTAI_WARN_LOG(L"Invalid level[{}].", level);
 			return;
 		}
-
+		
 		if (listener != NULL)
 		{
-			NEXTAI_WARN_LOG("BASE", "Listener is NULL.");
+			NEXTAI_WARN_LOG(L"Listener is NULL.");
 			return;
 		}
-
+		
 		m_listeners[(int32)level].push_back(listener);
 	}
-
+	
 	void MessageCenter::removeListener(IMessageListener* listener, ListenerLevel level)
 	{
-		NEXTAI_TRACE_LOG("BASE", "parameter listener[{}] level[{}]", (void*)listener, level);
-
+		NEXTAI_TRACE_LOG(L"parameter listener[{}] level[{}]", (void*)listener, level);
+		
 		if (level < ListenerLevel::Low || level > ListenerLevel::High)
 		{
-			NEXTAI_WARN_LOG("BASE", "Invalid level[{}].", (int32)level);
+			NEXTAI_WARN_LOG(L"Invalid level[{}].", (int32)level);
 			return;
 		}
-
+		
 		if (listener != NULL)
 		{
-			NEXTAI_WARN_LOG("BASE", "Listener is NULL.");
+			NEXTAI_WARN_LOG(L"Listener is NULL.");
 			return;
 		}
-
+		
 		m_listeners[(int32)level].erase(std::find(m_listeners[(int32)level].begin(), m_listeners[(int32)level].end(), listener));
 	}
-
+	
 	void MessageCenter::post(NEXT_AI_MESSAGE_ID id)
 	{
-		NEXTAI_TRACE_LOG("BASE", "parameter id[{}]", (int32)id);
-
+		NEXTAI_TRACE_LOG(L"parameter id[{}]", (int32)id);
 		m_messages.push_back(id);
 	}
-
+	
 	BOOL MessageCenter::peek(NEXT_AI_MESSAGE_ID& id, PeekMessageMode mode)
 	{
-		NEXTAI_TRACE_LOG("BASE", "parameter id[{}] mode[{}]", (int32)id, (int32)mode);
-
+		NEXTAI_TRACE_LOG(L"parameter id[{}] mode[{}]", (int32)id, (int32)mode);
+		
 		if (m_messages.size() == 0)
 		{
 			return FALSE;
 		}
-
+		
 		id = *(m_messages.begin());
-
+		
 		if (mode == PeekMessageMode::Remove)
 		{
 			m_messages.pop_front();
 		}
+		
 		return TRUE;
 	}
-
+	
 	void MessageCenter::clear()
 	{
-		NEXTAI_TRACE_FUNC("BASE");
+		NEXTAI_TRACE_FUNC();
 		m_messages.clear();
 	}
-
+	
 	uint32 MessageCenter::count()
 	{
 		return m_messages.size();
 	}
-
+	
 	MessageCenter::MessageCenter()
 	{
-
 	}
-
+	
 	MessageCenter::~MessageCenter()
 	{
 		for (int32 loopIdx = (int32)ListenerLevel::Low; loopIdx < (int32)ListenerLevel::Max; ++loopIdx)
 		{
 			m_listeners[loopIdx].clear();
 		}
-
+		
 		m_messages.clear();
 	}
 }
@@ -123,16 +123,20 @@ std::wostream& operator<<(std::wostream& os, NextAI::MessageCenter::ListenerLeve
 	case NextAI::MessageCenter::ListenerLevel::Low:
 		os << L"ListenerLevel::Low";
 		break;
+		
 	case NextAI::MessageCenter::ListenerLevel::Medium:
 		os << L"ListenerLevel::Medium";
 		break;
+		
 	case NextAI::MessageCenter::ListenerLevel::High:
 		os << L"ListenerLevel::High";
 		break;
+		
 	case NextAI::MessageCenter::ListenerLevel::Max:
 		os << L"ListenerLevel::Max";
 		break;
 	}
+	
 	return os;
 }
 
@@ -143,9 +147,11 @@ std::wostream& operator<<(std::wostream& os, NextAI::MessageCenter::PeekMessageM
 	case NextAI::MessageCenter::PeekMessageMode::NoRemove:
 		os << L"PeekMessageMode::NoRemove";
 		break;
+		
 	case NextAI::MessageCenter::PeekMessageMode::Remove:
 		os << L"PeekMessageMode::Remove";
 		break;
 	}
+	
 	return os;
 }

@@ -54,7 +54,7 @@ PointDataModel<T>::~PointDataModel()
 }
 
 template <class T>
-BOOL PointDataModel<T>::operator==(const PointDataModel<T>& point)
+bool PointDataModel<T>::operator==(const PointDataModel<T>& point)
 {
 	return (point.m_x == m_x && point.m_y == m_y);
 }
@@ -105,7 +105,7 @@ RectDataModel::RectDataModel(const RectDataModel& rect)
 	m_rightBottom = rect.m_rightBottom;
 }
 
-BOOL RectDataModel::operator==(const RectDataModel& rect)
+bool RectDataModel::operator==(const RectDataModel& rect)
 {
 	return (POINT_equals(m_leftTop, rect.m_leftTop) && POINT_equals(m_rightBottom, rect.m_rightBottom));
 }
@@ -117,7 +117,7 @@ RectDataModel& RectDataModel::operator=(const RectDataModel& rect)
 	return *this;
 }
 
-BOOL RectDataModel::testPoint(const Point& point)
+bool RectDataModel::testPoint(const Point& point)
 {
 	return (m_leftTop.x < point.x && m_rightBottom.x > point.x && m_leftTop.y < point.y && m_rightBottom.y > point.y);
 }

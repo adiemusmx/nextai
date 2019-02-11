@@ -12,9 +12,7 @@
 #include <GL/glu.h>
 #include <algorithm>
 
-#include "base/nextai_basic_define.h"
-#include "render_system/render_system.h"
-#include "render_system/render_font.h"
+#define MODULE_NAME "TRINITY"
 #include "base/nextai_log.h"
 
 #endif // !_STDAFX_H_

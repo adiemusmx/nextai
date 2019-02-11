@@ -3,11 +3,12 @@
 
 #include <vld.h>
 
-#include "base/nextai_basic_define.h"
-#include "base/nextai_file_system.h"
-#include "base/nextai_log.h"
+#include <stdlib.h>
 
 #include <GL/glut.h>
 #include <GL/glu.h>
+
+#define MODULE_NAME "RENDER_SYSTEM"
+#include "base/nextai_log.h"
 
 #endif // !_STDAFX_H_

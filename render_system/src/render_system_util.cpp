@@ -1,9 +1,9 @@
 #include "stdafx.h"
-#include "render_system/render_util.h"
+#include "render_system/render_system_util.h"
 
 namespace NextAI
 {
-	size_t RenderUtil::getArrowOutline(
+	size_t RenderSystemUtil::getArrowOutline(
 		const Point* points,
 		size_t points_size,
 		Point* outline,
@@ -15,12 +15,12 @@ namespace NextAI
 		for (size_t loopIdx = 0; loopIdx < points_size - 1; ++loopIdx)
 		{
 			Segment s(points[loopIdx], points[loopIdx + 1]);
-			
 		}
+		
 		return 0;
 	}
-
-	size_t RenderUtil::getArrowBorderOutline(
+	
+	size_t RenderSystemUtil::getArrowBorderOutline(
 		const Point* points,
 		size_t points_size,
 		Point* outline,

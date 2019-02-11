@@ -1,68 +1,68 @@
 #include "stdafx.h"
 #include "trinity/trinity_widget_group.h"
 
-namespace NextAI 
+namespace NextAI
 {
 	WidgetGroup::WidgetGroup()
 	{
-
 	}
-
+	
 	WidgetGroup::~WidgetGroup()
 	{
 		m_members.clear();
 	}
-
-	void WidgetGroup::addMember(std::shared_ptr<WidgetObject>& object)
+	
+	bool WidgetGroup::addMember(std::shared_ptr<WidgetObject> object)
 	{
-		std::vector<std::weak_ptr<WidgetObject>>::iterator iter = m_members.begin();
-		while (iter != m_members.end())
+		for (auto item : m_members)
 		{
-			WidgetObject* obj = (WidgetObject*)(std::shared_ptr<WidgetObject>(*iter)).get();
-			if (obj == object.get())
+			if (!item.expired())
 			{
-				NEXTAI_TRACE_LOG("TRINITY", "Add Same Member![{}]", object->getId());
-				break;
+				if (item.lock() == object)
+				{
+					NEXTAI_TRACE_LOG(L"Add Same Member![{}]", object->getId());
+					return false;
+				}
 			}
-			++iter;
 		}
-
-		if (iter == m_members.end())
-		{
-			m_members.push_back(object);
-		}
+		
+		m_members.push_back(object);
+		return true;
 	}
-
-	void WidgetGroup::removeMember(std::shared_ptr<WidgetObject>& object)
+	
+	bool WidgetGroup::removeMember(std::shared_ptr<WidgetObject> object)
 	{
-		std::vector<std::weak_ptr<WidgetObject>>::iterator iter = m_members.begin();
-		while (iter != m_members.end())
+		for (auto iter = m_members.begin(); iter != m_members.end(); ++iter)
 		{
-			WidgetObject* obj = (WidgetObject*)(std::shared_ptr<WidgetObject>(*iter)).get();
-			if (obj == object.get())
+			if (!iter->expired())
 			{
-				break;
+				if (iter->lock() == object)
+				{
+					m_members.erase(iter);
+					return true;
+				}
 			}
-			++iter;
 		}
-
-		if (iter != m_members.end())
-		{
-			m_members.erase(iter);
-		}
-		else
-		{
-			NEXTAI_TRACE_LOG("TRINITY", "Remove Invalidate Member![{}]", object->getId());
-		}
+		
+		NEXTAI_TRACE_LOG(L"Remove Invalidate Member![{}]", object->getId());
+		return false;
 	}
-
+	
 	size_t WidgetGroup::getCount()
 	{
 		return m_members.size();
 	}
-
-	std::weak_ptr<WidgetObject> WidgetGroup::getItem(int32 index)
+	
+	bool WidgetGroup::getItem(uint32 index, std::shared_ptr<WidgetObject> item)
 	{
-		return m_members[index];
+		bool ret = false;
+		
+		if (m_members.size() > index && !m_members[index].expired())
+		{
+			item = m_members[index].lock();
+			ret = true;
+		}
+		
+		return ret;
 	}
 }

@@ -19,7 +19,7 @@ namespace NextAI
 		FontWeight_extraBold	= 800,
 		FontWeight_heavy		= 900,
 	};
-
+	
 	enum FontCharset
 	{
 		FontCharset_ansi		= 0,
@@ -43,23 +43,23 @@ namespace NextAI
 		FontCharset_mac			= 77,
 		FontCharset_baltic		= 186,
 	};
-
+	
 #define FontPitchAndFamily		int32
-
+	
 #define FontPitch_default		0
 #define FontPitch_fixed			1
 #define FontPitch_variable		(1 << 1)
 #define FontPitch_mono			(1 << 3)
 #define FontFamily_DONTCARE		(0 << 4)  /* Don't care or don't know. */
 #define FontFamily_ROMAN		(1 << 4)  /* Variable stroke width, serifed. */
-/* Times Roman, Century Schoolbook, etc. */
+	/* Times Roman, Century Schoolbook, etc. */
 #define FontFamily_SWISS		(2 << 4)  /* Variable stroke width, sans-serifed. */
-/* Helvetica, Swiss, etc. */
-#define FontFamily_MODERN		(3 << 4)  /* Constant stroke width, serifed or sans-serifed. */		
-/* Pica, Elite, Courier, etc. */
+	/* Helvetica, Swiss, etc. */
+#define FontFamily_MODERN		(3 << 4)  /* Constant stroke width, serifed or sans-serifed. */
+	/* Pica, Elite, Courier, etc. */
 #define FontFamily_SCRIPT		(4 << 4)  /* Cursive, etc. */
 #define FontFamily_DECORATIVE	(5 << 4)  /* Old English, etc. */
-
+	
 	enum FontOutPrecision
 	{
 		FontOutPrecision_default			= 0,
@@ -74,7 +74,7 @@ namespace NextAI
 		FontOutPrecision_screen_outline		= 9,
 		FontOutPrecision_ps_only			= 10,
 	};
-
+	
 #define FontClipPrecision					int32
 #define FontClipPrecision_character			1
 #define FontClipPrecision_default			0
@@ -84,7 +84,7 @@ namespace NextAI
 #define FontClipPrecision_TT_always			(2 << 4)
 #define FontClipPrecision_dfa_disable		(4 << 4)
 #define FontClipPrecision_embedded			(8 << 4)
-
+	
 	enum FontQuality
 	{
 		FontQuality_default			= 0,
@@ -93,84 +93,117 @@ namespace NextAI
 		FontQuality_nonAntialiased	= 3,
 		FontQuality_Antialiased		= 4,
 	};
-
+	
 #define FONT_TEXTURE_MAX_SIZE 512
-
+	
 	class Font
 	{
 	public:
+	
+		/* 构造和析构函数 */
 		Font();
 		virtual ~Font();
-
-		virtual void drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const = 0;
-		virtual void drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const = 0;
-
+		
+		/* 名称 */
+		virtual std::string getName() = 0;
+		
+		/* 高度 */
+		virtual int32 getHeight() = 0;
+		
+		/* 描画 */
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const std::string& text) const = 0;
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const std::wstring& text) const = 0;
+		
 	protected:
-		/* Disable copy constructor and operator= */
-		Font(const Font&);
-		Font& operator=(const Font&);
+	
+		/* 禁用拷贝 */
+		DISABLE_CLASS_COPY(Font);
 	};
-
+	
 	/* Alloc font object with CreateFontA */
 	class WindowsFont : public Font
 	{
 	public:
-		/* Alloc and release windows font object */
+	
+		/* 创建字体 */
 		static Font* allocFont();
-		static Font* allocFont(int32 height, const CHAR* pszFaceName);
+		static Font* allocFont(int32 height, const std::string& pszFaceName);
 		static Font* allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
-			FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
-			FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
-			FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName);
+							   FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
+							   FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
+							   FontQuality quality, FontPitchAndFamily pitchAndFamily, const std::string& pszFaceName);
 		static void release(Font* font);
-
-		/* Constructor */
-		WindowsFont(int32 height, int32 width, int32 escapement, int32 orientation, 
-			FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut, 
-			FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision, 
-			FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName);
 		
+		/* 构造和析构函数 */
+		WindowsFont(int32 height, int32 width, int32 escapement, int32 orientation,
+					FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
+					FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
+					FontQuality quality, FontPitchAndFamily pitchAndFamily, const std::string& pszFaceName);
+					
 		virtual ~WindowsFont();
-
-		void drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const;
-		void drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const;
-
+		
+		/* 名称 */
+		virtual std::string getName() { return m_name; }
+		
+		/* 高度 */
+		virtual int32 getHeight() { return m_height; }
+		
+		/* 描画 */
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const std::string& text) const;
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const std::wstring& text) const;
+		
 	private:
+	
+		/* 初始化和销毁 */
 		void init();
 		void cleanup();
-
-		/* Disable copy constructor and operator= */
-		WindowsFont(WindowsFont&);
-		WindowsFont& operator=(WindowsFont&);
-
+		
+		/* 禁用拷贝 */
+		DISABLE_CLASS_COPY(WindowsFont);
+		
 #ifdef SYSTEM_WINDOWS
-		HFONT m_handle;
+		HFONT m_handle;					/* 句柄 */
 #endif
-		TEXT_TEXTURE_ID m_texture;
-		int32 m_height;
+		TEXT_TEXTURE_ID m_texture;		/* 纹理 */
+		
+		std::string m_name;				/* 名称 */
+		int32 m_height;					/* 高度 */
 	};
-
+	
 	class FreeTypeFont : public Font
 	{
 	public:
-		/* Alloc and release freetype font object */
+	
+		/* 创建字体 */
 		static Font* allocFont();
-		static Font* allocFont(int32 height, const CHAR* pszFaceName);
+		static Font* allocFont(int32 height, const std::string& pszFaceName);
 		static Font* allocFont(int32 height, int32 width, int32 escapement, int32 orientation,
-			FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
-			FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
-			FontQuality quality, FontPitchAndFamily pitchAndFamily, const CHAR* pszFaceName);
-
+							   FontWeight weight, BOOL italic, BOOL underline, BOOL strikeOut,
+							   FontCharset charSet, FontOutPrecision outPrecision, FontClipPrecision clipPrecision,
+							   FontQuality quality, FontPitchAndFamily pitchAndFamily, const std::string& pszFaceName);
+							   
+		/* 构造和析构函数 */
 		FreeTypeFont();
 		virtual ~FreeTypeFont();
-
-		void drawText(const ScreenPoint& pos, PixelColor color, const CHAR* text) const;
-		void drawText(const ScreenPoint& pos, PixelColor color, const WCHAR* text) const;
-
+		
+		/* 名称 */
+		virtual std::string getName() { return m_name; }
+		
+		/* 高度 */
+		virtual int32 getHeight() { return m_height; }
+		
+		/* 描画 */
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const std::string& text) const;
+		virtual void drawText(const ScreenPoint& pos, PixelColor color, const std::wstring& text) const;
+		
 	private:
-		/* Disable copy constructor and operator= */
-		FreeTypeFont(FreeTypeFont&);
-		FreeTypeFont& operator=(FreeTypeFont&);
+	
+		/* 禁用拷贝 */
+		DISABLE_CLASS_COPY(FreeTypeFont);
+		
+		std::string m_name;					/* 名称 */
+		int32 m_height;						/* 高度 */
+		
 	};
 }
 

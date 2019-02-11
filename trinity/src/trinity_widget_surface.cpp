@@ -5,14 +5,26 @@
 namespace NextAI
 {
 
-WidgetSurface::WidgetSurface(ObjectId id): WidgetObject(id)
-{
-	Rect full = { 0, 0, (int32)APP_SERVICE()->getWindowsWidth(), (int32)APP_SERVICE()->getWindowsHeight() };
-	setArea(full);
+	WidgetSurface::WidgetSurface(ObjectId id): WidgetObject(id)
+	{
+		Rect full = { 0, 0, (int32)APP_SERVICE()->getWindowsWidth(), (int32)APP_SERVICE()->getWindowsHeight() };
+		setArea(full);
+	}
+	
+	WidgetSurface::~WidgetSurface()
+	{
+	}
 }
 
-WidgetSurface::~WidgetSurface()
+std::wostream& operator<<(std::wostream& os, NextAI::SurfaceId mode)
 {
-
-}
+	switch (mode)
+	{
+		OUT_STREAM_ENUM_CLASS_CASE(SurfaceId::Base);
+		OUT_STREAM_ENUM_CLASS_CASE(SurfaceId::View);
+		OUT_STREAM_ENUM_CLASS_CASE(SurfaceId::Ons);
+		OUT_STREAM_ENUM_CLASS_CASE(SurfaceId::Interrupt);
+	}
+	
+	return os << L"SurfaceId::Unknown";
 }

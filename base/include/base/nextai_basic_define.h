@@ -21,7 +21,7 @@ typedef int32 LONG;
 
 // Disable class' copy constructor.
 #define DISABLE_CLASS_COPY(typeName) \
-	typeName(const typeName&); typeName& operator=(const typeName&)
+	typeName(const typeName& obj); typeName& operator=(const typeName& obj);
 
 // ############ POINT ############
 // Compare point.
@@ -67,6 +67,12 @@ typedef int32 LONG;
 #define FLOOR(x) (static_cast<int32>(x))
 
 #define PI 3.1415926f
+
+#define OUT_STREAM_ENUM_CLASS_DECLARE(name) \
+	std::wostream& operator<<(std::wostream& os, name obj)
+
+#define OUT_STREAM_ENUM_CLASS_CASE(name) \
+	case NextAI::name: return os << L"##name"
 
 #ifdef SYSTEM_LINUX
 #define WCHAR wchar_t
@@ -133,7 +139,7 @@ typedef int32 LONG;
 #endif
 #endif
 
-#define NI_PROPERTY(...) 
+#define NI_PROPERTY(...)
 #define NI_ATTRIBUTE(...)
 
 #endif // !_NEXTAI_BASIC_DEFINE_H_

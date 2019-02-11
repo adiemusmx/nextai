@@ -1,222 +1,256 @@
 ﻿#include "stdafx.h"
 #include "trinity/trinity_widget_button.h"
 #include "trinity/trinity_widget_group.h"
-#include "base/nextai_object.h"
 
 namespace NextAI
 {
 	WidgetButton::WidgetButton(ObjectId id) : WidgetObject(id)
 	{
-		setHitEnable(TRUE);
-		m_status = Status::Normal;
-		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		m_isPressed = false;
+		setHitEnable(true);
+		setHitTransEnable(false);
+		
+		for (size_t loopIdx = 0; loopIdx < (int32)Status::Max; ++loopIdx)
 		{
-			m_pictures[loopIdx] = std::shared_ptr<WidgetPicture>(NiNew(WidgetPicture, id));
+			std::shared_ptr<WidgetPicture> pic = std::make_shared<WidgetPicture>(id);
+			m_pictures.push_back(pic);
 		}
 	}
-
+	
 	WidgetButton::~WidgetButton()
 	{
 	}
-
+	
 	void WidgetButton::drawImpl()
 	{
-		m_pictures[(int32)m_status]->drawImpl();
+		Status status = getStatus();
+		
+		if (status == Status::Normal)
+		{
+			m_pictures[0]->drawImpl();
+		}
+		else if (status == Status::Pressed && m_pictures[1]->isValid())
+		{
+			m_pictures[1]->drawImpl();
+		}
+		else if(status == Status::Selected && m_pictures[2]->isValid())
+		{
+			m_pictures[2]->drawImpl();
+		}
+		else if (status == Status::Disabled && m_pictures[3]->isValid())
+		{
+			m_pictures[3]->drawImpl();
+		}
+		else
+		{
+			m_pictures[0]->drawImpl();
+		}
 	}
-
-	HitResult WidgetButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	
+	void WidgetButton::setPath(const std::wstring& path)
 	{
-		NEXTAI_TRACE_LOG("TRINITY", "id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
-
-		if (m_status == Status::Normal && touch == TouchType_BEGAN)
-		{
-			m_status = Status::Pressed;
-			setCaptureTouch(TRUE);
-		}
-
-		else if (m_status == Status::Pressed &&
-			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
-		{
-			m_status = Status::Normal;
-			setCaptureTouch(FALSE);
-		}
-
-		else if (m_status == Status::Disabled)
-		{
-			return HitResult::Missed;
-		}
-
-		return HitResult::Hit;
+		NEXTAI_INFO_LOG(L"id[{}] path[{}]", getId(), path);
+		WidgetPicture::allocPictures(path, (int32)Status::Max, m_pictures);
 	}
-
-	void WidgetButton::setPath(Status status, const WCHAR* path)
+	
+	void WidgetButton::setPath(Status status, const std::wstring& path)
 	{
-		NEXTAI_INFO_LOG("TRINITY", "id[{}] status[{}] path[{}]", getId(), status, path);
-		m_pictures[(int32)status]->setPath(path);
+		NEXTAI_INFO_LOG(L"id[{}] status[{}] path[{}]", getId(), status, path);
+		m_pictures[(int32)status]->setPath(path.c_str());
 	}
-
-	const WCHAR* WidgetButton::getPath(Status status)
+	
+	std::wstring WidgetButton::getPath(Status status)
 	{
 		return m_pictures[(int32)status]->getPath();
 	}
-
-	void WidgetButton::setStatus(Status status)
-	{
-		NEXTAI_INFO_LOG("TRINITY", "id[{}] status[{}]", getId(), status);
-		m_status = status;
-	}
-
+	
 	WidgetButton::Status WidgetButton::getStatus()
 	{
-		return m_status;
+		return isHitEnable() ? (m_isPressed ? Status::Pressed : Status::Normal) : Status::Disabled;
 	}
-
+	
 	void WidgetButton::setDrawableArea(const Rect& area)
 	{
 		WidgetObject::setDrawableArea(area);
-
-		for (size_t loopIdx = 0; loopIdx < element_of(m_pictures); ++loopIdx)
+		
+		for (size_t loopIdx = 0; loopIdx < m_pictures.size(); ++loopIdx)
 		{
 			m_pictures[loopIdx]->setDrawableArea(area);
 		}
 	}
-
+	
+	void WidgetButton::setHitableArea(const Rect& area)
+	{
+		WidgetObject::setHitableArea(area);
+		
+		for (size_t loopIdx = 0; loopIdx < m_pictures.size(); ++loopIdx)
+		{
+			m_pictures[loopIdx]->setHitableArea(area);
+		}
+	}
+	
 	WidgetPushButton::WidgetPushButton(ObjectId id) : WidgetButton(id)
 	{
-
 	}
-
+	
 	WidgetPushButton::~WidgetPushButton()
 	{
-
 	}
-
-	WidgetRadioButton::WidgetRadioButton(ObjectId id) : WidgetButton(id)
+	
+	HitResult WidgetPushButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		m_check = FALSE;
-		m_group = NULL;
-	}
-
-	WidgetRadioButton::~WidgetRadioButton()
-	{
-	}
-
-	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
-	{
-		NEXTAI_TRACE_LOG("TRINITY", "id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
-
-		if (m_status == Status::Normal && touch == TouchType_BEGAN)
+		Status status = getStatus();
+		NEXTAI_TRACE_LOG(L"id[{}] status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]",
+						 getId(), status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+						 
+		if (m_isPressed == false && touch == TouchType_BEGAN)
 		{
-			m_status = Status::Pressed;
-			setCaptureTouch(TRUE);
+			m_isPressed = true;
+			setCaptureTouch(true);
 		}
-
-		else if (m_status == Status::Pressed &&
-			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
+		else if (m_isPressed == true && (touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
-			if (m_check == FALSE)
-			{
-				setChecked();
-			}
-			setCaptureTouch(FALSE);
+			m_isPressed = false;
+			setCaptureTouch(false);
 		}
-
-		else if (m_status == Status::Selected && touch == TouchType_BEGAN)
-		{
-			m_status = Status::Pressed;
-			setCaptureTouch(TRUE);
-		}
-
-		else if (m_status == Status::Disabled)
+		else if (isCaptureTouch() == false)		/* 如果当前不是捕捉Touch的状态，则消息继续让给其他模块进行处理 */
 		{
 			return HitResult::Missed;
 		}
-
+		
 		return HitResult::Hit;
 	}
-
-	void WidgetRadioButton::setChecked()
+	
+	WidgetRadioButton::WidgetRadioButton(ObjectId id) : WidgetButton(id)
 	{
-		NEXTAI_TRACE_LOG("TRINITY", "id[{}]", getId());
-
+		m_isChecked = false;
+		m_group = NULL;
+	}
+	
+	WidgetRadioButton::~WidgetRadioButton()
+	{
+	}
+	
+	HitResult WidgetRadioButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
+	{
+		Status status = getStatus();
+		NEXTAI_TRACE_LOG(L"id[{}] status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]",
+						 getId(), status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+						 
+		if (m_isPressed == false && touch == TouchType_BEGAN)
+		{
+			m_isPressed = true;
+			setCaptureTouch(true);
+		}
+		else if (m_isPressed == true && (touch == TouchType_CANCELLED || touch == TouchType_ENDED))
+		{
+			m_isPressed = false;
+			
+			if (m_isChecked == false)
+			{
+				setChecked(true);
+			}
+			
+			setCaptureTouch(false);
+		}
+		else if (isCaptureTouch() == false)		/* 如果当前不是捕捉Touch的状态，则消息继续让给其他模块进行处理 */
+		{
+			return HitResult::Missed;
+		}
+		
+		return HitResult::Hit;
+	}
+	
+	WidgetButton::Status WidgetRadioButton::getStatus()
+	{
+		return isHitEnable() ? (m_isPressed ? Status::Pressed : (m_isChecked ? Status::Selected : Status::Normal)) : Status::Disabled;
+	}
+	
+	void WidgetRadioButton::setChecked(bool checked)
+	{
+		NEXTAI_TRACE_LOG(L"id[{}] checked[{}]", getId(), m_isChecked);
+		
 		if (m_group != NULL)
 		{
 			for (size_t loopIdx = 0; loopIdx < m_group->getCount(); ++loopIdx)
 			{
-				WidgetRadioButton* button = (WidgetRadioButton*)(std::shared_ptr<WidgetObject>(m_group->getItem(loopIdx))).get();
-				BOOL isChecked = (button == this);
-				button->m_check = isChecked;
-				button->m_status = isChecked ? Status::Selected : Status::Normal;
+				std::shared_ptr<WidgetRadioButton> item;
+				
+				if (m_group->getItem(loopIdx, item))
+				{
+					if (item->getId() == getId())
+					{
+						item->m_isChecked = true;
+					}
+					else
+					{
+						item->m_isChecked = false;
+					}
+				}
 			}
 		}
 		else
 		{
-			NEXTAI_WARN_LOG("TRINITY", "id[{}] button's group is NULL.", getId());
+			NEXTAI_WARN_LOG(L"id[{}] button's group is NULL.", getId());
 		}
 	}
-
+	
 	WidgetCheckButton::WidgetCheckButton(ObjectId id) : WidgetButton(id)
 	{
-		m_check = FALSE;
+		m_isChecked = false;
 	}
 	
 	WidgetCheckButton::~WidgetCheckButton()
 	{
-
 	}
-
+	
 	HitResult WidgetCheckButton::hitImpl(TouchType touch, int32 touchCount, const int32 touchId[], const Point touchPos[])
 	{
-		NEXTAI_TRACE_LOG("TRINITY", "id[{}] m_status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]", getId(), m_status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
-
-		if (m_status == Status::Normal && touch == TouchType_BEGAN)
+		Status status = getStatus();
+		NEXTAI_TRACE_LOG(L"id[{}] status[{}] touch[{}] count[{}] touchPos[{},{}][{},{}]",
+						 getId(), status, touch, touchCount, touchPos[0].x, touchPos[0].y, touchPos[1].x, touchPos[1].y);
+						 
+		if (m_isPressed == false && touch == TouchType_BEGAN)
 		{
-			m_status = Status::Pressed;
-			setCaptureTouch(TRUE);
+			m_isPressed = true;
+			setCaptureTouch(true);
 		}
-
-		else if (m_status == Status::Pressed &&
-			(touch == TouchType_CANCELLED || touch == TouchType_ENDED))
+		else if (m_isPressed == true && (touch == TouchType_CANCELLED || touch == TouchType_ENDED))
 		{
-			m_check = !m_check;
-			m_status = m_check ? Status::Selected : Status::Normal;
-			setCaptureTouch(FALSE);
+			m_isPressed = false;
+			setChecked(!m_isChecked);
+			setCaptureTouch(false);
 		}
-
-		else if (m_status == Status::Selected && touch == TouchType_BEGAN)
-		{
-			m_status = Status::Pressed;
-			setCaptureTouch(TRUE);
-		}
-
-		else if (m_status == Status::Disabled)
+		else if (isCaptureTouch() == false)		/* 如果当前不是捕捉Touch的状态，则消息继续让给其他模块进行处理 */
 		{
 			return HitResult::Missed;
 		}
-
+		
 		return HitResult::Hit;
 	}
+	
+	WidgetButton::Status WidgetCheckButton::getStatus()
+	{
+		return isHitEnable() ? (m_isPressed ? Status::Pressed : (m_isChecked ? Status::Selected : Status::Normal)) : Status::Disabled;
+	}
+	
+	void WidgetCheckButton::setChecked(bool checked)
+	{
+		NEXTAI_TRACE_LOG(L"id[{}] checked[{}]", getId(), checked);
+		m_isChecked = checked;
+	}
+	
 }
 
 std::wostream& operator<<(std::wostream& os, NextAI::WidgetButton::Status mode)
 {
 	switch (mode)
 	{
-	case NextAI::WidgetButton::Status::Normal:
-		os << L"WidgetButton::Status::Normal";
-		break;
-	case NextAI::WidgetButton::Status::Pressed:
-		os << L"WidgetButton::Status::Pressed";
-		break;
-	case NextAI::WidgetButton::Status::Selected:
-		os << L"WidgetButton::Status::Selected";
-		break;
-	case NextAI::WidgetButton::Status::Disabled:
-		os << L"WidgetButton::Status::Disabled";
-		break;
-	default:
-		os << L"WidgetButton::Status::Unknown";
-		break;
+		OUT_STREAM_ENUM_CLASS_CASE(WidgetButton::Status::Normal);
+		OUT_STREAM_ENUM_CLASS_CASE(WidgetButton::Status::Pressed);
+		OUT_STREAM_ENUM_CLASS_CASE(WidgetButton::Status::Selected);
+		OUT_STREAM_ENUM_CLASS_CASE(WidgetButton::Status::Disabled);
 	}
-	return os;
+	
+	return os << L"WidgetButton::Status::Unknown";
 }

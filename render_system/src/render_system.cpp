@@ -1,7 +1,8 @@
 ﻿#include "stdafx.h"
 #include "render_system/render_system.h"
-#include "render_system/render_image.h"
+#include "render_system/render_system_image.h"
 #include "base/nextai_app.h"
+#include "base/nextai_file_system.h"
 
 namespace NextAI
 {
@@ -10,95 +11,88 @@ namespace NextAI
 		static RenderSystem ins;
 		return &ins;
 	}
-
+	
 	void RenderSystem::init()
 	{
-		FreeImage::init();
+		Image::init();
 	}
-
+	
 	void RenderSystem::cleanup()
 	{
-		FreeImage::cleanup();
+		Image::cleanup();
 	}
-
+	
 	void RenderSystem::drawPoint(const Point& point, float pointSize, PixelColor pointColor)
 	{
 		glBegin(GL_POINT);
-
 		glColor4f(COLOR_GET_4F(pointColor));
 		glPointSize(pointSize);
 		glVertex3i(point.x, point.y, 0);
-
 		glEnd();
 	}
-
+	
 	void RenderSystem::drawPolyLine(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor)
 	{
 		beginDrawPolyLine(lineWidth, lineStyleFactor, lineStyle, lineColor);
-
+		
 		for (size_t loopIdx = 0; loopIdx < pointsCount; ++loopIdx)
-			glVertex3i(points[loopIdx].x, points[loopIdx].y, 0);
-
+		{ glVertex3i(points[loopIdx].x, points[loopIdx].y, 0); }
+		
 		endDrawPolyLine();
 	}
-
+	
 	void RenderSystem::drawPolyLine(const std::vector<Point>& points, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor)
 	{
 		beginDrawPolyLine(lineWidth, lineStyleFactor, lineStyle, lineColor);
-
 		std::vector<Point>::const_iterator iter = points.begin();
+		
 		while (iter != points.end())
 		{
 			glVertex3i(iter->x, iter->y, 0);
 			++iter;
 		}
-
+		
 		endDrawPolyLine();
 	}
-
+	
 	void RenderSystem::drawPolygon(const Point* points, size_t pointsCount, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode)
 	{
 		beginDrawPolygon(lineWidth, lineStyleFactor, lineStyle, lineColor, polygonMode);
-
+		
 		for (size_t loopIdx = 0; loopIdx < pointsCount; ++loopIdx)
-			glVertex3i(points[loopIdx].x, points[loopIdx].y, 0);
-
+		{ glVertex3i(points[loopIdx].x, points[loopIdx].y, 0); }
+		
 		endDrawPolygon();
 	}
-
+	
 	void RenderSystem::drawPolygon(const std::vector<Point>& points, float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode)
 	{
 		beginDrawPolygon(lineWidth, lineStyleFactor, lineStyle, lineColor, polygonMode);
-
 		std::vector<Point>::const_iterator iter = points.begin();
+		
 		while (iter != points.end())
 		{
 			glVertex3i(iter->x, iter->y, 0);
 			++iter;
 		}
-
+		
 		endDrawPolygon();
 	}
-
-	PICTURE_TEXTURE_ID RenderSystem::allocPictureTexture(const WCHAR* fileName, PICTURE_TEXTURE_ID oldTextureId)
+	
+	void RenderSystem::allocPictureTexture(const std::wstring& fileName, PICTURE_TEXTURE_ID& texture)
 	{
-		// 删除旧的纹理
-		if (oldTextureId != INVALID_TEXTURE_ID)
+		texture = INVALID_TEXTURE_ID;
+		
+		if (FileSystem::isExist(fileName))
 		{
-			releasePictureTexture(oldTextureId);
-		}
-
-		if (!FileSystem::isExist(fileName))
-		{
-			NEXTAI_WARN_LOG("BASE", "Can NOT find file[%s]", fileName);
-			return INVALID_TEXTURE_ID;
+			Image::loadTexture(fileName, texture);
 		}
 		else
 		{
-			return FreeImage::loadTexture(fileName);
+			NEXTAI_WARN_LOG(L"Can NOT find file[{}]", fileName);
 		}
 	}
-
+	
 	void RenderSystem::releasePictureTexture(PICTURE_TEXTURE_ID textureId)
 	{
 		if (textureId != INVALID_TEXTURE_ID && glIsTexture(textureId))
@@ -106,11 +100,33 @@ namespace NextAI
 			glDeleteTextures(1, &textureId);
 		}
 	}
-
-	void RenderSystem::drawPicture(PICTURE_TEXTURE_ID textureId, const Rect& drawArea)
+	
+	void RenderSystem::allocPictureTextureArray(const std::wstring& fileName, int32 size, std::vector<PICTURE_TEXTURE_ID>& textures)
 	{
-		glColor4f(COLOR_GET_4F(COLOR_WHITE));
-
+		textures.clear();
+		
+		if (FileSystem::isExist(fileName))
+		{
+			Image::loadTextures(fileName, size, textures);
+		}
+		else
+		{
+			NEXTAI_WARN_LOG(L"Can NOT find file[{}]", fileName);
+		}
+	}
+	
+	void RenderSystem::releasePictureTextureArray(PICTURE_TEXTURE_ID* textures, int32 size)
+	{
+		for (int32 loopIdx = 0; loopIdx < size; ++loopIdx)
+		{
+			releasePictureTexture(textures[loopIdx]);
+		}
+	}
+	
+	void RenderSystem::drawTexture(PICTURE_TEXTURE_ID textureId, const Rect& drawArea)
+	{
+		NEXTAI_TRACE_LOG(L"texture[{}] drawArea[{},{},{},{}]", textureId, drawArea.left, drawArea.top, drawArea.right, drawArea.bottom);
+		glColor4f(COLOR_GET_4F(PIXEL_COLOR_WHITE));
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, textureId);
 		glEnable(GL_ALPHA_TEST);
@@ -126,30 +142,27 @@ namespace NextAI
 		glEnd();
 		glDisable(GL_ALPHA_TEST);
 		glDisable(GL_TEXTURE_2D);
-
 		glFlush();
 	}
-
-	void RenderSystem::drawText(const Font* font, const Point& pos, PixelColor color, const CHAR* text)
+	
+	void RenderSystem::drawText(const Font* font, const Point& pos, PixelColor color, const std::string& text)
 	{
 		font->drawText(pos, color, text);
 	}
-
-	void RenderSystem::drawText(const Font* font, const Point& pos, PixelColor color, const WCHAR* text)
+	
+	void RenderSystem::drawText(const Font* font, const Point& pos, PixelColor color, const std::wstring& text)
 	{
 		font->drawText(pos, color, text);
 	}
-
+	
 	RenderSystem::RenderSystem()
 	{
-
 	}
-
+	
 	RenderSystem::~RenderSystem()
 	{
-
 	}
-
+	
 	void RenderSystem::beginDrawPolyLine(float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor)
 	{
 		glEnable(GL_LINE_STIPPLE);
@@ -158,20 +171,20 @@ namespace NextAI
 		glBegin(GL_LINE_STRIP);
 		glColor4f(COLOR_GET_4F(lineColor));
 	}
-
+	
 	void RenderSystem::endDrawPolyLine()
 	{
 		glEnd();
 		glDisable(GL_LINE_STIPPLE);
 		glFlush();
 	}
-
+	
 	void RenderSystem::beginDrawPolygon(float lineWidth, int32 lineStyleFactor, int32 lineStyle, PixelColor lineColor, POLYGON_MODE polygonMode)
 	{
 		glBegin(GL_POLYGON);
 		glColor4f(COLOR_GET_4F(lineColor));
 	}
-
+	
 	void RenderSystem::endDrawPolygon()
 	{
 		glEnd();

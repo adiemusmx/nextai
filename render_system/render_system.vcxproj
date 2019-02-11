@@ -19,20 +19,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\render_font.cpp" />
-    <ClCompile Include="src\render_image.cpp" />
+    <ClCompile Include="src\render_system_font.cpp" />
+    <ClCompile Include="src\render_system_image.cpp" />
     <ClCompile Include="src\render_system.cpp" />
     <ClCompile Include="src\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\render_util.cpp" />
+    <ClCompile Include="src\render_system_util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\render_system\render_font.h" />
-    <ClInclude Include="include\render_system\render_image.h" />
+    <ClInclude Include="include\render_system\render_system_font.h" />
+    <ClInclude Include="include\render_system\render_system_image.h" />
     <ClInclude Include="include\render_system\render_system.h" />
     <ClInclude Include="include\render_system\render_system_types.h" />
-    <ClInclude Include="include\render_system\render_util.h" />
+    <ClInclude Include="include\render_system\render_system_util.h" />
     <ClInclude Include="src\stdafx.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

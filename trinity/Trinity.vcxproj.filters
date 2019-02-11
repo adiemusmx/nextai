@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\trinity_data_models.cpp" />
     <ClCompile Include="src\trinity_widget_button.cpp" />
     <ClCompile Include="src\trinity_widget_label.cpp" />
     <ClCompile Include="src\trinity_widget_list.cpp" />
@@ -13,10 +12,9 @@
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\trinity_widget_group.cpp" />
     <ClCompile Include="src\trinity_widget_manager.cpp" />
+    <ClCompile Include="src\trinity_data_models.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\trinity\trinity_data_models.h" />
-    <ClInclude Include="include\trinity\trinity_object_id.h" />
     <ClInclude Include="include\trinity\trinity_widget_button.h" />
     <ClInclude Include="include\trinity\trinity_widget_label.h" />
     <ClInclude Include="include\trinity\trinity_widget_list.h" />
@@ -28,5 +26,7 @@
     <ClInclude Include="src\stdafx.h" />
     <ClInclude Include="include\trinity\trinity_widget_group.h" />
     <ClInclude Include="include\trinity\trinity_widget_manager.h" />
+    <ClInclude Include="include\trinity\trinity_object_id.h" />
+    <ClInclude Include="include\trinity\trinity_data_models.h" />
   </ItemGroup>
 </Project>

@@ -20,9 +20,9 @@ class DataModel
 public:
 	void addListener(DataModelListener* listener);
 	void removeListener(DataModelListener* listener);
-
+	
 	void notify();
-
+	
 private:
 	std::vector<DataModelListener*> m_listeners;
 };
@@ -36,15 +36,15 @@ public:
 	PointDataModel(const T& x, const T& y);
 	PointDataModel(const PointDataModel& point);
 	virtual ~PointDataModel();
-
+	
 	// operator
-	BOOL operator==(const PointDataModel& point);
+	bool operator==(const PointDataModel& point);
 	const PointDataModel& operator=(const PointDataModel& point);
-
+	
 	// setter/getter
 	void setValue(const T& x, const T& y);	// 触发onChanged消息
 	const PointDataModel& getValue();
-
+	
 private:
 	// basic data
 	T m_x;
@@ -60,19 +60,19 @@ public:
 	RectDataModel(const Point& leftTop, const Point& rightBottom);
 	RectDataModel(LONG left, LONG top, LONG width, LONG height);
 	RectDataModel(const RectDataModel& rect);
-
+	
 	// operator
-	BOOL operator==(const RectDataModel& rect);
+	bool operator==(const RectDataModel& rect);
 	RectDataModel& operator=(const RectDataModel& rect);
-
+	
 	// test point
-	BOOL testPoint(const Point& point);
-
+	bool testPoint(const Point& point);
+	
 	// setter/getter
 	void setValue(const Point& leftTop, const Point& rightBottom);
 	void setValue(LONG left, LONG top, LONG width, LONG height);
 	const RectDataModel& getValue();
-
+	
 private:
 	// basic data
 	Point m_leftTop;

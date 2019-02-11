@@ -22,6 +22,10 @@
 #include <cstdio>
 #include <cstring>
 
+#include <GL/glut.h>
+#include <GL/glu.h>
+
+#define MODULE_NAME "BASE"
 #include "base/nextai_log.h"
 
 #endif // !_NEXTAI_STDAFX_H_
